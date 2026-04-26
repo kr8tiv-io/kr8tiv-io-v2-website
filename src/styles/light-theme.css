@@ -185,6 +185,30 @@ html[data-theme="light"] .svc-frame {
   box-shadow: 0 24px 64px -32px rgba(26, 24, 32, .2);
 }
 
+/* Services horizontal-scroll videos are chromatic prism / aurora /
+   topographic loops painted on a near-black backdrop. On cream paper
+   the dark frame fights the surrounding bg. Screen blend dissolves the
+   black to cream while preserving every brand colour pixel; the
+   brightness + saturation lift keeps subtler loops (where the content
+   isn't already vibrant) from washing out — without screen alone the
+   muted videos went invisible against cream. The combination reads as
+   "aurora on paper" — the colors print, the dark dissolves. */
+html[data-theme="light"] .svc-frame video {
+  mix-blend-mode: screen;
+  filter: brightness(1.35) saturate(1.18) contrast(1.02);
+  background: transparent;
+}
+/* Hover boost — the existing .svc-frame:hover already adds saturate
+   1.12 + brightness 1.06; in light mode we need a touch more so the
+   pop on hover still reads as a state change rather than a flicker. */
+html[data-theme="light"] .svc-frame:hover video {
+  filter: brightness(1.45) saturate(1.28) contrast(1.04);
+}
+/* The bloom rings on hover were tuned for dark; with screen-blended
+   video the bg already breathes, so the bloom can be subtler. */
+html[data-theme="light"] .svc-frame-bloom { opacity: .4; }
+html[data-theme="light"] .svc-frame:hover .svc-frame-bloom { opacity: .7; }
+
 /* =====================================================================
    INLINE CTAs — flip dark boxes + ghost-button borders
    ===================================================================== */
@@ -269,6 +293,26 @@ html[data-theme="light"] .interlude-frame {
   background: var(--surface-2);
 }
 html[data-theme="light"] .interlude-caption { color: var(--ink-muted); }
+
+/* The KR8TIV-logo loop (Design-29-2-1.mp4) is silver on black — it
+   reads as a dark cinema panel sitting on cream paper. Invert + multiply
+   flips the black backdrop to cream (so it dissolves into the page)
+   while turning the silver glyph into deep ink (so the wordmark reads
+   as a printed-on-paper mark, matching the editorial vibe of the rest
+   of light mode). The filter is GPU-accelerated; cost is negligible. */
+html[data-theme="light"] .interlude-frame video {
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: multiply;
+  background: transparent;
+}
+/* Drop the surface-2 white card around it once the video is doing the
+   blending — the card now reads as redundant. */
+html[data-theme="light"] .interlude-frame {
+  background: transparent;
+  box-shadow: none;
+}
+/* Ditto for the soft accent bloom that used to ring the dark frame. */
+html[data-theme="light"] .interlude-glow { opacity: 0; }
 
 /* =====================================================================
    PROCESS PREVIEW (homepage) — cards on cream
