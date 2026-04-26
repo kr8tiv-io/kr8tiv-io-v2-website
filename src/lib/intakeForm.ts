@@ -250,7 +250,12 @@ export function initIntake(): void {
       (attachments.length
         ? `Attachments to follow (please email separately): ${attachments.map(a => a.name).join(', ')}`
         : ''));
-    const mailto = `mailto:matt@kr8tiv.io?subject=${subject}&body=${body}`;
+    /* Submission target — temporary lucidbloks@gmail.com per user
+       directive. Once we wire a real form-handler endpoint (Formspree
+       / Web3Forms / Hostinger SMTP) the mailto: will become a fetch()
+       to that endpoint. matt@kr8tiv.io stays as the public contact
+       address everywhere else; this is just the FORM POST inbox. */
+    const mailto = `mailto:lucidbloks@gmail.com?subject=${subject}&body=${body}`;
 
     const openBtn = document.querySelector<HTMLButtonElement>('#intake-mail-open');
     const copyBtn = document.querySelector<HTMLButtonElement>('#intake-copy');

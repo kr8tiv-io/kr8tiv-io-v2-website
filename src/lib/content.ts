@@ -118,7 +118,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
       'Built on KR8TIV AI infrastructure'
     ],
     href: 'https://www.meetyourkin.com',
-    repoHref: 'https://github.com/kr8tiv-ai/Kin',
+    repoHref: 'https://github.com/kr8tiv-io/Kin',
     video: '/kr8tiv-assets/portfolio/kr8tiv 3 - Meet Your Kin.mp4'
   },
   {
@@ -134,7 +134,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
       '17 public repos · open-source by default'
     ],
     href: 'https://kr8tiv.ai',
-    repoHref: 'https://github.com/kr8tiv-ai',
+    repoHref: 'https://github.com/kr8tiv-io',
     video: '/kr8tiv-assets/portfolio/kr8tiv 4 - kr8tiv ai.mp4'
   },
   {
@@ -200,7 +200,7 @@ export const PORTFOLIO_STUDIO_LAB: PortfolioPiece[] = [
     subTag: 'MEME → INFRASTRUCTURE · SOLANA',
     desc: '$BRAIN token on Bags.fm dressed as a meme, plumbed as infrastructure. Auto-compounding LP, fees-routed-to-AI-credits engine, treasury dashboard, cross-chain basket token (PinkBrain-Alvara). The plot is to take over the world.',
     href: 'https://www.pinkyandthebrain.fun',
-    repoHref: 'https://github.com/kr8tiv-ai/pinky-and-the-brain-site',
+    repoHref: 'https://github.com/kr8tiv-io/pinky-and-the-brain-site',
     video: '/kr8tiv-assets/portfolio/kr8tiv 6 - Pinky and the brain meme website.mp4'
   },
   {
@@ -246,7 +246,7 @@ export const PORTFOLIO_CODE_VAULT: CodeVaultOrg[] = [
   },
   {
     name: 'kr8tiv-ai',
-    href: 'https://github.com/kr8tiv-ai',
+    href: 'https://github.com/kr8tiv-io',
     bio: 'Decentralized AI for the masses — open-source companions, DeFi infrastructure, the Pinky and the Brain ecosystem.',
     repoCount: 17,
     kind: 'OWN COMPANY · AI + DEFI',

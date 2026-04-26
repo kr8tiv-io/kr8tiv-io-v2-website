@@ -67,27 +67,51 @@ main.case-study {
 }
 .case-study a:hover { border-bottom-color: var(--accent-1); }
 
-.case-study pre {
-  background: #0a0a0c;
-  border: 1px solid var(--edge);
+/* Code blocks — Shiki ships an inline `style="background-color:#24292e;
+   color:#e1e4e8"` (github-dark theme) that beats every plain class
+   rule via inline-specificity. The result rendered as a flat grey
+   rectangle that read as "empty box" on our brand dark bg. The
+   .astro-code suffix raises specificity and !important ensures we win
+   over the inline style; we also colour the inner <code>+<span> tree
+   so the inherited #e1e4e8 doesn't carry through into a low-contrast
+   grey-on-grey. Result: a proper editorial code block — deep ink
+   surface, accent-magenta hairline, gold inline tokens, cream code
+   text. Reads as deliberate, not as a placeholder. */
+.case-study pre,
+.case-study pre.astro-code {
+  background: #0b0b0f !important;
+  color: #f2f1ec !important;
+  border: 1px solid rgba(255, 106, 213, .22);
+  border-left: 2px solid var(--accent-1);
   border-radius: 6px;
-  padding: 24px;
+  padding: 24px 28px;
   overflow-x: auto;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; line-height: 1.6;
+  font-size: 13px; line-height: 1.65;
   margin: 0 0 32px;
-  color: #d8d5cf;
+  box-shadow: 0 12px 40px -16px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .03);
 }
+.case-study pre code,
+.case-study pre code *,
+.case-study pre.astro-code code,
+.case-study pre.astro-code code * {
+  background: transparent !important;
+  font-family: 'JetBrains Mono', monospace;
+}
+/* Ensure all token spans inherit the bright cream color even if Shiki
+   left them styleless on plaintext blocks. */
+.case-study pre.astro-code span:not([style*="color"]) { color: #f2f1ec !important; }
 
 .case-study code {
   font-family: 'JetBrains Mono', monospace;
   font-size: .88em;
   color: var(--accent-4);
-  background: rgba(242, 241, 236, .05);
+  background: rgba(255, 209, 102, .08);
   padding: 2px 6px;
   border-radius: 3px;
+  border: 1px solid rgba(255, 209, 102, .22);
 }
-.case-study pre code { background: transparent; padding: 0; color: inherit; }
+.case-study pre code { background: transparent !important; padding: 0; border: none; color: inherit; }
 
 .case-study blockquote {
   font-family: 'Instrument Serif', serif;
