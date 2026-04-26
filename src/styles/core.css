@@ -418,12 +418,36 @@ html.motion-off .marquee-inner span:hover { transform: none; }
   min-height: 100vh;
 }
 .hero-top { display: flex; justify-content: space-between; gap: 40px; pointer-events: auto; }
+/* Meta type: bumped from var(--ink-muted) (~#999) to a near-white at
+   high alpha + a layered ink shadow. The combination keeps the text
+   readable even when the prism animation flashes bright cyan/yellow
+   directly behind a corner — the shadow gives it a hard backdrop, the
+   brighter colour gives it presence, and the dimmer overlay above
+   handles the worst of the bar saturation. */
 .hero-top .meta {
   font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em;
-  color: var(--ink-muted); line-height: 2; text-transform: uppercase; max-width: 280px;
+  color: rgba(245, 245, 245, .92); line-height: 2; text-transform: uppercase; max-width: 280px;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, .68),
+    0 2px 6px rgba(0, 0, 0, .55),
+    0 0 14px rgba(0, 0, 0, .35);
 }
-.hero-top .meta strong { display: block; color: var(--ink); margin-bottom: 8px; letter-spacing: .3em; }
-.hero-top .right { text-align: right; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; line-height: 2; text-transform: uppercase; }
+.hero-top .meta strong {
+  display: block; color: var(--accent-1); margin-bottom: 8px; letter-spacing: .3em;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, .72),
+    0 0 10px rgba(255, 106, 213, .55),
+    0 2px 6px rgba(0, 0, 0, .55);
+}
+.hero-top .right {
+  text-align: right; color: rgba(245, 245, 245, .92);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em;
+  line-height: 2; text-transform: uppercase;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, .68),
+    0 2px 6px rgba(0, 0, 0, .55),
+    0 0 14px rgba(0, 0, 0, .35);
+}
 .hero-top .right .dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite var(--ease); }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 .hero-title {

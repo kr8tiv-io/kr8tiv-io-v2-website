@@ -367,17 +367,21 @@ html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
    This pseudo-element sits at z:4 — above the prism (z:0–1) and above
    .hero-fade-black (z:3), but BELOW .hero-ui (z:5) and .reveal-cue
    (z:6) — so it tones down the bars without touching the type.
-   Gradient chosen to dim the top ~24vh while leaving the body of the
-   prism untouched (peak alpha 0.5 at the very top, easing to 0 by
-   24vh). */
+   Iteration: 50% peak / 24vh was not enough — even with the dimmer the
+   meta corners read as barely-there grey on top of bright cyan/yellow
+   bars. Bumped to 32vh tall with 78% peak alpha at the very top so
+   the meta type reads as cleanly etched, then eases to 0 over the
+   body of the band. The corners now have a real ink-on-paper
+   contrast level; the body of the prism is still untouched. */
 .reveal-sticky::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0;
-  height: 24vh; z-index: 4; pointer-events: none;
+  height: 32vh; z-index: 4; pointer-events: none;
   background: linear-gradient(to bottom,
-    rgba(5,5,7,.50) 0%,
-    rgba(5,5,7,.32) 38%,
-    rgba(5,5,7,.12) 70%,
+    rgba(5,5,7,.78) 0%,
+    rgba(5,5,7,.62) 22%,
+    rgba(5,5,7,.42) 48%,
+    rgba(5,5,7,.18) 75%,
     rgba(5,5,7,0)   100%);
 }
 

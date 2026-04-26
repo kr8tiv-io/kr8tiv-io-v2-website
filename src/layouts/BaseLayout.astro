@@ -70,14 +70,6 @@ const {
   <link rel="apple-touch-icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <!-- Preload hero video so it's available for the LCP paint. Browser
-       decodes in the background while the HTML parses; shaves ~300ms
-       off first-frame visibility. Size hint + fetchpriority high so
-       it sits at the top of the network queue. -->
-  <link rel="preload" as="video" href="/kr8tiv-assets/3-4.mp4" type="video/mp4" fetchpriority="high" />
-  <!-- Instrument Serif + Inter Tight variable webfonts for LCP text. -->
-  <link rel="preload" as="font" href="https://fonts.gstatic.com/s/instrumentserif/v12/michhDSsN6GXqB6oBkGTAvl-PxVD2Ec7NQ.woff2" type="font/woff2" crossorigin />
-
   <!-- Speculation Rules: prerender neighboring variant pages so the
        variant-bar feels instant on Chrome/Edge. -->
   <script type="speculationrules" is:inline set:html={JSON.stringify({
@@ -90,7 +82,7 @@ const {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://calendly.com" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&family=Orbitron:wght@400..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
     rel="stylesheet"
   />
 </head>
@@ -123,15 +115,10 @@ const {
   <script>
     import { initScrollCore } from '@lib/scrollCore';
     import { initCursor } from '@lib/cursor';
-    import { initCursorTrail } from '@lib/cursorTrail';
-    import { initWhiteLight } from '@lib/whiteLight';
     import { initMotionToggle } from '@lib/motionToggle';
     import { initMusic, initAudioReactiveNote } from '@lib/audioNote';
-    import { initKineticType } from '@lib/kineticType';
     import { initSceneAnnouncer } from '@lib/a11yAnnounce';
     import { initLazyVideos } from '@lib/lazyVideo';
-    import { initAsciiDither } from '@lib/asciiDither';
-    import { initSeatCounter } from '@lib/seatCounter';
     import { initOracle } from '@lib/oracle';
     import { initKintsugi } from '@lib/kintsugi';
     import { initMultiStateNav } from '@lib/multiStateNav';
@@ -145,18 +132,43 @@ const {
       try { fn(); } catch (err) { console.error(`[KR8] ${name} failed:`, err); }
     };
 
+    // Non-critical visual layers are deferred to idle so first paint /
+    // interaction comes from the core nav + scroll systems first.
+    const onIdle = (fn: () => void): void => {
+      const w = window as Window & {
+        requestIdleCallback?: (cb: IdleRequestCallback, opts?: IdleRequestOptions) => number;
+      };
+      if (typeof w.requestIdleCallback === 'function') {
+        w.requestIdleCallback(() => fn(), { timeout: 1200 });
+      } else {
+        window.setTimeout(fn, 280);
+      }
+    };
+
     safe('scrollCore',       () => initScrollCore());
     safe('cursor',           () => initCursor());
-    safe('cursorTrail',      () => initCursorTrail());
-    safe('whiteLight',       () => initWhiteLight());
     safe('motionToggle',     () => initMotionToggle());
     safe('music',            () => initMusic());
     safe('audioReactiveNote',() => initAudioReactiveNote());
-    safe('kineticType',      () => initKineticType());
     safe('sceneAnnouncer',   () => initSceneAnnouncer());
     safe('lazyVideos',       () => initLazyVideos());
-    safe('asciiDither',      () => initAsciiDither());
-    safe('seatCounter',      () => initSeatCounter());
+    onIdle(() => {
+      void Promise.all([
+        import('@lib/cursorTrail'),
+        import('@lib/whiteLight'),
+        import('@lib/kineticType'),
+        import('@lib/asciiDither'),
+        import('@lib/seatCounter')
+      ]).then(([trail, white, kinetic, ascii, seats]) => {
+        safe('cursorTrail', () => trail.initCursorTrail());
+        safe('whiteLight',  () => white.initWhiteLight());
+        safe('kineticType', () => kinetic.initKineticType());
+        safe('asciiDither', () => ascii.initAsciiDither());
+        safe('seatCounter', () => seats.initSeatCounter());
+      }).catch((err) => {
+        console.error('[KR8] deferred visual inits failed:', err);
+      });
+    });
 
     // HYBRID nav system (3 layers) — isolated so stale GSAP/Lenis
     // cache in the earlier block never blocks the menu.
@@ -167,8 +179,10 @@ const {
     // Theme toggle lives in @lib/theme — persists + respects system pref
     import('@lib/theme').then((m) => safe('theme', () => m.initTheme()));
 
-    console.log('%c[KR8TIV / PRISM · 08] 侍 — astro build', 'color:#ff6ad5;font:600 12px monospace');
-    console.log('%c↳ Press W for white light', 'color:#f2f1ec;font:400 11px monospace');
+    if (import.meta.env.DEV) {
+      console.log('%c[KR8TIV / PRISM · 08] 侍 — astro build', 'color:#ff6ad5;font:600 12px monospace');
+      console.log('%c↳ Press W for white light', 'color:#f2f1ec;font:400 11px monospace');
+    }
   </script>
 </body>
 </html>

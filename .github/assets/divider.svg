@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" preserveAspectRatio="xMidYMid meet" role="img" aria-label="section divider">
+  <defs>
+    <linearGradient id="dline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#ff6ad5" stop-opacity="0"/>
+      <stop offset="20%"  stop-color="#ff6ad5" stop-opacity="0.45"/>
+      <stop offset="50%"  stop-color="#ff6ad5" stop-opacity="0.85"/>
+      <stop offset="80%"  stop-color="#ff6ad5" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff6ad5" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <line x1="0" y1="28" x2="1280" y2="28" stroke="url(#dline)" stroke-width="1"/>
+
+  <!-- Centre kanji bead, gently breathing -->
+  <g text-anchor="middle">
+    <circle cx="640" cy="28" r="14" fill="#050507" stroke="#ff6ad5" stroke-width="0.8" opacity="0.85"/>
+    <text x="640" y="33" font-family="'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif" font-size="14" fill="#ff6ad5">
+      <animate attributeName="opacity" values="0.65;1;0.65" dur="3.6s" repeatCount="indefinite"/>
+      侍
+    </text>
+  </g>
+
+  <!-- Roman numeral marks each side -->
+  <g font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="9" fill="#ff6ad5" letter-spacing="3.2" opacity="0.7">
+    <text x="600" y="32" text-anchor="end">―</text>
+    <text x="680" y="32" text-anchor="start">―</text>
+  </g>
+</svg>
