@@ -180,8 +180,22 @@ html[data-theme="light"] .svc-copy .price { color: var(--ink-muted); }
 html[data-theme="light"] .svc-rec, html[data-theme="light"] .svc-counter {
   color: var(--ink-muted);
 }
+/* Inset the entire frame (paper card + drop shadow) into a true
+   circle in light mode. In dark mode the .svc-frame is transparent
+   with a circular video clipped over a black void — the SQUARE frame
+   never reads as a square because it's invisible. In light mode we
+   added a cream paper bg + drop-shadow to anchor the card to the
+   page; that paper bg revealed the underlying square aspect-ratio:1/1
+   geometry, so the panels read as cream squares with circular video
+   centred inside. Setting border-radius: 50% on the 1:1 square turns
+   the bg + shadow into a circle, so the cream paper, the shadow, and
+   the video all share the same circular silhouette.
+   `box-shadow` follows border-radius automatically; `overflow: hidden`
+   would clip the shadow, so we leave overflow: visible (inherited
+   from core) and let the shadow halo outward. */
 html[data-theme="light"] .svc-frame {
   background: var(--surface-1);
+  border-radius: 50%;
   box-shadow: 0 24px 64px -32px rgba(26, 24, 32, .2);
 }
 
