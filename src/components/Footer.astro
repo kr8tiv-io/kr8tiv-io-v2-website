@@ -1,0 +1,73 @@
+---
+/**
+ * Footer.astro — sitewide footer.
+ *
+ * Pulled out of Contact.astro so the same .foot-grid / .foot-bar lands
+ * on every page — previously only the homepage Contact section
+ * carried it, so /process/, /work/, /terms/, /start/, /build-notes/
+ * all dead-ended without the column nav + privacy link the user
+ * loves. Now imported once in BaseLayout, no per-page wiring needed.
+ *
+ * Identical markup + styling to the original Contact.astro footer
+ * block — the user explicitly said "the footer is beautiful, I just
+ * want it on all our pages", so the design contract here is "don't
+ * touch the look, just lift the location."
+ *
+ * The only structural change vs the inlined version: the Navigate
+ * column now points at canonical pages (/work/, /process/, /start/)
+ * instead of in-page anchors, so the footer works regardless of which
+ * page the user is on, and a Privacy + Terms link drops into the
+ * Reach column to satisfy the legal-doc discoverability requirement.
+ */
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/work/">Work</a></li>
+          <li><a href="/process/">Process</a></li>
+          <li><a href="/start/">Start a project</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Reach</h4>
+        <ul>
+          <li><a href="mailto:matt@kr8tiv.io">Email</a></li>
+          <li><a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener">Book a call</a></li>
+          <li><a href="https://instagram.com/kr8tiv.ai" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://x.com/kr8tivai" target="_blank" rel="noopener">X / Twitter</a></li>
+          <li><a href="/terms/">Privacy + Terms</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Capabilities</h4>
+        <ul>
+          <li>Brand + Identity</li>
+          <li>Website Design</li>
+          <li>Motion + 3D</li>
+          <li>AI Automation</li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Location</h4>
+        <ul>
+          <li>Costa Rica, CR</li>
+          <li>Remote worldwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <div>© 2026 KR8TIV · PRISM EDITION</div>
+      <div>
+        侍 DESIGN SAMURAI
+        <button class="white-light-btn" id="white-light-btn" type="button" aria-label="Return to white light">
+          ↳ Return to white light
+        </button>
+      </div>
+      <div>INDEX / 008</div>
+    </div>
+  </div>
+</footer>

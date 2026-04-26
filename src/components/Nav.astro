@@ -18,7 +18,7 @@
  *   · current — active page key. One of: 'home' | 'process' | 'start' | 'other'
  */
 export interface Props {
-  current?: 'home' | 'process' | 'start' | 'work' | 'other';
+  current?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'other';
 }
 const { current = 'home' } = Astro.props;
 const base = current === 'home' ? '' : '/';
@@ -32,7 +32,8 @@ const midLinks = [
      nav clicks should always land on the canonical full index. */
   { href: '/work/',           label: 'WORK',     key: 'work' },
   { href: '/process/',        label: 'PROCESS',  key: 'process' },
-  { href: '/start/',          label: 'START',    key: 'start' }
+  { href: '/start/',          label: 'START',    key: 'start' },
+  { href: '/terms/',          label: 'TERMS',    key: 'terms' }
 ];
 ---
 <nav data-nav-state="hero">

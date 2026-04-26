@@ -718,7 +718,57 @@ html.motion-off .marquee-inner span:hover { transform: none; }
 .process-head { display: flex; justify-content: space-between; gap: 80px; align-items: flex-end; padding: 0 0 100px; }
 .process-head h2 { max-width: 14ch; }
 .process-steps { display: grid; gap: 32px; max-width: 1100px; margin: 0 auto; }
-.process-step { display: grid; grid-template-columns: 120px 1fr auto; gap: 48px; align-items: baseline; padding: 32px 0; border-top: 1px solid var(--edge); transition: padding-left .5s var(--ease); }
+/* Each step's top divider is rebuilt as a 1px gradient seam with a
+   subtle moving "trace" — a soft white highlight that sweeps left to
+   right every ~9s. The base dim seam stays flat so the row still
+   reads as a hairline rule when you're not looking; the trace adds
+   the "alive" feeling without being distracting. Staggered animation
+   delays per step (negative values so all rows are already mid-motion
+   on first paint) prevent the lines from pulsing in unison. */
+.process-step {
+  position: relative;
+  display: grid; grid-template-columns: 120px 1fr auto; gap: 48px; align-items: baseline;
+  padding: 32px 0;
+  border-top: none;
+  transition: padding-left .5s var(--ease);
+}
+.process-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  /* Two layered gradients: the static seam underneath, the moving
+     trace on top. background-size 200% on the trace lets us slide it
+     across the line via background-position. */
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0)   0%,
+      rgba(255, 255, 255, .65) 50%,
+      rgba(255, 255, 255, 0)   100%) 0 0 / 22% 1px no-repeat,
+    linear-gradient(90deg, transparent 0%, var(--edge) 8%, var(--edge) 92%, transparent 100%) 0 0 / 100% 1px no-repeat;
+  background-position: -22% 0, 0 0;
+  pointer-events: none;
+  animation: process-trace 9s linear infinite;
+  opacity: .9;
+}
+.process-step:nth-child(1)::before { animation-delay:  0s; }
+.process-step:nth-child(2)::before { animation-delay: -1.8s; }
+.process-step:nth-child(3)::before { animation-delay: -3.6s; }
+.process-step:nth-child(4)::before { animation-delay: -5.4s; }
+.process-step:nth-child(5)::before { animation-delay: -7.2s; }
+.process-step:nth-child(6)::before { animation-delay: -1s; }
+.process-step:nth-child(7)::before { animation-delay: -3s; }
+.process-step:nth-child(8)::before { animation-delay: -5s; }
+.process-step:nth-child(9)::before { animation-delay: -7s; }
+@keyframes process-trace {
+  0%   { background-position: -22% 0, 0 0; }
+  100% { background-position: 122% 0, 0 0; }
+}
+/* Respect reduced motion — keep the static seam, drop the sweep. */
+@media (prefers-reduced-motion: reduce) {
+  .process-step::before { animation: none; background-position: 200% 0, 0 0; }
+}
+html.motion-off .process-step::before { animation: none; background-position: 200% 0, 0 0; }
 .process-step:hover { padding-left: 16px; }
 .process-step .n { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 72px; line-height: .9; color: var(--accent); letter-spacing: -.02em; }
 .process-step h3 { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 3.2vw, 48px); line-height: 1; font-weight: 400; letter-spacing: -.02em; margin: 0 0 12px; }
@@ -757,6 +807,23 @@ html.motion-off .marquee-inner span:hover { transform: none; }
 .contact-cta { display: flex; justify-content: center; gap: 40px; margin-bottom: 160px; flex-wrap: wrap; }
 .contact-cta a { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .3em; color: var(--ink); text-transform: uppercase; padding: 20px 40px; border: 1px solid var(--edge); transition: border-color .4s var(--ease), letter-spacing .4s var(--ease); }
 .contact-cta a:hover { border-color: var(--ink); letter-spacing: .38em; }
+/* Sitewide footer wrapper — Footer.astro lives in BaseLayout +
+   FormLayout, so it lands on every page (was previously inlined in
+   the homepage Contact section only). The wrapper handles vertical
+   spacing + the section-divider top border so internal pages get
+   breathing room before the column nav. */
+.site-footer {
+  position: relative;
+  background: transparent;
+  margin-top: 80px;
+  padding: 0 0 40px;
+  isolation: isolate;
+}
+.site-footer .wrap {
+  /* Inherit standard wrap container padding from .wrap, just here for
+     specificity safety. */
+}
+
 .foot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; padding: 80px 0 40px; border-top: 1px solid var(--edge); }
 .foot-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin: 0 0 20px; font-weight: 500; }
 .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }

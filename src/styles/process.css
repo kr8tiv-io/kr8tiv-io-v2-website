@@ -351,9 +351,36 @@ html.motion-off .kword-inner { animation: none; }
   gap: 48px;
   align-items: start;
   padding: 80px 0;
-  border-top: 1px solid var(--edge);
+  /* Static border replaced by an animated trace seam — same pattern
+     as the homepage .process-step rows in core.css (subtle 22%-wide
+     white highlight sweeping left → right every ~9s, staggered per
+     row so the lines never pulse in unison). */
+  border-top: none;
   transition: padding-left .6s cubic-bezier(.22, 1, .36, 1);
 }
+.step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0)   0%,
+      rgba(255, 255, 255, .65) 50%,
+      rgba(255, 255, 255, 0)   100%) 0 0 / 22% 1px no-repeat,
+    linear-gradient(90deg, transparent 0%, var(--edge) 8%, var(--edge) 92%, transparent 100%) 0 0 / 100% 1px no-repeat;
+  background-position: -22% 0, 0 0;
+  pointer-events: none;
+  animation: process-trace 9s linear infinite;
+}
+.step:nth-child(odd)::before  { animation-delay: 0s; }
+.step:nth-child(even)::before { animation-delay: -4.5s; }
+.step:nth-of-type(3n)::before { animation-delay: -2.3s; }
+.step:nth-of-type(5n)::before { animation-delay: -6.7s; }
+@media (prefers-reduced-motion: reduce) {
+  .step::before { animation: none; background-position: 200% 0, 0 0; }
+}
+html.motion-off .step::before { animation: none; background-position: 200% 0, 0 0; }
 .step:hover { padding-left: 24px; }
 @media (max-width: 980px) { .step { grid-template-columns: 80px 1fr; gap: 24px; } .step .step-visual { grid-column: 1 / -1; } }
 .step .n {

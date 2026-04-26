@@ -15,6 +15,7 @@ import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
 import Seo from '@components/Seo.astro';
 import OracleOverlay from '@components/OracleOverlay.astro';
 import KintsugiOverlay from '@components/KintsugiOverlay.astro';
+import Footer from '@components/Footer.astro';
 import type { FaqItem, HowToStep, Crumb } from '@components/Seo.astro';
 
 export interface Props {
@@ -27,7 +28,7 @@ export interface Props {
   faqs?: FaqItem[];
   howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
   keywords?: string[];
-  currentNav?: 'home' | 'process' | 'start' | 'work' | 'other';
+  currentNav?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'other';
   noIndex?: boolean;
 }
 
@@ -81,6 +82,9 @@ const {
   <main>
     <slot />
   </main>
+
+  <Footer />
+
   <WhiteLightOverlay />
 
   <!-- HYBRID · sitewide menu layers -->
