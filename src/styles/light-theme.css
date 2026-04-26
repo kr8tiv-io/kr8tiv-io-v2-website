@@ -368,13 +368,47 @@ html[data-theme="light"] .work-card {
 }
 
 /* =====================================================================
-   REEL — video still pops on any bg, but title color flips
+   REEL — full light-mode pass.
+   Reel.astro has scoped <style> rules with hardcoded #000 backgrounds
+   on .reel + the top/bottom black-fade gradients. Those scoped styles
+   carry [data-astro-cid] attribute selectors, so plain ancestor
+   selectors don't always win the cascade. !important on the visual
+   props is the canonical theme-override pattern here.
+   The reel scene + katana-trail canvases ship with inline
+   `mix-blend-mode: screen` styles, so on a cream bg the dark canvas
+   areas dissolve and only the chromatic peak glow / aurora lines
+   render — a beautiful "death-to-generic on paper" effect that
+   doesn't need extra CSS.
    ===================================================================== */
-html[data-theme="light"] .reel-bg video {
-  opacity: .55;
-  filter: contrast(1.04) saturate(.95) brightness(.82);
+html[data-theme="light"] .reel { background: var(--bg) !important; }
+html[data-theme="light"] .reel-fade-top {
+  background: linear-gradient(to bottom,
+    var(--bg) 0%,
+    rgba(245, 242, 234, .92) 28%,
+    rgba(245, 242, 234, .55) 60%,
+    rgba(245, 242, 234, .18) 86%,
+    transparent 100%) !important;
 }
+html[data-theme="light"] .reel-fade-bot {
+  background: linear-gradient(to top,
+    var(--bg) 0%,
+    rgba(245, 242, 234, .92) 28%,
+    rgba(245, 242, 234, .55) 60%,
+    rgba(245, 242, 234, .18) 86%,
+    transparent 100%) !important;
+}
+/* Forest background: dark-mode video at opacity .6 reads as a brooding
+   landscape; on cream we drop opacity further AND lift brightness so
+   the mountains read as a soft pencil sketch, not a dark plate. */
+html[data-theme="light"] .reel-bg video {
+  opacity: .28;
+  filter: contrast(1.04) saturate(.85) brightness(1.18);
+  mix-blend-mode: multiply;
+}
+/* Title flips to ink (italic accent stays --accent which is already
+   the light-mode magenta variant). */
 html[data-theme="light"] .reel-inner h2 { color: var(--ink); }
+html[data-theme="light"] .reel-inner h2 em { color: var(--accent-1); }
 
 /* =====================================================================
    CONTACT — dark → cream with hover brightenings retuned
