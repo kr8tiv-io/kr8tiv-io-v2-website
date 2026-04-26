@@ -764,9 +764,53 @@ html[data-theme="light"] #cursor-trail { opacity: .35; }
 html[data-theme="light"] .noise { opacity: .08; }
 
 /* =====================================================================
-   Custom cursor dot — dark ring on cream bg
+   Custom cursor — visibility on cream paper.
+   Dark mode uses `mix-blend-mode: difference` so the ring inverts
+   against the bg = always high contrast. On cream that "difference"
+   produces a near-grey value because (cream - dark-ring) lands close
+   to mid-tone; the cursor disappears under the user's content. Drop
+   the blend mode in light mode and replace with a solid magenta-ink
+   dot + a bigger ring + a soft white halation around it so it reads
+   on light cards, prism panels, and white card surfaces alike.
    ===================================================================== */
-html[data-theme="light"] .cur { border-color: var(--ink); }
+html[data-theme="light"] .cur {
+  mix-blend-mode: normal;
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--ink);
+  background: rgba(26, 24, 32, .12);
+  box-shadow:
+    0 0 0 2px rgba(245, 242, 234, .55),    /* cream halation */
+    0 0 12px rgba(26, 24, 32, .15);        /* soft drop */
+}
+/* Inner dot (small filled centre) — magenta accent so it always pops
+   on cream regardless of underlying surface colour. */
+html[data-theme="light"] .cur .l {
+  background: var(--accent-1);
+  width: 5px; height: 5px;
+  margin: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(194, 43, 130, .55);
+}
+/* Magnetic state — tone the fill so the ink-on-cream stays subtle. */
+html[data-theme="light"] .cur[data-state="magnetic"] {
+  background: rgba(194, 43, 130, .1);
+  border-color: rgba(26, 24, 32, .35);
+}
+/* Link state pill — flip to ink fill with cream text (was white-on-dark
+   in dark mode; on cream we want a deep ink pill with cream label). */
+html[data-theme="light"] .cur[data-state="link"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 6px 18px rgba(26, 24, 32, .2);
+}
+html[data-theme="light"] .cur[data-state="link"] .cur-label { color: var(--bg); }
+/* Media state ring — tune the red ring tint for light mode. */
+html[data-theme="light"] .cur[data-state="media"] {
+  background: rgba(201, 29, 60, .1);
+  border-color: rgba(201, 29, 60, .65);
+  box-shadow: 0 0 24px rgba(201, 29, 60, .2), inset 0 0 12px rgba(201, 29, 60, .1);
+}
+html[data-theme="light"] .cur[data-state="media"] .cur-label { color: var(--ink); }
 
 /* =====================================================================
    Text selection — warm ink + accent
