@@ -10,13 +10,13 @@
       <span class="reel-fade-bot"   aria-hidden="true"></span>
     </div>
     <div class="reel-inner">
-      {/* Animated noise.gif overlay (pulled from kr8tiv.io). Tiled
-          across the reel box and screen-blended so the chromatic peaks
-          + forest video shimmer through the grain. Reads as a film-
-          texture wash over the scene, not a wordmark.
-          aria-hidden because it's purely decorative — no information
-          for screen readers. */}
-      <span class="reel-noise" aria-hidden="true"></span>
+      {/* Was a section-local noise overlay — now redundant. The
+          sitewide .noise div in BaseLayout/FormLayout/CaseStudyLayout
+          carries the same noise.gif tile across every page, so the
+          Reel section already gets the film-grain wash without an
+          extra section-scoped layer. Inner left empty for now;
+          chromatic peaks + forest video render unobstructed under
+          the global noise overlay. */}
     </div>
   </div>
 </section>

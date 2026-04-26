@@ -245,7 +245,24 @@ nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
      instead of popping. */
   transition: opacity .4s var(--ease);
 }
-.noise { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); opacity: .18; }
+/* Sitewide film-grain overlay using the live kr8tiv.io noise.gif
+   asset (320×240 animated grain). Was an inline SVG fractalNoise
+   pattern previously — visually different (static, harder edges).
+   Swapped per the user's "noise.gif overlay on the whole site"
+   directive. Tiled at native resolution so the grain particles stay
+   crisp and the gif's 30fps animation plays back without scaling
+   artefacts. opacity .14 is the sweet spot for a film-texture wash
+   that registers on every section without dominating any of them.
+   `mix-blend-mode: overlay` (inherited from the .grain/.noise
+   shared declaration above) makes the bright grain pixels lift the
+   underlying surface and dark pixels recess it — natural film
+   grain behaviour. */
+.noise {
+  background-image: url('/kr8tiv-assets/noise.gif');
+  background-size: 320px 240px;
+  background-repeat: repeat;
+  opacity: .14;
+}
 
 /* Suppress the Design-49.gif K-watermark while the user is at the
    splash hero. The prism is the focal element on first paint and tiled
