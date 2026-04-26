@@ -27,10 +27,19 @@ export function initScrollCore(): ScrollCore {
   if (instance) return instance;
   gsap.registerPlugin(ScrollTrigger);
 
+  /* Tightened from duration: 1.4 → 0.85 + wheelMultiplier: 1.05 after
+     user feedback that scroll felt slow + sticky. The previous 1.4s
+     duration meant every wheel tick took 1.4s to catch up, so scroll
+     felt syrupy and pinned sections compounded the lag. 0.85s is the
+     sweet spot — still smooth, but the page tracks the wheel almost
+     1:1 and pinned sections release sooner. The wheelMultiplier nudge
+     also helps long pages feel less endless. */
   const lenis = new Lenis({
-    duration: 1.4,
+    duration: 0.85,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true
+    smoothWheel: true,
+    wheelMultiplier: 1.05,
+    touchMultiplier: 1.6
   });
 
   lenis.on('scroll', ScrollTrigger.update);
