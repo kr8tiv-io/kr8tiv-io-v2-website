@@ -204,10 +204,24 @@ html[data-theme="light"] .svc-frame video {
 html[data-theme="light"] .svc-frame:hover video {
   filter: brightness(1.45) saturate(1.28) contrast(1.04);
 }
-/* The bloom rings on hover were tuned for dark; with screen-blended
-   video the bg already breathes, so the bloom can be subtler. */
-html[data-theme="light"] .svc-frame-bloom { opacity: .4; }
-html[data-theme="light"] .svc-frame:hover .svc-frame-bloom { opacity: .7; }
+
+/* User feedback (light-mode pass): a peachy halo persisted around the
+   circular video panels even after the screen-blend swap. Cause: two
+   pseudo-element layers tuned for dark backgrounds — `.svc-frame::before`
+   (eight chromatic prism stops layered with `mix-blend-mode: screen`)
+   and `.svc-frame-bloom` (a radial magenta/purple/red atmospheric ring
+   sitting outside the circle). On dark bg those add gorgeous chromatic
+   halation; on cream they composite to a muddy peach ring that doesn't
+   integrate with the page. We turn both off in light mode entirely.
+   The hover caustic (`.svc-frame::after`) stays — it's a bright white
+   line on screen-blend, only visible during pointer-over, and it reads
+   beautifully on cream as a moving stroke of light. */
+html[data-theme="light"] .svc-frame::before {
+  display: none;
+}
+html[data-theme="light"] .svc-frame-bloom {
+  display: none;
+}
 
 /* =====================================================================
    INLINE CTAs — flip dark boxes + ghost-button borders
