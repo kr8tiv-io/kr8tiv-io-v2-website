@@ -1,0 +1,106 @@
+---
+/**
+ * Nav — HYBRID (Multi-State 侍 + Oracle ⌘K + Kintsugi shatter).
+ *
+ * Structure (left → right):
+ *   · brand       — 侍 + wordmark + volume number
+ *   · links       — inline context links (fade based on nav state)
+ *   · progress    — page progress indicator (shown in `final` state)
+ *   · controls    — music · theme · motion
+ *   · oracle hint — ⌘K button (opens Oracle)
+ *   · menu        — ✱ button (triggers Kintsugi shatter)
+ *
+ * State machine attributes:
+ *   · data-nav-state="hero|body|final" — set by multiStateNav.ts
+ *   · data-multi-state="off"           — per-page opt-out
+ *
+ * Props:
+ *   · current — active page key. One of: 'home' | 'process' | 'start' | 'other'
+ */
+export interface Props {
+  current?: 'home' | 'process' | 'start' | 'work' | 'other';
+}
+const { current = 'home' } = Astro.props;
+const base = current === 'home' ? '' : '/';
+
+const midLinks = [
+  { href: `${base}#doctrine`, label: 'DOCTRINE', key: 'doctrine' },
+  { href: `${base}#services`, label: 'INDEX',    key: 'services' },
+  { href: `${base}#why`,      label: 'WHY',      key: 'why' },
+  /* WORK now points at the dedicated /work/ page (the full 4-tier
+     portfolio). Homepage still has a 3-card teaser at #work, but
+     nav clicks should always land on the canonical full index. */
+  { href: '/work/',           label: 'WORK',     key: 'work' },
+  { href: '/process/',        label: 'PROCESS',  key: 'process' },
+  { href: '/start/',          label: 'START',    key: 'start' }
+];
+---
+<nav data-nav-state="hero">
+  <div class="brand">
+    <em>侍</em> KR8TIV /
+    <svg class="brand-mark" viewBox="0 0 1800 600" aria-label="kr8tiv">
+      <use href="#kr8tiv-glyph" fill="currentColor" />
+    </svg>
+    · 08
+  </div>
+
+  <div class="nav-mid" aria-label="Primary">
+    {midLinks.map((l) => (
+      <a href={l.href} class:list={[{ active: current === l.key }]}>{l.label}</a>
+    ))}
+  </div>
+
+  <div class="nav-progress" aria-live="polite" aria-label="Page progress"></div>
+
+  <div class="nav-r">
+    <button class="toggle liquid-glass-target" id="music-btn" aria-label="Toggle music">
+      <svg viewBox="0 0 24 24">
+        <circle cx="6" cy="17" r="2.5"></circle>
+        <circle cx="16" cy="14" r="2.5"></circle>
+        <path d="M8.5 17V6l10-2v10"></path>
+      </svg>
+      <span class="dot"></span>
+    </button>
+    <button class="toggle liquid-glass-target" id="theme-btn" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" id="theme-icon">
+        <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"></path>
+      </svg>
+    </button>
+    <button class="toggle on liquid-glass-target" id="motion-toggle" aria-label="Toggle motion" aria-pressed="true" title="Toggle motion">
+      <svg viewBox="0 0 24 24">
+        <circle class="m-dot" cx="12" cy="12" r="3"></circle>
+        <path d="M4 12a8 8 0 0 1 16 0"></path>
+        <path d="M20 12a8 8 0 0 1-16 0"></path>
+      </svg>
+    </button>
+
+    <!-- Oracle ⌘K shortcut — power-user layer -->
+    <button
+      class="nav-oracle liquid-glass-target"
+      type="button"
+      data-oracle-open
+      aria-label="Open command palette (⌘K)"
+      title="Open command palette — ⌘K or /"
+    >
+      <span class="nav-oracle-k">⌘</span><span class="nav-oracle-plus">K</span>
+    </button>
+
+    <!-- Kintsugi shatter trigger — dramatic full menu layer -->
+    <button
+      class="nav-shatter liquid-glass-target"
+      type="button"
+      data-kintsugi-trigger
+      aria-label="Open the menu (shatter)"
+      title="Shatter the page — full menu"
+    >
+      <svg viewBox="0 0 24 24" class="nav-shatter-ico" aria-hidden="true">
+        <!-- Fracture glyph: 4 gold rays from center -->
+        <path d="M12 3 L13.2 10 L12 12 L10.8 10 Z"></path>
+        <path d="M21 12 L14 13.2 L12 12 L14 10.8 Z"></path>
+        <path d="M12 21 L10.8 14 L12 12 L13.2 14 Z"></path>
+        <path d="M3 12 L10 10.8 L12 12 L10 13.2 Z"></path>
+        <circle cx="12" cy="12" r="1.3"></circle>
+      </svg>
+    </button>
+  </div>
+</nav>

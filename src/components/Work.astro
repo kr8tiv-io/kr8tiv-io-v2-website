@@ -1,0 +1,164 @@
+---
+/**
+ * Homepage Work — 3-card teaser of the real portfolio (Evolve, KIN,
+ * KR8TIV AI), with a "See all work →" link to the dedicated /work/
+ * page that holds the full 4-tier breakdown (Selected · Brand Kit
+ * · Studio Lab · Code Vault).
+ *
+ * Was a 4-card grid of legacy abstract videos (Oblisk / Design 34 /
+ * Studio / In Motion). The portfolio is now real, so the homepage
+ * shows a curated taste — not the whole library.
+ */
+import { PORTFOLIO_HOMEPAGE_TEASER } from '@lib/content';
+---
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="work-head">
+      <div>
+        <div class="chapter-label mono"><span class="b"></span>V / WORK · A FEW WE'D POINT AT</div>
+        <h2 class="chapter-title serif">
+          <span class="line"><span>Some of the brands</span></span>
+          <span class="line"><span>that quietly <span class="it">recommend</span> us.</span></span>
+        </h2>
+      </div>
+      <p style="max-width: 360px; color: var(--ink-muted); font-size: 14.5px; line-height: 1.8;">
+        Three live engagements below. Full portfolio — selected work, studio lab,
+        and the code vault — lives on the dedicated <a href="/work/" style="color: var(--accent-1); border-bottom: 1px solid var(--accent-1);">work page</a>.
+      </p>
+    </div>
+
+    <div class="work-grid" id="work-grid">
+      {PORTFOLIO_HOMEPAGE_TEASER.map((p, idx) => (
+        <a class="work-card port-frame" href={`/work/#sel-${p.slug}`} aria-label={`${p.title} — view full case`}>
+          {p.video ? (
+            <video muted loop playsinline preload="metadata" data-src={p.video}>
+              <source src={p.video} type="video/mp4" />
+            </video>
+          ) : (
+            <div class="work-card-glyph">侍</div>
+          )}
+          <span class="port-frame-grain" aria-hidden="true"></span>
+          <span class="port-frame-edge"  aria-hidden="true"></span>
+          <div class="meta">
+            <span class="tag">/ {String(idx + 1).padStart(3, '0')} · <span class={`work-badge work-badge--${p.tag.replace(/\s+/g, '-').toLowerCase()}`}>{p.tag}</span></span>
+            <h3>{p.title}</h3>
+            <span class="work-sub">{p.subTag}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="work-foot">
+      <a href="/work/" class="work-allbtn" data-cursor="magnetic">
+        See all work · studio lab · code vault ↳
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Local layout overrides — base .work / .work-grid / .work-card
+     styles live in core.css so they cascade for the port-frame
+     treatment too. The bits below are teaser-specific only. */
+
+  .work-card.port-frame {
+    text-decoration: none;
+    color: inherit;
+    display: flex; flex-direction: column;
+    cursor: none;
+  }
+  .work-card-glyph {
+    width: 100%; aspect-ratio: 16 / 10;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(56px, 9vw, 120px);
+    color: var(--accent); opacity: .8;
+    background:
+      radial-gradient(ellipse at center, rgba(255,106,213,.15), transparent 60%),
+      #08080c;
+    text-shadow: 0 0 24px rgba(255,45,74,.35), 0 0 60px rgba(255,45,74,.18);
+  }
+
+  .work-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: .26em;
+    text-transform: uppercase;
+    padding: 2px 7px; margin-left: 6px;
+    border-radius: 2px; border: 1px solid;
+  }
+  .work-badge--client-work { color: var(--accent-1); border-color: var(--accent-1); background: rgba(255,106,213,.06); }
+  .work-badge--own-company { color: var(--accent-4); border-color: var(--accent-4); background: rgba(255,209,102,.06); }
+  .work-badge--personal     { color: var(--cyan); border-color: var(--cyan); background: rgba(61,255,252,.05); }
+
+  .work-sub {
+    display: block; margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: .28em;
+    color: var(--ink-muted); text-transform: uppercase;
+  }
+
+  .work-foot {
+    margin-top: 56px;
+    display: flex; justify-content: center;
+  }
+  .work-allbtn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .32em;
+    text-transform: uppercase;
+    padding: 18px 36px;
+    border: 1px solid var(--accent-1); border-radius: 4px;
+    color: var(--accent-1); background: rgba(255,106,213,.04);
+    transition: letter-spacing .4s cubic-bezier(.22,1,.36,1),
+                background .3s, box-shadow .3s, color .3s;
+  }
+  .work-allbtn:hover {
+    letter-spacing: .42em;
+    background: var(--accent-1); color: #000;
+    box-shadow: 0 0 48px rgba(255,106,213,.45);
+  }
+
+  /* port-frame shared treatment (mirrors /work/ page) */
+  :global(.work-card.port-frame video) {
+    aspect-ratio: 16 / 10;
+    object-fit: cover; object-position: center;
+    filter: contrast(1.06) saturate(.92) brightness(.84);
+    transition: filter .5s cubic-bezier(.22,1,.36,1),
+                transform 1.4s cubic-bezier(.22,1,.36,1);
+  }
+  :global(.work-card.port-frame:hover video) {
+    filter: contrast(1.08) saturate(1.0) brightness(.96);
+    transform: scale(1.02);
+  }
+  :global(.work-card.port-frame .port-frame-grain) {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url('/kr8tiv-assets/Design-49.gif');
+    background-size: 236px auto; background-repeat: repeat;
+    opacity: .045; mix-blend-mode: overlay; z-index: 1;
+  }
+  :global(.work-card.port-frame .port-frame-edge) {
+    position: absolute; inset: 0; pointer-events: none;
+    border: 1px solid rgba(255, 209, 102, 0);
+    border-radius: 4px; z-index: 2;
+    transition: border-color .5s, box-shadow .5s;
+  }
+  :global(.work-card.port-frame:hover .port-frame-edge) {
+    border-color: rgba(255, 209, 102, .35);
+    box-shadow: inset 0 0 24px rgba(255, 106, 213, .14);
+  }
+</style>
+
+<script>
+  // Lazy hover-play for teaser videos — same pattern as /work/.
+  const cards = document.querySelectorAll<HTMLElement>('.work-card.port-frame');
+  cards.forEach((card) => {
+    const v = card.querySelector<HTMLVideoElement>('video');
+    if (!v) return;
+    v.muted = true; v.playsInline = true; v.loop = true;
+    let loadedOnce = false;
+    card.addEventListener('pointerenter', () => {
+      if (!loadedOnce) { v.load(); loadedOnce = true; }
+      v.play().catch(() => {});
+    });
+    card.addEventListener('pointerleave', () => v.pause());
+  });
+</script>

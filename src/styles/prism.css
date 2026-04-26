@@ -1,0 +1,693 @@
+/* Prism variant — everything unique to the v08 aesthetic.
+   Imported by the prism page only. */
+
+:root[data-variant="prism"] {
+  --accent-1: #ff6ad5;
+  --accent-2: #8e00ff;
+  --accent-3: #ff2d4a;
+  --accent-4: #ffd166;
+}
+
+#trail-canvas { display: none !important; }
+/* .grain rule lives in core.css now (Design-49.gif at 7% opacity).
+   Kept .noise's prism-variant tweak below — slight bump from core's
+   18% baseline since the prism aesthetic loves a noisier base layer. */
+.noise { opacity: .22 !important; mix-blend-mode: overlay; }
+
+/* The split-text / line reveal fallback — see comment in src/lib/reveal.ts.
+   core.css declares `.line > span { display:block; transform:translateY(110%) }`
+   as the "before-reveal" state for GSAP's legacy line-by-line animation.
+   We don't run that animation in the Astro build (reveals happen via the
+   logo-shatter, not per-line slides), so the spans must be untransformed
+   by default — otherwise .line's overflow:hidden clips them invisible,
+   collapsing each line's height to 0 and stacking the title's three
+   lines on top of each other (the "words overlapping" symptom). */
+.line > span,
+.hero-title .line > span,
+.chapter-title .line > span,
+.stmt p .line > span,
+.why h2 .line > span,
+.reel h2 .line > span { transform: none !important; }
+
+.hero-bg video { filter: contrast(1.05) saturate(.85) brightness(.5); opacity: .5; }
+.hero-reveal .hero-bg video { object-position: center top; }
+
+/* === Prism bars (CSS version) ===
+   Restored to the saturated state the original splash used. Earlier
+   tuning brought the wrapper opacity down to .39 with gradient alphas
+   .22/.31 — the result was barely-there pastels that disappeared into
+   the dim hero video, especially through the small KR8TIV cutout
+   during the splash reveal. Bumped back up so the rainbow is clearly
+   visible the moment the page paints. */
+.prism-bars { position: absolute; inset: 0; display: flex; mix-blend-mode: screen; pointer-events: none; filter: blur(0.3px); }
+.prism-bar {
+  flex: 1; height: 100%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    hsla(var(--hue), 96%, 60%, calc(0.36 + var(--bright, 0) * 0.30)) 25%,
+    hsla(var(--hue), 96%, 70%, calc(0.50 + var(--bright, 0) * 0.24)) 50%,
+    hsla(var(--hue), 96%, 60%, calc(0.36 + var(--bright, 0) * 0.30)) 75%,
+    transparent 100%);
+  transform: translateX(var(--shift, 0px)) skewY(var(--tilt, 0deg)) scaleX(var(--scale, 1)) translateY(var(--drift, 0%));
+  transform-origin: center center;
+  opacity: calc(.62 + var(--bright, 0) * .15);
+  will-change: transform, opacity, background;
+}
+.prism-bars.drifting .prism-bar { animation: prism-drift 14s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+.prism-bar:nth-child(1) { --delay: -1.4s; }
+.prism-bar:nth-child(2) { --delay: -2.8s; }
+.prism-bar:nth-child(3) { --delay: -4.2s; }
+.prism-bar:nth-child(4) { --delay: -5.6s; }
+.prism-bar:nth-child(5) { --delay: -7.0s; }
+.prism-bar:nth-child(6) { --delay: -8.4s; }
+.prism-bar:nth-child(7) { --delay: -9.8s; }
+.prism-bar:nth-child(8) { --delay: -11.2s; }
+@keyframes prism-drift { 0%,100%{--drift:-8%} 50%{--drift:8%} }
+
+.prism-caustic {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
+  transform: translateX(var(--cx, 50vw)) translateX(-50%) scaleY(var(--caustic-scale, 1));
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.85) 45%, rgba(255,255,255,.95) 50%, rgba(255,255,255,.85) 55%, transparent 100%);
+  box-shadow: 0 0 24px rgba(255,255,255,.65), 0 0 48px rgba(255,106,213,.5), 0 0 80px rgba(142,0,255,.35);
+  pointer-events: none; mix-blend-mode: screen;
+  opacity: var(--caustic-op, 0); filter: blur(0.4px); will-change: transform, opacity;
+}
+
+.prism-sweep { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.05) 50%, transparent 100%); mix-blend-mode: overlay; animation: sweep 8s linear infinite; }
+
+/* === WebGL prism canvas — carries the full shader prism === */
+.prism-webgl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;                      /* above hero-bg (0), below reveal cover (2) */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+/* CSS bars + WebGL prism now COEXIST. The earlier behaviour killed
+   the CSS bars the moment prism-gl-active landed on <html>, so the
+   splash flashed a vivid rainbow for ~one frame and then collapsed
+   to whatever the (often very subtle) WebGL alpha could deliver
+   through the KR8TIV cutout — Firefox in particular reads as nearly
+   black-and-white once the bars vanish.
+   Solution: keep the CSS bars visible underneath, dim them ~25% so
+   WebGL refraction has room to breathe on top, and let mix-blend:
+   screen do its job stacking them. The user's "prism works for a
+   second then disappears" symptom is gone. The caustic line is still
+   killed when GL is active (the shader draws its own). */
+html.prism-gl-active .prism-bars { opacity: .85; }
+html.prism-gl-active .prism-bar { opacity: calc(.46 + var(--bright, 0) * .15); }
+html.prism-gl-active .prism-sweep { opacity: .55; }
+/* Vertical white caustic line restored. The WebGL shader draws its
+   own horizontal caustic glow at the cursor's Y, but the CSS
+   .prism-caustic is a tall thin pink-haloed slab tracking cursor X
+   that gives the prism that "wand of light" feel users remember.
+   Slight opacity dim so the GL chromatic aberration still leads. */
+html.prism-gl-active .prism-caustic { opacity: calc(var(--caustic-op, 0) * 0.85); }
+@media (prefers-reduced-motion: reduce) { .prism-webgl { display: none; } }
+html.motion-off .prism-webgl { display: none; }
+@keyframes sweep { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+/* === Splash reveal — hero takes 100vh, reveal-sticky pins the stage.
+   overflow:hidden on the hero itself so the 22x-scaled cover mask can
+   never leak beyond the section's bounds, even mid-scrub on slow
+   browsers where fill-opacity takes a frame or two to settle. */
+.hero.hero-reveal { height: 100vh; min-height: unset; padding: 0; overflow: hidden; display: block; position: relative; }
+.reveal-sticky { position: relative; height: 100vh; overflow: hidden; background: #050507; cursor: none; }
+.reveal-sticky > .hero-bg, .reveal-sticky > .hero-fx { position: absolute; inset: 0; z-index: 0; transform-origin: center center; will-change: transform; }
+.reveal-sticky > .hero-fx { z-index: 1; }
+.reveal-sticky > .hero-shade { display: none; }
+
+.reveal-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+#logo-mask-group { transform-box: fill-box; transform-origin: center center; will-change: transform; }
+
+/* === Samurai kanji + cue === */
+.samurai-mark { position: absolute; left: 50%; top: 18%; z-index: 4; transform: translate(-50%, -50%); text-align: center; pointer-events: none; will-change: opacity, transform; }
+.samurai-kanji { font-family: 'JetBrains Mono', monospace; font-size: clamp(56px, 6.4vw, 92px); color: #ff2d4a; opacity: .92; filter: drop-shadow(0 0 28px rgba(255, 45, 74, .5)); line-height: 1; margin-bottom: 14px; }
+.samurai-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .4em; color: rgba(242, 241, 236, .82); text-transform: lowercase; font-weight: 400; }
+
+.reveal-cue {
+  /* Lifted from z:4 → z:6 so the music button + SCROLL TO ENTER sit
+     cleanly above the hero-fade-black gradient (which used to share
+     z:4 and, by virtue of coming later in DOM, dimmed both badly).
+     Now the fade lives behind the splash UI; the prism scene reads
+     as one contained page. */
+  position: absolute; left: 50%; bottom: 14vh; z-index: 6;
+  pointer-events: auto;
+  transform: translate3d(-50%, 0, 0);
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  will-change: opacity, transform;
+  transition: filter 1.4s cubic-bezier(.22, .62, .34, 1);
+}
+
+/* Music affordance — a quiet hint above the note glyph so first-time
+   visitors know it's interactive. Smaller and lighter than the SCROLL
+   TO ENTER line beneath, so the eye still reads scroll → enter as the
+   primary action and treats the music tap as secondary. Soft pulse
+   so it has a touch of life without competing with the cue's spin. */
+.reveal-music-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .58);
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, .35),
+    0 0 14px rgba(255, 45, 74, .12);
+  animation: reveal-music-hint-pulse 3.6s ease-in-out infinite;
+  will-change: opacity;
+}
+@keyframes reveal-music-hint-pulse {
+  0%, 100% { opacity: .55; }
+  50%      { opacity: 1;   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-music-hint { animation: none; opacity: .8; }
+}
+html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
+.reveal-cue-icon {
+  overflow: visible;
+  filter: drop-shadow(0 0 16px rgba(255, 45, 74, .85)) drop-shadow(0 0 38px rgba(255, 45, 74, .55)) drop-shadow(0 0 70px rgba(255, 45, 74, .28));
+  shape-rendering: geometricPrecision;
+  transition: filter 1.4s cubic-bezier(.22, .62, .34, 1);
+}
+.rc-ring { transform-box: view-box; transform-origin: 48px 46px; will-change: transform; stroke: rgba(255,45,74,.88); stroke-width: 1.1; transition: stroke .8s; }
+.rc-outer, .rc-inner { transform-box: fill-box; transform-origin: center; will-change: transform; transition: stroke .8s; }
+.rc-outer { stroke: #ff6a80; stroke-width: 1.6; }
+.rc-inner { stroke: rgba(255,45,74,.85); stroke-width: 1.2; }
+.rc-dot { transform-box: view-box; transform-origin: 48px 46px; will-change: transform, opacity; }
+.rc-note {
+  transform-box: view-box; transform-origin: 48px 46px;
+  will-change: transform, opacity;
+  pointer-events: auto; cursor: pointer; outline: none;
+  filter: drop-shadow(0 0 8px rgba(255,120,140,.85)) drop-shadow(0 0 18px rgba(255,45,74,.5));
+  transition: filter 1.4s cubic-bezier(.22, .62, .34, 1);
+}
+.rc-note ellipse, .rc-note rect, .rc-note path { fill: #ff6a80; }
+.rc-note.playing path, .rc-note.playing rect, .rc-note.playing ellipse { fill: #ffd166; }
+.rc-note.playing { filter: drop-shadow(0 0 10px rgba(255, 209, 102, .75)); }
+.rc-echo { transform-box: view-box; transform-origin: 48px 46px; will-change: transform, opacity; }
+.rc-ticks { transform-box: view-box; transform-origin: 48px 46px; will-change: opacity; }
+.rc-ticks line { stroke: #fff; stroke-width: 1.6; transition: stroke .8s; }
+.rc-chev { transform-box: view-box; transform-origin: 48px 98px; will-change: transform, opacity; stroke: #fff; stroke-width: 2.4; transition: stroke .8s; }
+
+.rc-ring  { animation: rc-ring-spin 28s linear infinite; }
+.rc-outer { animation: rc-spin-cw 22s linear infinite; }
+.rc-inner { animation: rc-spin-ccw 14s linear infinite; }
+.rc-dot   { animation: rc-dot-pulse 2.4s ease-in-out infinite; }
+.rc-note  { animation: rc-note-pulse 2.6s ease-in-out infinite; }
+.rc-echo  { animation: rc-echo-expand 2.8s ease-out infinite; }
+.rc-ticks { animation: rc-ticks-breathe 3.6s ease-in-out infinite; }
+.rc-chev  { animation: rc-chev-bob 2.2s ease-in-out infinite; }
+@keyframes rc-ring-spin { to { transform: rotate(360deg); } }
+@keyframes rc-spin-cw { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
+@keyframes rc-spin-ccw { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes rc-dot-pulse { 0%,100%{opacity:.92;transform:scale(1)} 50%{opacity:1;transform:scale(1.35)} }
+@keyframes rc-note-pulse { 0%,100%{opacity:.88;transform:scale(1)} 50%{opacity:1;transform:scale(1.12)} }
+@keyframes rc-echo-expand { 0%{opacity:.75;transform:scale(.5)} 100%{opacity:0;transform:scale(2.4)} }
+@keyframes rc-ticks-breathe { 0%,100%{opacity:.4} 50%{opacity:.95} }
+@keyframes rc-chev-bob { 0%,100%{transform:translateY(0);opacity:.5} 50%{transform:translateY(6px);opacity:1} }
+
+.reveal-cue:hover .reveal-cue-icon {
+  filter: drop-shadow(0 0 22px rgba(255, 244, 225, .9))
+          drop-shadow(0 0 44px rgba(255, 106, 130, .85))
+          drop-shadow(0 0 78px rgba(255, 45, 74, .6))
+          drop-shadow(0 0 120px rgba(255, 45, 74, .35));
+}
+.reveal-cue:hover .rc-note { filter: drop-shadow(0 0 12px rgba(255, 246, 225, .95)) drop-shadow(0 0 26px rgba(255, 120, 140, .9)) drop-shadow(0 0 46px rgba(255, 45, 74, .65)); }
+.reveal-cue:hover .rc-outer { stroke: #ffbdc8; }
+.reveal-cue:hover .rc-inner { stroke: #ff6a80; }
+.reveal-cue:hover .rc-ring { stroke: #ff5a70; }
+.reveal-cue:hover .rc-ticks line { stroke: #fff4dc; }
+.reveal-cue:hover .rc-chev { stroke: #fff4dc; }
+
+.reveal-hint {
+  display: flex; align-items: center; gap: 16px;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .38em;
+  color: #fff; text-transform: uppercase; font-weight: 500;
+  text-shadow: 0 0 4px rgba(255,255,255,.7), 0 0 12px rgba(255,255,255,.4), 0 0 26px rgba(255,45,74,.2);
+  transition: text-shadow 1.4s cubic-bezier(.22, .62, .34, 1), color 1.4s cubic-bezier(.22, .62, .34, 1);
+  will-change: transform, opacity, text-shadow;
+}
+.reveal-hint .b { width: 46px; height: 1px; background: #fff; opacity: 1; box-shadow: 0 0 8px rgba(255,255,255,.6); position: relative; overflow: hidden; }
+.reveal-hint .b::before { content: ''; position: absolute; inset: 0; background: #fff; transform: translateX(-100%); animation: run 2.4s infinite cubic-bezier(.22, .62, .34, 1); }
+@keyframes run { 50%,100% { transform: translateX(200%); } }
+.reveal-cue:hover .reveal-hint { color: #fff4dc; text-shadow: 0 0 6px rgba(255,250,235,.95), 0 0 16px rgba(255,209,102,.6), 0 0 32px rgba(255,106,130,.5), 0 0 54px rgba(255,45,74,.3); }
+.reveal-cue:hover .reveal-hint .b { background: #fff4dc; box-shadow: 0 0 12px rgba(255,244,220,.85); }
+
+/* === Logo + kanji hover glows === */
+/* logo-glow — hover effect that highlights the center when the user's
+   cursor sits over the wordmark area. Previously this was a 1000×360
+   red ellipse at 55%/32%/12% opacity — an overwhelming red wash that
+   dominated the hero the moment the pointer entered the center. Now
+   a tighter, softer bloom that reads as a glow without eating the
+   prism. Also shrunk the hover zone so it's closer to the actual
+   wordmark footprint instead of grabbing the entire hero middle. */
+.logo-glow {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: min(640px, 70vw); height: 180px;
+  background: radial-gradient(ellipse at center,
+    rgba(255,45,74,.22) 0%,
+    rgba(255,45,74,.12) 30%,
+    rgba(255,45,74,.04) 58%,
+    transparent 78%);
+  filter: blur(28px);
+  opacity: 0;
+  transition: opacity 1.1s cubic-bezier(.2,.9,.3,1);
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: opacity;
+}
+.logo-glow.on { opacity: .85; }    /* peak at 85% so it never fully saturates */
+.logo-hover-zone {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(460px, 60vw); height: 160px;
+  z-index: 9; pointer-events: auto; cursor: none;
+}
+.kanji-glow { position: absolute; left: 50%; top: 18%; z-index: 3; transform: translate3d(-50%, -50%, 0); width: 190px; height: 190px; background: radial-gradient(circle at center, rgba(255,45,74,.145) 0%, rgba(255,45,74,.085) 22%, rgba(255,45,74,.04) 46%, transparent 70%); filter: blur(14px); opacity: 0; transition: opacity 1s ease-out; pointer-events: none; mix-blend-mode: screen; will-change: opacity; }
+.kanji-glow.on { opacity: 1; transition: opacity 2.2s cubic-bezier(.3, .7, .4, 1) .35s; }
+.kanji-hover-zone { position: absolute; left: 50%; top: 18%; z-index: 8; transform: translate(-50%, -50%); width: 180px; height: 180px; pointer-events: auto; }
+
+/* === Hero UI (stacked inside reveal-sticky, hidden until reveal finishes) === */
+.hero.hero-reveal .hero-ui {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 120px 44px 32px;
+  gap: 28px;
+  opacity: 0; pointer-events: none; will-change: opacity;
+}
+.hero.hero-reveal .hero-title {
+  font-size: clamp(52px, 7.4vw, 96px) !important;
+  line-height: .98;
+  letter-spacing: -.012em;
+  max-width: none;
+  margin-top: auto;
+}
+.hero.hero-reveal .hero-title .line { overflow: visible; padding-bottom: .06em; }
+.hero.hero-reveal .hero-title .line.eyebrow { margin-bottom: .08em; }
+.hero.hero-reveal .hero-title .line.eyebrow > span {
+  display: inline-block; font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: 1em; font-weight: 400; line-height: 1; letter-spacing: .01em;
+  color: rgba(242, 241, 236, .88); text-transform: lowercase;
+}
+.hero.hero-reveal .hero-title .line:nth-child(1) { animation: hero-dance 7.6s cubic-bezier(.42,.1,.48,.92) infinite; animation-delay: 0s; will-change: transform; }
+.hero.hero-reveal .hero-title .line:nth-child(2) { animation: hero-dance 7.6s cubic-bezier(.42,.1,.48,.92) infinite; animation-delay: 1.4s; will-change: transform; }
+.hero.hero-reveal .hero-title .line:nth-child(3) { animation: hero-dance 7.6s cubic-bezier(.42,.1,.48,.92) infinite; animation-delay: 2.8s; will-change: transform; }
+@keyframes hero-dance {
+  0%,100%{ transform: translate3d(0,0,0) rotate(0); }
+  25%   { transform: translate3d(2px,-7px,0) rotate(-.1deg); }
+  50%   { transform: translate3d(-3px,-3px,0) rotate(.15deg); }
+  75%   { transform: translate3d(3px,-8px,0) rotate(-.08deg); }
+}
+
+/* === Per-word heat-up glow === */
+.hero.hero-reveal .hero-title .w {
+  display: inline-block;
+  transition: text-shadow 1.8s cubic-bezier(.22,.62,.34,1), color 1.8s cubic-bezier(.22,.62,.34,1);
+  pointer-events: auto;
+}
+.hero.hero-reveal .hero-title .w:hover,
+.hero.hero-reveal .hero-title .w:focus-visible {
+  color: rgba(255, 250, 238, 1);
+  text-shadow:
+    -1.4px 0 0 rgba(255, 45, 74, .55),
+     1.4px 0 0 rgba( 60,230,255, .42),
+    0 0 2px rgba(255, 246, 225, .82),
+    0 0 9px rgba(255, 209, 102, .55),
+    0 0 20px rgba(255, 130, 60, .34),
+    0 0 34px rgba(255, 45, 74, .18);
+  transition: text-shadow .9s cubic-bezier(.3,.1,.5,1), color .9s cubic-bezier(.3,.1,.5,1);
+}
+.hero.hero-reveal .hero-title .w.it:hover,
+.hero.hero-reveal .hero-title .w.it:focus-visible {
+  color: #ffbdf0;
+  text-shadow:
+    -1.4px 0 0 rgba(255, 106, 213, .55),
+     1.4px 0 0 rgba(142,   0, 255, .42),
+    0 0 2px rgba(255, 225, 245, .82),
+    0 0 9px rgba(255, 106, 213, .58),
+    0 0 22px rgba(190, 60, 235, .38),
+    0 0 38px rgba(142, 0, 255, .22);
+  transition: text-shadow .9s cubic-bezier(.3,.1,.5,1), color .9s cubic-bezier(.3,.1,.5,1);
+}
+
+/* === Fade-to-black under hero ===
+   Was 52vh tall covering half the splash — perfect for "fading the
+   prism into doctrine" but it ALSO ate the music button + SCROLL TO
+   ENTER (sitting at bottom: 14vh) since the gradient hit ~85% black
+   right under them. Reduced to a tighter 26vh band confined to the
+   bottom edge so it acts as a SEAM between sections, not a curtain
+   over the splash UI. Z-index dropped to 3 too — even if heights
+   regress, the cue still sits above (z:6). */
+.hero-fade-black {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 26vh; z-index: 3; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0) 0%, rgba(0,0,0,.18) 28%, rgba(0,0,0,.52) 56%,
+    rgba(0,0,0,.84) 80%, #000 100%);
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 520' preserveAspectRatio='none'><defs><filter id='b' x='-8%25' y='-16%25' width='116%25' height='132%25'><feGaussianBlur stdDeviation='24'/></filter></defs><path d='M0,170 C140,80 280,260 460,180 C640,110 820,270 1000,190 C1180,130 1340,230 1440,180 L1440,520 L0,520 Z' fill='white' filter='url(%23b)'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 520' preserveAspectRatio='none'><defs><filter id='b' x='-8%25' y='-16%25' width='116%25' height='132%25'><feGaussianBlur stdDeviation='24'/></filter></defs><path d='M0,170 C140,80 280,260 460,180 C640,110 820,270 1000,190 C1180,130 1340,230 1440,180 L1440,520 L0,520 Z' fill='white' filter='url(%23b)'/></svg>");
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: bottom; mask-position: bottom;
+  animation: hero-fade-breathe 14s ease-in-out infinite;
+}
+@keyframes hero-fade-breathe { 0%,100%{ -webkit-mask-size:100% 100%; mask-size:100% 100%; } 50%{ -webkit-mask-size:104% 103%; mask-size:104% 103%; } }
+
+/* === Top-of-hero prism dimmer ===
+   The prism bars + WebGL refraction are bright at the top of the
+   splash, where `(VIII) PRISM 侍 / Built for founders…` and `ON AIR /
+   BY APPOINTMENT, BY INSTINCT / VIII · PRISM` sit. Without dimming,
+   the rainbow saturates the small mono text and it becomes unreadable.
+   This pseudo-element sits at z:4 — above the prism (z:0–1) and above
+   .hero-fade-black (z:3), but BELOW .hero-ui (z:5) and .reveal-cue
+   (z:6) — so it tones down the bars without touching the type.
+   Gradient chosen to dim the top ~24vh while leaving the body of the
+   prism untouched (peak alpha 0.5 at the very top, easing to 0 by
+   24vh). */
+.reveal-sticky::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 24vh; z-index: 4; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(5,5,7,.50) 0%,
+    rgba(5,5,7,.32) 38%,
+    rgba(5,5,7,.12) 70%,
+    rgba(5,5,7,0)   100%);
+}
+
+.hero.hero-reveal + .marquee-wrap { border-top: none; background: #000; }
+
+/* === Doctrine obelisk video === */
+.doctrine { position: relative; overflow: visible; background: #000; padding-bottom: clamp(140px, 14vh, 220px); }
+.doctrine .chapter-title .line { overflow: visible; padding-bottom: .12em; }
+.doctrine .wrap { position: relative; z-index: 2; }
+.doctrine .obelisk-vid {
+  position: absolute;
+  top: 360px;
+  right: calc(6vw + 50px);
+  left: auto;
+  width: clamp(780px, 80vw, 1280px);
+  height: clamp(560px, 78vh, 820px);
+  object-fit: cover; object-position: center;
+  pointer-events: none;
+  opacity: .62;
+  z-index: 1;
+  filter: contrast(1.08) saturate(.9) brightness(1.02);
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 54% 72% at 50% 50%,
+    rgba(0,0,0,1) 22%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.52) 70%,
+    rgba(0,0,0,.18) 88%, transparent 100%);
+          mask-image: radial-gradient(ellipse 54% 72% at 50% 50%,
+    rgba(0,0,0,1) 22%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.52) 70%,
+    rgba(0,0,0,.18) 88%, transparent 100%);
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+@media (min-width: 721px) {
+  .doctrine .doctrine-head > p {
+    position: absolute;
+    top: calc(360px + clamp(560px, 78vh, 820px) + 40px);
+    right: 6vw;
+    left: auto; max-width: 560px; margin: 0; text-align: right; z-index: 3;
+    font-size: clamp(18px, 1.65vw, 24px); line-height: 1.4; letter-spacing: .002em;
+  }
+  .doctrine .doctrine-head { padding-bottom: clamp(420px, 50vh, 540px); }
+}
+@media (max-width: 720px) { .doctrine .obelisk-vid { display: none; } }
+
+/* === SVG Liquid-Glass filter hook === */
+.liquid-glass-target { transition: filter .5s cubic-bezier(.22, .62, .34, 1); will-change: filter; }
+.liquid-glass-target:hover, .liquid-glass-target.active { filter: url(#liquidGlass); }
+#motion-toggle svg { stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+#motion-toggle.on svg .m-dot { fill: currentColor; }
+#motion-toggle.off svg .m-dot { opacity: .25; }
+
+/* === SplitText word-level hover === */
+.st-word {
+  display: inline-block;
+  font-variation-settings: 'wght' var(--scroll-wght, 400);
+  transition: text-shadow .9s cubic-bezier(.3,.1,.5,1), color .9s cubic-bezier(.3,.1,.5,1), font-variation-settings .4s cubic-bezier(.22,.62,.34,1);
+  will-change: font-variation-settings, text-shadow;
+}
+.st-word:hover, .st-word:focus-visible {
+  text-shadow:
+    -1px 0 0 rgba(255, 45, 74, .45),
+     1px 0 0 rgba( 60,230,255, .35),
+    0 0 3px rgba(255, 246, 225, .75),
+    0 0 10px rgba(255, 209, 102, .45),
+    0 0 22px rgba(255, 45, 74, .18);
+}
+
+/* === White-light easter egg === */
+.white-light-btn {
+  display: inline-block; margin-left: 24px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .32em; text-transform: uppercase;
+  color: rgba(242, 241, 236, .38); background: transparent; border: none; padding: 4px 2px; cursor: pointer;
+  transition: color .8s cubic-bezier(.22,.62,.34,1), letter-spacing .8s cubic-bezier(.22,.62,.34,1), text-shadow .8s cubic-bezier(.22,.62,.34,1);
+}
+.white-light-btn:hover, .white-light-btn:focus-visible {
+  color: rgba(255, 250, 235, 1); letter-spacing: .44em;
+  text-shadow: 0 0 6px rgba(255,255,255,.7), 0 0 16px rgba(255,255,255,.35), 0 0 32px rgba(255,209,102,.25);
+  outline: none;
+}
+.white-light-overlay {
+  position: fixed; inset: 0; background: #fff; z-index: 9998;
+  opacity: 0; pointer-events: none; transition: opacity .32s cubic-bezier(.4, 0, .2, 1); will-change: opacity;
+}
+.white-light-overlay.flash { opacity: 1; }
+.white-light-overlay.release { opacity: 0; transition: opacity .8s cubic-bezier(.2, .62, .34, 1); }
+.white-light-text {
+  position: fixed; left: 50%; top: 50%; transform: translate3d(-50%, -50%, 0);
+  z-index: 9999; font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(26px, 3.6vw, 54px); color: #0a0a0a; letter-spacing: .003em;
+  opacity: 0; pointer-events: none; text-align: center; max-width: 80vw;
+  transition: opacity .4s cubic-bezier(.22,.62,.34,1), transform .8s cubic-bezier(.22,.62,.34,1);
+  will-change: opacity, transform;
+}
+.white-light-text.show { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1.02); }
+
+/* =====================================================================
+   INTERLUDE · video bridge between Why/Manifesto and Process/The Method.
+   Generous padding so it reads as a deliberate breath, not filler. A
+   subtle accent glow around the frame picks up the magenta/purple
+   language from the hero prism without drawing focus from the loop.
+   ===================================================================== */
+.interlude {
+  padding: 140px 32px;
+  background: #000;
+  position: relative;
+  isolation: isolate;
+}
+.interlude-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.interlude-eye {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.interlude-eye .b {
+  width: 48px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+}
+/* Frame max-width: 960 px (3× the previous 320 px cap) per the user's
+   "make this video 3× larger" request. The interlude KR8TIV is the
+   visual breath between Why and How — it carries enough weight to
+   read as a chapter mark when sized like this rather than a thumbnail.
+   Borderless, no aspect-ratio constraint, no box-shadow / glow / hover
+   transforms — clean loop on its own. */
+.interlude-frame {
+  position: relative;
+  width: 100%;
+  max-width: 960px;            /* 3× the prior 320 px */
+  margin: 0 auto;              /* center within .interlude-inner */
+  background: transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  line-height: 0;              /* kill inline-video gap beneath */
+}
+.interlude-frame video {
+  width: 100%;
+  height: auto;                /* native ratio — no crop */
+  display: block;
+  object-fit: contain;
+  filter: contrast(1.04) saturate(1.05);
+}
+/* Ambient glow overlay retired — `display: none` keeps the markup
+   present in case we ever want to revive it, without rendering cost. */
+.interlude-glow { display: none; }
+
+.interlude-caption {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: -.002em;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+.interlude-caption em { color: var(--accent-1); font-style: italic; }
+
+@media (max-width: 720px) {
+  .interlude { padding: 80px 20px; }
+  .interlude-inner { gap: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .interlude-frame, .interlude-frame video, .interlude-glow { transition: none; }
+  .interlude-frame:hover { transform: none; }
+  .interlude-frame:hover video { transform: none; }
+}
+html.motion-off .interlude-frame,
+html.motion-off .interlude-frame video,
+html.motion-off .interlude-glow { transition: none; }
+html.motion-off .interlude-frame:hover { transform: none; }
+html.motion-off .interlude-frame:hover video { transform: none; }
+
+/* === Cross-document view transitions === */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: .55s;
+  animation-timing-function: cubic-bezier(.22, .62, .34, 1);
+}
+
+/* === Reduced motion + in-page motion toggle === */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  .prism-bars.drifting .prism-bar,
+  .hero.hero-reveal .hero-title .line,
+  .reveal-hint .b::before,
+  .rc-ring, .rc-outer, .rc-inner, .rc-dot, .rc-note, .rc-echo, .rc-ticks, .rc-chev,
+  .marquee-inner, .hero-fade-black, .prism-sweep { animation: none !important; }
+  .liquid-glass-target:hover, .liquid-glass-target.active { filter: none; }
+  .st-word { transition: none; font-variation-settings: normal; }
+}
+html.motion-off .prism-bars.drifting .prism-bar,
+html.motion-off .hero.hero-reveal .hero-title .line,
+html.motion-off .reveal-hint .b::before,
+html.motion-off .rc-ring, html.motion-off .rc-outer, html.motion-off .rc-inner,
+html.motion-off .rc-dot, html.motion-off .rc-note, html.motion-off .rc-echo,
+html.motion-off .rc-ticks, html.motion-off .rc-chev,
+html.motion-off .marquee-inner, html.motion-off .hero-fade-black, html.motion-off .prism-sweep { animation: none !important; }
+html.motion-off .grain, html.motion-off .noise { display: none; }
+html.motion-off .liquid-glass-target:hover, html.motion-off .liquid-glass-target.active { filter: none; }
+html.motion-off .st-word { transition: none; font-variation-settings: normal; }
+
+@media (max-width: 720px) {
+  .hero.hero-reveal { height: 100vh; }
+  .hero.hero-reveal .hero-ui { padding: 100px 20px 40px; }
+}
+
+/* =====================================================================
+   KR8 AURA · title + step glows ported from kr8tiv.io
+   The original site applied two hover signatures to every big text:
+     · .kr8-title-aura  — white halo on H1-class titles
+     · .kr8-step-aura   — teal halo on the smaller H4 step labels
+   Both lift the text 2px and warm a paired text-shadow stack on hover.
+   Reproduced here as utility classes (apply manually) AND auto-applied
+   to the matching Astro elements (.chapter-title, .svc-copy h3,
+   .step .ktitle / h3, .work-card h3, .intake-section h2) so the
+   feeling carries across the whole site without markup churn.
+   ===================================================================== */
+.kr8-title-aura,
+.chapter-title,
+.svc-copy h3,
+.work-card h3,
+.intake-section h2 {
+  transition: text-shadow .25s ease, transform .25s ease;
+  will-change: text-shadow, transform;
+}
+.kr8-title-aura:hover,
+.chapter-title:hover,
+.svc-copy h3:hover,
+.work-card h3:hover,
+.intake-section h2:hover {
+  transform: translateY(-2px);
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, .85),
+    0 0 20px rgba(255, 255, 255, .55),
+    0 0 38px rgba(255, 209, 102, .22);
+}
+
+.kr8-step-aura,
+.step .ktitle,
+.step h3,
+.process-step h3,
+.svc-copy .meta {
+  transition: text-shadow .25s ease, transform .25s ease;
+  will-change: text-shadow, transform;
+}
+.kr8-step-aura:hover,
+.step:hover .ktitle,
+.step:hover h3,
+.process-step:hover h3 {
+  transform: translateY(-2px);
+  text-shadow:
+    0 0 10px rgba(0, 255, 255, .85),
+    0 0 20px rgba(0, 255, 255, .55),
+    0 0 38px rgba(60, 230, 255, .25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kr8-title-aura, .chapter-title, .svc-copy h3, .work-card h3, .intake-section h2,
+  .kr8-step-aura, .step .ktitle, .step h3, .process-step h3 {
+    transition: none;
+  }
+  .kr8-title-aura:hover, .chapter-title:hover, .svc-copy h3:hover,
+  .work-card h3:hover, .intake-section h2:hover,
+  .kr8-step-aura:hover, .step:hover .ktitle, .step:hover h3,
+  .process-step:hover h3 {
+    transform: none;
+  }
+}
+html.motion-off .kr8-title-aura, html.motion-off .chapter-title,
+html.motion-off .svc-copy h3, html.motion-off .work-card h3,
+html.motion-off .intake-section h2, html.motion-off .kr8-step-aura,
+html.motion-off .step .ktitle, html.motion-off .step h3,
+html.motion-off .process-step h3 { transition: none; }
+html.motion-off .kr8-title-aura:hover, html.motion-off .chapter-title:hover,
+html.motion-off .svc-copy h3:hover, html.motion-off .work-card h3:hover,
+html.motion-off .intake-section h2:hover, html.motion-off .kr8-step-aura:hover,
+html.motion-off .step:hover .ktitle, html.motion-off .step:hover h3,
+html.motion-off .process-step:hover h3 { transform: none; }
+
+/* === Native scroll-driven animations (2026 baseline: Chromium + Firefox
+   144+; Safari 26.x partial) — used as a cheap supplement to the
+   GSAP-driven reveals for elements that don't need JS. The legacy
+   fall-through is no animation, which is fine. */
+@supports (animation-timeline: view()) {
+  @keyframes scroll-rise {
+    0%   { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chapter-label,
+    .doctrine .stmt,
+    .process-step,
+    .work-card,
+    .foot-col {
+      animation: scroll-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+html.motion-off .chapter-label,
+html.motion-off .doctrine .stmt,
+html.motion-off .process-step,
+html.motion-off .work-card,
+html.motion-off .foot-col { animation: none !important; opacity: 1 !important; transform: none !important; }

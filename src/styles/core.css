@@ -1,0 +1,1537 @@
+/* KR8TIV core — base typography, nav, grid, colors.
+   Ported from the legacy Desktop kr8tiv-assets/core.css with the same
+   CSS-variables-first approach so variant pages can override --hue
+   palettes without rewriting component rules. */
+
+/* === Cross-document view transitions — site-wide === */
+/* Declared here (not prism.css) so every page opts in, not just the
+   homepage. Enables the "process preview morph into process masthead"
+   on click from / → /process/. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: .55s;
+  animation-timing-function: cubic-bezier(.22, .62, .34, 1);
+}
+/* Tune the process-headline morph specifically — slower + with a
+   subtle drop shadow swell so the big italic "process" word feels
+   like it's being *lifted* into the new page. */
+::view-transition-old(process-headline),
+::view-transition-new(process-headline) {
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+:root {
+  --ink: #f2f1ec;
+  --ink-muted: rgba(242, 241, 236, .44);
+  --bg: #050507;
+  --edge: rgba(242, 241, 236, .08);
+  --accent-1: #ff6ad5;   /* magenta */
+  --accent-2: #8e00ff;   /* purple */
+  --accent-3: #ff2d4a;   /* red */
+  --accent-4: #ffd166;   /* gold */
+  --blue: var(--accent-1);
+  --cyan: var(--accent-2);
+  --accent: var(--accent-3);
+  --gold: var(--accent-4);
+  --ease: cubic-bezier(.22, .62, .34, 1);
+}
+
+html[data-theme="light"] {
+  --ink: #0a0a0c;
+  --ink-muted: rgba(10, 10, 12, .54);
+  --bg: #f3f1ec;
+  --edge: rgba(10, 10, 12, .08);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img, video, svg { display: block; max-width: 100%; }
+button { font-family: inherit; color: inherit; }
+
+/* === Nav === */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; height: 84px; z-index: 50;
+  padding: 0 32px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  mix-blend-mode: normal;
+  /* Smooth transitions between hero / body / final states. */
+  transition:
+    backdrop-filter .6s cubic-bezier(.22, 1, .36, 1),
+    -webkit-backdrop-filter .6s cubic-bezier(.22, 1, .36, 1),
+    background .6s cubic-bezier(.22, 1, .36, 1),
+    border-bottom-color .6s cubic-bezier(.22, 1, .36, 1),
+    height .5s cubic-bezier(.22, 1, .36, 1);
+  border-bottom: 1px solid transparent;
+}
+nav .brand { justify-self: start; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+nav .brand em { color: var(--accent); font-style: normal; margin-right: 6px; }
+/* The 1800×600 wordmark SVG collapsed into "KrllV" at 47×16px because
+   the R/8/T/I strokes subpixel-aliased into identical thin bars.
+   Bumped to 2em/6em (3:1 kept) so each letter gets enough pixels, and
+   added geometricPrecision so thin features don't blur into each
+   other at nav scale. */
+nav .brand-mark {
+  display: inline-block;
+  vertical-align: -.5em;
+  height: 2em;
+  width: 6em;
+  margin: 0 .22em;
+  shape-rendering: geometricPrecision;
+}
+nav .nav-mid {
+  justify-self: center; display: flex; gap: 36px;
+  opacity: 0; transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity .5s cubic-bezier(.22, 1, .36, 1), transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+nav .nav-mid a { color: var(--ink); opacity: .7; transition: opacity .4s var(--ease), color .4s var(--ease); }
+nav .nav-mid a:hover { opacity: 1; }
+
+/* --- Multi-State behaviors: hero | body | final --- */
+nav[data-nav-state="hero"] { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+nav[data-nav-state="hero"] .nav-mid { opacity: 0; transform: translateY(-4px); pointer-events: none; }
+nav[data-nav-state="hero"] .nav-progress { opacity: 0; pointer-events: none; }
+
+nav[data-nav-state="body"] {
+  background: rgba(5, 5, 10, .55);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom-color: var(--edge);
+}
+nav[data-nav-state="body"] .nav-mid { opacity: 1; transform: translateY(0); pointer-events: auto; }
+nav[data-nav-state="body"] .nav-progress { opacity: 0; pointer-events: none; }
+
+nav[data-nav-state="final"] {
+  background: linear-gradient(180deg, rgba(255, 106, 213, .08), rgba(5, 5, 10, .72));
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border-bottom-color: rgba(255, 106, 213, .24);
+}
+nav[data-nav-state="final"] .nav-mid { opacity: 1; transform: translateY(0); pointer-events: auto; }
+nav[data-nav-state="final"] .nav-progress { opacity: 1; pointer-events: auto; }
+
+/* Progress indicator — appears in the center-right area (next to nav-r). */
+nav .nav-progress {
+  position: absolute;
+  right: 260px;  /* left of the nav-r controls */
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: var(--accent-4);
+  opacity: 0;
+  text-transform: none;
+  transition: opacity .5s cubic-bezier(.22, 1, .36, 1);
+  line-height: 1;
+  padding: 4px 10px;
+  border-left: 1px solid rgba(255, 209, 102, .25);
+}
+@media (max-width: 880px) { nav .nav-progress { display: none; } }
+
+nav .nav-r { justify-self: end; display: flex; gap: 10px; align-items: center; }
+
+/* Oracle ⌘K button in nav */
+.nav-oracle {
+  display: inline-flex; align-items: center; gap: 1px;
+  height: 36px; padding: 0 11px;
+  border-radius: 18px;
+  background: transparent;
+  border: 1px solid var(--edge);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .08em;
+  cursor: pointer;
+  transition: border-color .4s var(--ease), background .4s var(--ease), letter-spacing .4s var(--ease), color .4s var(--ease);
+  text-transform: none;
+}
+.nav-oracle .nav-oracle-k { color: var(--accent-1); }
+.nav-oracle .nav-oracle-plus { color: var(--ink); opacity: .82; }
+.nav-oracle:hover { border-color: var(--accent-1); color: var(--ink); background: rgba(255, 106, 213, .08); letter-spacing: .16em; }
+.nav-oracle:hover .nav-oracle-plus { opacity: 1; }
+@media (max-width: 880px) { .nav-oracle { display: none; } }
+
+/* Kintsugi shatter trigger */
+.nav-shatter {
+  width: 40px; height: 36px; border-radius: 18px;
+  background: transparent;
+  border: 1px solid var(--edge);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--accent-4);
+  transition: border-color .4s var(--ease), background .4s var(--ease), transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+.nav-shatter:hover {
+  border-color: var(--accent-4);
+  background: rgba(255, 209, 102, .08);
+  transform: rotate(22deg) scale(1.05);
+}
+html.kintsugi-open .nav-shatter {
+  background: var(--accent-4);
+  color: #000;
+  border-color: var(--accent-4);
+  transform: rotate(45deg) scale(1.06);
+}
+.nav-shatter-ico {
+  width: 18px; height: 18px;
+  fill: currentColor;
+  stroke: none;
+}
+.nav-shatter-ico path, .nav-shatter-ico circle { fill: currentColor; stroke: none; }
+
+nav .toggle {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--edge);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; position: relative;
+  transition: border-color .4s var(--ease), background .4s var(--ease);
+}
+nav .toggle:hover { border-color: var(--ink); }
+nav .toggle svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+nav .toggle .dot {
+  position: absolute; top: -1px; right: -1px; width: 7px; height: 7px;
+  background: var(--accent); border-radius: 50%; opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+
+/* Hide the toggle style from the new nav-oracle/nav-shatter buttons */
+.nav-oracle, .nav-shatter { background: transparent; }
+
+/* === Grain + noise overlays ===
+   .grain carries the Design-49.gif film-grain overlay (defined in
+   prism.css with the original kr8tiv.io opacity + tile size). The
+   prior `display: none !important` lockout was reverted per the user
+   request to bring the branded watermark back — its tile is large
+   enough at 236px that the KR8TIV mark reads as ambient texture, not
+   repeating logos. */
+.grain, .noise {
+  position: fixed; inset: 0; pointer-events: none;
+  z-index: 2; mix-blend-mode: overlay;
+}
+/* Grain — Design-49.gif film texture, 7% opacity matches the original
+   site's ambient watermark feel without dominating. The gif loop adds
+   subtle living motion that pure noise can't reproduce. */
+.grain {
+  background-image: url('/kr8tiv-assets/Design-49.gif');
+  background-size: 236px auto;
+  background-repeat: repeat;
+  opacity: .07;
+  /* Smooth fade in/out so when we swap visibility on the splash via
+     class toggles or scroll, the watermark transitions cleanly
+     instead of popping. */
+  transition: opacity .4s var(--ease);
+}
+.noise { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); opacity: .18; }
+
+/* Suppress the Design-49.gif K-watermark while the user is at the
+   splash hero. The prism is the focal element on first paint and tiled
+   K-letterforms compete with the chromatic bars. multiStateNav.ts
+   drives `nav[data-nav-state]` to "hero" / "body" / "final" as the
+   user scrolls — :has() lets us bind grain visibility to that same
+   state. Once the user scrolls past the splash, nav-state flips to
+   "body" and the K-watermark fades back in across the rest of the
+   page. The :has() selector is supported in all evergreen browsers;
+   older browsers gracefully see the watermark always (pre-fix
+   default). */
+body:has(nav[data-nav-state='hero']) .grain { opacity: 0; }
+/* Also suppress on the kintsugi overlay (the magnetic-particle menu)
+   so the field reads cleanly without K tiling on top of it. */
+html.kintsugi-open .grain { opacity: 0; }
+
+/* Legacy empty canvas left over from an earlier rev — always hidden. */
+#trail-canvas { display: none !important; }
+
+/* === Custom cursor — state machine ===
+   Transitions use cubic-bezier(.22, 1, .36, 1) — explicitly not
+   power2.out, per the 2026 "avoid vibe-code tells" rule. */
+.cur {
+  position: fixed; top: 0; left: 0;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1px solid var(--ink); pointer-events: none; z-index: 100;
+  transform: translate3d(-50%, -50%, 0);
+  mix-blend-mode: difference;
+  display: flex; align-items: center; justify-content: center;
+  transition:
+    width .45s cubic-bezier(.22, 1, .36, 1),
+    height .45s cubic-bezier(.22, 1, .36, 1),
+    border-radius .45s cubic-bezier(.22, 1, .36, 1),
+    background .45s cubic-bezier(.22, 1, .36, 1),
+    border-color .45s cubic-bezier(.22, 1, .36, 1),
+    padding .45s cubic-bezier(.22, 1, .36, 1);
+}
+.cur .l { display: block; width: 100%; height: 100%; border-radius: inherit; }
+.cur .cur-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink); white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* DEFAULT — no extra state. The base rule above is the default look. */
+.cur[data-state="default"] { /* no changes */ }
+
+/* MAGNETIC — scales up slightly over toggle buttons. */
+.cur[data-state="magnetic"] {
+  width: 28px; height: 28px;
+  background: rgba(242, 241, 236, .08);
+  border-color: rgba(242, 241, 236, 0);
+}
+
+/* LINK — morphs to a pill with the anchor's label text. */
+.cur[data-state="link"] {
+  width: auto; height: 26px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.cur[data-state="link"] .cur-label { opacity: 1; color: var(--bg); }
+.cur[data-state="link"] .l { display: none; }
+
+/* MEDIA — large blob over cards / frames, signals "watch / click". */
+.cur[data-state="media"] {
+  width: 56px; height: 56px;
+  background: rgba(255, 45, 74, .14);
+  border-color: rgba(255, 45, 74, .55);
+  box-shadow: 0 0 24px rgba(255, 45, 74, .25), inset 0 0 12px rgba(255, 45, 74, .15);
+}
+.cur[data-state="media"] .cur-label {
+  opacity: 1;
+  font-size: 9px;
+  color: var(--ink);
+  mix-blend-mode: normal;
+}
+.cur[data-state="media"] .l { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cur { transition-duration: 0s; }
+}
+html.motion-off .cur { transition-duration: 0s; }
+@media (pointer: coarse) { .cur { display: none !important; } }
+
+/* === Scroll progress bar === */
+.prog {
+  position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
+  width: 0%; z-index: 60; transition: width .12s linear;
+}
+
+/* === Typography primitives === */
+.line { display: block; overflow: hidden; }
+.line > span { display: block; transform: translateY(110%); will-change: transform; }
+.serif { font-family: 'Instrument Serif', serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* === Chapter label === */
+.chapter-label {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--ink-muted);
+  margin-bottom: 32px;
+}
+.chapter-label .b { width: 46px; height: 1px; background: var(--accent); }
+
+/* === Chapter title === */
+.chapter-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 6.5vw, 120px);
+  line-height: .96; letter-spacing: -.028em;
+  font-weight: 400; max-width: 20ch;
+}
+.chapter-title .it { font-style: italic; color: var(--blue); }
+.chapter-title .ac { font-style: italic; color: var(--accent); }
+
+/* === Layout wrap === */
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+@media (max-width: 720px) { .wrap { padding: 0 24px; } }
+
+/* === Marquee ===
+   Speed bumped 30% (52s → 40s per cycle). Individual words respond to
+   hover with a 25% scale-up, bolder weight, and a slow soft prism
+   glow — same easing family as the hero word hover. */
+.marquee-wrap {
+  overflow: hidden; border-top: 1px solid var(--edge); border-bottom: 1px solid var(--edge);
+  padding: 22px 0; background: rgba(0, 0, 0, .2); position: relative; z-index: 3;
+}
+.marquee-inner {
+  display: flex; white-space: nowrap; gap: 52px;
+  animation: scroll-x 40s linear infinite;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .25em; text-transform: uppercase;
+}
+/* Hover pause — lets the user read/interact with the word they're on. */
+.marquee-wrap:hover .marquee-inner { animation-play-state: paused; }
+.marquee-inner span {
+  display: inline-flex; align-items: center; gap: 52px;
+  transition:
+    transform .6s cubic-bezier(.22, 1, .36, 1),
+    font-weight .5s cubic-bezier(.22, 1, .36, 1),
+    letter-spacing .6s cubic-bezier(.22, 1, .36, 1),
+    color .6s cubic-bezier(.22, 1, .36, 1),
+    text-shadow .8s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform, text-shadow;
+  transform-origin: center;
+}
+.marquee-inner span:hover {
+  transform: scale(1.25);
+  font-weight: 700;
+  letter-spacing: .32em;
+  color: #fff;
+  text-shadow:
+    0 0 4px rgba(255, 246, 225, .85),
+    0 0 14px rgba(255, 106, 213, .55),
+    0 0 28px rgba(142,   0, 255, .38),
+    0 0 52px rgba(255,  45,  74, .22);
+}
+.marquee-inner span::after { content: ''; display: inline-block; width: 5px; height: 5px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 12px var(--cyan); transition: box-shadow .6s cubic-bezier(.22, 1, .36, 1); }
+.marquee-inner span:hover::after { box-shadow: 0 0 18px var(--cyan), 0 0 32px rgba(142, 0, 255, .55); }
+@keyframes scroll-x { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-inner { animation: none; }
+  .marquee-inner span:hover { transform: none; }
+}
+html.motion-off .marquee-inner { animation: none; }
+html.motion-off .marquee-inner span:hover { transform: none; }
+
+/* === Hero === */
+.hero { position: relative; min-height: 100vh; overflow: hidden; cursor: none; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-bg video { width: 100%; height: 100%; object-fit: cover; }
+.hero-shade { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(5, 5, 7, .2) 0%, rgba(5, 5, 7, .6) 100%); }
+.hero-fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero-ui {
+  position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column;
+  justify-content: space-between; gap: 40px; pointer-events: none; padding: 130px 44px 96px;
+  min-height: 100vh;
+}
+.hero-top { display: flex; justify-content: space-between; gap: 40px; pointer-events: auto; }
+.hero-top .meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em;
+  color: var(--ink-muted); line-height: 2; text-transform: uppercase; max-width: 280px;
+}
+.hero-top .meta strong { display: block; color: var(--ink); margin-bottom: 8px; letter-spacing: .3em; }
+.hero-top .right { text-align: right; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; line-height: 2; text-transform: uppercase; }
+.hero-top .right .dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite var(--ease); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-title {
+  font-family: 'Instrument Serif', serif; font-size: clamp(64px, 12.5vw, 210px);
+  line-height: .88; letter-spacing: -.035em; font-weight: 400; max-width: 13ch;
+}
+.hero-title .it { font-style: italic; color: var(--blue); text-shadow: 0 0 40px rgba(76, 124, 255, .3); }
+.hero-bot { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+.hero-bot p { max-width: 440px; font-size: 15px; line-height: 1.7; color: var(--ink); opacity: .82; }
+.hero-bot p em { color: var(--cyan); font-style: normal; text-shadow: 0 0 12px rgba(61, 255, 252, .3); }
+.hero-bot .cue { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; display: flex; align-items: center; gap: 14px; color: var(--ink-muted); }
+.hero-bot .cue .b { width: 46px; height: 1px; background: currentColor; }
+
+/* === Doctrine === */
+.doctrine { padding: 160px 0; background: #000; position: relative; isolation: isolate; }
+.doctrine-head { display: flex; justify-content: space-between; gap: 80px; align-items: flex-end; padding: 160px 0 100px; }
+.doctrine-head h2 { max-width: 14ch; }
+.doctrine-head > div { max-width: 900px; }
+.doctrine-head > p { max-width: 280px; color: var(--ink-muted); font-size: 14.5px; line-height: 1.8; text-align: right; }
+.stmt { display: grid; grid-template-columns: 200px 1fr; gap: 60px; align-items: start; margin-bottom: 120px; transition: padding-left .7s var(--ease); }
+.stmt:hover { padding-left: 28px; }
+.stmt .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .3em; color: var(--ink-muted); padding-top: 18px; text-transform: uppercase; }
+.stmt .num .i { color: var(--cyan); margin-right: 14px; }
+.stmt p { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 3.4vw, 54px); line-height: 1.2; letter-spacing: -.02em; font-weight: 400; max-width: 26ch; }
+.stmt p em { font-style: italic; color: var(--blue); }
+.stmt p .ac { font-style: italic; color: var(--accent); }
+
+/* === Services horizontal strip === */
+.services { position: relative; isolation: isolate; }
+.services-intro { padding: 140px 0 60px; }
+.services-intro-inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 80px; flex-wrap: wrap; }
+.services-intro-inner p { max-width: 360px; color: var(--ink-muted); font-size: 14.5px; line-height: 1.8; }
+.services-pin { position: relative; height: 100vh; overflow: hidden; background: #000; isolation: isolate; }
+.services-track { display: flex; height: 100%; will-change: transform; }
+
+/* Panels 2× bigger (was 33.333vw → now 66.666vw), with 100px of
+   breathing room between each one. The 100px gap is implemented via
+   `margin-right` rather than flex gap so the last panel's right edge
+   doesn't get phantom spacing. */
+.svc-panel {
+  flex-shrink: 0;
+  width: 66.6667vw;
+  height: 100%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 0 60px;
+  margin-right: 100px;
+}
+.svc-panel:last-child { margin-right: 0; }
+
+.svc-inner {
+  position: relative; z-index: 2;
+  width: 100%; max-width: none;
+  padding: 0 clamp(32px, 4vw, 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2.5vw, 40px);
+  align-items: center;
+}
+
+/* Frame: 2× bigger (max-width 720 was 360). Circular aspect-ratio
+   preserved so all 12 videos stay visually identical in weight. */
+.svc-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  background: transparent;
+  overflow: visible;
+  isolation: isolate;
+  cursor: none;
+  /* Cursor position within the frame (0..1) — JS sets these on
+     pointermove so the prism bars can tilt / shift toward the light
+     source, just like the hero shader. Defaults center the effect
+     when the pointer is elsewhere. */
+  --px: 0.5;
+  --py: 0.5;
+  --active: 0;
+  transition:
+    transform .6s cubic-bezier(.22, 1, .36, 1),
+    filter .6s cubic-bezier(.22, 1, .36, 1);
+}
+.svc-frame:hover {
+  transform: scale(1.03);
+  filter: saturate(1.12) brightness(1.06);
+}
+
+/* Video fills the circle fully (was 52% opaque, 48% fade → clipping
+   corners too hard). Now opaque to 72% of the radius before the fade
+   begins, so the full video subject is visible inside the circle and
+   only the very edge softens. */
+.svc-frame video {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  border-radius: 50%;
+  -webkit-mask-image: radial-gradient(circle at center,
+    rgba(0,0,0,1)   0%,
+    rgba(0,0,0,1)   74%,
+    rgba(0,0,0,.88) 86%,
+    rgba(0,0,0,.45) 94%,
+    transparent    100%);
+          mask-image: radial-gradient(circle at center,
+    rgba(0,0,0,1)   0%,
+    rgba(0,0,0,1)   74%,
+    rgba(0,0,0,.88) 86%,
+    rgba(0,0,0,.45) 94%,
+    transparent    100%);
+}
+
+/* === Prism bars per frame — 8 horizontal bands, same spectrum as
+   the hero's WebGL prism but laid out left-to-right (was 180deg =
+   vertical; now a striped repeating gradient at 90deg + hue tints).
+   The bars "breathe" toward the cursor via the --px / --py vars —
+   every frame reads the same CSS custom properties and shifts
+   independently, so pointer-over one frame doesn't drive them all. */
+.svc-frame::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  /* 8 hue stops, left-to-right — the eight bars visualized as a
+     continuous refractive spectrum across the circle. */
+  background: linear-gradient(90deg,
+    hsla(  0, 96%, 60%, .28) 0%,
+    hsla( 30, 96%, 60%, .28) 14%,
+    hsla( 60, 96%, 60%, .28) 28%,
+    hsla(120, 96%, 60%, .28) 42%,
+    hsla(180, 96%, 60%, .28) 56%,
+    hsla(220, 96%, 60%, .28) 70%,
+    hsla(270, 96%, 60%, .28) 84%,
+    hsla(320, 96%, 60%, .28) 100%);
+  mix-blend-mode: screen;
+  filter: blur(calc(8px - var(--active, 0) * 4px));
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(.6 + var(--active, 0) * .35);
+  /* Mask keeps the prism inside the circle, same falloff as the video. */
+  -webkit-mask-image: radial-gradient(circle at center,
+    black 72%, rgba(0,0,0,.6) 88%, transparent 100%);
+          mask-image: radial-gradient(circle at center,
+    black 72%, rgba(0,0,0,.6) 88%, transparent 100%);
+  /* Cursor-driven lateral shift — moves the spectrum toward the pointer,
+     just like the hero's caustic line tracks uMouse.x. Clamped small. */
+  transform: translate(
+    calc((var(--px, .5) - .5) * 28px),
+    calc((var(--py, .5) - .5) * 12px)
+  );
+  transition: filter .4s cubic-bezier(.22, 1, .36, 1), opacity .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Caustic vertical line — one bright thin streak at the pointer's X
+   within the frame, same concept as the hero's .prism-caustic.
+   Reveals on hover (--active=1) and fades on pointer-out. */
+.svc-frame::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(var(--px, .5) * 100%);
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(255, 255, 255, .95) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, .95) 55%,
+    transparent 100%);
+  box-shadow:
+    0 0 16px rgba(255, 255, 255, .8),
+    0 0 36px rgba(255, 106, 213, .55),
+    0 0 64px rgba(142, 0, 255, .35);
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: calc(var(--active, 0) * .9);
+  -webkit-mask-image: radial-gradient(circle at center, black 74%, transparent 100%);
+          mask-image: radial-gradient(circle at center, black 74%, transparent 100%);
+  transition: opacity .3s cubic-bezier(.22, 1, .36, 1);
+  transform: scaleY(calc(.85 + var(--active, 0) * .15));
+}
+
+/* Atmospheric bloom — sits OUTSIDE the circle, intensifies on hover. */
+.svc-frame-bloom {
+  content: '';
+  position: absolute; inset: -16%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+    rgba(255, 106, 213, .22) 0%,
+    rgba(142, 0, 255, .12) 35%,
+    rgba(255, 45, 74, .08) 60%,
+    transparent 80%);
+  filter: blur(36px);
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: calc(.7 + var(--active, 0) * .3);
+  transition: opacity .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Service 8 (Studio + A/V Print) keeps the default sibling sizing —
+   I'd previously enlarged it but the user clarified the 3× bump was
+   meant for the Interlude KR8TIV video, not this scroller panel. The
+   text-free video swap (forrestbackground.mp4) is preserved in
+   content.ts; only the size override is reverted. */
+
+/* AI Partnership panel removed at user request — the previous
+   :last-child overrides (flat 2:3 frame, no circular mask, no prism
+   band) were authored for that specific Design-34 video. With the
+   panel gone the new last-child is Motion + 3D, which should keep
+   the standard circular prism frame, so all those overrides are
+   retired. */
+
+.svc-copy { max-width: 100%; }
+/* All typography ~2× the 33vw-panel version, to match the 66vw panel
+   width increase and the 720px video frames. */
+.svc-copy .meta { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 28px; line-height: 1.55; }
+.svc-copy .meta .b { display: inline-block; width: 36px; height: 1px; background: currentColor; margin-right: 14px; vertical-align: middle; }
+.svc-copy h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 4.4vw, 84px);
+  line-height: .98;
+  letter-spacing: -.025em;
+  font-weight: 400;
+  margin: 0 0 28px;
+}
+.svc-copy h3 .ac { font-style: italic; color: var(--accent); }
+.svc-copy p { font-size: 18px; line-height: 1.6; color: var(--ink); max-width: none; margin-bottom: 36px; }
+.svc-copy .price { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; }
+.svc-copy .price .p { display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(32px, 3vw, 52px); color: var(--accent); letter-spacing: -.02em; margin-top: 8px; }
+.svc-rec { position: absolute; top: 110px; left: 60px; z-index: 3; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.svc-rec::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); animation: pulse 2s infinite var(--ease); }
+.svc-counter { position: absolute; top: 110px; right: 60px; z-index: 3; font-family: 'JetBrains Mono', monospace; color: var(--ink-muted); font-size: 11px; letter-spacing: .28em; text-align: right; text-transform: uppercase; }
+.svc-counter .n { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; font-size: 72px; color: var(--ink); letter-spacing: -.03em; line-height: .9; margin-bottom: 10px; }
+
+/* === Why === */
+.why { position: relative; height: 200vh; isolation: isolate; }
+.why-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.why-bg { position: absolute; inset: 0; z-index: 0; }
+/* Opacity history: .4 (initial) → .62 (user asked brighter) → .37
+   (user asked 40% less visible from the bright state). This softer
+   setting lets the prism overlay + copy breathe while still reading
+   as a lit background, not a flat black. */
+.why-bg video {
+  width: 100%; height: 100%; object-fit: cover; opacity: .37;
+  filter: contrast(1.04) saturate(1.08) brightness(1.08);
+}
+.why-inner { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: center; max-width: 1440px; margin: 0 auto; padding: 0 64px; gap: 80px; }
+.why-left .kanji { font-family: 'JetBrains Mono', monospace; font-size: 120px; color: var(--accent); line-height: 1; margin-bottom: 32px; filter: drop-shadow(0 0 40px rgba(255, 45, 74, .4)); }
+.why-left h2 { font-family: 'Instrument Serif', serif; font-size: clamp(72px, 9vw, 160px); line-height: .92; margin: 0; font-weight: 400; letter-spacing: -.03em; }
+.why-left h2 .it { font-style: italic; color: var(--blue); }
+.why-right { display: flex; flex-direction: column; gap: 48px; }
+.why-right .q { border-left: 1px solid var(--edge); padding-left: 32px; }
+.why-right .q .tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 16px; display: block; }
+.why-right .q p { font-family: 'Instrument Serif', serif; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.3; font-weight: 400; letter-spacing: -.015em; margin: 0 0 12px; max-width: 32ch; }
+.why-right .q p em { font-style: italic; color: var(--blue); }
+.why-right .q cite { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; color: var(--ink-muted); font-style: normal; text-transform: uppercase; }
+
+/* === Process === */
+.process { padding: 160px 0; background: #000; isolation: isolate; }
+.process-head { display: flex; justify-content: space-between; gap: 80px; align-items: flex-end; padding: 0 0 100px; }
+.process-head h2 { max-width: 14ch; }
+.process-steps { display: grid; gap: 32px; max-width: 1100px; margin: 0 auto; }
+.process-step { display: grid; grid-template-columns: 120px 1fr auto; gap: 48px; align-items: baseline; padding: 32px 0; border-top: 1px solid var(--edge); transition: padding-left .5s var(--ease); }
+.process-step:hover { padding-left: 16px; }
+.process-step .n { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 72px; line-height: .9; color: var(--accent); letter-spacing: -.02em; }
+.process-step h3 { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 3.2vw, 48px); line-height: 1; font-weight: 400; letter-spacing: -.02em; margin: 0 0 12px; }
+.process-step p { font-size: 15px; line-height: 1.6; color: var(--ink); max-width: 52ch; margin: 0; }
+.process-step .dur { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; white-space: nowrap; }
+
+/* === Work === */
+.work { padding: 160px 0; background: #000; isolation: isolate; }
+.work-head { display: flex; justify-content: space-between; gap: 80px; align-items: flex-end; padding: 0 0 100px; }
+.work-head h2 { max-width: 14ch; }
+.work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px; }
+.work-card { position: relative; aspect-ratio: 16/10; overflow: hidden; cursor: pointer; background: #101015; }
+.work-card video, .work-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.work-card:hover video, .work-card:hover img { transform: scale(1.05); }
+.work-card .meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; background: linear-gradient(to top, rgba(0, 0, 0, .85), transparent); color: var(--ink); }
+.work-card .meta .tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; display: block; }
+.work-card .meta h3 { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 2.6vw, 38px); line-height: 1; font-weight: 400; margin: 0; letter-spacing: -.02em; }
+.work-card .meta h3 em { font-style: italic; color: var(--blue); }
+@media (max-width: 980px) { .work-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* === Reel === */
+.reel { position: relative; height: 200vh; isolation: isolate; }
+.reel-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.reel-bg { position: absolute; inset: 0; z-index: 0; }
+.reel-bg video { width: 100%; height: 100%; object-fit: cover; opacity: .6; }
+.reel-inner { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 32px; }
+.reel-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(72px, 12vw, 220px); line-height: .9; margin: 0; font-weight: 400; letter-spacing: -.035em; max-width: 20ch; }
+.reel-inner h2 em { font-style: italic; color: var(--accent); }
+
+/* === Contact === */
+.contact { padding: 200px 0 120px; background: #000; isolation: isolate; }
+.contact-head { text-align: center; margin-bottom: 100px; }
+.contact-head .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 32px; display: block; }
+.contact-head h2 { font-family: 'Instrument Serif', serif; font-size: clamp(64px, 10vw, 180px); line-height: .9; margin: 0; font-weight: 400; letter-spacing: -.03em; max-width: 18ch; margin: 0 auto; }
+.contact-head h2 em { font-style: italic; color: var(--accent); }
+.contact-cta { display: flex; justify-content: center; gap: 40px; margin-bottom: 160px; flex-wrap: wrap; }
+.contact-cta a { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .3em; color: var(--ink); text-transform: uppercase; padding: 20px 40px; border: 1px solid var(--edge); transition: border-color .4s var(--ease), letter-spacing .4s var(--ease); }
+.contact-cta a:hover { border-color: var(--ink); letter-spacing: .38em; }
+.foot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; padding: 80px 0 40px; border-top: 1px solid var(--edge); }
+.foot-col h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; margin: 0 0 20px; font-weight: 500; }
+.foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.foot-col ul li a { color: var(--ink); font-size: 14px; opacity: .7; transition: opacity .3s var(--ease); }
+.foot-col ul li a:hover { opacity: 1; }
+.foot-bar { display: flex; justify-content: space-between; gap: 40px; padding: 32px 0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; color: var(--ink-muted); text-transform: uppercase; border-top: 1px solid var(--edge); flex-wrap: wrap; }
+@media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+
+/* === Radial Popover Nav ===
+   Uses native popover API. Items are positioned via CSS calc() +
+   trigonometry (cos/sin on --i index) so no JS is needed for the
+   geometry. Popover backdrop (::backdrop) dims the page while open. */
+.radial-nav[popover] {
+  position: fixed;
+  top: auto; right: 32px; bottom: auto; left: auto;
+  /* Anchor near the nav toggles in the upper-right. */
+  translate: 0 54px;
+  margin: 0; padding: 0; border: 0; background: transparent;
+  width: 320px; height: 320px;
+  pointer-events: none;            /* only items intercept events */
+  opacity: 0; scale: .85;
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1), scale .45s cubic-bezier(.22, 1, .36, 1), display .45s allow-discrete;
+}
+.radial-nav[popover]:popover-open {
+  opacity: 1; scale: 1;
+}
+@starting-style {
+  .radial-nav[popover]:popover-open { opacity: 0; scale: .85; }
+}
+.radial-nav::backdrop {
+  background: radial-gradient(circle at top right, rgba(0,0,0,.6), rgba(0,0,0,.2));
+  backdrop-filter: blur(8px) saturate(.8);
+  -webkit-backdrop-filter: blur(8px) saturate(.8);
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1), display .45s allow-discrete;
+  opacity: 0;
+}
+.radial-nav:popover-open::backdrop { opacity: 1; }
+
+/* --count is the number of items in the ring. --i is the item's index.
+   Items are placed around a 120deg arc starting from "down-left" at 210deg
+   so they fan out from the trigger without overlapping the nav bar. */
+.radial-item {
+  --count: 8;
+  --start: 200deg;                  /* 180° = straight down; -20° offset fans up-left */
+  --arc: 220deg;                    /* wider arc for 8 items */
+  --angle: calc(var(--start) + (var(--arc) / (var(--count) - 1)) * var(--i));
+  --radius: 140px;
+  position: absolute;
+  top: 50%; left: 50%;
+  width: auto; min-width: 44px; height: 44px; padding: 0 14px;
+  border-radius: 22px;
+  background: rgba(12, 12, 16, .88);
+  border: 1px solid rgba(242, 241, 236, .12);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+  display: inline-flex; align-items: center; justify-content: center;
+  pointer-events: auto;
+  transform:
+    translate(-50%, -50%)
+    translate(calc(cos(var(--angle)) * var(--radius)), calc(sin(var(--angle)) * var(--radius)));
+  transition:
+    background .4s cubic-bezier(.22, 1, .36, 1),
+    border-color .4s cubic-bezier(.22, 1, .36, 1),
+    letter-spacing .4s cubic-bezier(.22, 1, .36, 1);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .6);
+}
+.radial-item:hover, .radial-item:focus-visible {
+  background: rgba(255, 45, 74, .08);
+  border-color: rgba(255, 45, 74, .7);
+  letter-spacing: .36em;
+  outline: none;
+}
+.radial-item.active {
+  background: rgba(255, 106, 213, .18);
+  border-color: var(--accent-1);
+  color: var(--ink);
+  box-shadow: 0 0 20px rgba(255, 106, 213, .4);
+}
+.nav-mid a.active {
+  color: var(--accent-1);
+  border-bottom: 1px solid var(--accent-1);
+  padding-bottom: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .radial-nav[popover], .radial-item { transition-duration: 0s; }
+}
+
+/* === Variant bar (fixed, bottom) === */
+.variant-bar {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  z-index: 40; display: flex; gap: 4px;
+  background: rgba(0, 0, 0, .72); backdrop-filter: blur(16px);
+  padding: 8px 12px; border-radius: 24px; border: 1px solid var(--edge);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em;
+}
+.variant-bar a {
+  padding: 6px 10px;
+  color: var(--ink-muted);
+  border-radius: 12px;
+  transition:
+    transform .6s cubic-bezier(.22, 1, .36, 1),
+    font-weight .5s cubic-bezier(.22, 1, .36, 1),
+    color .4s cubic-bezier(.22, 1, .36, 1),
+    background .4s cubic-bezier(.22, 1, .36, 1),
+    text-shadow .8s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform, text-shadow;
+}
+.variant-bar a.active { color: var(--accent); }
+.variant-bar a:hover {
+  transform: scale(1.25);
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, .06);
+  text-shadow:
+    0 0 4px rgba(255, 246, 225, .75),
+    0 0 14px rgba(255, 106, 213, .5),
+    0 0 28px rgba(142, 0, 255, .3);
+}
+@media (prefers-reduced-motion: reduce) { .variant-bar a:hover { transform: none; } }
+html.motion-off .variant-bar a:hover { transform: none; }
+
+/* =====================================================================
+   ORACLE · command palette popover (Hybrid layer 2/3)
+   ===================================================================== */
+.oracle[popover] {
+  width: min(640px, 92vw);
+  max-height: 68vh;
+  padding: 0;
+  border: 1px solid rgba(255, 106, 213, .3);
+  border-radius: 12px;
+  background: rgba(10, 10, 16, .94);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  color: var(--ink);
+  overflow: hidden;
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, .7),
+    0 0 96px rgba(255, 106, 213, .12);
+  opacity: 0;
+  transform: translateY(8px) scale(.98);
+  transition:
+    opacity .28s cubic-bezier(.22, 1, .36, 1),
+    transform .32s cubic-bezier(.22, 1, .36, 1),
+    display .32s allow-discrete,
+    overlay .32s allow-discrete;
+  z-index: 9999;
+}
+.oracle[popover]:popover-open { opacity: 1; transform: translateY(0) scale(1); }
+@starting-style {
+  .oracle[popover]:popover-open { opacity: 0; transform: translateY(8px) scale(.98); }
+}
+.oracle::backdrop {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, .55), rgba(0, 0, 0, .9));
+  backdrop-filter: blur(6px);
+  transition: opacity .32s cubic-bezier(.22, 1, .36, 1), display .32s allow-discrete;
+  opacity: 0;
+}
+.oracle:popover-open::backdrop { opacity: 1; }
+@starting-style { .oracle:popover-open::backdrop { opacity: 0; } }
+
+.oracle .oracle-input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 24px 28px;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 30px;
+  color: var(--ink);
+  outline: none;
+  border-bottom: 1px solid var(--edge);
+  letter-spacing: -.008em;
+  box-sizing: border-box;
+}
+.oracle .oracle-input::placeholder { color: var(--ink-muted); opacity: .52; }
+.oracle .oracle-input:focus { border-bottom-color: var(--accent-1); }
+
+.oracle .oracle-list {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  max-height: calc(68vh - 120px);
+  overflow-y: auto;
+}
+.oracle .oracle-list li {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .2s cubic-bezier(.22, 1, .36, 1), transform .2s cubic-bezier(.22, 1, .36, 1);
+  color: var(--ink);
+}
+.oracle .oracle-list li:hover,
+.oracle .oracle-list li[aria-selected="true"] {
+  background: rgba(255, 106, 213, .12);
+  transform: translateX(2px);
+}
+.oracle .oracle-list .ico {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--accent-1);
+  line-height: 1;
+  text-align: center;
+}
+.oracle .oracle-list .body strong {
+  display: block;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: 0;
+}
+.oracle .oracle-list .body em {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.oracle .oracle-list .shortcut {
+  display: inline-flex;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-muted);
+}
+.oracle kbd {
+  display: inline-block;
+  padding: 3px 7px;
+  border: 1px solid var(--edge);
+  border-radius: 3px;
+  background: rgba(242, 241, 236, .06);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--accent-1);
+}
+.oracle .oracle-empty {
+  padding: 24px 28px;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--ink-muted);
+  opacity: .8;
+}
+.oracle .oracle-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 18px;
+  border-top: 1px solid var(--edge);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.oracle .oracle-foot .oracle-brand { color: var(--accent-1); }
+
+/* =====================================================================
+   KINTSUGI · full-viewport shatter overlay (Hybrid layer 3/3)
+   ===================================================================== */
+.kintsugi-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, .82), rgba(0, 0, 0, .94));
+  backdrop-filter: blur(10px) saturate(.8);
+  -webkit-backdrop-filter: blur(10px) saturate(.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .4s;
+}
+.kintsugi-overlay[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear 0s;
+}
+
+/* Dim & desaturate the page behind the overlay */
+html.kintsugi-open main,
+html.kintsugi-open nav {
+  filter: brightness(.4) saturate(.6);
+  transition: filter .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Close button — floats top-right */
+.kintsugi-overlay .kin-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 209, 102, .08);
+  border: 1px solid var(--accent-4);
+  color: var(--accent-4);
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background .3s, color .3s, transform .3s;
+}
+.kintsugi-overlay .kin-close:hover {
+  background: var(--accent-4);
+  color: #000;
+  transform: rotate(90deg);
+}
+.kintsugi-overlay .kin-close-hint {
+  position: absolute;
+  top: calc(100% + 8px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .24em;
+  color: var(--ink-muted);
+  opacity: .7;
+  pointer-events: none;
+}
+
+/* Center glyph — 侍 at the impact point */
+.kintsugi-overlay .kin-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s cubic-bezier(.22, 1, .36, 1) .4s;
+}
+.kintsugi-overlay[data-open="true"] .kin-center { opacity: 1; }
+.kintsugi-overlay .kin-center-glyph {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(80px, 14vw, 180px);
+  color: var(--accent-1);
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(255, 106, 213, .5), 0 0 120px rgba(255, 209, 102, .3);
+}
+.kintsugi-overlay .kin-center-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* SVG crack paths */
+.kintsugi-overlay svg.kin-cracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.kintsugi-overlay svg.kin-cracks .kin-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  transition: stroke-dashoffset 1s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: calc(var(--i, 0) * 1s);
+}
+
+/* === Multi-layer crack rendering ============================== */
+/* Each SPINE is drawn 3x (shadow / gold / highlight) so the crack
+   reads as a chiseled groove filled with gold, with a bright seam
+   down the center. BRANCHES get 2 layers, FEATHERS get 1. The
+   stroke-width vocabulary declines with tier authority. */
+
+/* Shadow layer — dark, wide, slightly blurred. The "depth" of the fissure. */
+.kintsugi-overlay svg.kin-cracks .kin-path-shadow {
+  stroke: #1a0e00;
+  filter: blur(0.5px);
+  opacity: .85;
+}
+.kintsugi-overlay svg.kin-cracks .kin-path-shadow.kin-tier-spine  { stroke-width: 1.4; }
+.kintsugi-overlay svg.kin-cracks .kin-path-shadow.kin-tier-branch { stroke-width: 0.8; }
+
+/* Gold body — the actual kintsugi filling. Warm brass-gold, not
+   pure yellow, for a more authentic metallic look. */
+.kintsugi-overlay svg.kin-cracks .kin-path-gold {
+  stroke: #d4a636;                              /* desaturated brass */
+  filter:
+    drop-shadow(0 0 1.2px rgba(255, 209, 102, .9))
+    drop-shadow(0 0 3px   rgba(255, 209, 102, .55))
+    drop-shadow(0 0 8px   rgba(255, 180, 80, .25));
+}
+.kintsugi-overlay svg.kin-cracks .kin-path-gold.kin-tier-spine   { stroke-width: 0.6; }
+.kintsugi-overlay svg.kin-cracks .kin-path-gold.kin-tier-branch  { stroke-width: 0.38; }
+.kintsugi-overlay svg.kin-cracks .kin-path-gold.kin-tier-feather { stroke-width: 0.22; opacity: .7; }
+
+/* Bright highlight seam — near-white center line, only on spines.
+   This is the "polished gold reflecting light" pass. */
+.kintsugi-overlay svg.kin-cracks .kin-path-hilite {
+  stroke: #fff4cc;
+  stroke-width: 0.2;
+  filter: drop-shadow(0 0 1px rgba(255, 244, 204, .9));
+  opacity: .85;
+}
+
+/* Micro-cracks at the impact center — short, bright, no layers needed. */
+.kintsugi-overlay svg.kin-cracks .kin-path-micro {
+  stroke: var(--accent-4);
+  stroke-width: 0.3;
+  filter: drop-shadow(0 0 1.5px rgba(255, 209, 102, 1));
+  opacity: .85;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+}
+
+/* === Sparkle glints — gold powder at intersections ============== */
+.kintsugi-overlay svg.kin-cracks .kin-sparkle {
+  fill: #fff4cc;
+  opacity: 0;
+  filter:
+    drop-shadow(0 0 1.2px rgba(255, 244, 204, 1))
+    drop-shadow(0 0 3px   rgba(255, 209, 102, .8))
+    drop-shadow(0 0 7px   rgba(255, 180, 80, .35));
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity .5s cubic-bezier(.22, 1, .36, 1) 1.4s;
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-sparkle {
+  opacity: 1;
+  animation: kin-sparkle-pulse 2.8s cubic-bezier(.4, 0, .6, 1) infinite;
+  animation-delay: calc(1.6s + var(--delay, 0s));
+}
+@keyframes kin-sparkle-pulse {
+  0%, 100% { transform: scale(1);   opacity: .85; }
+  25%      { transform: scale(1.5); opacity: 1;   }
+  50%      { transform: scale(1);   opacity: .6;  }
+  75%      { transform: scale(1.3); opacity: 1;   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-sparkle { animation: none; }
+}
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-sparkle { animation: none; }
+
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-path {
+  stroke-dashoffset: 0;
+}
+
+/* Label groups */
+.kintsugi-overlay svg.kin-cracks .kin-label-group {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.kintsugi-overlay svg.kin-cracks .kin-dot {
+  fill: var(--accent-4);
+  filter: drop-shadow(0 0 2px rgba(255, 209, 102, 1));
+  opacity: 0;
+  transition: opacity .4s cubic-bezier(.22, 1, .36, 1) .7s, r .3s cubic-bezier(.22, 1, .36, 1);
+}
+.kintsugi-overlay svg.kin-cracks .kin-hot {
+  fill: transparent;
+  stroke: transparent;
+}
+.kintsugi-overlay svg.kin-cracks .kin-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4px;               /* viewBox-relative; scaled by SVG */
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  fill: var(--ink);
+  paint-order: stroke fill;
+  stroke: rgba(0, 0, 0, .7);
+  stroke-width: 0.3;
+  opacity: 0;
+  transition: opacity .5s cubic-bezier(.22, 1, .36, 1) .9s, fill .3s;
+  user-select: none;
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-dot,
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-label {
+  opacity: 1;
+}
+.kintsugi-overlay svg.kin-cracks .kin-label-group:hover .kin-label,
+.kintsugi-overlay svg.kin-cracks .kin-label-group:focus .kin-label {
+  fill: var(--accent-1);
+}
+.kintsugi-overlay svg.kin-cracks .kin-label-group:hover .kin-dot,
+.kintsugi-overlay svg.kin-cracks .kin-label-group:focus .kin-dot {
+  fill: var(--accent-1);
+  filter: drop-shadow(0 0 4px var(--accent-1));
+}
+.kintsugi-overlay svg.kin-cracks .kin-label-group:focus { outline: none; }
+.kintsugi-overlay svg.kin-cracks .kin-label-group:focus-visible .kin-dot { r: 1.4; }
+
+/* ──── HTML labels (replaces the stretched SVG <text> labels) ───────
+   Positioned in % via --lx / --ly set inline by JS. Wears the same
+   mono-uppercase / accent-1 hover treatment used elsewhere on the
+   site so the menu stops feeling like a foreign island. */
+.kintsugi-overlay .kin-label-html {
+  position: absolute;
+  left: var(--lx, 50%);
+  top: var(--ly, 50%);
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 16px;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  /* Switched from JetBrains Mono to Instrument Serif so the menu
+     wears the same editorial-serif voice as the hero title and the
+     other big headlines across the site. Lowercased for the elegant
+     serif treatment (matches "death to / generic." rhythm). */
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 2.6vw, 38px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -.005em;
+  text-transform: lowercase;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: auto;
+  white-space: nowrap;
+  text-shadow:
+    0 0 8px rgba(0, 0, 0, .9),
+    0 0 24px rgba(0, 0, 0, .55);
+  transition: opacity .55s cubic-bezier(.22, 1, .36, 1) .55s,
+              color .35s cubic-bezier(.22, 1, .36, 1),
+              transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+.kintsugi-overlay[data-open="true"] .kin-label-html { opacity: 1; }
+.kintsugi-overlay .kin-label-html .kin-label-dot {
+  display: inline-block;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow:
+    0 0 10px rgba(255, 106, 213, .7),
+    0 0 22px rgba(255, 106, 213, .35);
+  transition: background .35s, box-shadow .35s, transform .35s;
+}
+.kintsugi-overlay .kin-label-html .kin-label-text {
+  display: inline-block;
+}
+
+/* Right-side labels: text on the left, dot on the right (markup
+   order set by JS). Center the dot baseline with the cap-height of
+   the text so the cluster reads as one unit. */
+.kintsugi-overlay .kin-label-html[data-side="right"] {
+  justify-content: flex-end;
+}
+
+/* Hover / focus — magenta pop + slight italic tilt (echoes the
+   hero title's "ignore," and "process" italic accents). Bigger
+   serif type doesn't need tracking widen — italic does the work. */
+.kintsugi-overlay .kin-label-html:hover,
+.kintsugi-overlay .kin-label-html:focus-visible {
+  color: var(--accent-1);
+  font-style: italic;
+  outline: none;
+}
+.kintsugi-overlay .kin-label-html:hover .kin-label-dot,
+.kintsugi-overlay .kin-label-html:focus-visible .kin-label-dot {
+  transform: scale(1.4);
+  box-shadow:
+    0 0 8px rgba(255, 106, 213, .9),
+    0 0 22px rgba(255, 106, 213, .55),
+    0 0 40px rgba(142, 0, 255, .35);
+}
+
+/* Light theme — keep the same hierarchy but lift the text colour
+   and use deeper rose for the accent. */
+html[data-theme="light"] .kintsugi-overlay .kin-label-html {
+  color: var(--ink);
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, .9),
+    0 0 14px rgba(255, 255, 255, .6);
+}
+html[data-theme="light"] .kintsugi-overlay .kin-label-html .kin-label-dot {
+  background: var(--accent-1);
+  box-shadow:
+    0 0 6px rgba(194, 43, 130, .55),
+    0 0 14px rgba(194, 43, 130, .3);
+}
+html[data-theme="light"] .kintsugi-overlay .kin-label-html:hover,
+html[data-theme="light"] .kintsugi-overlay .kin-label-html:focus-visible {
+  color: var(--accent-1);
+}
+
+@media (max-width: 720px) {
+  .kintsugi-overlay .kin-label-html { font-size: 22px; gap: 14px; padding: 8px 10px; }
+  .kintsugi-overlay .kin-label-html .kin-label-dot { width: 7px; height: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kintsugi-overlay .kin-label-html { transition-duration: 0s; }
+}
+html.motion-off .kintsugi-overlay .kin-label-html { transition-duration: 0s; }
+
+/* Center caption — refresh to match the new label rhythm. */
+.kintsugi-overlay .kin-center-label {
+  letter-spacing: .42em;
+  font-weight: 500;
+  color: var(--accent-1);
+  opacity: .82;
+}
+.kintsugi-overlay .kin-center-glyph {
+  /* Slightly tighter halo so the magenta halo doesn't bleed past
+     the magnetic field's particle envelope. */
+  text-shadow:
+    0 0 28px rgba(255, 106, 213, .55),
+    0 0 64px rgba(255, 106, 213, .28),
+    0 0 120px rgba(142, 0, 255, .2);
+}
+
+/* ========================================================================
+   EPIC LAYER ─ extras stacked on top of the base shatter aesthetic.
+   Each subsystem is opt-in via [data-open="true"] so the overlay paints
+   nothing when closed, and gated by reduced-motion at the bottom.
+   ======================================================================== */
+
+/* Big radial halo behind the impact center — slow breath cycle so the
+   composition has ambient life even before any cursor activity. */
+.kintsugi-overlay svg.kin-cracks .kin-impact-halo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 1.4s cubic-bezier(.22, 1, .36, 1) .35s;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-impact-halo {
+  opacity: .9;
+  animation: kin-halo-breathe 6.4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+@keyframes kin-halo-breathe {
+  0%, 100% { transform: scale(1);    opacity: .85; }
+  50%      { transform: scale(1.08); opacity: 1;   }
+}
+
+/* Shockwave — expands from impact + fades. Two waves with a small
+   stagger for that ringing-after-the-strike feel. The ring uses
+   non-scaling-stroke so width compresses visually as scale grows,
+   reading as energy diffusing instead of an inflating balloon. */
+.kintsugi-overlay svg.kin-cracks .kin-shockwave {
+  stroke: rgba(255, 209, 102, .95);
+  stroke-width: 0.5;
+  fill: none;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 1.5px rgba(255, 209, 102, .8))
+          drop-shadow(0 0 6px   rgba(255, 106, 213, .35));
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave {
+  animation: kin-shockwave-burst 1.6s cubic-bezier(.16, .8, .3, 1) forwards;
+  animation-delay: .15s;
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave-2 {
+  animation-delay: .55s;
+  stroke: rgba(255, 106, 213, .9);
+}
+@keyframes kin-shockwave-burst {
+  0%   { transform: scale(1);   opacity: 1;   stroke-width: 0.6;  }
+  18%  {                          opacity: 1;                       }
+  100% { transform: scale(58);  opacity: 0;   stroke-width: 0.05; }
+}
+
+/* Spine energy pulses — small dots traveling along the cracks via
+   <animateMotion>. Visible only when the overlay is open. The "surge"
+   class (added on label hover) amplifies the dot's halo. */
+.kintsugi-overlay svg.kin-cracks .kin-spine-pulse {
+  fill: #fff7d6;
+  opacity: 0;
+  filter: drop-shadow(0 0 1.4px rgba(255, 244, 204, 1))
+          drop-shadow(0 0 3.5px rgba(255, 209, 102, .85))
+          drop-shadow(0 0 7px   rgba(255, 106, 213, .55))
+          drop-shadow(0 0 14px  rgba(142, 0, 255, .25));
+  transition: filter .35s cubic-bezier(.22, 1, .36, 1);
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-spine-pulse {
+  opacity: 1;
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-spine-pulse.surge {
+  filter: drop-shadow(0 0 2px   rgba(255, 244, 204, 1))
+          drop-shadow(0 0 6px   rgba(255, 209, 102, 1))
+          drop-shadow(0 0 12px  rgba(255, 106, 213, .9))
+          drop-shadow(0 0 24px  rgba(142, 0, 255, .55));
+}
+
+/* Spine surge — when a label is hovered/focused, its three crack
+   layers gain `.surge`. The gold layer brightens + thickens; the
+   highlight layer pumps to near-full opacity. */
+.kintsugi-overlay svg.kin-cracks .kin-tier-spine.surge {
+  transition: stroke .25s cubic-bezier(.22, 1, .36, 1),
+              stroke-width .25s cubic-bezier(.22, 1, .36, 1),
+              filter .25s cubic-bezier(.22, 1, .36, 1);
+}
+.kintsugi-overlay svg.kin-cracks .kin-path-gold.kin-tier-spine.surge {
+  stroke: #ffe082;
+  stroke-width: 1.0;
+  filter:
+    drop-shadow(0 0 1.6px rgba(255, 224, 130, 1))
+    drop-shadow(0 0 5px   rgba(255, 209, 102, .9))
+    drop-shadow(0 0 12px  rgba(255, 106, 213, .55));
+}
+.kintsugi-overlay svg.kin-cracks .kin-path-hilite.kin-tier-spine.surge {
+  stroke: #fffaeb;
+  stroke-width: 0.32;
+  opacity: 1;
+}
+.kintsugi-overlay svg.kin-cracks .kin-path-shadow.kin-tier-spine.surge {
+  stroke-width: 1.8;
+  opacity: 1;
+}
+
+/* Floating gold debris — drifts outward from the impact center on
+   randomized vectors via CSS variables set in JS. */
+.kintsugi-overlay svg.kin-cracks .kin-debris {
+  fill: #ffe082;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 1px rgba(255, 209, 102, 1))
+          drop-shadow(0 0 3px rgba(255, 106, 213, .35));
+}
+.kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-debris {
+  animation: kin-debris-drift var(--dur, 5s) ease-out infinite;
+  animation-delay: calc(0.6s + var(--delay, 0s));
+}
+@keyframes kin-debris-drift {
+  0%   { opacity: 0;  transform: translate(0, 0) scale(1); }
+  18%  { opacity: 1;                                         }
+  85%  { opacity: .6;                                        }
+  100% { opacity: 0;  transform: translate(var(--dx), var(--dy)) scale(0.4); }
+}
+
+/* Center kanji — chromatic aberration on the 侍 glyph + slow halo
+   pulse. Layers as text-shadow so it's free (no extra DOM). */
+.kintsugi-overlay[data-open="true"] .kin-center-glyph {
+  text-shadow:
+    -2px 0 0 rgba(255, 45, 74, .55),
+     2px 0 0 rgba( 60, 230, 255, .42),
+    0 0 6px  rgba(255, 244, 204, .85),
+    0 0 18px rgba(255, 209, 102, .55),
+    0 0 38px rgba(255, 106, 213, .35),
+    0 0 70px rgba(142, 0, 255, .22);
+  animation: kin-glyph-breathe 5.2s ease-in-out infinite;
+}
+@keyframes kin-glyph-breathe {
+  0%, 100% { transform: scale(1);    filter: brightness(1); }
+  50%      { transform: scale(1.04); filter: brightness(1.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kintsugi-overlay svg.kin-cracks .kin-path {
+    transition-duration: 0s;
+    stroke-dashoffset: 0;
+  }
+  .kintsugi-overlay .kin-center,
+  .kintsugi-overlay svg.kin-cracks .kin-dot,
+  .kintsugi-overlay svg.kin-cracks .kin-label {
+    transition-duration: 0s;
+  }
+  html.kintsugi-open main, html.kintsugi-open nav { transition: none; }
+
+  /* Kill the moving epic layer for reduced-motion */
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-impact-halo,
+  .kintsugi-overlay[data-open="true"] .kin-center-glyph {
+    animation: none;
+  }
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave,
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave-2 {
+    animation: none;
+    opacity: 0;
+  }
+  .kintsugi-overlay svg.kin-cracks .kin-spine-pulse animateMotion {
+    /* SVG selector trick — pause animateMotion via parent class */
+  }
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-spine-pulse {
+    display: none;
+  }
+  .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-debris {
+    animation: none;
+    display: none;
+  }
+}
+html.motion-off .kintsugi-overlay svg.kin-cracks .kin-path {
+  transition-duration: 0s;
+  stroke-dashoffset: 0;
+}
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-impact-halo,
+html.motion-off .kintsugi-overlay[data-open="true"] .kin-center-glyph,
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave,
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-debris {
+  animation: none;
+}
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-shockwave,
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-spine-pulse,
+html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-debris {
+  display: none;
+}

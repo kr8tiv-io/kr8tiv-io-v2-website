@@ -1,0 +1,85 @@
+---
+/**
+ * SeatCounter — small pulsing "N slots remaining · Q2" pill.
+ * Populated client-side by `initSeatCounter()` based on the current
+ * week of the year (deterministic, not a fake-urgency ticker).
+ *
+ * Usage: <SeatCounter /> or <SeatCounter size="large" mode="current" />
+ */
+export interface Props {
+  size?: 'small' | 'large';
+  mode?: 'current' | 'next';
+  id?: string;
+}
+const { size = 'small', mode = 'current', id } = Astro.props;
+---
+<span class={`seat-counter seat-${size}`} id={id} data-seat-counter={mode} role="status"></span>
+
+<style>
+  .seat-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: rgba(242, 241, 236, .03);
+    border: 1px solid rgba(242, 241, 236, .12);
+    padding: 10px 16px;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    line-height: 1;
+  }
+  .seat-counter.seat-large {
+    padding: 14px 22px;
+    font-size: 12.5px;
+    letter-spacing: .26em;
+    gap: 14px;
+  }
+  .seat-counter :global(.seat-dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #25d366;  /* live green */
+    box-shadow: 0 0 8px rgba(37, 211, 102, .7);
+    animation: seat-breathe 2.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes seat-breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.4); opacity: .55; }
+  }
+  @media (prefers-reduced-motion: reduce) { .seat-counter :global(.seat-dot) { animation: none; } }
+  html.motion-off .seat-counter :global(.seat-dot) { animation: none; }
+
+  .seat-counter :global(.seat-num) {
+    color: var(--accent-1);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.4em;
+    letter-spacing: 0;
+    margin-right: 4px;
+    animation: seat-num-pulse 4s ease-in-out infinite;
+  }
+  @keyframes seat-num-pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) { .seat-counter :global(.seat-num) { animation: none; } }
+  html.motion-off .seat-counter :global(.seat-num) { animation: none; }
+
+  .seat-counter :global(.seat-q) { color: var(--accent-4); }
+  .seat-counter :global(.seat-meta) {
+    color: var(--ink-muted);
+    font-size: .85em;
+    opacity: .7;
+  }
+
+  @media (max-width: 640px) {
+    .seat-counter :global(.seat-meta) { display: none; }
+  }
+</style>

@@ -1,0 +1,21 @@
+/* TEAM */
+  Founder · Creative Director: Matt Haynes
+  Contact: matt@kr8tiv.io
+  Location: Costa Rica / Global
+  Book: https://calendly.com/kr8tiv
+
+/* THANKS */
+  Our clients. Every single one.
+
+/* SITE */
+  Last update: 2026-04-22
+  Language: English
+  Doctype: HTML5
+  Framework: Astro 5 · Vite · TypeScript
+  Rendering: WebGL (Three.js) · GSAP · Lenis · SVG · CSS
+  Components: Native Popover API · View Transitions · Speculation Rules
+  Fonts: Instrument Serif · JetBrains Mono · Inter Tight
+  Accessibility: prefers-reduced-motion · ARIA live regions · WCAG 2.2
+  Hosting: Static · edge-cached
+  Palette: #ff6ad5 · #8e00ff · #ff2d4a · #ffd166 · #000 · #f2f1ec
+  Built for founders who'd rather start a cult than a brand.

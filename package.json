@@ -1,0 +1,33 @@
+{
+  "name": "kr8tiv-astro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "KR8TIV — cyber-renaissance design atelier. Astro + Vite build of the prism hero.",
+  "scripts": {
+    "dev": "astro dev --host --port 4321",
+    "build": "astro build",
+    "preview": "astro preview --host --port 4321",
+    "astro": "astro",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
+    "astro": "^5.2.5",
+    "gsap": "^3.13.0",
+    "lenis": "^1.1.18",
+    "three": "^0.173.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.7.2",
+    "@types/three": "^0.173.0",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

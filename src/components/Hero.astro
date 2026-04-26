@@ -1,0 +1,209 @@
+---
+/**
+ * Prism hero — splash reveal through the KR8TIV logo, then hero UI
+ * fades in with the "design / Too good to ignore / too real to forget"
+ * title (with per-word hover heat-up).
+ */
+import { KR8TIV_LOGO_D } from '@lib/content';
+---
+<section class="hero hero-reveal" data-nav-state="hero">
+  <div class="reveal-sticky">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline>
+        <source src="/kr8tiv-assets/3-4.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="hero-shade"></div>
+    <!-- WebGL liquid-glass overlay. Sits between hero-bg (z:0) and the
+         reveal SVG cover (z:2). pointer-events:none so it never blocks
+         the prism mouse interaction on the bars below. Gated by
+         IntersectionObserver inside the module so GPU goes idle when
+         the hero scrolls out. -->
+    <canvas id="prism-webgl" class="prism-webgl" aria-hidden="true"></canvas>
+    <div class="hero-fx">
+      <div class="prism-bars" id="prism-bars">
+        <div class="prism-bar" style="--hue:0"></div>
+        <div class="prism-bar" style="--hue:30"></div>
+        <div class="prism-bar" style="--hue:60"></div>
+        <div class="prism-bar" style="--hue:120"></div>
+        <div class="prism-bar" style="--hue:180"></div>
+        <div class="prism-bar" style="--hue:220"></div>
+        <div class="prism-bar" style="--hue:270"></div>
+        <div class="prism-bar" style="--hue:320"></div>
+      </div>
+      <div class="prism-caustic" id="prism-caustic"></div>
+      <div class="prism-sweep"></div>
+    </div>
+
+    <!-- SVG reveal cover: a dark rect with a logo-shaped hole. -->
+    <svg class="reveal-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1920 1080"
+      preserveAspectRatio="xMidYMid slice"
+      shape-rendering="geometricPrecision">
+      <defs>
+        <mask id="reveal-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080" style="mask-type:luminance">
+          <rect width="1920" height="1080" fill="white" />
+          <g transform="translate(960 540)">
+            <g id="logo-mask-group">
+              <path id="logo-mask-path"
+                transform="translate(-330 -110) scale(0.36666667)"
+                fill="#000"
+                fill-rule="evenodd"
+                d={KR8TIV_LOGO_D} />
+            </g>
+          </g>
+        </mask>
+      </defs>
+      <rect id="reveal-cover" width="1920" height="1080" fill="#050507" mask="url(#reveal-mask)"></rect>
+    </svg>
+
+    <div class="samurai-mark">
+      <div class="samurai-kanji">侍</div>
+      <div class="samurai-label">design samurai</div>
+    </div>
+
+    <div class="logo-glow" id="logo-glow"></div>
+    <div class="logo-hover-zone" id="logo-hover-zone"></div>
+    <div class="kanji-glow" id="kanji-glow"></div>
+    <div class="kanji-hover-zone" id="kanji-hover-zone"></div>
+
+    <div class="reveal-cue">
+      <div class="reveal-music-hint" aria-hidden="true">click to turn on music</div>
+      <svg class="reveal-cue-icon" viewBox="0 0 96 104" width="84" height="92" aria-hidden="true">
+        <circle class="rc-ring" cx="48" cy="46" r="40" fill="none" stroke-dasharray="3 9" stroke-linecap="round" />
+        <g class="rc-ticks" stroke-linecap="round">
+          <line x1="48" y1="2" x2="48" y2="10" />
+          <line x1="92" y1="46" x2="84" y2="46" />
+          <line x1="48" y1="90" x2="48" y2="82" />
+          <line x1="4" y1="46" x2="12" y2="46" />
+        </g>
+        <rect class="rc-outer" x="20" y="18" width="56" height="56" fill="none" stroke-linejoin="round" />
+        <rect class="rc-inner" x="34" y="32" width="28" height="28" fill="none" stroke-linejoin="round" />
+        <circle class="rc-echo" cx="48" cy="46" r="6" fill="none" stroke="rgba(255,45,74,.55)" stroke-width="0.8" />
+        <g class="rc-note" id="music-note" role="button" tabindex="0" aria-label="Play music">
+          <ellipse cx="46" cy="51" rx="4" ry="2.8" transform="rotate(-22 46 51)" />
+          <rect x="49.1" y="38" width="1.4" height="13.2" />
+          <path d="M50.5 38 Q54.4 39.2 54.4 43.4 Q52.6 41.2 50.5 41.2 Z" />
+          <circle cx="48" cy="46" r="13" fill="transparent" />
+        </g>
+        <path class="rc-chev" d="M36 92 L48 102 L60 92" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="reveal-hint">
+        <span class="b"></span>
+        <span>SCROLL TO ENTER</span>
+        <span class="b"></span>
+      </div>
+    </div>
+
+    <div class="hero-ui">
+      <div class="hero-top">
+        <div class="meta">
+          <strong>(VIII) PRISM 侍</strong>
+          Built for founders who&rsquo;d rather start a cult than a brand.
+        </div>
+        <div class="right">
+          <span class="dot"></span>ON AIR<br />
+          BY APPOINTMENT, BY INSTINCT<br />
+          VIII &middot; PRISM
+        </div>
+      </div>
+      <h1 class="hero-title">
+        <span class="line eyebrow"><span><span class="w">design</span></span></span>
+        <span class="line"><span><span class="w">Too</span> <span class="w">good</span> <span class="w">to</span> <span class="it w">ignore,</span></span></span>
+        <span class="line"><span><span class="w">too</span> <span class="w">real</span> <span class="w">to</span> <span class="w">forget.</span></span></span>
+      </h1>
+      <div class="hero-bot">
+        <div class="cue"><span>KEEP SCROLLING</span><span class="b"></span></div>
+      </div>
+    </div>
+
+    <div class="hero-fade-black" aria-hidden="true"></div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>BRANDING ALCHEMIST</span><span>FOUNDER-LED</span><span>LEAN + HUNGRY</span>
+    <span>LUXURY TO CRYPTO</span><span>WEB3 NATIVE</span><span>NO ACCOUNT MANAGERS</span>
+    <span>BRANDING ALCHEMIST</span><span>FOUNDER-LED</span><span>LEAN + HUNGRY</span>
+    <span>LUXURY TO CRYPTO</span><span>WEB3 NATIVE</span><span>NO ACCOUNT MANAGERS</span>
+  </div>
+</div>
+
+<script>
+  import { initReveal } from '@lib/reveal';
+  import { initPrism } from '@lib/prism';
+  import { initPrismGL } from '@lib/prismGL';
+
+  // Resilience + diagnostics: one throw here previously left the hero
+  // stuck at initial CSS state (samurai-mark shows its red drop-shadow
+  // glow, prism-webgl never gets its .prism-gl-active class, CSS
+  // fallback bars also never initialize). Wrap each init so one
+  // failure can't take down the others, and log status loud enough
+  // to find in devtools.
+  const cap = 'color:#ff6ad5;font:600 11px monospace;';
+  try {
+    initReveal();
+    console.log('%c[KR8·hero] reveal init OK', cap);
+  } catch (err) {
+    console.error('[KR8·hero] reveal init FAILED:', err);
+  }
+
+  // Full WebGL prism — real chromatic refraction of the hero video
+  // with cursor-driven caustics, Lenis velocity tilt, audio-level
+  // pulse. Returns null on reduced-motion or missing canvas.
+  //
+  // Important: previously CSS bars only ran when WebGL bailed — once
+  // WebGL succeeded, prism-gl-active hid them and the splash dimmed
+  // out within ~1 frame (Firefox reported this most clearly). Now
+  // BOTH initialise: WebGL paints chromatic refraction on top of the
+  // CSS bars, and `initPrism()` keeps the bars cursor-reactive
+  // (mouse-driven tilt/shift/scale) so the splash stays alive whether
+  // GL is bright or dim. The CSS in `prism-gl-active` mode dims the
+  // bars ~25% so the two layers don't read as a single oversaturated
+  // wall — they read as glass refraction over a rainbow source.
+  let gl = null;
+  try {
+    gl = initPrismGL('#prism-webgl');
+    console.log('%c[KR8·hero] prismGL init ' + (gl ? 'OK (WebGL)' : 'BAILED'), cap);
+  } catch (err) {
+    console.error('[KR8·hero] prismGL init FAILED:', err);
+  }
+  // Always run the CSS bar animation — co-exists with WebGL when
+  // present, carries the splash alone when not.
+  try {
+    initPrism();
+    console.log('%c[KR8·hero] CSS prism bars init OK', cap);
+  } catch (err) {
+    console.error('[KR8·hero] CSS prism init FAILED:', err);
+  }
+
+  // Belt-and-braces: force-kick the hero-bg video even though the
+  // element already has `autoplay muted playsinline`. Some browser /
+  // dev-server combinations (Firefox + Astro HMR in particular) keep
+  // the video in a paused state after a hot-module-reload even though
+  // the attribute is present in the DOM. Calling play() explicitly
+  // after DOMContentLoaded handles that case.
+  const heroVid = document.querySelector<HTMLVideoElement>('.reveal-sticky > .hero-bg video');
+  if (heroVid) {
+    heroVid.muted = true;
+    heroVid.playsInline = true;
+    const kick = () => { heroVid.play().catch(() => {}); };
+    kick();
+    // Second kick after a tick in case the first race'd metadata load.
+    heroVid.addEventListener('loadedmetadata', kick, { once: true });
+    // And a pointer-down fallback — any user interaction unblocks autoplay.
+    document.addEventListener('pointerdown', kick, { once: true });
+  }
+
+  // Logo + kanji hover glow zones
+  const zone = document.getElementById('logo-hover-zone');
+  const glow = document.getElementById('logo-glow');
+  zone?.addEventListener('pointerenter', () => glow?.classList.add('on'));
+  zone?.addEventListener('pointerleave', () => glow?.classList.remove('on'));
+  const kzone = document.getElementById('kanji-hover-zone');
+  const kglow = document.getElementById('kanji-glow');
+  kzone?.addEventListener('pointerenter', () => kglow?.classList.add('on'));
+  kzone?.addEventListener('pointerleave', () => kglow?.classList.remove('on'));
+</script>

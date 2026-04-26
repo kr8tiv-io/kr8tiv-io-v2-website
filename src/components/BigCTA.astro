@@ -1,0 +1,178 @@
+---
+/**
+ * End-of-page big CTA block for the homepage.
+ * Mirrors the /process/ page's endcap tone ("just talk · no obligation")
+ * and threads the AI-automation story + Calendly + intake fallback +
+ * email. Designed to be the final thing a visitor sees before the
+ * footer — a soft landing, not a hard sell.
+ */
+import SeatCounter from '@components/SeatCounter.astro';
+---
+<section class="big-cta" id="big-cta" aria-label="Start a project" data-nav-state="final">
+  <div class="big-cta-wrap">
+    <div class="big-cta-eye">CHAPTER END · ALL ROADS LEAD HERE</div>
+    <h2 class="big-cta-title">
+      Still <em>scrolling</em>?<br />
+      Let's just <em>talk</em>.
+    </h2>
+    <p class="big-cta-sub">
+      A free thirty minutes on Calendly — <em>no pitch, no obligation</em>. We'll hear what you're building, tell you honestly whether we're the right fit, and if we aren't we'll point you somewhere good.
+    </p>
+    <p class="big-cta-sub soft">
+      We also build full <strong>AI systems for business</strong> — marketing automations, support agents, internal tools, content engines. If you're curious whether AI could save your team real hours every week, come ask.
+    </p>
+
+    <SeatCounter size="large" />
+
+    <div class="big-cta-row">
+      <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer" class="big-cta-primary" data-cursor="magnetic">
+        Book a call ↳
+      </a>
+      <a href="/start/" class="big-cta-ghost">Fill out the intake</a>
+      <a href="/process/" class="big-cta-ghost">Read the process</a>
+      <a href="mailto:matt@kr8tiv.io" class="big-cta-link">matt@kr8tiv.io</a>
+    </div>
+
+    <div class="big-cta-foot">
+      <span>WE ACCEPT <b>BITCOIN</b> · <b>ETHEREUM</b> · CRYPTOCURRENCY · AND REGULAR MONEY TOO</span>
+      <span>AI + BRAND + WEB + MOTION · COSTA RICA · GLOBAL</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .big-cta {
+    position: relative;
+    padding: 180px 32px 220px;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 10%, rgba(255, 106, 213, .14), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 20% 90%, rgba(142, 0, 255, .10), transparent 65%),
+      radial-gradient(ellipse 60% 60% at 85% 85%, rgba(255, 209, 102, .06), transparent 60%);
+  }
+  .big-cta::before {
+    /* hairline top rule, separating from whatever came before */
+    content: '';
+    position: absolute;
+    left: 32px; right: 32px; top: 0; height: 1px;
+    background: var(--edge);
+  }
+  .big-cta-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .big-cta-eye {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .4em; text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 32px;
+  }
+  .big-cta-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(72px, 13vw, 220px);
+    line-height: .86;
+    letter-spacing: -.038em;
+    margin: 0 auto 48px;
+    max-width: 14ch;
+    color: var(--ink);
+  }
+  .big-cta-title em { font-style: italic; color: var(--accent-1); }
+  .big-cta-sub {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 60ch;
+    margin: 0 auto 24px;
+    opacity: .94;
+  }
+  .big-cta-sub em { font-style: italic; color: var(--accent-1); }
+  .big-cta-sub.soft {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: .74;
+    max-width: 56ch;
+    letter-spacing: .002em;
+  }
+  .big-cta-sub.soft strong { color: var(--accent-1); font-weight: 500; }
+
+  .big-cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 56px 0 48px;
+  }
+  .big-cta-primary,
+  .big-cta-ghost,
+  .big-cta-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    padding: 22px 40px;
+    border-radius: 4px;
+    transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1),
+                background .4s, box-shadow .4s, color .4s;
+    white-space: nowrap;
+  }
+  .big-cta-primary {
+    background: var(--accent-1);
+    color: #000;
+    border: 1px solid var(--accent-1);
+  }
+  .big-cta-primary:hover {
+    letter-spacing: .44em;
+    box-shadow: 0 0 64px rgba(255, 106, 213, .5),
+                0 0 140px rgba(255, 106, 213, .22);
+  }
+  .big-cta-ghost {
+    color: var(--ink);
+    border: 1px solid var(--edge);
+    background: transparent;
+  }
+  .big-cta-ghost:hover {
+    background: rgba(242, 241, 236, .04);
+    border-color: var(--accent-1);
+    letter-spacing: .38em;
+  }
+  .big-cta-link {
+    color: var(--ink-muted);
+    border: 1px solid transparent;
+    padding: 22px 24px;
+    text-transform: lowercase;
+    letter-spacing: .08em;
+    font-size: 14px;
+  }
+  .big-cta-link:hover {
+    color: var(--accent-1);
+    background: transparent;
+  }
+
+  .big-cta-foot {
+    border-top: 1px solid var(--edge);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .big-cta-foot b { color: var(--accent-4); font-weight: 400; }
+
+  @media (max-width: 880px) {
+    .big-cta { padding: 120px 24px 160px; }
+    .big-cta-row { flex-direction: column; }
+    .big-cta-primary, .big-cta-ghost, .big-cta-link { width: 100%; text-align: center; }
+    .big-cta-foot { flex-direction: column; text-align: center; }
+  }
+</style>

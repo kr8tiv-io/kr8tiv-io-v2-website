@@ -1,0 +1,36 @@
+# build output
+dist/
+.output/
+
+# Astro cache
+.astro/
+
+# dev dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# env
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*~
+
+# os
+Thumbs.db
+desktop.ini
+
+# claude code agent settings (local-only, not for the repo)
+.claude/
+
+# planning docs / scratch
+.planning/

@@ -1,0 +1,56 @@
+---
+/**
+ * Layout for MDX case-study / editorial pages — simpler chrome than
+ * the full splash-page layout. Drops prism-specific scripts (no hero
+ * video, no reveal) and ships only the shared nav + grain overlay.
+ */
+import '@styles/core.css';
+import '@styles/build-notes.css';
+import Nav from '@components/Nav.astro';
+import LogoSymbol from '@components/LogoSymbol.astro';
+import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
+
+export interface Props { title: string; description?: string; }
+const { title, description } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-variant="editorial">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <LogoSymbol />
+  <div class="noise"></div>
+  <div class="cur" id="cur"><span class="l" id="cur-l"></span></div>
+  <div class="prog" id="prog"></div>
+  <Nav />
+  <main class="case-study">
+    <article>
+      <slot />
+    </article>
+  </main>
+  <WhiteLightOverlay />
+  <script>
+    import { initScrollCore } from '@lib/scrollCore';
+    import { initCursor } from '@lib/cursor';
+    import { initWhiteLight } from '@lib/whiteLight';
+    import { initMotionToggle } from '@lib/motionToggle';
+    import { initAsciiDither } from '@lib/asciiDither';
+    initScrollCore();
+    initCursor();
+    initWhiteLight();
+    initMotionToggle();
+    initAsciiDither();
+  </script>
+</body>
+</html>

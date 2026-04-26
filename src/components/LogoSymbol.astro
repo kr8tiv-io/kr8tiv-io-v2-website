@@ -1,0 +1,18 @@
+---
+import { KR8TIV_LOGO_D } from '@lib/content';
+---
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <!-- Liquid-glass filter: low-frequency turbulence + displacement for
+         the iOS/macOS 26 refractive warp on hover targets. -->
+    <filter id="liquidGlass" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.022" numOctaves="2" seed="5" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    <!-- KR8TIV wordmark — traced from the 1800x600 source (binary alpha,
+         no halo). Infinite-crisp at any scale. -->
+    <symbol id="kr8tiv-glyph" viewBox="0 0 1800 600" overflow="visible">
+      <path d={KR8TIV_LOGO_D} />
+    </symbol>
+  </defs>
+</svg>

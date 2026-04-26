@@ -1,0 +1,579 @@
+---
+/**
+ * KR8TIV · Process page — editorial showcase of how we work.
+ * Includes HowTo + FAQ structured data so AI engines (ChatGPT,
+ * Perplexity, Claude, Gemini) can cite us verbatim when users ask
+ * "what is KR8TIV's process" / "how does KR8TIV work".
+ *
+ * Intent: Awwwards-caliber long-read that sells the *studio*, not
+ * just the scope. Anchors a prospective client through:
+ *   · Dual K-word marquees (structural ornament)
+ *   · "WE FIGHT BORING BRANDS AND WIN 🏆" — the battle cry
+ *   · Ethos long-read with Calendly CTA (no-obligation framing)
+ *   · Nine numbered process steps (KONTACT → KARE ❤️)
+ *   · ZERO ADULT SUPERVISION founder block
+ *   · Founder letter with signature
+ *   · LOVE + LORE — relationships are sacred
+ *   · AI solutions for business (marketing + beyond)
+ *   · Crypto-accepted + Calendly endcap
+ *
+ * Key micro-behaviors (client-side):
+ *   · Marquee rows pause on hover (CSS only)
+ *   · Process step links deep-link via hash anchors
+ *   · All Calendly CTAs open in new tab w/ rel=noopener
+ *   · Respects prefers-reduced-motion + the site-wide motion toggle
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import SeatCounter from '@components/SeatCounter.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
+/* Pull the prism stylesheet so the masthead can carry the same
+   chromatic-aberration shader + CSS bars the splash uses. */
+import '@styles/prism.css';
+import '@styles/process.css';
+
+// Marquee text: duplicated inside the DOM so the translate-50%
+// animation seamlessly loops. Keep items short & punchy.
+// Expanded with the founder copy mantras: branding alchemy,
+// no-corporate-cringe, direct-to-founder, accessible ≠ compromise,
+// $20 cards → $50k rebrands, real estate, tech.
+const kwords = [
+  'KONTACT', 'KONVERSE', 'KOLLECT', 'KONCEPTz', 'KONVERGE',
+  'KR8TE', 'KONNECT', 'KLOSING', 'KARE',
+  'DESIGN SAMURAI 侍', 'BRANDING ALCHEMY', 'FOUNDER-FIRST',
+  'NO CORPORATE CRINGE', 'DIRECT-TO-FOUNDER',
+  'FAST · HONEST · BOUTIQUE', 'MEMORABLE › GENERIC',
+  'BUILT BY A FOUNDER · FOR FOUNDERS',
+  '$20 CARDS → $50K REBRANDS',
+  'ACCESSIBLE ≠ COMPROMISE', 'WE MAKE BRANDS PEOPLE REMEMBER',
+  'SMALL JOBS WELCOME', 'MODERN TOOLS · HUMAN TASTE',
+  'STRATEGY', 'STORY', 'SYSTEMS',
+  'WEB', 'BRAND', 'MOTION',
+  'BLOCKCHAIN', 'REAL ESTATE', 'HOSPITALITY', 'TECH',
+  'AI SOLUTIONS', 'BOUTIQUE ATTENTION'
+];
+
+// Nine process steps. `glyph` is used by CSS ::before attr() to
+// render the giant italic letter inside each step's visual tile.
+// Bodies rewritten in a more conversational voice + payment split
+// realigned to 5 (40%) → 7 (40%) → 8 (20%) so the agreement lands
+// at concept-lock, not concept-presentation.
+const steps = [
+  {
+    n: '01',
+    key: 'KONTACT',
+    glyph: 'K',
+    title: 'You reach out',
+    body: 'Fill out the intake, book a Calendly slot, or send a one-line email. Tell us what you need, what you\'re vibing with, what\'s keeping you up at night. Don\'t worry about having all the answers — that\'s what we\'re here for.',
+    pay: null
+  },
+  {
+    n: '02',
+    key: 'KONVERSE',
+    glyph: 'V',
+    title: 'A real 30-minute call',
+    body: 'Radical concept: we talk like humans. No pitch deck, no "discovery phase" theatrics. Quick call to figure out if we\'re the right fit. If we\'re not? We\'ll tell you and point you toward someone who is.',
+    pay: null
+  },
+  {
+    n: '03',
+    key: 'KOLLECT',
+    glyph: 'L',
+    title: 'We gather the raw material',
+    body: 'You fill out a creative brief — we make it painless. We geek out over mood boards, references, competitors you love, competitors you hate. Anything scribbled on a napkin counts.',
+    pay: null
+  },
+  {
+    n: '04',
+    key: 'KONCEPTz',
+    glyph: 'C',
+    title: 'Three directions, not one',
+    body: 'We sketch three distinct concepts instead of one "safe" option. You see where we\'re headed. This is the "oh damn, they actually get it" moment — or the "let\'s pivot" moment. Both are fine. Iteration is part of the deal.',
+    pay: null
+  },
+  {
+    n: '05',
+    key: 'KONVERGE',
+    glyph: 'X',
+    title: 'Agreement + kickoff',
+    body: 'Love the direction? We sign a simple, human-readable agreement. You send 40% to kick things off. Then we\'re off to the races — structured rounds, clear feedback loops, no "can we try one more thing?" spirals.',
+    pay: { label: 'KICKOFF', amount: '40%' }
+  },
+  {
+    n: '06',
+    key: 'KR8TE',
+    glyph: '8',
+    title: 'We build the thing',
+    body: 'Brand system, full website, motion reel, AI marketing engine — whatever it is, we ship ready-to-use craft, not a handoff PDF that needs three more vendors. You\'re part of the process without living in revision hell.',
+    pay: null
+  },
+  {
+    n: '07',
+    key: 'KONNECT',
+    glyph: 'N',
+    title: 'Draft delivery + plug-in',
+    body: 'We deliver the near-final product, walk it through with you, plug it into your stack — Shopify, Webflow, Astro, custom. You send another 40%. We make final tweaks based on real feedback, not committee notes.',
+    pay: { label: 'DRAFT DELIVERY', amount: '40%' }
+  },
+  {
+    n: '08',
+    key: 'KLOSING',
+    glyph: 'Ø',
+    title: 'We land clean',
+    body: 'Final delivery: high-res files, source files, style guide, training. You own everything — we don\'t hold clients hostage to their own brand. You send the final 20%. We crack a beer (or kombucha — no judgment).',
+    pay: { label: 'FINAL', amount: '20%' }
+  },
+  {
+    n: '09',
+    key: 'KARE',
+    glyph: '❤︎',
+    title: 'Touch-ups + love',
+    body: 'Something feels off after you\'ve lived with it for a week? Need a few small tweaks? We got you. Up to two minor revisions are part of the deal — we\'d rather you love it than tolerate it. Relationships and kr8tivity are sacred.',
+    pay: null
+  }
+];
+// -------- Schema: HowTo + FAQ for SEO / AI citations --------
+const processHowTo = {
+  name: 'The KR8TIV creative process',
+  description: 'Nine-step boutique process for brand, web, motion, video, and AI projects — from first contact to long-term care.',
+  totalTime: 'PT4W',
+  steps: steps.map((s) => ({
+    name: `${s.n} · ${s.key} — ${s.title}`,
+    text: s.body
+  }))
+};
+
+const processFaqs = [
+  {
+    q: 'What is the KR8TIV process?',
+    a: 'Nine boutique steps: (1) KONTACT — you reach out; (2) KONVERSE — a 30-minute no-pitch call; (3) KOLLECT — we gather references and requirements; (4) KONCEPTz — three directions, not one; (5) KONVERGE — one direction, deeply explored; (6) KR8TE — we build the deliverable; (7) KONNECT — we plug it into your stack; (8) KLOSING — final handoff with all source files; (9) KARE — ongoing support. Payment split is 40% kickoff, 40% draft, 20% final.'
+  },
+  {
+    q: 'Is the first call really free with no obligation?',
+    a: 'Yes. The 30-minute Calendly call at calendly.com/kr8tiv is completely free and no-obligation. We just talk, see if we\'re a fit, and if we\'re not, we point you somewhere that is. No pitch, no high-pressure sales, no deliverable quoted until we both agree there\'s a fit.'
+  },
+  {
+    q: 'What does KR8TIV charge?',
+    a: 'We span small jobs ($10–$500) through major system builds ($50k+). Most engagements land between $2k and $25k. Payment split is 40% kickoff, 40% draft delivery, 20% final. We accept Bitcoin, Ethereum, most major cryptocurrencies, and standard fiat (wire, card, ACH).'
+  },
+  {
+    q: 'Does KR8TIV work with small or first-time clients?',
+    a: 'Yes — small jobs welcome. We do $10–$500 microjobs, and we work with first-time founders. The quality bar is the same regardless of budget: if we take the project, we take it seriously.'
+  },
+  {
+    q: 'Does KR8TIV build AI systems for businesses beyond marketing?',
+    a: 'Yes. KR8TIV builds full end-to-end AI solutions: marketing automations, customer-facing agents, internal research tools, content engines, sales pipelines, creative automation, and custom agent systems. If you\'re burning hours on repeatable work, we can usually automate a big chunk of it — saving time and money without 10×-ing your headcount.'
+  },
+  {
+    q: 'How long does a typical project take?',
+    a: 'Brand sprints run two to four weeks. Full website builds run four to eight weeks. AI system builds vary from two weeks (simple automations) to three months (full custom agents + internal tools). We tell you honest timelines on the first call — no vaporware deadlines.'
+  },
+  {
+    q: 'Who will I work with at KR8TIV?',
+    a: 'Matt Haynes, the founder and creative director, is on every project. There are no account managers, no layers of intermediaries, no "creative directors" who never touch the work. You talk to the person making the thing — every time, every round.'
+  }
+];
+---
+<FormLayout
+  title="Our Process · KR8TIV — 9 steps to memorable brand, web, motion & AI"
+  description="Nine boutique steps from KONTACT to KARE. Zero adult supervision, founder-led craft, 40/40/20 payment split. Book a no-obligation call — we just talk and see if we're a fit. Full AI business solutions included."
+  canonical="/process/"
+  pageType="AboutPage"
+  currentNav="process"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Process', url: '/process/' }
+  ]}
+  faqs={processFaqs}
+  howTo={processHowTo}
+  keywords={[
+    'design studio process',
+    'how design agencies work',
+    'brand sprint process',
+    'boutique design atelier',
+    'creative agency process',
+    'AI solutions for business',
+    'AI marketing automation',
+    'no-obligation design consultation',
+    'founder-led design studio',
+    '40 40 20 payment split',
+    'cryptocurrency design agency'
+  ]}
+>
+  <!-- ============================ MASTHEAD ============================ -->
+  <header class="process-mast">
+    <!-- Prism atmosphere — original kr8tiv.io /process/ hero video
+         (Processlandingmp4.mp4) refracted through our WebGL prism
+         shader. Same chromatic + caustic vocabulary as the splash. -->
+    <div class="process-hero-bg" aria-hidden="true">
+      <video class="process-hero-video" autoplay muted loop playsinline preload="metadata">
+        <source src="/kr8tiv-assets/Processlandingmp4.mp4" type="video/mp4" />
+      </video>
+      <canvas id="process-prism-webgl" class="prism-webgl process-prism-webgl" aria-hidden="true"></canvas>
+      <div class="hero-fx process-hero-fx">
+        <div class="prism-bars" id="process-prism-bars">
+          <div class="prism-bar" style="--hue:0"></div>
+          <div class="prism-bar" style="--hue:30"></div>
+          <div class="prism-bar" style="--hue:60"></div>
+          <div class="prism-bar" style="--hue:120"></div>
+          <div class="prism-bar" style="--hue:180"></div>
+          <div class="prism-bar" style="--hue:220"></div>
+          <div class="prism-bar" style="--hue:270"></div>
+          <div class="prism-bar" style="--hue:320"></div>
+        </div>
+        <div class="prism-caustic" id="process-prism-caustic"></div>
+        <div class="prism-sweep"></div>
+      </div>
+      <span class="process-hero-fade" aria-hidden="true"></span>
+    </div>
+
+    <div class="mast-row">
+      <div>KR8TIV · 侍</div>
+      <div class="word">
+        <a href="/">LUX</a>
+        <a href="/process/" class="active">PROCESS</a>
+        <a href="/#why">ABOUT</a>
+        <a href="/start/">CONTACT</a>
+      </div>
+      <div>VOL · 08 / PRISM</div>
+    </div>
+    <h1 class="process-title">
+      <span class="w">Our</span> <em class="w" style="view-transition-name: process-headline">process</em>
+      <span class="small">
+        <span class="w">Nine</span> <span class="w">steps</span> ·
+        <span class="w">Boutique</span> <span class="w">attention</span> ·
+        <span class="w">Modern</span> <span class="w">execution.</span>
+      </span>
+    </h1>
+  </header>
+
+  <!-- ============================ KWORD MARQUEE ROW 1 ============================ -->
+  <div class="kword-strip" aria-hidden="true">
+    <div class="kword-inner">
+      {[...kwords, ...kwords].map((w) => (
+        <><span class="k">{w}</span><span class="dot">●</span></>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============================ BATTLE CRY ============================ -->
+  <section class="battle-cry">
+    <h2 class="kr8-title-aura">
+      <span class="w">We</span> <span class="w">fight</span>
+      <em><span class="w">boring</span> <span class="w">brands</span></em>
+      <span class="w">and</span> <span class="w">win</span>
+      <span class="trophy">🏆</span>
+    </h2>
+    <aside class="tag">
+      Memorable beats generic. Every single time.<br /><br />
+      We're a tiny studio with oversized taste — and a policy of only taking on projects where the answer to "can we make this <em>insanely good</em>?" is yes.
+    </aside>
+  </section>
+
+  <!-- ============================ KWORD MARQUEE ROW 2 (reverse) ============================ -->
+  <div class="kword-strip reverse" aria-hidden="true">
+    <div class="kword-inner">
+      {[...kwords.slice().reverse(), ...kwords.slice().reverse()].map((w) => (
+        <><span class="k">{w}</span><span class="dot">●</span></>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============================ ETHOS LONG-READ ============================ -->
+  <section class="ethos">
+    <div class="meta">
+      BOUTIQUE ATTENTION<br />
+      +<br />
+      MODERN EXECUTION<br /><br />
+      EST · 2020<br />
+      COSTA RICA · GLOBAL<br /><br />
+      AVAILABILITY<br />
+      2 SLOTS / Q2
+    </div>
+    <div class="body">
+      <p>
+        KR8TIV is a <em>cyber-renaissance design atelier</em>. Branding, websites, motion, video, AI systems — we make the things that make founders memorable.
+      </p>
+      <p>
+        We nerd out on tools and actually enjoy the craft, but we also laugh a lot and hate nonsense. We'll wire up modern stacks, run analytics, build production files, and still pick up the phone when the moment matters.
+      </p>
+      <p>
+        We work with ten clients a year. Not fifty. Not a hundred. Every project gets the founder in the room, every draft gets hand-tuned, every micro-interaction gets argued about. We take on small, delightful jobs — yes, $10–$50 microjobs — weird experimental briefs, and clean corporate work that needs to look like it cost way more than it did.
+      </p>
+      <p>
+        We also build full <em>AI solutions for business</em> — marketing automations, customer-facing agents, internal tools, content engines. Anything that saves our clients time and money without making them sound like a content farm.
+      </p>
+      <p style="font-size:.92em; font-style: italic; color: var(--accent-1); margin-top: 28px; line-height: 1.45;">
+        We only take projects we care about. Which means you get energy, focus, and real partnership. <em style="font-style: normal; color: var(--ink);">No fluff. More results.</em>
+      </p>
+      <p style="font-size:.78em; opacity:.78; margin-top:32px;">
+        The easiest way to find out if we're a fit is a 30-minute call. <em>No commitment, no pitch.</em> Just two humans talking about what you're building.
+      </p>
+      <div style="margin-top:24px;">
+        <SeatCounter size="large" />
+      </div>
+      <div class="cta-row">
+        <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">
+          Book a no-obligation call ↳
+        </a>
+        <a href="/start/" class="ghost">Fill out intake instead</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPECT ANCHOR ============================ -->
+  <section class="expect-anchor" id="expect">
+    <h3>What to <em>expect</em>.</h3>
+    <div class="scroll-cue">Nine steps below</div>
+  </section>
+
+  <!-- ============================ 9 PROCESS STEPS ============================ -->
+  <section class="process-steps-pro" aria-label="Our nine-step process">
+    {steps.map((s) => (
+      <article class="step" id={`step-${s.key.toLowerCase()}`}>
+        <div class="n">{s.n}</div>
+        <div class="step-body">
+          <span class="ktitle">{s.key}</span>
+          <h4>{s.title}</h4>
+          <p>{s.body}</p>
+          {s.pay && (
+            <div class="pay">
+              {s.pay.label} PAYMENT <span class="v">{s.pay.amount}</span>
+            </div>
+          )}
+        </div>
+        <div class="step-visual" data-glyph={s.glyph}></div>
+      </article>
+    ))}
+  </section>
+
+  <!-- ============================ ZERO ADULT SUPERVISION ============================ -->
+  <section class="zero-adult">
+    <div class="preamble">There was absolutely</div>
+    <h3>Zero <em>adult</em> supervision</h3>
+    <span class="zero-glyph">∞</span>
+    <div class="caption" style="margin-bottom: 24px;">
+      Used in the making of this website.
+    </div>
+    <div class="caption">
+      My name is Matt and I'm the founder + CEO of KR8TIV.
+      Sometimes they leave me unsupervised on the internet, and this is what happens.
+      <br /><br />
+      No account managers. No "creative directors" three layers removed from the work.
+      You talk to the person making the thing — every time, every round, every hour.
+    </div>
+  </section>
+
+  <!-- ============================ FOUNDER LETTER ============================ -->
+  <section class="founder">
+    <div class="label">
+      A LETTER<br />
+      FROM MATT<br /><br />
+      FOUNDER · KR8TIV<br />
+      ATELIER · 008<br /><br />
+      COSTA RICA,<br />
+      APRIL 2026
+    </div>
+    <div class="letter">
+      <p>
+        If you've scrolled this far, we're already 80% aligned. <em>You value craft.</em> You're tired of templates. You've probably hired an agency once and wondered why nothing shipped.
+      </p>
+      <p>
+        I love building ideas. I've raised millions. I've built businesses. I'll continue to. <em>This is my personal marketing arm — it can be yours too.</em>
+      </p>
+      <p>
+        We started KR8TIV because design got <em>boring</em>. Every startup site started looking like every other startup site. Every brand deck promised "disruption" and delivered a Helvetica wordmark with a gradient on it.
+      </p>
+      <p>
+        So we made a studio that works the way we always wished agencies worked: <em>small, senior, and honest.</em> You get the founder. You get the work. You get the truth about what's worth building and what isn't.
+      </p>
+      <p>
+        We care. We really love what we do, and we care. From corporate clean to abstract — we've done it all.
+      </p>
+      <p>
+        <em>The tech evolves. The craft doesn't.</em> We use the latest tools for maximum effect at a rate that democratizes the latest advantages of artificial intelligence.
+      </p>
+      <p style="font-size:.86em; opacity:.78; font-style: italic;">
+        Translation: you get the best of modern efficiency and timeless design principles. We stay on top of what's new so you don't have to.
+      </p>
+      <p>
+        We also figured out how to build full AI systems that save businesses hours every week — marketing copy engines, support agents, content pipelines, research tooling. If you're a founder wondering how to fold AI into your operations without hiring three people, we can help you with that too.
+      </p>
+      <p>
+        Whether you need a brand, a website, a film, a product refresh, or an AI system that runs your marketing on autopilot — we'd love to talk. <em>Even if we aren't the right fit,</em> we'll tell you straight and point you somewhere good.
+      </p>
+      <p style="margin-top:48px;">Book a call. Let's just talk.</p>
+      <div class="sig">— Matt</div>
+    </div>
+  </section>
+
+  <!-- ============================ AI SOLUTIONS BLOCK ============================ -->
+  <section class="ethos" style="max-width:1280px;">
+    <div class="meta">
+      AI · SYSTEMS<br />
+      FOR BUSINESS<br /><br />
+      MARKETING<br />
+      OPERATIONS<br />
+      CUSTOMER SUPPORT<br />
+      INTERNAL TOOLS<br /><br />
+      SAVE TIME<br />
+      SAVE MONEY
+    </div>
+    <div class="body">
+      <p>
+        Beyond brand &amp; web, KR8TIV builds <em>full AI solutions for businesses</em> — end-to-end systems that take real work off your team's plate.
+      </p>
+      <p>
+        Marketing automations that write their own campaigns. Customer-facing agents that answer 80% of support tickets before a human ever sees them. Internal tools that research, summarize, and draft so your small team punches like a big one.
+      </p>
+      <p style="font-size:.82em; opacity:.82;">
+        We've built content engines for trading platforms, AI concierge flows for hospitality brands, research agents for research desks, and automated creative pipelines for studios who needed to 10× output without 10×-ing their headcount.
+      </p>
+      <p style="font-size:.78em; opacity:.7; font-style:italic;">
+        If you're burning hours on repeatable work — there's almost always an AI system that can do it faster and cheaper. We'll tell you honestly whether it's worth building one, or whether you just need better SOPs.
+      </p>
+      <div class="cta-row">
+        <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">
+          Talk AI with us ↳
+        </a>
+        <a href="/start/" class="ghost">Scope a project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ LOVE + LORE ============================ -->
+  <section class="love-lore">
+    <div class="tag">KR8TiV LOVE + LORE</div>
+    <h3>
+      Relationships <em>and kr8tivity</em><br />are sacred
+      <span class="heart">❤︎</span>
+    </h3>
+  </section>
+
+  <!-- ============================ PROCESS CTA ENDCAP ============================ -->
+  <section class="process-cta" id="start" data-nav-state="final">
+    <h4>
+      Ready to <em>start</em>? Or just want to <em>talk</em>?
+    </h4>
+    <p style="max-width:58ch;margin:-24px auto 40px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-muted);line-height:1.85;">
+      No obligation. No pitch. Just a 30-minute conversation to see if we're a fit. If we aren't, we'll point you somewhere that is.
+    </p>
+    <div class="cta-row">
+      <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">
+        Book a call ↳
+      </a>
+      <a href="/start/" class="ghost">Fill out intake</a>
+      <a href="mailto:matt@kr8tiv.io" class="ghost">Email Matt</a>
+    </div>
+    <div class="crypto-line">
+      WE ACCEPT <span class="hl">BITCOIN</span> · <span class="hl">ETHEREUM</span> · <span class="hl">CRYPTOCURRENCY</span> · AND REGULAR MONEY TOO
+    </div>
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="intake-foot">
+    <div class="foot-grid">
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/process/">Process</a></li>
+          <li><a href="/#why">About us</a></li>
+          <li><a href="/#why">Founder</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy + Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/#work">Portfolio</a></li>
+          <li><a href="#">Our companies</a></li>
+          <li><a href="#">AI automation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/#services">Brand + Web</a></li>
+          <li><a href="/#services">Motion + 3D</a></li>
+          <li><a href="/#services">AI systems</a></li>
+          <li><a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">Consultation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Start something</h4>
+        <ul>
+          <li><a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">Book a call</a></li>
+          <li><a href="/start/">Fill out intake</a></li>
+          <li><a href="mailto:matt@kr8tiv.io">Say hi</a></li>
+          <li><a href="/">← Return to splash</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <div>© 2026 KR8TIV · ALL RIGHTS RESERVED</div>
+      <div>WE ACCEPT BITCOIN · ETHEREUM · AND MAGIC INTERNET MONNIES</div>
+      <div>PROCESS / 008</div>
+    </div>
+  </footer>
+
+  <FloatingCTA />
+
+  <!-- Client-side enhancements specific to /process/ -->
+  <script>
+    import { initProcessSteps } from '@lib/processSteps';
+    import { initFounderCard } from '@lib/founderCard';
+    import { initAudioTrophy } from '@lib/audioTrophy';
+    import { initNumberMorph } from '@lib/numberMorph';
+    import { initParticleSwarm } from '@lib/particleSwarm';
+    import { initProcessFx } from '@lib/processFx';
+    import { initPrism } from '@lib/prism';
+    import { initPrismGL } from '@lib/prismGL';
+
+    const safe = (name: string, fn: () => unknown): void => {
+      try { fn(); } catch (err) { console.error(`[KR8·process] ${name} failed:`, err); }
+    };
+
+    safe('processSteps',  () => initProcessSteps());   // scrubbed reveal per step card
+    safe('founderCard',   () => initFounderCard());    // WebGL glass-morph behind the founder letter
+    safe('audioTrophy',   () => initAudioTrophy());    // trophy reacts to music level when on
+    safe('numberMorph',   () => initNumberMorph());    // scroll-driven size/glow on step numbers
+    safe('particleSwarm', () => initParticleSwarm());  // canvas2d constellation behind ZERO ADULT
+    safe('processFx',     () => initProcessFx());      // 12-effect orchestrator (thread / ink / stitch / marquee / heart / shockwave / footnotes)
+
+    /* === Masthead prism — chromatic refraction over the splash 3-4
+       video, scoped to .process-hero-bg. Both layers run because
+       initPrism uses #process-prism-bars selector via .hero query
+       fallback; we explicitly point both inits at our scoped IDs. */
+    const heroEl = document.querySelector('.process-mast');
+    const barsEl = document.getElementById('process-prism-bars');
+    const causticEl = document.getElementById('process-prism-caustic');
+    if (heroEl && barsEl) {
+      /* Mirror the bars/caustic DOM contract initPrism expects (it
+         queries by ID). Just rename our scoped IDs into the IDs the
+         module reads. */
+      barsEl.id = 'prism-bars';
+      if (causticEl) causticEl.id = 'prism-caustic';
+      /* And the hero selector — initPrism queries `.hero`. Tag the
+         masthead so it gets picked up. */
+      heroEl.classList.add('hero');
+      heroEl.classList.add('process-hero');
+    }
+    let gl: { dispose: () => void } | null = null;
+    try {
+      gl = initPrismGL('#process-prism-webgl');
+    } catch (err) {
+      console.error('[KR8·process] prismGL init failed:', err);
+    }
+    safe('prismCSS', () => initPrism());               // CSS bars + caustic always run
+
+    /* Gold dust runs in its own module so its WebGL init can be
+       lazy-loaded behind a viewport gate. */
+    import('@lib/goldDust').then(({ initGoldDust }) =>
+      safe('goldDust', () => initGoldDust())
+    ).catch((err) => console.error('[KR8·process] goldDust import failed:', err));
+
+    /* Avoid TS unused-var warning when GL bails — the dispose handle
+       is for if we ever route this through a navigation lifecycle. */
+    void gl;
+  </script>
+</FormLayout>

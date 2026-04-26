@@ -1,0 +1,261 @@
+---
+/**
+ * InlineCTA — slim, editorial "book a call / intake" prompt that slots
+ * between homepage scroll scenes. Three variants:
+ *
+ *   variant="quiet"   → hairline top/bottom rules, muted copy, good
+ *                       after dense content (doctrine, why)
+ *   variant="loud"    → accent border, glow on hover, good after
+ *                       visual-heavy sections (services, work)
+ *   variant="whisper" → single line of small-caps, no box, good
+ *                       between transitions
+ *
+ * Copy is prop-driven so each insertion can stay on-voice with the
+ * scene above it. `secondary` optional — if omitted, renders only
+ * the primary Calendly CTA.
+ */
+export interface Props {
+  eyebrow?: string;
+  headline: string;
+  sub?: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  variant?: 'quiet' | 'loud' | 'whisper';
+  id?: string;
+}
+
+const {
+  eyebrow = 'NO OBLIGATION · 30 MIN',
+  headline,
+  sub,
+  primaryHref = 'https://calendly.com/kr8tiv',
+  primaryLabel = 'Book a call ↳',
+  secondaryHref,
+  secondaryLabel,
+  variant = 'quiet',
+  id
+} = Astro.props;
+
+const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+<aside class="inline-cta" data-variant={variant} id={id} aria-label="Book a call with KR8TIV">
+  {variant === 'whisper' ? (
+    <div class="whisper">
+      <span class="eye">{eyebrow}</span>
+      {/* set:html so inline <em> / <strong> markup in the headline renders,
+          rather than being escaped into literal `<em>…</em>` text. */}
+      <span class="h" set:html={headline}></span>
+      <a href={primaryHref} {...extAttrs} class="whisper-link">{primaryLabel}</a>
+    </div>
+  ) : (
+    <div class="box">
+      <div class="eye">{eyebrow}</div>
+      <h3 set:html={headline}></h3>
+      {sub && <p set:html={sub}></p>}
+      <div class="row">
+        <a href={primaryHref} {...extAttrs} class="cta-primary" data-cursor="magnetic">
+          {primaryLabel}
+        </a>
+        {secondaryHref && secondaryLabel && (
+          <a href={secondaryHref} class="cta-ghost">
+            {secondaryLabel}
+          </a>
+        )}
+      </div>
+    </div>
+  )}
+</aside>
+
+<style>
+  .inline-cta {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  /* === QUIET === */
+  .inline-cta[data-variant="quiet"] .box {
+    border-top: 1px solid var(--edge);
+    border-bottom: 1px solid var(--edge);
+    padding: 56px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: end;
+  }
+  .inline-cta[data-variant="quiet"] h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(34px, 4.6vw, 62px);
+    line-height: 1.0;
+    letter-spacing: -.028em;
+    margin: 12px 0 0;
+    max-width: 22ch;
+  }
+  .inline-cta[data-variant="quiet"] h3 em { font-style: italic; color: var(--accent-1); }
+  .inline-cta[data-variant="quiet"] p {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 15px; line-height: 1.6;
+    color: var(--ink); opacity: .75;
+    max-width: 46ch;
+    margin: 14px 0 0;
+  }
+
+  /* === LOUD === */
+  .inline-cta[data-variant="loud"] .box {
+    border: 1px solid var(--accent-1);
+    border-radius: 6px;
+    padding: 64px;
+    background: radial-gradient(ellipse at 82% 12%,
+      rgba(255, 106, 213, .14) 0%,
+      rgba(142, 0, 255, .08) 38%,
+      transparent 76%);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: end;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow .6s cubic-bezier(.22, 1, .36, 1);
+  }
+  .inline-cta[data-variant="loud"] .box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 106, 213, .18), transparent 55%);
+    opacity: 0;
+    transition: opacity .5s;
+    pointer-events: none;
+  }
+  .inline-cta[data-variant="loud"] .box:hover { box-shadow: 0 0 88px rgba(255, 106, 213, .22); }
+  .inline-cta[data-variant="loud"] .box:hover::before { opacity: 1; }
+  .inline-cta[data-variant="loud"] h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(44px, 6.4vw, 92px);
+    line-height: .94;
+    letter-spacing: -.032em;
+    margin: 14px 0 0;
+    max-width: 16ch;
+  }
+  .inline-cta[data-variant="loud"] h3 em { font-style: italic; color: var(--accent-1); }
+  .inline-cta[data-variant="loud"] p {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 15.5px; line-height: 1.7;
+    color: var(--ink); opacity: .88;
+    max-width: 52ch;
+    margin: 18px 0 0;
+  }
+
+  /* === WHISPER === */
+  .inline-cta[data-variant="whisper"] .whisper {
+    border-top: 1px solid var(--edge);
+    padding: 36px 32px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+  }
+  .inline-cta[data-variant="whisper"] .eye { color: var(--ink-muted); }
+  .inline-cta[data-variant="whisper"] .h { color: var(--ink); }
+  .inline-cta[data-variant="whisper"] .whisper-link {
+    color: var(--accent-1);
+    border-bottom: 1px solid var(--accent-1);
+    padding-bottom: 2px;
+    transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1);
+  }
+  .inline-cta[data-variant="whisper"] .whisper-link:hover {
+    letter-spacing: .42em;
+  }
+
+  /* === SHARED === */
+  .inline-cta .eye {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .36em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+  }
+  .inline-cta .row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .inline-cta .cta-primary,
+  .inline-cta .cta-ghost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    border-radius: 4px;
+    transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1),
+                background .4s, box-shadow .4s, color .4s;
+    white-space: nowrap;
+  }
+  .inline-cta .cta-primary {
+    background: var(--accent-1);
+    color: #000;
+    border: 1px solid var(--accent-1);
+  }
+  .inline-cta .cta-primary:hover {
+    letter-spacing: .42em;
+    box-shadow: 0 0 32px rgba(255, 106, 213, .48);
+  }
+  .inline-cta .cta-ghost {
+    color: var(--ink);
+    border: 1px solid var(--edge);
+    background: transparent;
+  }
+  .inline-cta .cta-ghost:hover {
+    background: rgba(242, 241, 236, .05);
+    letter-spacing: .38em;
+  }
+
+  @media (max-width: 880px) {
+    .inline-cta[data-variant="quiet"] .box,
+    .inline-cta[data-variant="loud"] .box {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 44px 28px;
+    }
+  }
+</style>
+
+<script>
+  import { initBoxStar } from '@lib/boxStar';
+
+  // LOUD variant: cursor-reactive glow + WebGL pink-star perimeter trail.
+  // The star runs around the rounded box border at ~22 sec/lap with
+  // a soft 7-sec tail behind it — additive (mix-blend: screen) so it
+  // sits on top of the existing radial gradient without dimming the
+  // copy. Module is self-gating on prefers-reduced-motion / motion-off.
+  const louds = document.querySelectorAll<HTMLElement>('.inline-cta[data-variant="loud"] .box');
+  louds.forEach((box) => {
+    box.addEventListener('pointermove', (e) => {
+      const r = box.getBoundingClientRect();
+      box.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      box.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    });
+    try {
+      initBoxStar(box, {
+        color:        [1.0, 0.55, 0.86],   // buttery pink (#ff8cdb)
+        speed:        0.045,                // ~22 s per lap
+        starSize:     6,
+        trailSpacing: 0.12,
+        cornerRadius: 6,
+        intensity:    0.85
+      });
+    } catch (err) {
+      console.error('[KR8·loud-cta] boxStar init failed:', err);
+    }
+  });
+</script>

@@ -1,0 +1,25 @@
+---
+/**
+ * OracleOverlay — global ⌘K popover, rendered into every layout.
+ * Triggered by:
+ *   · keyboard: ⌘K / Ctrl+K / `/`
+ *   · click:    any element with `data-oracle-open`
+ *   · custom:   window.dispatchEvent(new CustomEvent('oracle:open'))
+ * Logic lives in src/lib/oracle.ts (initOracle).
+ */
+---
+<div id="oracle-popover" popover="auto" class="oracle" aria-label="Command palette">
+  <input
+    type="text"
+    id="oracle-input"
+    class="oracle-input"
+    placeholder="What are you looking for?"
+    autocomplete="off"
+    spellcheck="false"
+  />
+  <ul id="oracle-list" class="oracle-list" role="listbox"></ul>
+  <div class="oracle-foot">
+    <span><kbd>↑</kbd> <kbd>↓</kbd> navigate · <kbd>↵</kbd> select · <kbd>esc</kbd> close</span>
+    <span class="oracle-brand">侍 KR8TIV · Oracle</span>
+  </div>
+</div>

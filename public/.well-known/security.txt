@@ -1,0 +1,4 @@
+Contact: mailto:matt@kr8tiv.io
+Expires: 2027-04-22T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://kr8tiv.ai/.well-known/security.txt

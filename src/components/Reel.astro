@@ -1,0 +1,113 @@
+---
+---
+<section class="reel" id="reel">
+  <div class="reel-pin">
+    <div class="reel-bg">
+      <video autoplay muted loop playsinline>
+        <source src="/kr8tiv-assets/forrestbackground.mp4" type="video/mp4" />
+      </video>
+      <span class="reel-fade-top"   aria-hidden="true"></span>
+      <span class="reel-fade-bot"   aria-hidden="true"></span>
+    </div>
+    <div class="reel-inner">
+      <h2 class="serif">
+        death to<br />
+        <em>generic</em>.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Forest video bleeds into the sections above (Work / whisper CTA)
+     and below (Contact) instead of butting up as a hard rectangle.
+     Two fixed-position gradients matching the section's #000 backdrop
+     ride above the video at the top and bottom edges. */
+  .reel { background: #000; }
+  .reel-bg { isolation: isolate; }
+  .reel-fade-top,
+  .reel-fade-bot {
+    position: absolute;
+    left: 0; right: 0;
+    height: 26vh;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .reel-fade-top {
+    top: 0;
+    background: linear-gradient(to bottom,
+      #000 0%, rgba(0,0,0,.92) 28%, rgba(0,0,0,.55) 60%,
+      rgba(0,0,0,.18) 86%, transparent 100%);
+  }
+  .reel-fade-bot {
+    bottom: 0;
+    background: linear-gradient(to top,
+      #000 0%, rgba(0,0,0,.92) 28%, rgba(0,0,0,.55) 60%,
+      rgba(0,0,0,.18) 86%, transparent 100%);
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { initKatanaTrail } from '@lib/katanaTrail';
+  gsap.registerPlugin(ScrollTrigger);
+  // Skip the pin on mobile — responsive.css lays the reel out as a
+  // normal block so no ScrollTrigger pinSpacer is needed. Ken-burns
+  // scale on the video still runs at all sizes.
+  const reelMobile = window.matchMedia('(max-width: 720px)').matches;
+  if (document.querySelector('.reel')) {
+    if (!reelMobile) {
+      ScrollTrigger.create({
+        trigger: '.reel', start: 'top top', end: 'bottom bottom',
+        pin: '.reel-pin', pinSpacing: false
+      });
+    }
+    gsap.to('.reel-bg video', {
+      scale: 1.12, ease: 'none',
+      scrollTrigger: { trigger: '.reel', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+  // Cursor-drawn katana trail — chromatic-aberrated ribbon that
+  // follows the pointer over the reel scene. Self-gates on
+  // prefers-reduced-motion / motion-off; pauses when scrolled away.
+  const reelPin = document.querySelector<HTMLElement>('.reel-pin');
+  if (reelPin && !reelMobile) {
+    try {
+      initKatanaTrail(reelPin, {
+        color:           [1.0, 0.55, 0.86],
+        trailFade:       0.93,
+        brushSize:       11,
+        chromaticOffset: 6,
+        velocityBoost:   85
+      });
+    } catch (err) {
+      console.error('[KR8·reel] katanaTrail init failed:', err);
+    }
+
+    // Three.js layered scene: volumetric prism slab (#1) + refractive
+    // mirror lake (#6). Both feed off the same forest VideoTexture
+    // so the visuals share a source and never desync. The slab sits
+    // in the upper-middle; the lake occupies the bottom 38%.
+    import('@lib/reelScene').then(({ initReelScene }) => {
+      const video = reelPin.querySelector<HTMLVideoElement>('.reel-bg video');
+      if (!video) return;
+      // Wait for first frame so VideoTexture has data to sample.
+      const start = (): void => {
+        try {
+          initReelScene(reelPin, video, {
+            slabTint:       [1.0, 0.55, 0.86],
+            lakeTint:       [0.92, 0.62, 0.95],
+            slabDispersion: 0.018,
+            lakeRipple:     0.045
+          });
+        } catch (err) {
+          console.error('[KR8·reel] reelScene init failed:', err);
+        }
+      };
+      if (video.readyState >= 2) start();
+      else video.addEventListener('loadeddata', start, { once: true });
+    }).catch((err) => console.error('[KR8·reel] reelScene import failed:', err));
+  }
+</script>

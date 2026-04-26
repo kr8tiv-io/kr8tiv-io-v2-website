@@ -1,0 +1,606 @@
+/* =====================================================================
+   LIGHT THEME · cohesive white palette.
+   Previously the site only flipped --ink / --bg when toggling to light
+   mode — every hardcoded #000, #05050a, rgba(0,0,0,x) etc. stayed dark,
+   so the result looked broken. This file is a targeted override of
+   every section that uses hardcoded dark surfaces, producing a warm,
+   paper-like daylight aesthetic: cream background, deep ink, brass-
+   gold + jewel-toned accents sitting against light paper.
+   ===================================================================== */
+
+/* Selector specificity note: prism.css declares accents on
+   :root[data-variant="prism"] which is (0,2,0). My earlier
+   html[data-theme="light"] was (0,1,1) — lost the cascade and the
+   accents never flipped. Using :root[data-theme="light"] matches at
+   (0,2,0) and wins because this file loads AFTER core.css. */
+:root[data-theme="light"] {
+  /* === Palette ===
+     Warm paper background, not clinical white. Slightly desaturated
+     accents so they read as vibrant pigment, not fluorescent neon. */
+  --ink:            #1a1820;
+  --ink-muted:      rgba(26, 24, 32, .58);
+  --bg:             #f5f2ea;                 /* cream / warm paper */
+  --surface-1:      #ede9dc;                 /* slightly darker paper */
+  --surface-2:      #ffffff;                 /* pure card surface */
+  --edge:           rgba(26, 24, 32, .12);
+  --edge-strong:    rgba(26, 24, 32, .22);
+
+  /* Accents — preserve brand hues but push darker so they have
+     contrast on the cream background instead of washing out. */
+  --accent-1:       #c22b82;                 /* rose → deeper pink */
+  --accent-2:       #6700c9;                 /* deeper purple */
+  --accent-3:       #c91d3c;                 /* muted crimson */
+  --accent-4:       #b08016;                 /* antique brass */
+  --accent:         var(--accent-3);
+  --gold:           var(--accent-4);
+
+  color-scheme: light;
+}
+
+/* =====================================================================
+   NAV — flip the blurred glass panels from near-black to frosted cream
+   ===================================================================== */
+html[data-theme="light"] nav[data-nav-state="body"] {
+  background: rgba(247, 244, 235, .78);
+  border-bottom-color: rgba(26, 24, 32, .12);
+}
+html[data-theme="light"] nav[data-nav-state="final"] {
+  background: linear-gradient(180deg,
+    rgba(194, 43, 130, .08),
+    rgba(247, 244, 235, .85));
+  border-bottom-color: rgba(194, 43, 130, .22);
+}
+
+/* Nav buttons / toggles — flip from dark outline to ink outline */
+html[data-theme="light"] nav .toggle,
+html[data-theme="light"] .nav-shatter,
+html[data-theme="light"] .nav-oracle {
+  border-color: rgba(26, 24, 32, .18);
+  background: rgba(255, 255, 255, .5);
+}
+html[data-theme="light"] nav .toggle:hover,
+html[data-theme="light"] .nav-oracle:hover {
+  border-color: var(--accent-1);
+  background: rgba(194, 43, 130, .08);
+}
+
+/* =====================================================================
+   HERO — video stays but fade-to-black becomes fade-to-cream, samurai
+   glow retuned for light bg (red on cream needs less drop-shadow or
+   it looks garish).
+   ===================================================================== */
+html[data-theme="light"] .hero-fade-black {
+  background: linear-gradient(180deg, transparent 0%, rgba(245, 242, 234, .4) 50%, var(--bg) 100%);
+}
+html[data-theme="light"] .hero-bg video {
+  filter: contrast(1.06) saturate(.92) brightness(.82);
+  opacity: .58;
+}
+html[data-theme="light"] .samurai-kanji {
+  color: var(--accent-3);
+  filter: drop-shadow(0 0 18px rgba(201, 29, 60, .35));
+}
+html[data-theme="light"] .hero.hero-reveal .hero-title {
+  color: var(--ink);
+}
+/* Reveal cover — was dark panel, now cream panel */
+html[data-theme="light"] #reveal-cover { fill: #f5f2ea; }
+
+/* =====================================================================
+   DOCTRINE — cards on cream paper
+   ===================================================================== */
+html[data-theme="light"] .doctrine { background: var(--bg); }
+html[data-theme="light"] .stmt {
+  border-top-color: var(--edge);
+}
+html[data-theme="light"] .chapter-label { color: var(--ink-muted); }
+html[data-theme="light"] .chapter-label .b {
+  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+}
+
+/* =====================================================================
+   SERVICES — videos stay, text + frame edges adapt
+   ===================================================================== */
+html[data-theme="light"] .services { background: var(--bg); }
+html[data-theme="light"] .svc-copy p { color: rgba(26, 24, 32, .7); }
+html[data-theme="light"] .svc-copy .meta { color: var(--ink-muted); }
+html[data-theme="light"] .svc-copy .price { color: var(--ink-muted); }
+html[data-theme="light"] .svc-rec, html[data-theme="light"] .svc-counter {
+  color: var(--ink-muted);
+}
+html[data-theme="light"] .svc-frame {
+  background: var(--surface-1);
+  box-shadow: 0 24px 64px -32px rgba(26, 24, 32, .2);
+}
+
+/* =====================================================================
+   INLINE CTAs — flip dark boxes + ghost-button borders
+   ===================================================================== */
+/* InlineCTA + BigCTA + SeatCounter are Astro components with scoped
+   <style> blocks. Their compiled selectors carry a [data-astro-cid]
+   that resists the plain-ancestor cascade, so we use !important on
+   the key visual properties (background, border-color, color) that
+   need to flip for light mode. */
+html[data-theme="light"] .inline-cta[data-variant="loud"] .box {
+  border-color: var(--accent-1) !important;
+  background: radial-gradient(ellipse at 82% 12%,
+    rgba(194, 43, 130, .1) 0%,
+    rgba(103, 0, 201, .06) 38%,
+    transparent 76%) !important;
+}
+html[data-theme="light"] .inline-cta[data-variant="loud"] .box::before {
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+    rgba(194, 43, 130, .12), transparent 55%);
+}
+html[data-theme="light"] .inline-cta[data-variant="loud"] .box:hover {
+  box-shadow: 0 0 88px rgba(194, 43, 130, .22);
+}
+html[data-theme="light"] .inline-cta .cta-primary {
+  background: #c22b82 !important;
+  color: #fff !important;
+  border-color: #c22b82 !important;
+}
+html[data-theme="light"] .inline-cta .cta-primary:hover {
+  box-shadow: 0 0 32px rgba(194, 43, 130, .4) !important;
+}
+html[data-theme="light"] .inline-cta .cta-ghost {
+  color: var(--ink) !important;
+  border-color: var(--edge-strong) !important;
+  background: rgba(255, 255, 255, .4) !important;
+}
+html[data-theme="light"] .inline-cta .cta-ghost:hover {
+  background: rgba(26, 24, 32, .05);
+}
+html[data-theme="light"] .inline-cta[data-variant="whisper"] .whisper {
+  border-top-color: var(--edge);
+}
+html[data-theme="light"] .inline-cta[data-variant="whisper"] .whisper-link {
+  color: var(--accent-1);
+  border-bottom-color: var(--accent-1);
+}
+
+/* =====================================================================
+   WHY / MANIFESTO — video still there, text dark on the cream overlay
+   ===================================================================== */
+html[data-theme="light"] .why-bg video {
+  opacity: .28;                         /* lower still on light bg */
+  filter: contrast(1.06) saturate(1.0) brightness(.78);
+}
+html[data-theme="light"] .why-prism { opacity: .32; }
+html[data-theme="light"] .why-fade-top {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(245, 242, 234, .82) 40%, transparent 100%);
+}
+html[data-theme="light"] .why-fade-bot {
+  background: linear-gradient(0deg,   var(--bg) 0%, rgba(245, 242, 234, .82) 40%, transparent 100%);
+}
+html[data-theme="light"] .why-left .kanji {
+  color: var(--accent-3);
+  filter: drop-shadow(0 0 30px rgba(201, 29, 60, .22));
+}
+html[data-theme="light"] .why-left h2 { color: var(--ink); }
+html[data-theme="light"] .why-right .q {
+  border-left-color: var(--edge-strong);
+  color: var(--ink);
+}
+html[data-theme="light"] .why-right .q .tag { color: var(--ink-muted); }
+html[data-theme="light"] .why-right .q cite { color: var(--ink-muted); }
+
+/* =====================================================================
+   INTERLUDE — swap pitch black to a warm surface
+   ===================================================================== */
+html[data-theme="light"] .interlude {
+  background: var(--surface-1);
+  border-top: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+}
+html[data-theme="light"] .interlude-frame {
+  background: var(--surface-2);
+}
+html[data-theme="light"] .interlude-caption { color: var(--ink-muted); }
+
+/* =====================================================================
+   PROCESS PREVIEW (homepage) — cards on cream
+   ===================================================================== */
+html[data-theme="light"] .process { background: var(--bg); }
+html[data-theme="light"] .process-step {
+  border-top-color: var(--edge);
+}
+html[data-theme="light"] .process-more {
+  border-color: var(--edge-strong);
+  background: rgba(255, 255, 255, .45);
+}
+html[data-theme="light"] .process-more:hover {
+  border-color: var(--accent-1);
+  background: rgba(194, 43, 130, .04);
+}
+
+/* =====================================================================
+   WORK — card bg was #101015, flip to cream surface with shadow
+   ===================================================================== */
+html[data-theme="light"] .work { background: var(--bg); }
+html[data-theme="light"] .work-card {
+  background: var(--surface-2);
+  box-shadow: 0 20px 60px -30px rgba(26, 24, 32, .2);
+}
+
+/* =====================================================================
+   REEL — video still pops on any bg, but title color flips
+   ===================================================================== */
+html[data-theme="light"] .reel-bg video {
+  opacity: .55;
+  filter: contrast(1.04) saturate(.95) brightness(.82);
+}
+html[data-theme="light"] .reel-inner h2 { color: var(--ink); }
+
+/* =====================================================================
+   CONTACT — dark → cream with hover brightenings retuned
+   ===================================================================== */
+html[data-theme="light"] .contact-cta a {
+  border-color: var(--edge-strong);
+  color: var(--ink);
+  background: rgba(255, 255, 255, .5);
+}
+html[data-theme="light"] .contact-cta a:hover {
+  background: var(--accent-1);
+  color: #fff;
+  border-color: var(--accent-1);
+}
+
+/* =====================================================================
+   BIG CTA — the big "still scrolling" endcap. Dark radial → cream radial
+   ===================================================================== */
+html[data-theme="light"] .big-cta {
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 10%, rgba(194, 43, 130, .14), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 20% 90%, rgba(103, 0, 201, .10), transparent 65%),
+    radial-gradient(ellipse 60% 60% at 85% 85%, rgba(176, 128, 22, .08), transparent 60%) !important;
+}
+html[data-theme="light"] .big-cta::before { background: var(--edge); }
+html[data-theme="light"] .big-cta-title { color: var(--ink); }
+html[data-theme="light"] .big-cta-sub { color: var(--ink); }
+/* Hardcoded accent-1 (#c22b82) instead of var(--accent-1) here —
+   there's a cascade quirk with component-scoped styles where both
+   rules declare the same var() expression and the browser returns
+   the dark value despite --accent-1 being set to the light value on
+   the element. Hardcoding the hex sidesteps it. */
+html[data-theme="light"] .big-cta-primary {
+  background: #c22b82 !important;
+  color: #fff !important;
+  border-color: #c22b82 !important;
+}
+html[data-theme="light"] .big-cta-primary:hover {
+  box-shadow: 0 0 64px rgba(194, 43, 130, .45),
+              0 0 140px rgba(194, 43, 130, .22) !important;
+}
+html[data-theme="light"] .big-cta-ghost {
+  color: var(--ink) !important;
+  border-color: var(--edge-strong) !important;
+  background: rgba(255, 255, 255, .5) !important;
+}
+html[data-theme="light"] .big-cta-link { color: var(--ink-muted); }
+html[data-theme="light"] .big-cta-foot {
+  border-top-color: var(--edge);
+  color: var(--ink-muted);
+}
+html[data-theme="light"] .big-cta-foot b { color: var(--accent-4); }
+
+/* =====================================================================
+   VARIANT BAR (section indicator) — dark pill → light pill
+   ===================================================================== */
+html[data-theme="light"] .variant-bar {
+  background: rgba(255, 255, 255, .72);
+  border-color: var(--edge);
+  backdrop-filter: blur(12px);
+}
+html[data-theme="light"] .variant-bar a {
+  color: var(--ink-muted);
+}
+html[data-theme="light"] .variant-bar a:hover {
+  color: var(--ink);
+  background: rgba(26, 24, 32, .06);
+}
+html[data-theme="light"] .variant-bar a.active {
+  color: var(--accent-1);
+  background: rgba(194, 43, 130, .1);
+}
+
+/* =====================================================================
+   FLOATING CTA (bottom-right pill) — dark glass → light glass
+   ===================================================================== */
+/* !important on `background` here: Astro's scoped component styles
+   (.fcta-main[data-astro-cid-...]) resist the normal cascade winning
+   by my (0,2,1) ancestor selector — likely an injection-order thing
+   inside the compiled bundle. !important is the correct pattern for
+   a theme-override stylesheet: it's explicitly meant to outrank
+   component defaults when a theme flips. */
+html[data-theme="light"] .fcta-main {
+  background: rgba(255, 255, 255, .85) !important;
+  color: var(--ink);
+  border-color: var(--accent-1);
+  box-shadow: 0 8px 32px rgba(26, 24, 32, .2),
+              0 0 0 1px rgba(194, 43, 130, .2) !important;
+}
+html[data-theme="light"] .fcta-main:hover {
+  background: rgba(194, 43, 130, .14) !important;
+  box-shadow: 0 8px 40px rgba(194, 43, 130, .3),
+              0 0 0 1px rgba(194, 43, 130, .5) !important;
+}
+html[data-theme="light"] .fcta-panel {
+  background: rgba(255, 255, 255, .96) !important;
+  border-color: var(--edge);
+  box-shadow: 0 20px 60px rgba(26, 24, 32, .24) !important;
+}
+html[data-theme="light"] .fcta-row { color: var(--ink); }
+html[data-theme="light"] .fcta-row:hover { background: rgba(194, 43, 130, .06); }
+html[data-theme="light"] .fcta-row.primary {
+  background: rgba(194, 43, 130, .1);
+  border-color: rgba(194, 43, 130, .3);
+}
+html[data-theme="light"] .fcta-row .sub { color: var(--ink-muted); }
+html[data-theme="light"] .fcta-head { color: var(--accent-1); border-bottom-color: var(--edge); }
+html[data-theme="light"] .fcta-close { color: var(--ink-muted); }
+
+/* =====================================================================
+   ORACLE PALETTE (⌘K popover) — dark panel → cream glass panel
+   ===================================================================== */
+html[data-theme="light"] .oracle[popover] {
+  background: rgba(255, 255, 255, .96) !important;
+  border-color: rgba(194, 43, 130, .3) !important;
+  box-shadow: 0 24px 72px rgba(26, 24, 32, .3),
+              0 0 96px rgba(194, 43, 130, .1) !important;
+  color: var(--ink) !important;
+}
+html[data-theme="light"] .oracle .oracle-input {
+  color: var(--ink);
+  border-bottom-color: var(--edge);
+}
+html[data-theme="light"] .oracle .oracle-input:focus { border-bottom-color: var(--accent-1); }
+html[data-theme="light"] .oracle .oracle-list li { color: var(--ink); }
+html[data-theme="light"] .oracle .oracle-list li:hover,
+html[data-theme="light"] .oracle .oracle-list li[aria-selected="true"] {
+  background: rgba(194, 43, 130, .08);
+}
+html[data-theme="light"] .oracle .oracle-list .body em { color: var(--ink-muted); }
+html[data-theme="light"] .oracle kbd {
+  background: rgba(26, 24, 32, .06);
+  color: var(--accent-1);
+  border-color: var(--edge);
+}
+html[data-theme="light"] .oracle .oracle-foot {
+  color: var(--ink-muted);
+  border-top-color: var(--edge);
+}
+
+/* =====================================================================
+   KINTSUGI OVERLAY — dark shatter → ivory/pearl shatter, cracks still
+   gold (accent-4 darker is brass, which reads beautifully on cream)
+   ===================================================================== */
+html[data-theme="light"] .kintsugi-overlay {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(245, 242, 234, .9), rgba(232, 228, 216, .96));
+  backdrop-filter: blur(10px) saturate(1.1);
+}
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-path-shadow {
+  stroke: #3d2a04;                          /* deep umber */
+  opacity: .55;
+}
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-path-gold {
+  stroke: #9a6f0a;                          /* antique brass reads on cream */
+}
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-path-hilite {
+  stroke: #fff2c0;
+  filter: drop-shadow(0 0 1.5px rgba(154, 111, 10, .8));
+}
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-path-micro { stroke: #9a6f0a; }
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-sparkle {
+  fill: #9a6f0a;
+  filter:
+    drop-shadow(0 0 1.5px rgba(154, 111, 10, .9))
+    drop-shadow(0 0 4px   rgba(176, 128, 22, .6));
+}
+html[data-theme="light"] .kintsugi-overlay .kin-center-glyph { color: var(--accent-1); }
+html[data-theme="light"] .kintsugi-overlay svg.kin-cracks .kin-label {
+  fill: var(--ink);
+  stroke: rgba(255, 255, 255, .6);
+}
+html[data-theme="light"] .kintsugi-overlay .kin-close {
+  background: rgba(194, 43, 130, .1);
+  border-color: var(--accent-1);
+  color: var(--accent-1);
+}
+/* page-dim filter should be lighter too */
+html[data-theme="light"].kintsugi-open main,
+html[data-theme="light"].kintsugi-open nav {
+  filter: brightness(.85) saturate(.7);
+}
+
+/* =====================================================================
+   PROCESS PAGE (/process/) — cream variant
+   ===================================================================== */
+html[data-theme="light"] .process-mast .mast-row {
+  border-bottom-color: var(--edge);
+}
+html[data-theme="light"] .process-title { color: var(--ink); }
+html[data-theme="light"] .kword-strip {
+  border-top-color: var(--edge);
+  border-bottom-color: var(--edge);
+  background: rgba(255, 255, 255, .5);
+}
+html[data-theme="light"] .kword-inner .k { color: var(--ink); }
+html[data-theme="light"] .battle-cry h2 { color: var(--ink); }
+html[data-theme="light"] .battle-cry .tag {
+  color: var(--ink-muted);
+  border-left-color: var(--accent-1);
+}
+html[data-theme="light"] .ethos .meta { color: var(--ink-muted); }
+html[data-theme="light"] .ethos .body { color: var(--ink); }
+html[data-theme="light"] .ethos .cta-row a {
+  color: var(--ink);
+  border-color: var(--accent-1);
+}
+html[data-theme="light"] .ethos .cta-row a:hover {
+  background: var(--accent-1);
+  color: #fff;
+}
+html[data-theme="light"] .ethos .cta-row a.ghost { border-color: var(--edge-strong); }
+html[data-theme="light"] .expect-anchor {
+  border-top-color: var(--edge);
+}
+html[data-theme="light"] .step { border-top-color: var(--edge); }
+html[data-theme="light"] .step .ktitle {
+  background: rgba(201, 29, 60, .06);
+  border-color: rgba(201, 29, 60, .4);
+}
+html[data-theme="light"] .step .step-visual {
+  background: linear-gradient(135deg,
+    rgba(194, 43, 130, .05),
+    rgba(103, 0, 201, .04),
+    rgba(201, 29, 60, .03));
+}
+html[data-theme="light"] .step .step-visual::before {
+  color: rgba(26, 24, 32, .12);
+  text-shadow: 0 0 40px rgba(194, 43, 130, .2);
+}
+html[data-theme="light"] .step:hover .step-visual::before {
+  color: rgba(194, 43, 130, .4);
+}
+html[data-theme="light"] .zero-adult h3 { color: var(--ink); }
+html[data-theme="light"] .zero-adult .zero-glyph {
+  color: var(--accent-1);
+  text-shadow:
+    0 0 60px rgba(194, 43, 130, .3),
+    0 0 120px rgba(103, 0, 201, .2);
+}
+html[data-theme="light"] .zero-adult .caption { color: var(--ink-muted); }
+html[data-theme="light"] .founder .label { color: var(--ink-muted); }
+html[data-theme="light"] .founder .letter { color: var(--ink); }
+/* `.founder-gl` light-mode opacity now lives in process.css with the
+   base/hover values so darkness stays in one source of truth. */
+html[data-theme="light"] .love-lore h3 { color: var(--ink); }
+html[data-theme="light"] .love-lore h3 .heart { color: var(--accent-3); }
+html[data-theme="light"] .process-cta {
+  background: radial-gradient(ellipse at center,
+    rgba(194, 43, 130, .08) 0%,
+    rgba(103, 0, 201, .04) 35%,
+    transparent 70%);
+}
+html[data-theme="light"] .process-cta h4 { color: var(--ink); }
+html[data-theme="light"] .process-cta .cta-row a {
+  color: var(--ink);
+  border-color: var(--accent-1);
+}
+html[data-theme="light"] .process-cta .cta-row a:hover {
+  background: var(--accent-1); color: #fff;
+}
+html[data-theme="light"] .process-cta .cta-row a.ghost { border-color: var(--edge-strong); }
+html[data-theme="light"] .process-cta .crypto-line { color: var(--ink-muted); }
+
+/* Zero-adult particle swarm canvas was designed for dark bg; on light
+   it'd read wrong. Dim it out. */
+html[data-theme="light"] .zero-adult > canvas { opacity: .35; }
+
+/* =====================================================================
+   START PAGE (/start/) — intake form goes paper-feeling
+   ===================================================================== */
+html[data-theme="light"] .intake { background: var(--bg); }
+html[data-theme="light"] .intake-head h1 { color: var(--ink); }
+html[data-theme="light"] .intake-nav {
+  background: rgba(255, 255, 255, .78) !important;
+  border-color: var(--edge);
+}
+html[data-theme="light"] .intake-nav ol a {
+  color: var(--ink-muted);
+}
+html[data-theme="light"] .intake-nav ol a:hover,
+html[data-theme="light"] .intake-nav ol a.active {
+  color: var(--accent-1);
+  background: rgba(194, 43, 130, .06);
+}
+html[data-theme="light"] .intake-section h2 { color: var(--ink); }
+html[data-theme="light"] .intake-section p { color: var(--ink); }
+html[data-theme="light"] .intake-section > .n { color: rgba(26, 24, 32, .08); }
+html[data-theme="light"] .field label { color: var(--ink); }
+html[data-theme="light"] .field input,
+html[data-theme="light"] .field textarea,
+html[data-theme="light"] .field select {
+  background: var(--surface-2);
+  border-color: var(--edge);
+  color: var(--ink);
+}
+html[data-theme="light"] .field input:focus,
+html[data-theme="light"] .field textarea:focus {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px rgba(194, 43, 130, .12);
+}
+html[data-theme="light"] .choice,
+html[data-theme="light"] .tier {
+  background: var(--surface-2);
+  border-color: var(--edge);
+  color: var(--ink);
+}
+html[data-theme="light"] .choice.checked,
+html[data-theme="light"] .tier.checked {
+  background: rgba(194, 43, 130, .08);
+  border-color: var(--accent-1);
+}
+html[data-theme="light"] .file-drop {
+  background: var(--surface-2);
+  border-color: var(--edge-strong);
+}
+html[data-theme="light"] .tone-slider { color: var(--ink-muted); }
+html[data-theme="light"] .btn-submit {
+  background: var(--accent-1);
+  color: #fff;
+}
+html[data-theme="light"] .consent {
+  background: var(--surface-2);
+  border-color: var(--edge);
+}
+html[data-theme="light"] .crypto-note { color: var(--ink-muted); }
+html[data-theme="light"] .crypto-note .hl { color: var(--accent-4); }
+
+/* =====================================================================
+   FOOTER (shared intake-foot + homepage foot-grid)
+   ===================================================================== */
+html[data-theme="light"] .foot-grid,
+html[data-theme="light"] .intake-foot .foot-grid {
+  border-top-color: var(--edge);
+}
+html[data-theme="light"] .foot-grid a,
+html[data-theme="light"] .intake-foot a { color: var(--ink); opacity: .78; }
+html[data-theme="light"] .foot-grid a:hover,
+html[data-theme="light"] .intake-foot a:hover { opacity: 1; color: var(--accent-1); }
+html[data-theme="light"] .foot-bar,
+html[data-theme="light"] .intake-foot .foot-bar { color: var(--ink-muted); }
+
+/* =====================================================================
+   CURSOR TRAIL — on cream bg the screen-blended brights become HARSH
+   neon. Drop opacity + use softer colors.
+   ===================================================================== */
+html[data-theme="light"] #cursor-trail { opacity: .35; }
+
+/* =====================================================================
+   NOISE texture — the feTurbulence overlay reads very differently on
+   light vs dark (overlay blend inverts). Reduce its opacity.
+   ===================================================================== */
+html[data-theme="light"] .noise { opacity: .08; }
+
+/* =====================================================================
+   Custom cursor dot — dark ring on cream bg
+   ===================================================================== */
+html[data-theme="light"] .cur { border-color: var(--ink); }
+
+/* =====================================================================
+   Text selection — warm ink + accent
+   ===================================================================== */
+html[data-theme="light"] ::selection {
+  background: rgba(194, 43, 130, .22);
+  color: var(--ink);
+}
+
+/* =====================================================================
+   Anything still using the hard `#000` / `#05050a` will fall through
+   these overrides; those are intentional edge cases (e.g., video
+   fallback backdrops). They'll read as intentional dark-card moments
+   on an otherwise cream page.
+   ===================================================================== */

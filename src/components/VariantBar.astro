@@ -1,0 +1,99 @@
+---
+/**
+ * Section Indicator (file still called VariantBar.astro so existing
+ * layouts don't break). Ten ticks across the bottom of the page; one
+ * per major section. Lights up as the reader scrolls into each.
+ *
+ * Previously linked to legacy variant HTML files on the Desktop —
+ * dead links across the board. Now each tick:
+ *   · anchor-links to the section's DOM id (hash-scroll)
+ *   · gets .active class from an IntersectionObserver as its section
+ *     enters the viewport
+ *
+ * Props:
+ *   sections   — array of {num, name, id}. Defaults to HOMEPAGE_SECTIONS.
+ *   active     — legacy prop, no longer used for variant choice.
+ */
+import { HOMEPAGE_SECTIONS, type Section } from '@lib/content';
+export interface Props { sections?: Section[]; active?: string; }
+const { sections = HOMEPAGE_SECTIONS } = Astro.props;
+---
+<div class="variant-bar" id="variant-bar" role="navigation" aria-label="Section indicator">
+  {sections.map((s, i) => (
+    <a
+      href={`#${s.id}`}
+      data-section-id={s.id}
+      class:list={[{ active: i === 0 }]}
+      title={`${s.num} — ${s.name}`}
+      aria-label={`Jump to ${s.name}`}
+    >
+      {s.num}
+    </a>
+  ))}
+</div>
+
+<script>
+  // IntersectionObserver → mark the link whose section is most in view
+  // as the "active" tick. Fires client-side after hydration so there's
+  // no flicker on first paint.
+  (function () {
+    const bar = document.getElementById('variant-bar');
+    if (!bar) return;
+    const links = Array.from(bar.querySelectorAll<HTMLAnchorElement>('a[data-section-id]'));
+    if (links.length === 0) return;
+
+    // Build a map of section DOM → link so the observer callback runs O(1)
+    const targets = new Map<Element, HTMLAnchorElement>();
+    for (const a of links) {
+      const id = a.dataset.sectionId!;
+      // Accept an element matching the id OR the first element matching
+      // that class name — lets us point at class-named sections like
+      // .interlude or .big-cta without them having to carry an id too.
+      const el = document.getElementById(id) ?? document.querySelector<HTMLElement>('.' + id);
+      if (el) targets.set(el, a);
+    }
+    if (targets.size === 0) return;
+
+    // Track all observed elements' visibility ratio and pick the max each tick
+    const visibility = new Map<Element, number>();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) visibility.set(e.target, e.intersectionRatio);
+      // Most visible wins
+      let bestEl: Element | null = null;
+      let bestRatio = -1;
+      for (const [el, ratio] of visibility.entries()) {
+        if (ratio > bestRatio) { bestRatio = ratio; bestEl = el; }
+      }
+      if (bestEl && bestRatio > 0.01) {
+        const winner = targets.get(bestEl);
+        if (winner && !winner.classList.contains('active')) {
+          links.forEach((a) => a.classList.toggle('active', a === winner));
+        }
+      }
+    }, {
+      // Fire when the section occupies a decent chunk of the viewport,
+      // and again at each 10% threshold so the "most-visible" pick stays
+      // responsive through the scroll.
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      rootMargin: '-15% 0px -40% 0px'
+    });
+    for (const el of targets.keys()) io.observe(el);
+
+    // Smooth-scroll on click (nice on the Lenis-instrumented pages)
+    links.forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.dataset.sectionId!;
+        const target = document.getElementById(id) ?? document.querySelector<HTMLElement>('.' + id);
+        if (!target) return;
+        e.preventDefault();
+        // Use Lenis if available for buttery-smooth jump; fallback to native.
+        const lenis = (window as unknown as { __KR8?: { lenis?: { scrollTo: (t: Element, o?: unknown) => void } } }).__KR8?.lenis;
+        if (lenis && typeof lenis.scrollTo === 'function') {
+          lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+</script>

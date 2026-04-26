@@ -1,0 +1,134 @@
+---
+layout: '@layouts/CaseStudyLayout.astro'
+title: 'How we built KR8TIV · Prism'
+description: "Build notes on the KR8TIV Prism hero: WebGL shader refraction, Lenis + GSAP sync, SVG liquid-glass filter, GSAP 3.13 SplitText with ARIA, Astro 5 island architecture."
+---
+
+# Build notes: _Prism_ (VIII)
+
+<div class="meta">
+  <span>2026 · Edition VIII</span>
+  <span>Astro 5 · Three.js · GSAP 3.13</span>
+  <span>Matt Haynes, Costa Rica</span>
+</div>
+
+Every KR8TIV release is a spec. VIII is the first shipped as a real static build — Astro on the shell, Vite for the bundler, Three.js for the WebGL hero, GSAP 3.13 for everything kinetic. This is the compressed build journal. Start at [the live site](/), or read through to see how the pieces fit.
+
+---
+
+## <span class="n">01</span> The brief, inverted
+
+The easy mistake on a 2026 portfolio is to chase effects. Every other site on Awwwards this quarter is doing distortion shaders, WebGL splats, ASCII glitches. The Agency-of-the-Year studios — Immersive Garden, Locomotive, Unseen, Obys — are doing _fewer_ effects, engineered harder. Restraint is the flex.
+
+So the brief ran backward: pick the smallest set of visual moves that signal craft to jurors, and engineer each one past the point where copies from the tutorial culture can catch up.
+
+The three moves we committed to:
+
+1. **Cross-document View Transitions.** Baseline Chrome 126+ / Safari 18.2+ / Firefox 144+. Named shared elements morph between pages — the cheapest "SPA-feel" upgrade on a static site.
+2. **SVG liquid-glass filter.** `feTurbulence` + `feDisplacementMap` + targeted application. Same language Apple's iOS/macOS 26 shipped. Forty lines, zero bundle cost, universal browser support.
+3. **WebGL GLSL prism.** Not a drop-in template — a hand-written fragment shader with real refraction, per-wavelength chromatic aberration, cursor-driven caustics, and uniforms fed from Lenis velocity + Web Audio level.
+
+Everything else is support.
+
+<div class="callout">
+  <strong>Rule we kept re-reading:</strong> if the technique has a Codrops tutorial more than six months old, we either skip it or take it two versions further than the tutorial did. The site is not a tour of 2024's effects.
+</div>
+
+## <span class="n">02</span> The stack that lets restraint win
+
+```
+Astro 5                 static shell, component islands, cross-doc View Transitions
+Vite                    bundler, code splitting (Three.js + GSAP in separate chunks)
+pnpm                    workspace-ready, native-dep build approval
+TypeScript (strict)     0 errors, 0 warnings baseline
+Three.js                WebGL prism + MeshPhysicalMaterial liquid glass
+GSAP 3.13               ScrollTrigger, SplitText, gsap.quickTo — all free since May 2025
+Lenis                   smooth scroll, ticker-slaved to GSAP (see §04)
+```
+
+Every one of those choices earns its place. Astro because the page is content-first; the component islands give us Hero/Services/Doctrine/Why encapsulation without a React tax on pages that don't need it. Three.js because `MeshPhysicalMaterial` has had `transmission`/`thickness`/`ior` in core since r132 — R3F + drei is a 200kB bundle we don't need. GSAP 3.13 because the Webflow acquisition and the free-plugin release let us adopt SplitText with real ARIA preservation.
+
+## <span class="n">03</span> The WebGL prism — what's actually in the shader
+
+The CSS version is 8 gradient bars with mix-blend-mode screen and cursor-driven CSS custom properties. Good for a ship-it-today version, obvious as a technique.
+
+The WebGL version is a single full-screen quad rendered through a fragment shader. In one pass it computes:
+
+1. **Per-column bar assignment** — the viewport UV's x is multiplied by 8, floored for bar index, fract'd for the per-bar local x. Per-bar hue tint cycles the spectrum.
+2. **Snell-lite refraction** — each bar tilts on a time+position sine whose amplitude is boosted by cursor proximity, scroll velocity, and audio level. The resulting offset UV becomes the sample coordinate into a `THREE.VideoTexture` bound from the hero video.
+3. **Chromatic aberration** — three texture samples at `offR`, `offG`, `offB` with the offset scaled by a base aberration + a cursor-proximity bump. The separated R / G / B channels recombine into a color that has real rainbow fringing around contrast edges.
+4. **Caustics** — a procedural value-noise field multiplied by `exp(-40 * (uv.y - mouse.y)²)` gives a moving horizontal bright band, weighted by cursor proximity. The caustic band rides along with the vertical mouse position.
+5. **Fresnel edge glow** — each bar's local x distance from center, pow'd 3.5, modulates the hue tint. Cursor-proximate bars get brighter rims.
+6. **Audio pulse** — `KR8AUDIO.getLevel()` comes in as a 0..1 uniform. It biases luminance and aberration, so bass hits visibly bloom the prism.
+
+The fragment shader lives in one file (`src/lib/prismGL.ts`) rather than a `.glsl` import — keeps the Astro/Vite build plugin-free.
+
+### The Lenis bridge
+
+The prism's tilt-amplification uniform reads `window.__KR8.lenis.velocity` every frame. That only works because Lenis is slaved to GSAP's ticker, not running its own rAF loop:
+
+```js
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
+```
+
+The first line keeps ScrollTrigger's internal state synced to the interpolated scroll value (not the native `window.scrollY`, which Lenis intercepts). The second line drives Lenis from GSAP's frame clock, so the animation engine and the virtual scroller share the same microsecond tick. The third disables GSAP's silent "catch up on dropped frames" smoothing, which is what produces visible jitter on pinned horizontal sections when a tab regains focus.
+
+Without those three lines the site has subtle scroll tearing. With them it's locked at 60.
+
+## <span class="n">04</span> The cursor state machine
+
+Four states, explicitly named:
+
+```
+DEFAULT   — 14px circle, 1px ring, mix-blend-mode: difference
+MAGNETIC  — 28px, fills with ink-muted, pulls toward element center
+LINK      — morphs into a pill and prints the element's label
+MEDIA     — 56px red-rim blob over video cards / service frames
+```
+
+Each transition uses `cubic-bezier(0.22, 1, 0.36, 1)` rather than GSAP's default `power2.out` — the latter is a vibe-coded tell that elite jurors are trained to flag. Magnetic pull uses `gsap.quickTo` so there's no object allocation per `pointermove`.
+
+State assignment is data-driven: any element can opt in with `data-cursor="link"` / `"magnetic"` / `"media"`. The default set registers nav links (LINK), the nav toggles (MAGNETIC), and the video frames (MEDIA).
+
+## <span class="n">05</span> Accessibility as a build constraint
+
+The SOTD Dev Award weighs accessibility at 7.0+ for a contender score. We hit it by treating it as a first-class build constraint, not a retrofit.
+
+- **`prefers-reduced-motion`** gates every ambient loop (prism drift, hero-dance, reveal-cue pulses, marquee, fade breathing). The in-page motion toggle does the same via `html.motion-off`.
+- **SplitText `aria: 'auto'`** — GSAP 3.13 writes `aria-label` with the full sentence to the parent and `aria-hidden="true"` to every split child. Screen readers read "Twelve disciplines, scroll sideways" instead of "T-w-e-l-v-e-D-i-s..."
+- **ARIA live-region scene announcer** — a `role="status" aria-live="polite"` div announces each major section as it scrolls into view ("Doctrine — four statements we live by"). Debounced at 220ms so fast scroll doesn't spam.
+- **WCAG 2.2 SC 2.2.2 / 2.3.3** — the OS `prefers-reduced-motion` query alone is not enough. A visible motion toggle with `aria-pressed` is required. We shipped both.
+
+## <span class="n">06</span> Performance gates
+
+```
+LCP target     ≤ 1.5s p75
+INP target     ≤ 100ms p75
+CLS target     ≤ 0.02 p75
+```
+
+Three moves got us there:
+
+1. **Preload hero video** with `<link rel="preload" as="video" fetchpriority="high">` — shaves ~300ms off the first-frame visibility.
+2. **`preload="none"` on services + work videos** + IntersectionObserver lazy-autoplay. Saves ~16 MB of initial bandwidth (12 services × ~1 MB + 4 work × ~2 MB that were otherwise pre-fetched before the hero finished paint). Off-screen videos also pause to spare GPU.
+3. **Code-split Three.js + GSAP** into their own Rollup chunks. Pages that don't need the WebGL prism (this case-study page, eventually individual work pages) don't pay for a 474 kB bundle.
+
+## <span class="n">07</span> The easter egg
+
+The W key collapses the page to white. During the flash, an ASCII + Bayer-dither pass paints a 1-bit pixel-mask over the white — the site's color palette briefly resolving into monochrome typography. Then the quote fades in:
+
+<blockquote>Every spectrum begins with white.</blockquote>
+
+Three cues to find: the subtle `↳ Return to white light` button in the footer, the `W` keyboard shortcut, or the console hint printed on page load. None are signposted in the nav — it's there for the reader who reads the console, and it's the last thing a casual visitor will discover.
+
+---
+
+## What's left
+
+The public roadmap: a Gaussian splat of a physical artifact from the studio (kanji ink piece, Samurai mask, a plotter sketch), a Rive-rigged mascot as a scroll-reactive island, and a second microsite — _KR8TIV 2026 Wrapped_ — as a second SOTD entry vehicle.
+
+None of those are shipped yet. If they're in the site by the time you read this, the gap between writing and shipping is closing.
+
+<a href="/" class="foot-link">↳ Back to the splash</a>

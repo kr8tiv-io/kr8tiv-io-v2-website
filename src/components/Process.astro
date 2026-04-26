@@ -1,0 +1,123 @@
+---
+/**
+ * Homepage "process preview" section.
+ * Four-phase summary of the full nine-step process. Links through
+ * to /process/ with a cross-document View Transition — the giant
+ * italic "process" word morphs into the process-page masthead.
+ *
+ * Why four here when /process/ has nine: the full page details every
+ * step with founder commentary + payment splits; the homepage
+ * preview is the teaser, collapsed to four phases so it doesn't
+ * dominate the scroll.
+ */
+const steps = [
+  { n: '01', t: 'Discovery',  d: 'We listen first. Who you are, who you want to be, what you sell, who buys it, what makes you different.', dur: '1–2 weeks' },
+  { n: '02', t: 'Direction',  d: 'We sketch 2–3 visual directions — each one a complete world, not a moodboard. You pick the one that feels true.', dur: '1 week' },
+  { n: '03', t: 'Design',     d: 'We build out the chosen direction across every surface — brand, web, motion, print, pitch decks, whatever is needed.', dur: '2–6 weeks' },
+  { n: '04', t: 'Handoff',    d: 'You get a living brand system, not a dead PDF. We stay on call for the first 90 days at no extra cost.', dur: 'Forever' }
+];
+---
+<section class="process" id="process-preview">
+  <div class="wrap">
+    <div class="process-head">
+      <div>
+        <div class="chapter-label mono"><span class="b"></span>IV / THE METHOD</div>
+        <h2 class="chapter-title serif">
+          <span class="line"><span>Four phases.</span></span>
+          <span class="line"><span>No <span class="it" style="view-transition-name: process-headline">surprises</span>.</span></span>
+        </h2>
+      </div>
+      <p style="max-width: 360px; color: var(--ink-muted); font-size: 14.5px; line-height: 1.8;">
+        Our engagement model is deliberately simple because the work shouldn&rsquo;t be. The full nine-step playbook — including payment splits + AI-system builds — lives on the process page.
+      </p>
+    </div>
+    <div class="process-steps">
+      {steps.map((s) => (
+        <div class="process-step">
+          <div class="n">{s.n}</div>
+          <div>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </div>
+          <div class="dur">{s.dur}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Link through to full process page. Clicks trigger the
+         View Transition morph declared in core.css. -->
+    <a href="/process/" class="process-more" data-cursor="link">
+      <span class="process-more-label">
+        <span class="eye">READ THE FULL NINE-STEP PLAYBOOK</span>
+        <span class="h">See how we work, end to end ↳</span>
+      </span>
+      <span class="process-more-arrow" aria-hidden="true">◊</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .process-more {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 36px 40px;
+    margin: 80px 0 0;
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+    color: var(--ink);
+    transition: border-color .5s cubic-bezier(.22, 1, .36, 1),
+                background .5s cubic-bezier(.22, 1, .36, 1),
+                transform .5s cubic-bezier(.22, 1, .36, 1),
+                letter-spacing .5s cubic-bezier(.22, 1, .36, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .process-more::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg,
+      transparent 0%,
+      rgba(255, 106, 213, .12) 50%,
+      transparent 100%);
+    transform: translateX(-100%);
+    transition: transform .9s cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+  }
+  .process-more:hover {
+    border-color: var(--accent-1);
+    background: rgba(255, 106, 213, .04);
+    transform: translateY(-2px);
+  }
+  .process-more:hover::before { transform: translateX(100%); }
+  .process-more-label .eye {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .36em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 6px;
+  }
+  .process-more-label .h {
+    display: block;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 2.4vw, 32px);
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .process-more-arrow {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--accent-1);
+    transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  }
+  .process-more:hover .process-more-arrow { transform: rotate(180deg) scale(1.1); }
+  @media (max-width: 720px) {
+    .process-more { padding: 24px; }
+    .process-more-arrow { font-size: 36px; }
+  }
+</style>

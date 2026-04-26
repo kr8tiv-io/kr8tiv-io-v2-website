@@ -1,0 +1,330 @@
+---
+/**
+ * Sticky floating CTA pill — bottom-right, fades in past the hero.
+ *
+ * Behavior:
+ *   · Invisible on initial load.
+ *   · IntersectionObserver watches the Hero / splash section; when
+ *     it scrolls out of view, the pill fades in.
+ *   · Auto-hides when the user reaches a section that *has its own
+ *     CTA* — avoids CTA-on-CTA awkwardness.
+ *   · Expandable: default shows a single primary "Book" button; a
+ *     tap opens a mini-panel with primary + "Fill intake" secondary.
+ *   · Dismissible (localStorage) so returning visitors aren't nagged.
+ *   · Respects prefers-reduced-motion (no slide, just fade).
+ *
+ * No framework; native DOM + CSS. ~3KB compiled.
+ */
+---
+<div class="fcta" id="floating-cta" aria-hidden="true">
+  <button class="fcta-main" id="fcta-open" aria-expanded="false" aria-label="Open quick actions">
+    <span class="fcta-dot" aria-hidden="true"></span>
+    <span class="fcta-label">Book a call</span>
+    <span class="fcta-arrow" aria-hidden="true">↳</span>
+  </button>
+
+  <div class="fcta-panel" id="fcta-panel" role="menu" aria-hidden="true">
+    <div class="fcta-head">
+      <span>NO OBLIGATION · 30 MIN</span>
+      <button class="fcta-close" id="fcta-close" aria-label="Close">✕</button>
+    </div>
+    <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer" class="fcta-row primary" role="menuitem">
+      <span class="fcta-emoji" aria-hidden="true">📞</span>
+      <span>
+        <strong>Book a call</strong>
+        <span class="sub">Free 30 min · just talk, see if we're a fit</span>
+      </span>
+    </a>
+    <a href="/start/" class="fcta-row" role="menuitem">
+      <span class="fcta-emoji" aria-hidden="true">✎</span>
+      <span>
+        <strong>Fill the intake</strong>
+        <span class="sub">Ten sections · auto-saves · ~8 min</span>
+      </span>
+    </a>
+    <a href="/process/" class="fcta-row" role="menuitem">
+      <span class="fcta-emoji" aria-hidden="true">◊</span>
+      <span>
+        <strong>Read the process</strong>
+        <span class="sub">Nine steps · from KONTACT to KARE</span>
+      </span>
+    </a>
+    <a href="mailto:matt@kr8tiv.io" class="fcta-row" role="menuitem">
+      <span class="fcta-emoji" aria-hidden="true">✉︎</span>
+      <span>
+        <strong>Email Matt</strong>
+        <span class="sub">matt@kr8tiv.io</span>
+      </span>
+    </a>
+    <button class="fcta-dismiss" id="fcta-dismiss">Don't show this again</button>
+  </div>
+</div>
+
+<style>
+  .fcta {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9500;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .6s cubic-bezier(.22, 1, .36, 1),
+                transform .6s cubic-bezier(.22, 1, .36, 1);
+  }
+  .fcta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .fcta.dismissed { display: none; }
+
+  .fcta-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px 14px 18px;
+    border: 1px solid var(--accent-1);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: padding .4s cubic-bezier(.22, 1, .36, 1),
+                box-shadow .4s,
+                background .4s,
+                letter-spacing .4s;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .5),
+                0 0 0 1px rgba(255, 106, 213, .2);
+  }
+  .fcta-main:hover {
+    padding-right: 30px;
+    letter-spacing: .28em;
+    background: rgba(255, 106, 213, .18);
+    box-shadow: 0 8px 40px rgba(255, 106, 213, .38),
+                0 0 0 1px rgba(255, 106, 213, .6);
+  }
+  .fcta-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    box-shadow: 0 0 10px rgba(255, 106, 213, .8);
+    animation: fcta-pulse 2s ease-in-out infinite;
+  }
+  @keyframes fcta-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.3); opacity: .6; }
+  }
+  @media (prefers-reduced-motion: reduce) { .fcta-dot { animation: none; } }
+  html.motion-off .fcta-dot { animation: none; }
+  .fcta-arrow {
+    color: var(--accent-1);
+    font-size: 14px;
+    transition: transform .3s;
+  }
+  .fcta-main:hover .fcta-arrow { transform: translateX(4px); }
+
+  /* ==== Expanded panel ==== */
+  .fcta-panel {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    right: 0;
+    width: 340px;
+    background: rgba(14, 14, 14, .92);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(242, 241, 236, .12);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(8px) scale(.97);
+    transform-origin: bottom right;
+    transition: opacity .35s cubic-bezier(.22, 1, .36, 1),
+                transform .35s cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+  }
+  .fcta.open .fcta-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .fcta-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .34em;
+    color: var(--accent-1);
+    border-bottom: 1px solid rgba(242, 241, 236, .08);
+    margin-bottom: 6px;
+  }
+  .fcta-close {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    transition: color .3s;
+  }
+  .fcta-close:hover { color: var(--accent-1); }
+  .fcta-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    color: var(--ink);
+    transition: background .3s, transform .3s;
+  }
+  .fcta-row:hover {
+    background: rgba(255, 106, 213, .06);
+    transform: translateX(2px);
+  }
+  .fcta-row.primary {
+    background: rgba(255, 106, 213, .1);
+    border: 1px solid rgba(255, 106, 213, .3);
+  }
+  .fcta-row.primary:hover {
+    background: rgba(255, 106, 213, .18);
+    border-color: var(--accent-1);
+  }
+  .fcta-emoji {
+    font-size: 18px;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+  .fcta-row strong {
+    display: block;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+  .fcta-row .sub {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    color: var(--ink-muted);
+    line-height: 1.45;
+  }
+  .fcta-dismiss {
+    margin-top: 4px;
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    padding: 10px;
+    cursor: pointer;
+    transition: color .3s;
+    text-align: center;
+  }
+  .fcta-dismiss:hover { color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .fcta { bottom: 16px; right: 16px; }
+    .fcta-panel { width: calc(100vw - 32px); }
+    .fcta-main .fcta-label { display: none; }
+    .fcta-main { padding: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fcta, .fcta-main, .fcta-panel, .fcta-row, .fcta-arrow {
+      transition: opacity .2s !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const KEY = 'kr8tiv-fcta-dismissed-v1';
+    const root = document.getElementById('floating-cta');
+    const btn = document.getElementById('fcta-open');
+    const closeBtn = document.getElementById('fcta-close');
+    const dismissBtn = document.getElementById('fcta-dismiss');
+    if (!root || !btn) return;
+
+    // Respect prior dismissal
+    try {
+      if (localStorage.getItem(KEY) === '1') {
+        root.classList.add('dismissed');
+        return;
+      }
+    } catch { /* ignore storage errors */ }
+
+    // IntersectionObserver on the hero (first full-viewport section)
+    // — once hero exits, fade in the pill.
+    const hero = document.querySelector<HTMLElement>('.hero, .hero-reveal, section.hero');
+    if (hero) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          // When hero is LESS than 30% visible, show the pill.
+          if (e.intersectionRatio < 0.3) root.classList.add('visible');
+          else root.classList.remove('visible');
+        });
+      }, { threshold: [0, 0.3, 0.6] });
+      io.observe(hero);
+    } else {
+      // Fallback: show after 600px of scroll
+      let shown = false;
+      const onScroll = (): void => {
+        if (!shown && window.scrollY > 600) {
+          root.classList.add('visible');
+          shown = true;
+        } else if (shown && window.scrollY <= 200) {
+          root.classList.remove('visible');
+          shown = false;
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    // Suppress when passing over sections with their own CTAs
+    const ctaSections = document.querySelectorAll('.inline-cta, .big-cta, .process-cta, .contact-bridge');
+    if (ctaSections.length) {
+      const suppressor = new IntersectionObserver((entries) => {
+        const overlapping = entries.some((e) => e.isIntersecting);
+        root.classList.toggle('suppressed', overlapping);
+      }, { threshold: 0.3 });
+      ctaSections.forEach((s) => suppressor.observe(s));
+    }
+
+    // Expand / collapse
+    const toggle = (open: boolean): void => {
+      root.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle(!root.classList.contains('open'));
+    });
+    closeBtn?.addEventListener('click', () => toggle(false));
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) toggle(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggle(false);
+    });
+
+    dismissBtn?.addEventListener('click', () => {
+      try { localStorage.setItem(KEY, '1'); } catch { /* noop */ }
+      root.classList.add('dismissed');
+    });
+  })();
+</script>

@@ -1,0 +1,165 @@
+---
+import '@styles/prism.css';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Doctrine from '@components/Doctrine.astro';
+import Services from '@components/Services.astro';
+import Why from '@components/Why.astro';
+import Process from '@components/Process.astro';
+import Work from '@components/Work.astro';
+import Reel from '@components/Reel.astro';
+import Contact from '@components/Contact.astro';
+import InlineCTA from '@components/InlineCTA.astro';
+import BigCTA from '@components/BigCTA.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
+
+// Homepage FAQ — eligible for FAQ rich results + cited heavily by AI
+// search engines (ChatGPT / Perplexity / Claude / Gemini).
+const homepageFaqs = [
+  {
+    q: 'What is KR8TIV?',
+    a: 'KR8TIV is a boutique cyber-renaissance design atelier based in Costa Rica and working globally. We build brands, websites, motion, video, and full AI business solutions for founders who want to be memorable — not generic. We work with about ten clients a year; every project gets the founder in the room.'
+  },
+  {
+    q: 'What services does KR8TIV offer?',
+    a: 'Brand identity, website design and development, motion + 3D, video editing, ads + acquisition creative, packaging, print + editorial, ecommerce, and full AI solutions — including AI marketing automation, customer-facing agents, internal tools, and content engines — for any business looking to save time and money.'
+  },
+  {
+    q: 'Does KR8TIV build AI solutions for businesses?',
+    a: 'Yes. Beyond brand and web, KR8TIV builds end-to-end AI systems for business: marketing automations, customer support agents, internal research tools, content engines, and creative pipelines. We design AI infrastructure that saves small teams real hours every week — for marketing and beyond.'
+  },
+  {
+    q: 'How do I start a project with KR8TIV?',
+    a: 'The easiest way is to book a 30-minute, no-obligation call at calendly.com/kr8tiv. If we\'re a fit, we move forward; if we\'re not, we\'ll point you somewhere that is. You can also fill out the full intake questionnaire at /start/ or email matt@kr8tiv.io directly.'
+  },
+  {
+    q: 'What does a KR8TIV project cost?',
+    a: 'We work across a wide range — from $10–$500 microjobs up to $50k+ system builds and long-term partnerships. Our standard payment split is 40% at kickoff, 40% at draft delivery, 20% at final. We accept Bitcoin, Ethereum, other cryptocurrencies, and traditional fiat payments.'
+  },
+  {
+    q: 'Where is KR8TIV based?',
+    a: 'KR8TIV is headquartered in Costa Rica and works with clients worldwide, fully remote. Founded in 2020 by Matt Haynes.'
+  }
+];
+---
+<BaseLayout
+  title="KR8TIV · Cyber-renaissance design atelier — Brand, Web, Motion, AI"
+  description="Cyber-renaissance design atelier building brands, websites, motion, video, and full AI solutions for business — marketing automation and beyond — for founders who'd rather start a cult than a brand. Book a no-obligation call."
+  variant="prism"
+  activeVariant="v8-prism"
+  canonical="/"
+  currentNav="home"
+  faqs={homepageFaqs}
+  keywords={[
+    'design atelier',
+    'brand design agency',
+    'web design studio',
+    'motion design',
+    'AI business solutions',
+    'AI marketing automation',
+    'AI agents for business',
+    'creative director for hire',
+    'founder-first design studio',
+    'boutique design studio Costa Rica',
+    'crypto-friendly design agency',
+    'Awwwards-level design',
+    'bespoke branding',
+    'AI-first design studio'
+  ]}
+>
+  <Hero />
+  <Doctrine />
+
+  {/* ── Micro-CTA after the doctrine ────────── whisper tone ── */}
+  <InlineCTA
+    variant="whisper"
+    eyebrow="NO OBLIGATION · 30 MIN"
+    headline="Prefer to just talk?"
+    primaryLabel="Book a call ↳"
+  />
+
+  <Services />
+
+  {/* Equal 100px breathing room ABOVE the loud CTA to match the 100px
+      gap below. Otherwise the box reads as butted up against the end
+      of the services pin which leaves the framing visually lopsided. */}
+  <div style="height:100px" aria-hidden="true"></div>
+
+  {/* ── AI automation hint + link to /process/ ── loud tone ── */}
+  <InlineCTA
+    variant="loud"
+    eyebrow="QUIET FLEX · AI + BRAND"
+    headline="We also build full <em>AI systems</em> for business."
+    sub="Marketing automations, customer-facing agents, internal research tools, content engines. If you're burning hours on work an AI could do faster — we'll tell you honestly whether it's worth building and then build it. More on how we work over on the process page."
+    primaryHref="/process/"
+    primaryLabel="Read the process ◊"
+    secondaryHref="https://calendly.com/kr8tiv"
+    secondaryLabel="Talk AI with us ↳"
+  />
+
+  {/* 100px breathing room between the loud AI-hint CTA (which has a
+      bright pink border) and the Manifesto section — they were butting
+      up edge-to-edge. Inline aria-hidden spacer so screen readers
+      don't announce an empty landmark. */}
+  <div style="height:100px" aria-hidden="true"></div>
+
+  <Why />
+
+  {/* ── Visual interlude between the manifesto and the method.
+       A centered looping video (Design-34) acts as a breath before
+       the process walkthrough — gives the reader a moment to absorb
+       the manifesto before the next chapter begins. Styled inline
+       here because it's a one-off seam, not a reusable pattern. ── */}
+  <section class="interlude" id="interlude" aria-hidden="true">
+    <div class="interlude-inner">
+      <div class="interlude-eye"><span class="b"></span>INTERLUDE</div>
+      <div class="interlude-frame">
+        <!-- Same loop as the "Design 34" Work card (/002 · branding). -->
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="/kr8tiv-assets/Design-29-2-1.mp4" type="video/mp4" />
+        </video>
+        <span class="interlude-glow" aria-hidden="true"></span>
+      </div>
+      <div class="interlude-caption">— between <em>why</em> &amp; <em>how</em></div>
+    </div>
+  </section>
+
+  {/* ── Process preview section — the Process component has its own
+       "process-headline"-named headline so clicking through morphs
+       it into the /process/ masthead. Speculation Rules in
+       BaseLayout prerender the page so the transition runs against
+       a ready document. ── */}
+  <Process />
+
+  {/* ── Quiet CTA after the process preview ── */}
+  <InlineCTA
+    variant="quiet"
+    eyebrow="THE FULL MAP IS ONE CLICK AWAY"
+    headline="Nine steps · zero adult supervision · one Matt."
+    sub="Every one of our engagements runs the same way — honest, boutique, and structured so there are no surprises. The full walkthrough lives on the process page."
+    primaryHref="/process/"
+    primaryLabel="See the full process ◊"
+    secondaryHref="https://calendly.com/kr8tiv"
+    secondaryLabel="Skip straight to a call ↳"
+  />
+
+  <Work />
+
+  {/* ── Post-work whisper CTA ── */}
+  <InlineCTA
+    variant="whisper"
+    eyebrow="SEEN ENOUGH?"
+    headline="Your project could be the next one in this grid."
+    primaryLabel="Start something ↳"
+    primaryHref="/start/"
+  />
+
+  <Reel />
+  <Contact />
+
+  {/* ── End-of-page big CTA — the landing ── */}
+  <BigCTA />
+
+  {/* ── Sticky floating pill (fades in past hero) ── */}
+  <FloatingCTA />
+</BaseLayout>

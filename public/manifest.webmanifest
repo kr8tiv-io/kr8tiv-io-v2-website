@@ -1,0 +1,51 @@
+{
+  "name": "KR8TIV — Cyber-renaissance design atelier",
+  "short_name": "KR8TIV",
+  "description": "Brand, web, motion, video, and full AI solutions for business. Book a no-obligation call.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "any",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["business", "design", "productivity"],
+  "icons": [
+    {
+      "src": "/kr8tiv-assets/cropped-Design-24-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/kr8tiv-assets/kr8tiv-logo-filled.png",
+      "sizes": "660x220",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book a call",
+      "short_name": "Book",
+      "description": "Free 30-minute no-obligation call",
+      "url": "https://calendly.com/kr8tiv",
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "Start a project",
+      "short_name": "Start",
+      "description": "Fill out the intake form",
+      "url": "/start/",
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "Our process",
+      "short_name": "Process",
+      "description": "How we work — nine steps",
+      "url": "/process/",
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+    }
+  ]
+}

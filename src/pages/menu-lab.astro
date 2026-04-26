@@ -1,0 +1,521 @@
+---
+/**
+ * /menu-lab/  —  preview sandbox for all 10+1 navigation concepts.
+ *
+ * NOT linked from the main nav. NOT in the sitemap. robots: noindex.
+ * Temporary until a concept is picked, then retired.
+ *
+ * Each concept lives in a `.ml-concept` section with:
+ *   · number + label eyebrow
+ *   · serif display title
+ *   · description + tags (complexity, risk, uniqueness)
+ *   · demo stage (`.ml-stage`) containing a live, interactive demo
+ *   · "Pick this" button (writes to localStorage so a reload remembers)
+ *
+ * Styles live in src/styles/menuLab.css. Heavier concepts (Three.js,
+ * WebGL) lazy-init from src/lib/menuLab/*.ts after the DOM settles.
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import '@styles/menuLab.css';
+
+const TAROT_CARDS = [
+  { roman: 'I',    name: 'The Atelier',  tag: 'Home · prism',       glyph: '侍', href: '/',           color: '#ff6ad5' },
+  { roman: 'II',   name: 'The Method',   tag: 'Process · 9 steps',  glyph: '◊', href: '/process/',   color: '#8e00ff' },
+  { roman: 'III',  name: 'The Brief',    tag: 'Start · intake',     glyph: '✎', href: '/start/',     color: '#ffd166' },
+  { roman: 'IV',   name: 'The Oracle',   tag: 'AI systems',          glyph: '❁', href: '/process/#ai', color: '#ff2d4a' },
+  { roman: 'V',    name: 'The Covenant', tag: 'Book a call',         glyph: '☏', href: 'https://calendly.com/kr8tiv', color: '#ff6ad5' },
+  { roman: 'VI',   name: 'The Hermit',   tag: 'Email Matt',          glyph: '✉', href: 'mailto:matt@kr8tiv.io', color: '#ffd166' }
+];
+---
+<FormLayout
+  title="Menu Lab · preview sandbox — KR8TIV"
+  description="Internal preview of 11 navigation concepts. Pick a direction."
+  canonical="/menu-lab/"
+  keywords={['menu lab','preview','navigation concepts']}
+  noIndex={true}
+>
+
+  <section class="menu-lab">
+    <!-- ============ TOC (sticky right rail, desktop only) ============ -->
+    <aside class="ml-toc" aria-label="Concept navigator">
+      <div class="toc-title">11 concepts</div>
+      <ol>
+        <li><a href="#c01" class="toc-link">Multi-State 侍</a></li>
+        <li><a href="#c02" class="toc-link">Oracle ⌘K</a></li>
+        <li><a href="#c03" class="toc-link">Remi · AI concierge</a></li>
+        <li><a href="#c04" class="toc-link">Prism Compass</a></li>
+        <li><a href="#c05" class="toc-link">Shader-Surface Rail</a></li>
+        <li><a href="#c06" class="toc-link">Kintsugi Cracks</a></li>
+        <li><a href="#c07" class="toc-link">The Obelisk</a></li>
+        <li><a href="#c08" class="toc-link">Audio Waveform</a></li>
+        <li><a href="#c09" class="toc-link">Scroll Oracle</a></li>
+        <li><a href="#c10" class="toc-link">Tarot Deck</a></li>
+        <li><a href="#c11" class="toc-link">★ The Hybrid</a></li>
+      </ol>
+    </aside>
+
+    <!-- ============ HEADER ============ -->
+    <header class="ml-head">
+      <div>
+        <div class="banner">● DEV PREVIEW · NOT PUBLIC</div>
+        <h1>The <em>menu lab</em>.</h1>
+        <p class="sub">
+          Eleven directions for the KR8TIV nav — all live, all interactive. Click <em>Pick this</em> on your favorite; I'll promote it to the real site. Two or three is also fine.
+        </p>
+      </div>
+      <div class="picker">
+        <div>Current pick</div>
+        <div id="ml-current">none yet</div>
+      </div>
+    </header>
+
+    <!-- =========================================================
+         01 · MULTI-STATE 侍
+         ========================================================= -->
+    <article class="ml-concept" id="c01">
+      <div class="label"><span class="num">01</span>STATE-MACHINE NAV</div>
+      <h2>Multi-State <em>侍</em></h2>
+      <p class="desc">
+        The nav is a state machine, not a list. In the hero it's just the brand lockup — invisible chrome. Scroll past and links fade in. On the last section it grows a page-progress indicator. Scroll the demo below to feel it.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M</span>
+        <span class="riskLow">RISK · LOW</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐</span>
+        <span>REF · iyo · SOTD 2026</span>
+      </div>
+      <div class="ml-stage">
+        <div class="stage-hint">▼ scroll within this box ▼</div>
+        <div class="ml-ms">
+          <div class="ms-nav" data-state="hero">
+            <div class="ms-brand"><em>侍</em> KR8TIV / PRISM</div>
+            <div class="ms-links">
+              <a>Doctrine</a>
+              <a>Work</a>
+              <a>Process</a>
+              <a>Start</a>
+            </div>
+            <div class="ms-progress"></div>
+          </div>
+          <div class="ms-section" data-state="hero" data-link="0">
+            <h3>A cyber-<em>renaissance</em> atelier.</h3>
+            <p>Scroll ↓ to watch the nav reshape.</p>
+          </div>
+          <div class="ms-section" data-state="body" data-link="1">
+            <h3>Into the <em>body</em>.</h3>
+            <p>Links fade in. A hairline rule appears below the bar. Standard reading context.</p>
+          </div>
+          <div class="ms-section" data-state="body" data-link="2">
+            <h3>Still in the <em>body</em>.</h3>
+            <p>You can tab between pages or keep going.</p>
+          </div>
+          <div class="ms-section" data-state="final" data-link="3">
+            <h3>The <em>endcap</em>.</h3>
+            <p>The bar tints magenta; a step indicator appears far right ("04 / 04").</p>
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Multi-State 侍">Pick this</button>
+        <span class="ml-pick-note">Our most restrained option · reads like iyO</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         02 · ORACLE ⌘K
+         ========================================================= -->
+    <article class="ml-concept" id="c02">
+      <div class="label"><span class="num">02</span>COMMAND PALETTE</div>
+      <h2>The <em>Oracle</em> · ⌘K</h2>
+      <p class="desc">
+        Linear-style command palette, keyboard-first. Type anything — <em>book</em> opens Calendly, <em>AI</em> jumps to AI solutions, <em>white light</em> fires the easter egg, <em>crypto</em> scrolls to payment. Arrow keys navigate, Enter executes. Hit <kbd>⌘K</kbd> or <kbd>/</kbd> to open.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · L-M</span>
+        <span class="riskLow">RISK · LOW</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐</span>
+        <span>REF · Linear · Notion · Raycast</span>
+      </div>
+      <div class="ml-stage ml-oracle-stage">
+        <div>
+          <div class="hint">Press <kbd>⌘K</kbd> or <kbd>/</kbd>, or —</div>
+          <button class="trigger" id="ml-oracle-trigger">Open the Oracle ↳</button>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Oracle ⌘K">Pick this</button>
+        <span class="ml-pick-note">Ships fastest · great as a second layer of nav</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         03 · REMI — AI CONCIERGE
+         ========================================================= -->
+    <article class="ml-concept" id="c03">
+      <div class="label"><span class="num">03</span>AGENTIC NAV</div>
+      <h2><em>Remi</em> · AI concierge</h2>
+      <p class="desc">
+        A named persona greets the user in a floating card and routes conversationally. Click an option or type anything — <em>brand</em>, <em>AI</em>, <em>pricing</em>, <em>book a call</em>. Starts as a keyword decision tree (free), trivially upgrades to an LLM later. Literally <em>proves</em> we build AI interfaces.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M</span>
+        <span class="riskMed">RISK · MED (LLM cost if upgraded)</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐</span>
+        <span>REF · Off Menu's Remi · SOTD 2026</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-remi">
+          <div class="site-bg">侍</div>
+          <div class="remi-card">
+            <div class="remi-head">
+              <div class="remi-ava"></div>
+              <div>
+                <h3 class="remi-name"><em>Remi</em></h3>
+                <div class="remi-role">AI CONCIERGE · 24/7</div>
+              </div>
+            </div>
+            <div class="remi-bubble">Loading…</div>
+            <div class="remi-opts"></div>
+            <div class="remi-input">
+              <input type="text" placeholder="or type what you're after…" aria-label="Ask Remi" />
+              <button type="button">SEND</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Remi · AI concierge">Pick this</button>
+        <span class="ml-pick-note">Proves the AI-first positioning · highest differentiation</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         04 · PRISM COMPASS
+         ========================================================= -->
+    <article class="ml-concept" id="c04">
+      <div class="label"><span class="num">04</span>3D OBJECT NAV</div>
+      <h2>Prism <em>Compass</em></h2>
+      <p class="desc">
+        A glass dodecahedron, twelve facets, twelve potential destinations. Drag to rotate with spring-back. Hover a face — it names itself. Click — refracts into a View Transition (demo just hints the target; full build routes for real). Uses the same Three.js the hero prism uses.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · H</span>
+        <span class="riskMed">RISK · MED (mobile perf)</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐</span>
+        <span>REF · Bruno Simon · Thibault Guignand</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-compass" data-active="false">
+          <div class="target">Process</div>
+          <div class="hint">drag to rotate · hover a face</div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Prism Compass">Pick this</button>
+        <span class="ml-pick-note">Extends the hero prism into the nav · strong brand fit</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         05 · SHADER-SURFACE RAIL
+         ========================================================= -->
+    <article class="ml-concept" id="c05">
+      <div class="label"><span class="num">05</span>SURFACE-AS-MENU</div>
+      <h2>Shader-Surface <em>Rail</em></h2>
+      <p class="desc">
+        A vertical edge-rail — always visible — where each nav item is a slice of live GLSL. Hover a slice, it widens and reveals its label. Every slice has a unique hue uniform so they read as sections. The nav <em>is</em> a shader, and you can click parts of it.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M-H</span>
+        <span class="riskLow">RISK · L-M</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐</span>
+        <span>REF · shader.se · Thibault Guignand</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-shader-rail">
+          <div class="rail">
+            <div class="rail-item" data-target="/">Home</div>
+            <div class="rail-item" data-target="/#doctrine">Doctrine</div>
+            <div class="rail-item" data-target="/#work">Work</div>
+            <div class="rail-item" data-target="/process/">Process</div>
+            <div class="rail-item" data-target="/start/">Start</div>
+            <div class="rail-item" data-target="https://calendly.com/kr8tiv">Book</div>
+          </div>
+          <div class="rail-body">
+            <span>Hover a slice on the left — the slice widens and its label comes forward. Each slice has its own live shader + hue.</span>
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Shader-Surface Rail">Pick this</button>
+        <span class="ml-pick-note">Permanent nav that never looks like nav</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         06 · KINTSUGI CRACKS
+         ========================================================= -->
+    <article class="ml-concept" id="c06">
+      <div class="label"><span class="num">06</span>DESTRUCTIVE AESTHETIC</div>
+      <h2>Kintsugi <em>Cracks</em></h2>
+      <p class="desc">
+        Click the trigger — the page fractures along gold-filled seams. Each crack-end is a nav destination. Inspired by Japanese <em>kintsugi</em> (gold-filled repair) to pair with our 侍 kanji. <strong>Open territory</strong> — no SOTD winner has shipped this yet.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M-H</span>
+        <span class="riskMed">RISK · MED (needs taste)</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐⭐</span>
+        <span>REF · open territory</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-kintsugi" data-cracked="false">
+          <div class="kin-scene">Fight <em>boring</em> brands.</div>
+          <svg class="kin-cracks" aria-hidden="true"></svg>
+          <button class="kin-trigger" type="button">✱ shatter the page</button>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Kintsugi Cracks">Pick this</button>
+        <span class="ml-pick-note">Highest upside · nobody else has this · SOTD-contender</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         07 · THE OBELISK
+         ========================================================= -->
+    <article class="ml-concept" id="c07">
+      <div class="label"><span class="num">07</span>3D MONOLITH</div>
+      <h2>The <em>Obelisk</em></h2>
+      <p class="desc">
+        A glass monolith rises from below the viewport on trigger. Four faces, four destinations. Drag to orbit, hover a face to name it. Connects thematically to the obelisk video we already ship on the homepage.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M</span>
+        <span class="riskMed">RISK · MED (mobile perf)</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐</span>
+        <span>REF · Oryzo AI · Bruno Simon</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-obelisk" data-face-hover="false">
+          <button class="obe-trigger" type="button">Summon the obelisk ↑</button>
+          <div class="obe-face-label"></div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="The Obelisk">Pick this</button>
+        <span class="ml-pick-note">Uses existing obelisk asset · themed continuity</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         08 · AUDIO WAVEFORM NAV
+         ========================================================= -->
+    <article class="ml-concept" id="c08">
+      <div class="label"><span class="num">08</span>AUDIO-REACTIVE NAV</div>
+      <h2>Audio <em>Waveform</em> Nav</h2>
+      <p class="desc">
+        The site's music track, rendered as a bar spectrum. Each labeled peak = a destination. When the music is on, the bars pulse live — your menu dances to the track. Leverages the AudioContext we already own. <strong>Open territory</strong>.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M</span>
+        <span class="riskLow">RISK · LOW</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐⭐</span>
+        <span>REF · open territory</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-audiowave">
+          <button class="aw-toggle" type="button">♪ play music</button>
+          <div class="aw-labels"></div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Audio Waveform Nav">Pick this</button>
+        <span class="ml-pick-note">Toggle music (top-left) to see peaks pulse live</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         09 · SCROLL ORACLE
+         ========================================================= -->
+    <article class="ml-concept" id="c09">
+      <div class="label"><span class="num">09</span>MARGIN ANNOTATIONS</div>
+      <h2>The <em>Scroll Oracle</em></h2>
+      <p class="desc">
+        No fixed menu. As you scroll, margin notes appear in Instrument Serif italic — like a scholar's manuscript — each linking to a related page. Pure CSS via <code>animation-timeline: view()</code>. Lowest JS cost of the 11.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · L</span>
+        <span class="riskLow">RISK · LOW</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐</span>
+        <span>REF · baseline scroll-driven anim</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-oracle-scroll">
+          <div class="os-content">
+            <p>
+              <span class="os-anchor">KR8TIV is a cyber-renaissance design atelier.
+                <span class="os-anno"><span class="lead">cf. /process/</span>The full <a href="/process/">nine-step playbook</a> lives here — boutique attention, modern execution.</span>
+              </span>
+              We build brands, websites, motion, video, and full AI systems for business.
+            </p>
+            <p>
+              <span class="os-anchor">Every project gets the founder in the room.
+                <span class="os-anno"><span class="lead">note · E-E-A-T</span>Matt Haynes · founder · on every engagement. No account managers. <a href="/#why">Meet the studio →</a></span>
+              </span>
+            </p>
+            <p>
+              <span class="os-anchor">We also build AI automations — marketing engines, support agents, internal tools.
+                <span class="os-anno"><span class="lead">cf. /process/#ai</span>If you're burning hours on repeatable work, <a href="/process/#ai">ask whether AI could do it cheaper</a>.</span>
+              </span>
+            </p>
+            <p>
+              <span class="os-anchor">Pricing is a 40 / 40 / 20 split — kickoff, draft, final.
+                <span class="os-anno"><span class="lead">accept · crypto + fiat</span>BTC · ETH · cryptocurrency · or standard payment. <a href="/start/">Start a project →</a></span>
+              </span>
+            </p>
+            <p>
+              <span class="os-anchor">We take ten clients a year. Not fifty. Not a hundred.
+                <span class="os-anno"><span class="lead">book · 30 min</span><a href="https://calendly.com/kr8tiv">Talk to Matt</a> — no obligation, no pitch, just an honest first call.</span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Scroll Oracle">Pick this</button>
+        <span class="ml-pick-note">Minimum-viable-wildness · most elegant · cheapest</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         10 · TAROT DECK
+         ========================================================= -->
+    <article class="ml-concept" id="c10">
+      <div class="label"><span class="num">10</span>CARD-DECK NAV</div>
+      <h2>The <em>Tarot</em> Deck</h2>
+      <p class="desc">
+        Six illustrated cards fanned in the corner, each named in Roman numerals. Hover a card — it rises from the fan. Click — it flips into the destination. A cult needs tarot. <strong>Open territory</strong>.
+      </p>
+      <div class="tags">
+        <span>COMPLEXITY · M</span>
+        <span class="riskMed">RISK · MED (illustrations)</span>
+        <span class="uniq">UNIQUENESS · ⭐⭐⭐⭐</span>
+        <span>REF · open territory</span>
+      </div>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-tarot">
+          <div class="tarot-hint">hover a card · click to flip</div>
+          <div class="tarot-deck">
+            {TAROT_CARDS.map((c, i) => (
+              <div class="tarot-card" style={`--i:${i}; --n:${TAROT_CARDS.length}; --c:${c.color};`} data-target={c.href}>
+                <div class="tarot-face">
+                  <div>
+                    <div class="tarot-roman">· {c.roman} ·</div>
+                    <div class="tarot-glyph">{c.glyph}</div>
+                  </div>
+                  <div>
+                    <div class="tarot-name">{c.name}</div>
+                    <div class="tarot-tag">{c.tag}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="Tarot Deck">Pick this</button>
+        <span class="ml-pick-note">Plays with the "cult, not brand" line · highly shareable</span>
+      </div>
+    </article>
+
+    <!-- =========================================================
+         11 · THE HYBRID  (recommendation)
+         ========================================================= -->
+    <article class="ml-concept" id="c11">
+      <div class="label"><span class="num">11</span>★ RECOMMENDED HYBRID</div>
+      <h2>The <em>Hybrid</em></h2>
+      <p class="desc">
+        If we want the best Awwwards odds: stack <em>01 Multi-State 侍</em> (permanent, quiet), <em>02 Oracle ⌘K</em> (power-user shortcut), and <em>06 Kintsugi</em> (dramatic full-menu on trigger). Three layers of nav for three user archetypes. Nobody on Awwwards in 2026 has shipped this combo.
+      </p>
+      <div class="ml-stage" style="padding:0;">
+        <div class="ml-hybrid">
+          <div class="hyb-body">
+            <span class="hyb-pill">⭐ MY PICK IF YOU WANT TO WIN SOTD</span>
+            <h4>Three layers · one <em>system</em>.</h4>
+            <p>Quiet by default (Multi-State shows the bar only when needed). Power by keyboard (⌘K opens the Oracle). Dramatic on demand (clicking the menu icon triggers the Kintsugi crack). Ships in ~1.5 weeks of focused work. Plausible Site of the Month.</p>
+            <div class="hyb-picks">
+              <span>01 MULTI-STATE</span>
+              <span>02 ORACLE ⌘K</span>
+              <span>06 KINTSUGI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ml-pick">
+        <button class="ml-pick-btn" data-concept="★ The Hybrid (01 + 02 + 06)">Pick this</button>
+        <span class="ml-pick-note">Highest-upside plan · best Awwwards odds</span>
+      </div>
+    </article>
+
+    <!-- ============ STICKY TOOLBAR ============ -->
+    <div class="ml-toolbar">
+      <span class="state" id="ml-tb-state">No pick yet — browse below</span>
+      <button type="button" id="ml-tb-clear">Clear pick</button>
+    </div>
+  </section>
+
+  <!-- ============ Oracle popover (outside lab scope so it's top-layer) ============ -->
+  <div id="ml-oracle-popover" popover="auto" class="ml-oracle" aria-label="Command palette">
+    <input
+      type="text"
+      id="ml-oracle-input"
+      class="ml-oracle-input"
+      placeholder="What are you looking for?"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <ul id="ml-oracle-list" class="ml-oracle-list" role="listbox"></ul>
+    <div class="ml-oracle-foot">
+      <span>↑ ↓ navigate · ↵ select · esc close</span>
+      <span>KR8TIV · oracle ⌘K</span>
+    </div>
+  </div>
+
+  <!-- ============ Init script ============ -->
+  <script>
+    import { initMultiState }   from '@lib/menuLab/multiState';
+    import { initOracle }       from '@lib/menuLab/oracle';
+    import { initRemi }         from '@lib/menuLab/remi';
+    import { initPrismCompass } from '@lib/menuLab/prismCompass';
+    import { initShaderRail }   from '@lib/menuLab/shaderRail';
+    import { initKintsugi }     from '@lib/menuLab/kintsugi';
+    import { initObelisk }      from '@lib/menuLab/obelisk';
+    import { initAudioWaveNav } from '@lib/menuLab/audioWaveNav';
+    import { initTarot }        from '@lib/menuLab/tarot';
+    import { initPickState }    from '@lib/menuLab/pickState';
+
+    initMultiState();
+    initOracle();
+    initRemi();
+    initPrismCompass();
+    initShaderRail();
+    initKintsugi();
+    initObelisk();
+    initAudioWaveNav();
+    initTarot();
+    initPickState();
+
+    // TOC active-link indicator
+    const concepts = document.querySelectorAll<HTMLElement>('.ml-concept');
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.ml-toc ol a');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const id = (e.target as HTMLElement).id;
+        tocLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    concepts.forEach((c) => io.observe(c));
+  </script>
+</FormLayout>

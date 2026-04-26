@@ -1,0 +1,126 @@
+---
+/**
+ * Dedicated layout for the intake questionnaire + process page.
+ * Strips the prism/reveal machinery (too visually loud for a long-read);
+ * keeps nav, cursor, grain texture, motion toggle, white-light easter
+ * egg. Imports form-specific CSS. Full SEO via <Seo /> component.
+ */
+import '@styles/core.css';
+import '@styles/intake.css';
+import '@styles/light-theme.css';  /* cohesive light palette */
+import '@styles/responsive.css';   /* mobile + tablet overrides */
+import Nav from '@components/Nav.astro';
+import LogoSymbol from '@components/LogoSymbol.astro';
+import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
+import Seo from '@components/Seo.astro';
+import OracleOverlay from '@components/OracleOverlay.astro';
+import KintsugiOverlay from '@components/KintsugiOverlay.astro';
+import type { FaqItem, HowToStep, Crumb } from '@components/Seo.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article';
+  breadcrumbs?: Crumb[];
+  faqs?: FaqItem[];
+  howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
+  keywords?: string[];
+  currentNav?: 'home' | 'process' | 'start' | 'work' | 'other';
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = 'KR8TIV — cyber-renaissance design atelier. Brands, websites, motion, video, and full AI business solutions.',
+  canonical,
+  ogImage,
+  pageType,
+  breadcrumbs,
+  faqs,
+  howTo,
+  keywords,
+  currentNav = 'other',
+  noIndex = false
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-variant="intake" data-nav-initial="body">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <Seo
+    title={title}
+    description={description}
+    canonical={canonical}
+    ogImage={ogImage}
+    type={pageType}
+    breadcrumbs={breadcrumbs}
+    faqs={faqs}
+    howTo={howTo}
+    keywords={keywords}
+    noIndex={noIndex}
+  />
+  <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
+  <link rel="apple-touch-icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://calendly.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <LogoSymbol />
+  <div class="noise"></div>
+  <div class="cur" id="cur"><span class="l" id="cur-l"></span></div>
+  <div class="prog" id="prog"></div>
+  <Nav current={currentNav} />
+  <main>
+    <slot />
+  </main>
+  <WhiteLightOverlay />
+
+  <!-- HYBRID · sitewide menu layers -->
+  <OracleOverlay />
+  <KintsugiOverlay />
+
+  <script>
+    import { initScrollCore } from '@lib/scrollCore';
+    import { initCursor } from '@lib/cursor';
+    import { initCursorTrail } from '@lib/cursorTrail';
+    import { initWhiteLight } from '@lib/whiteLight';
+    import { initMotionToggle } from '@lib/motionToggle';
+    import { initMusic, initAudioReactiveNote } from '@lib/audioNote';
+    import { initAsciiDither } from '@lib/asciiDither';
+    import { initSeatCounter } from '@lib/seatCounter';
+    import { initOracle } from '@lib/oracle';
+    import { initKintsugi } from '@lib/kintsugi';
+    import { initMultiStateNav } from '@lib/multiStateNav';
+
+    // Resilience wrapper: see BaseLayout.astro for why.
+    const safe = (name: string, fn: () => unknown): void => {
+      try { fn(); } catch (err) { console.error(`[KR8] ${name} failed:`, err); }
+    };
+    safe('scrollCore',       () => initScrollCore());
+    safe('cursor',           () => initCursor());
+    safe('cursorTrail',      () => initCursorTrail());
+    safe('whiteLight',       () => initWhiteLight());
+    safe('motionToggle',     () => initMotionToggle());
+    safe('music',            () => initMusic());
+    safe('audioReactiveNote',() => initAudioReactiveNote());
+    safe('asciiDither',      () => initAsciiDither());
+    safe('seatCounter',      () => initSeatCounter());
+
+    // HYBRID nav system (3 layers) — isolated from the rest
+    safe('oracle',           () => initOracle());
+    safe('kintsugi',         () => initKintsugi());
+    safe('multiStateNav',    () => initMultiStateNav());
+
+    // Theme (dark/light) persistence + system-pref respect
+    import('@lib/theme').then((m) => safe('theme', () => m.initTheme()));
+  </script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+---
+/**
+ * /terms/ — Privacy Policy + Terms of Service.
+ *
+ * Mirrors the kr8tiv.io live policy page content (Nov 17 2025
+ * snapshot), structured as two stacked long-reads. Uses the same
+ * prism+video atmosphere as /process/ for header continuity.
+ *
+ * Plain readable typography on the body — this page is a legal
+ * document; the brand voice carries the masthead, not the clauses.
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
+/* Prism stylesheet pulled so the masthead can carry the chromatic
+   shader + CSS bars the splash uses. */
+import '@styles/prism.css';
+import '@styles/process.css';
+
+const lastUpdated = 'November 17, 2025';
+---
+<FormLayout
+  title="Privacy Policy + Terms of Service · KR8TIV"
+  description="KR8TIV Studios privacy policy and terms of service — services, payment, intellectual property, AI integrations, governing law (Guanacaste, Costa Rica). Last updated November 17, 2025."
+  canonical="/terms/"
+  pageType="WebPage"
+  currentNav="other"
+  noIndex={false}
+  keywords={[
+    'kr8tiv terms of service',
+    'kr8tiv privacy policy',
+    'design studio terms',
+    'creative agency contract',
+    'AI agency terms'
+  ]}
+>
+  {/* ============================ MASTHEAD ============================ */}
+  <header class="process-mast terms-mast">
+    <!-- Prism atmosphere — original kr8tiv.io privacy/terms hero
+         video (Untitled-design-56.mp4) refracted through our WebGL
+         prism shader. Matches the live site's chrome on this URL. -->
+    <div class="process-hero-bg" aria-hidden="true">
+      <video class="process-hero-video" autoplay muted loop playsinline preload="metadata">
+        <source src="/kr8tiv-assets/Untitled-design-56.mp4" type="video/mp4" />
+      </video>
+      <canvas id="process-prism-webgl" class="prism-webgl process-prism-webgl" aria-hidden="true"></canvas>
+      <div class="hero-fx process-hero-fx">
+        <div class="prism-bars" id="process-prism-bars">
+          <div class="prism-bar" style="--hue:0"></div>
+          <div class="prism-bar" style="--hue:30"></div>
+          <div class="prism-bar" style="--hue:60"></div>
+          <div class="prism-bar" style="--hue:120"></div>
+          <div class="prism-bar" style="--hue:180"></div>
+          <div class="prism-bar" style="--hue:220"></div>
+          <div class="prism-bar" style="--hue:270"></div>
+          <div class="prism-bar" style="--hue:320"></div>
+        </div>
+        <div class="prism-caustic" id="process-prism-caustic"></div>
+        <div class="prism-sweep"></div>
+      </div>
+      <span class="process-hero-fade" aria-hidden="true"></span>
+    </div>
+
+    <div class="mast-row">
+      <div>KR8TIV · 侍</div>
+      <div class="word">
+        <a href="/">LUX</a>
+        <a href="/process/">PROCESS</a>
+        <a href="/work/">WORK</a>
+        <a href="/start/">CONTACT</a>
+      </div>
+      <div>VOL · 08 / TERMS</div>
+    </div>
+    <h1 class="process-title">
+      <span class="w">The</span> <em class="w">fine</em> <span class="w">print.</span>
+      <span class="small">
+        <span class="w">Privacy</span>
+        <span class="w">·</span>
+        <span class="w">Terms</span>
+        <span class="w">·</span>
+        <span class="w">Honesty</span>
+        <span class="w">first.</span>
+      </span>
+    </h1>
+  </header>
+
+  {/* ============================ INTRO ============================ */}
+  <section class="terms-intro">
+    <div class="ti-tag">LAST UPDATED · {lastUpdated}</div>
+    <p>
+      We tried to write these in plain language. If anything below is unclear,
+      <a href="mailto:matt@kr8tiv.io">email matt@kr8tiv.io</a> and we'll explain it
+      like a human, not a lawyer.
+    </p>
+    <p class="ti-jurisdiction">
+      <em>Jurisdiction:</em> Guanacaste, Costa Rica · Disputes handled in Liberia
+      courts unless both parties agree to mediation. We accept Bitcoin, Ethereum,
+      most cryptocurrencies, and standard fiat.
+    </p>
+  </section>
+
+  {/* ============================ TERMS OF SERVICE ============================ */}
+  <article class="terms-doc" id="terms-of-service">
+    <header class="td-head">
+      <div class="td-num">01</div>
+      <h2 class="td-title">Terms of <em>Service</em>.</h2>
+    </header>
+
+    <section class="td-clause" id="services-offered">
+      <h3>1 · Services offered</h3>
+      <p>KR8TIV Studios provides creative services including:</p>
+      <ul>
+        <li>Web &amp; digital — websites, landing pages, UX/UI, e-commerce</li>
+        <li>Branding &amp; visual identity — logos, brand guidelines, collateral</li>
+        <li>Packaging &amp; product design</li>
+        <li>Content, video &amp; motion graphics</li>
+        <li>Print &amp; environmental materials</li>
+        <li>Documentation &amp; corporate materials</li>
+        <li>Strategy &amp; marketing consultation</li>
+        <li>Advertising &amp; performance campaigns</li>
+        <li>Automation &amp; AI workflows</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="scope-of-work">
+      <h3>2 · Scope of work</h3>
+      <p>
+        Projects are governed by a written proposal/scope outlining deliverables,
+        timelines, and fees. The scope plus these terms constitute the contract;
+        scope-specific details take precedence. Services not explicitly listed are
+        excluded.
+      </p>
+    </section>
+
+    <section class="td-clause" id="payment-terms">
+      <h3>3 · Payment terms</h3>
+      <ul>
+        <li>Deposits typically required (30–50% upfront)</li>
+        <li><strong>All deposits are non-refundable</strong> due to resource allocation</li>
+        <li>Additional fees due at project milestones</li>
+        <li>Unused value may be credited toward revised work at our discretion</li>
+        <li>No refunds issued if projects pause or terminate</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="late-payment">
+      <h3>4 · Late payment &amp; project pauses</h3>
+      <p>
+        Work may be suspended for late payments. Rescheduled timelines follow
+        payment receipt. We bear no responsibility for missed deadlines caused
+        by payment delays.
+      </p>
+    </section>
+
+    <section class="td-clause" id="websites">
+      <h3>5 · Website &amp; e-commerce provisions</h3>
+      <p>Clients are responsible for:</p>
+      <ul>
+        <li>Hosting, domains, email accounts, third-party integrations</li>
+        <li>Tax configuration, shipping policies, refund/returns procedures</li>
+        <li>Legal compliance (consumer law, accessibility, privacy, cookies)</li>
+        <li>Content accuracy and claim legality</li>
+      </ul>
+      <p>
+        We provide no guarantees regarding traffic, sales, conversions, or search rankings.
+      </p>
+    </section>
+
+    <section class="td-clause" id="branding-print">
+      <h3>6 · Branding, print &amp; packaging</h3>
+      <ul>
+        <li>Color variations across screens/printers are normal</li>
+        <li>Clients must verify proofs thoroughly before approval</li>
+        <li>We are not liable for third-party vendor errors</li>
+        <li>Clients responsible for regulatory compliance (food, supplements, cosmetics, finance)</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="video-media">
+      <h3>7 · Video, animation &amp; media</h3>
+      <p>
+        Clients confirm ownership or proper licensing of supplied content. Deliverables
+        typically exclude editable project files unless specified in scope. Stock assets
+        may have usage restrictions.
+      </p>
+    </section>
+
+    <section class="td-clause" id="documentation">
+      <h3>8 · Documentation &amp; manuals</h3>
+      <p>
+        We provide professional opinions only — not legal, financial, or regulatory
+        advice. Clients are responsible for content accuracy and compliance.
+      </p>
+    </section>
+
+    <section class="td-clause" id="strategy">
+      <h3>9 · Strategy &amp; content consulting</h3>
+      <p>
+        Work represents professional opinion with no guaranteed outcomes. Results vary
+        based on market conditions and algorithm changes.
+      </p>
+    </section>
+
+    <section class="td-clause" id="advertising">
+      <h3>10 · Advertising &amp; campaigns</h3>
+      <p>
+        No guarantees regarding ROAS, CTR, CPM, CPA, sales, or other metrics. Ad
+        platforms may reject content or suspend accounts independently. Clients are
+        responsible for offer legality and compliance, and control ad spend at their
+        own risk.
+      </p>
+    </section>
+
+    <section class="td-clause" id="automation-ai">
+      <h3>11 · Automation &amp; AI integrations</h3>
+      <p>
+        Automations may malfunction when tools/APIs change. Clients must monitor
+        workflows and apply human judgment for high-stakes decisions. Clients
+        responsible for privacy/data law compliance. We are not liable for third-party
+        outages or platform failures.
+      </p>
+    </section>
+
+    <section class="td-clause" id="client-responsibilities">
+      <h3>12 · Client responsibilities</h3>
+      <ul>
+        <li>Provide accurate information and owned/licensed assets</li>
+        <li>Deliver timely feedback and approvals</li>
+        <li>Review deliverables carefully before sign-off</li>
+        <li>Maintain consistent communication</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="revisions">
+      <h3>13 · Revisions &amp; post-delivery support</h3>
+      <p>
+        Most scopes include a set number of revision rounds. Revisions refine existing
+        work, not restart concepts entirely. Approved deliverables are considered final.
+      </p>
+      <p><strong>Complimentary post-delivery tweaks:</strong></p>
+      <ul>
+        <li>Two small tweaks provided after final delivery at no charge</li>
+        <li>Small tweaks: <em>"something we can reasonably complete in about 30 minutes or less"</em></li>
+        <li>Available for up to 6 months from original delivery date</li>
+        <li>Larger requests treated as change orders with separate quotes</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="ip">
+      <h3>14 · Intellectual property &amp; ownership</h3>
+      <ul>
+        <li>We retain ownership until full payment is received</li>
+        <li>Upon full payment, clients own final deliverables for business use</li>
+        <li>We retain ownership of processes, templates, unused concepts, sketches, and drafts</li>
+        <li>We will not reuse client proprietary designs or assets</li>
+      </ul>
+      <p><strong>Portfolio &amp; social media:</strong></p>
+      <p>
+        Unless a confidentiality agreement exists, we may feature work in our portfolio
+        (online/offline), name the client and use their logo, share project images and
+        case studies, and tag the client on social media.
+      </p>
+    </section>
+
+    <section class="td-clause" id="confidentiality">
+      <h3>15 · Confidentiality</h3>
+      <p>
+        Non-public information is kept confidential and used only for service delivery.
+        Separate NDAs take priority where stricter.
+      </p>
+    </section>
+
+    <section class="td-clause" id="third-party">
+      <h3>16 · Third-party tools &amp; platforms</h3>
+      <p>
+        We use external providers (hosting, analytics, email, project management, AI).
+        Their terms and policies govern their services. We are not responsible for their
+        outages or changes.
+      </p>
+    </section>
+
+    <section class="td-clause" id="warranties">
+      <h3>17 · Warranties &amp; disclaimers</h3>
+      <p>
+        We promise reasonable skill and care per scope. No promises of error-free service,
+        uninterrupted access, or specific results.
+      </p>
+    </section>
+
+    <section class="td-clause" id="liability">
+      <h3>18 · Limitation of liability</h3>
+      <p>
+        <em>Our total liability for any claim related to the services is limited to the
+        total fees you paid us for that specific project.</em> We are not liable for
+        indirect damages, lost profits, lost data, or missed opportunities.
+      </p>
+    </section>
+
+    <section class="td-clause" id="indemnity">
+      <h3>19 · Indemnity</h3>
+      <p>Clients indemnify us against claims arising from:</p>
+      <ul>
+        <li>Client-supplied content or assets</li>
+        <li>Client products or services</li>
+        <li>Client misuse of deliverables</li>
+        <li>Client breach of terms or laws</li>
+      </ul>
+    </section>
+
+    <section class="td-clause" id="termination">
+      <h3>20 · Termination</h3>
+      <p>
+        Either party may terminate for material breach unresolved within reasonable time.
+        All paid amounts remain non-refundable. Delivered work may be provided at our
+        discretion, with remaining value applied as credit.
+      </p>
+    </section>
+
+    <section class="td-clause" id="changes">
+      <h3>21 · Changes to terms</h3>
+      <p>
+        We may update these terms with notification via the "Last updated" date.
+        Continued use implies acceptance.
+      </p>
+    </section>
+
+    <section class="td-clause" id="law">
+      <h3>22 · Governing law</h3>
+      <p>
+        These terms are governed by Guanacaste, Costa Rica law. Disputes are handled in
+        Liberia, Costa Rica courts unless both parties agree to mediation.
+      </p>
+    </section>
+
+    <section class="td-clause" id="contact">
+      <h3>23 · Contact</h3>
+      <p>
+        <strong>KR8TIV Studios</strong><br />
+        Email: <a href="mailto:matt@kr8tiv.io">matt@kr8tiv.io</a><br />
+        Website: kr8tiv.io
+      </p>
+    </section>
+  </article>
+
+  {/* ============================ PRIVACY POLICY ============================ */}
+  <article class="terms-doc" id="privacy-policy">
+    <header class="td-head">
+      <div class="td-num">02</div>
+      <h2 class="td-title">Privacy <em>policy</em>.</h2>
+    </header>
+
+    <section class="td-clause" id="info-collection">
+      <h3>1 · Information collection</h3>
+      <p><strong>Voluntarily provided:</strong> name, email, phone, company details and role, project goals, budgets, timelines.</p>
+      <p><strong>Automatically collected:</strong> IP address and approximate location, browser type and device information, pages visited, time on page, click paths, referring URLs, Google Analytics and similar tools.</p>
+      <p><strong>Third-party sources:</strong> scheduling tools, payment processors, email/CRM platforms, social media interactions.</p>
+    </section>
+
+    <section class="td-clause" id="info-use">
+      <h3>2 · Information use</h3>
+      <p>Data is used to:</p>
+      <ul>
+        <li>Respond to inquiries</li>
+        <li>Provide and manage services</li>
+        <li>Prepare proposals and documentation</li>
+        <li>Communicate about projects and billing</li>
+        <li>Analyze site usage and improve performance</li>
+        <li>Send newsletters (opt-out available)</li>
+        <li>Support business planning and improvement</li>
+        <li>Comply with legal and tax obligations</li>
+      </ul>
+      <p>Anonymized/aggregated data is used for analytics.</p>
+    </section>
+
+    <section class="td-clause" id="ai-tools">
+      <h3>3 · AI &amp; internal tools</h3>
+      <p>
+        We use AI and automation to draft copy, organize information, and analyze
+        anonymized data. Personal information sharing is kept minimal.
+      </p>
+    </section>
+
+    <section class="td-clause" id="cookies">
+      <h3>4 · Cookies &amp; tracking</h3>
+      <p>
+        The site uses cookies, pixels, and similar technologies for functionality,
+        preferences, usage analytics, and marketing/retargeting decisions. Users can
+        control cookies through browser settings.
+      </p>
+    </section>
+
+    <section class="td-clause" id="info-sharing">
+      <h3>5 · Information sharing</h3>
+      <p>
+        <strong>We do not sell personal data.</strong> Information is shared with:
+      </p>
+      <ul>
+        <li>Service providers (hosting, email, CRM, analytics, payment processors, AI tools)</li>
+        <li>Project partners (contractors, developers, printers) only as needed</li>
+        <li>Legal authorities when required by law or for safety/rights protection</li>
+      </ul>
+      <p>Third parties are limited to necessary use only per their terms and policies.</p>
+    </section>
+
+    <section class="td-clause" id="international">
+      <h3>6 · International data transfers</h3>
+      <p>
+        Information may be stored/processed internationally with varying data protection
+        laws. We work with reputable providers.
+      </p>
+    </section>
+
+    <section class="td-clause" id="retention">
+      <h3>7 · Data retention</h3>
+      <p>
+        Information is retained as long as needed for service delivery, business/tax
+        records, legal compliance, and relationship maintenance. Data is deleted or
+        anonymized when no longer needed.
+      </p>
+    </section>
+
+    <section class="td-clause" id="security">
+      <h3>8 · Security</h3>
+      <p>
+        Reasonable technical and organizational protections are implemented. No system
+        guarantees absolute security.
+      </p>
+    </section>
+
+    <section class="td-clause" id="rights">
+      <h3>9 · User rights</h3>
+      <p>Depending on jurisdiction, users may have rights to:</p>
+      <ul>
+        <li><strong>Access</strong> — request held personal data</li>
+        <li><strong>Correction</strong> — fix inaccurate information</li>
+        <li><strong>Deletion</strong> — remove data where legally allowed</li>
+        <li><strong>Restriction</strong> — limit certain processing</li>
+        <li><strong>Objection</strong> — oppose certain uses like direct marketing</li>
+        <li><strong>Portability</strong> — receive data in portable format</li>
+      </ul>
+      <p>
+        Contact <a href="mailto:matt@kr8tiv.io">matt@kr8tiv.io</a> to exercise rights.
+        Regional data protection authorities may also receive complaints.
+      </p>
+    </section>
+
+    <section class="td-clause" id="email-marketing">
+      <h3>10 · Email marketing &amp; communications</h3>
+      <p>
+        Subscribers receive newsletters, launches, helpful content, and offers.
+        Unsubscribe is available via email links or direct contact. Essential
+        project/billing/legal emails are sent regardless of marketing opt-out.
+      </p>
+    </section>
+
+    <section class="td-clause" id="children">
+      <h3>11 · Children's privacy</h3>
+      <p>
+        The site and services are not intended for children under 13. We do not knowingly
+        collect data from minors. Contact us if this occurs.
+      </p>
+    </section>
+
+    <section class="td-clause" id="links">
+      <h3>12 · Third-party links</h3>
+      <p>
+        We are not responsible for third-party site content or privacy practices. Users
+        should review their terms independently.
+      </p>
+    </section>
+
+    <section class="td-clause" id="policy-changes">
+      <h3>13 · Policy changes</h3>
+      <p>
+        The privacy policy is updated periodically with date notification. Continued use
+        implies acceptance of updates.
+      </p>
+    </section>
+
+    <section class="td-clause" id="privacy-contact">
+      <h3>14 · Contact</h3>
+      <p>
+        <strong>KR8TIV Studios</strong><br />
+        Email: <a href="mailto:matt@kr8tiv.io">matt@kr8tiv.io</a><br />
+        Website: kr8tiv.io
+      </p>
+    </section>
+  </article>
+
+  {/* ============================ ENDCAP ============================ */}
+  <section class="terms-foot">
+    <p class="tf-bar">
+      © 2026 KR8TIV STUDIOS · ALL RIGHTS RESERVED · GUANACASTE, COSTA RICA<br />
+      WE ACCEPT BITCOIN · ETHEREUM · CRYPTOCURRENCY · AND REGULAR MONEY TOO
+    </p>
+    <p class="tf-cta">
+      Questions? <a href="mailto:matt@kr8tiv.io">matt@kr8tiv.io</a> ·
+      Or just <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">book a call</a>.
+    </p>
+  </section>
+
+  <FloatingCTA />
+
+  <script>
+    import { initPrism } from '@lib/prism';
+    import { initPrismGL } from '@lib/prismGL';
+
+    /* Same prism wiring as /process/ — re-tag the scoped IDs the
+       page uses so initPrism (which queries by ID) finds them. */
+    const heroEl = document.querySelector('.terms-mast');
+    const barsEl = document.getElementById('process-prism-bars');
+    const causticEl = document.getElementById('process-prism-caustic');
+    if (heroEl && barsEl) {
+      barsEl.id = 'prism-bars';
+      if (causticEl) causticEl.id = 'prism-caustic';
+      heroEl.classList.add('hero');
+    }
+    try { initPrismGL('#process-prism-webgl'); } catch (err) {
+      console.error('[KR8·terms] prismGL init failed:', err);
+    }
+    try { initPrism(); } catch (err) {
+      console.error('[KR8·terms] prism CSS init failed:', err);
+    }
+  </script>
+</FormLayout>
+
+<style>
+  /* /terms/ — long-read legal page styling. Generous line-height,
+     comfortable measure, hairline rules between clauses. The
+     masthead carries the brand voice; the body is sober. */
+
+  .terms-mast { padding: 180px 32px 80px; }
+
+  .terms-intro {
+    max-width: 720px;
+    margin: 60px auto 100px;
+    padding: 0 32px;
+    font-family: 'Inter Tight', sans-serif;
+  }
+  .ti-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .42em;
+    color: var(--accent-1); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .terms-intro p {
+    font-size: 17px; line-height: 1.65;
+    color: var(--ink); opacity: .88; margin: 0 0 16px;
+  }
+  .terms-intro a {
+    color: var(--accent-1);
+    border-bottom: 1px solid var(--accent-1);
+  }
+  .ti-jurisdiction {
+    font-size: 14.5px !important;
+    opacity: .7 !important;
+    border-top: 1px solid var(--edge);
+    padding-top: 18px;
+    margin-top: 32px !important;
+  }
+  .ti-jurisdiction em { color: var(--accent-4); font-style: italic; }
+
+  .terms-doc {
+    max-width: 720px;
+    margin: 0 auto 120px;
+    padding: 0 32px;
+    font-family: 'Inter Tight', sans-serif;
+  }
+  .td-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 28px;
+    align-items: end;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .td-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(36px, 5vw, 64px); font-weight: 100;
+    letter-spacing: -.04em;
+    color: var(--ink-muted); opacity: .55;
+    line-height: 1;
+  }
+  .td-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 4.6vw, 64px);
+    line-height: .95; letter-spacing: -.02em;
+    margin: 0; color: var(--ink);
+  }
+  .td-title em { font-style: italic; color: var(--accent-1); }
+
+  .td-clause {
+    margin-bottom: 56px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .td-clause:last-child {
+    border-bottom: none;
+  }
+  .td-clause h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--accent-4);
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .td-clause p,
+  .td-clause li {
+    font-size: 15.5px; line-height: 1.7;
+    color: var(--ink); opacity: .86;
+    margin: 0 0 14px;
+  }
+  .td-clause p:last-child,
+  .td-clause li:last-child { margin-bottom: 0; }
+  .td-clause ul {
+    list-style: none; padding: 0; margin: 0 0 18px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .td-clause li {
+    padding-left: 18px;
+    position: relative;
+  }
+  .td-clause li::before {
+    content: '·'; position: absolute; left: 0;
+    color: var(--accent-1); font-weight: 700;
+  }
+  .td-clause em {
+    font-style: italic; color: var(--accent-1);
+  }
+  .td-clause strong { color: var(--ink); font-weight: 600; }
+  .td-clause a {
+    color: var(--accent-1);
+    border-bottom: 1px solid var(--accent-1);
+  }
+  .td-clause a:hover {
+    color: var(--ink); border-bottom-color: var(--ink);
+  }
+
+  /* End-of-page bar */
+  .terms-foot {
+    max-width: 1080px; margin: 100px auto 80px;
+    padding: 60px 32px 0;
+    border-top: 1px solid var(--edge);
+    text-align: center;
+  }
+  .tf-bar {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    line-height: 2;
+    margin: 0 0 36px;
+  }
+  .tf-cta {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 22px; color: var(--ink); opacity: .82;
+    margin: 0;
+  }
+  .tf-cta a {
+    color: var(--accent-1);
+    border-bottom: 1px solid var(--accent-1);
+    font-style: normal;
+  }
+  .tf-cta a:hover {
+    color: var(--ink); border-bottom-color: var(--ink);
+  }
+
+  @media (max-width: 720px) {
+    .terms-mast { padding: 120px 20px 60px; }
+    .terms-intro { padding: 0 20px; margin: 40px auto 80px; }
+    .terms-doc { padding: 0 20px; }
+    .td-head { grid-template-columns: 1fr; gap: 8px; }
+    .terms-foot { padding: 40px 20px 0; margin-top: 80px; }
+  }
+</style>

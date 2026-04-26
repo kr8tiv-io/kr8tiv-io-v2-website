@@ -1,0 +1,346 @@
+---
+/**
+ * Seo.astro — comprehensive SEO + AI-SEO (LLMO/GEO) meta block.
+ *
+ * Usage:
+ *   <Seo
+ *     title="..."
+ *     description="..."
+ *     canonical="/process/"
+ *     ogImage="/og/process.jpg"
+ *     type="WebPage"
+ *     breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Process', url: '/process/' }]}
+ *     faqs={[{ q: '…', a: '…' }]}
+ *     howTo={{ name: '…', steps: [{ name, text }] }}
+ *     noIndex={false}
+ *   />
+ *
+ * What this emits:
+ *   · Primary <title> + <meta description>
+ *   · Open Graph (og:*) for Facebook / LinkedIn / iMessage / Slack
+ *   · Twitter Cards (twitter:*) for X.com rendering
+ *   · Canonical link + robots meta + theme-color + author
+ *   · JSON-LD structured data:
+ *       - Organization (sitewide brand)
+ *       - WebSite (with SearchAction for Google sitelinks search box)
+ *       - ProfessionalService (our offering)
+ *       - WebPage / ContactPage / AboutPage (per-page override)
+ *       - BreadcrumbList (if provided)
+ *       - HowTo (if provided — for the /process/ page)
+ *       - FAQPage (if provided)
+ *       - Person (Matt, founder)
+ *
+ * Why each matters:
+ *   · Organization + Logo → unlocks rich brand panels in SERP
+ *   · WebSite + SearchAction → Google sitelinks search box on brand search
+ *   · HowTo → eligible for rich results + cited heavily by AI engines
+ *     (ChatGPT / Perplexity / Gemini / Claude) when explaining process
+ *   · FAQPage → still used by AI engines as canonical Q&A source even
+ *     after Google deprecated the rich-results badge
+ *   · BreadcrumbList → Google renders breadcrumbs in SERP + AI uses
+ *     them to understand site structure
+ *   · Person (author) → E-E-A-T signal; AI engines prefer content with
+ *     named, verifiable authors
+ */
+
+export interface FaqItem { q: string; a: string; }
+export interface HowToStep { name: string; text: string; image?: string; }
+export interface Crumb { name: string; url: string; }
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;               // absolute or relative; we normalize to absolute
+  ogImage?: string;                 // relative ok, normalized to absolute
+  ogImageAlt?: string;
+  type?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article';
+  article?: { publishedTime?: string; modifiedTime?: string; author?: string; section?: string; tags?: string[] };
+  breadcrumbs?: Crumb[];
+  faqs?: FaqItem[];
+  howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
+  noIndex?: boolean;
+  keywords?: string[];              // optional — low SEO value but some AI crawlers still parse
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/kr8tiv-assets/kr8tiv-logo-filled.png',
+  ogImageAlt = 'KR8TIV — cyber-renaissance design atelier',
+  type = 'WebPage',
+  article,
+  breadcrumbs,
+  faqs,
+  howTo,
+  noIndex = false,
+  keywords
+} = Astro.props;
+
+// Resolve everything to an absolute URL against the configured `site`.
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://kr8tiv.ai';
+const canonicalUrl = canonical
+  ? (canonical.startsWith('http') ? canonical : siteUrl + canonical)
+  : siteUrl + Astro.url.pathname;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
+
+// ------------------- JSON-LD blocks -------------------
+
+// Sitewide Organization — appears on every page so Google can
+// consolidate signals under one @id.
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': siteUrl + '/#organization',
+  name: 'KR8TIV',
+  alternateName: ['KR8TIV Atelier', 'Kr8tiv', 'KR8TiV'],
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: siteUrl + '/kr8tiv-assets/kr8tiv-logo-filled.png',
+    width: 660,
+    height: 220
+  },
+  image: siteUrl + '/kr8tiv-assets/kr8tiv-logo-filled.png',
+  description: 'KR8TIV is a cyber-renaissance design atelier. We build brands, websites, motion, and full AI systems for founders who want to be memorable — not generic.',
+  slogan: 'Built for founders who\'d rather start a cult than a brand.',
+  foundingDate: '2020',
+  founder: {
+    '@type': 'Person',
+    '@id': siteUrl + '/#matt',
+    name: 'Matt Haynes',
+    jobTitle: 'Founder & Creative Director',
+    url: siteUrl + '/#why'
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'CR',
+    addressRegion: 'Costa Rica'
+  },
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  knowsAbout: [
+    'Brand Design', 'Web Design', 'Motion Design', 'Video Editing',
+    'AI Automation', 'AI Marketing', 'AI Business Solutions',
+    'Creative Direction', 'User Experience', 'Art Direction',
+    'Ecommerce Design', 'Packaging Design', '3D Design', 'Product Design'
+  ],
+  contactPoint: [{
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: 'matt@kr8tiv.io',
+    url: 'https://calendly.com/kr8tiv',
+    availableLanguage: ['en']
+  }],
+  sameAs: [
+    'https://calendly.com/kr8tiv',
+    'https://github.com/kr8tiv-ai'
+  ]
+};
+
+// ProfessionalService — declares us as a bookable service provider.
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': siteUrl + '/#service',
+  name: 'KR8TIV Design Atelier',
+  description: 'Boutique creative studio building brands, websites, motion, video, and full AI solutions for forward-looking founders.',
+  url: siteUrl,
+  image: siteUrl + ogImage,
+  logo: siteUrl + '/kr8tiv-assets/kr8tiv-logo-filled.png',
+  priceRange: '$$$',
+  telephone: '+1-000-000-0000',
+  email: 'matt@kr8tiv.io',
+  address: { '@type': 'PostalAddress', addressCountry: 'CR' },
+  areaServed: 'Worldwide',
+  serviceType: [
+    'Brand Identity Design',
+    'Website Design & Development',
+    'Motion & 3D Design',
+    'Video Production',
+    'AI Marketing Automation',
+    'AI Business Solutions',
+    'AI Agents & Internal Tools'
+  ],
+  provider: { '@id': siteUrl + '/#organization' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'KR8TIV services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Brand Identity' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Website Design & Build' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Motion & 3D' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Marketing Automation' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Business Solutions' } }
+    ]
+  }
+};
+
+// WebSite + SearchAction — unlocks the Google sitelinks search box
+// on brand queries (`KR8TIV …`).
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': siteUrl + '/#website',
+  url: siteUrl,
+  name: 'KR8TIV',
+  description: 'KR8TIV — cyber-renaissance design atelier. Brands, websites, motion, AI.',
+  publisher: { '@id': siteUrl + '/#organization' },
+  inLanguage: 'en-US'
+};
+
+// Per-page WebPage node, linked back to the sitewide Website.
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': type,
+  '@id': canonicalUrl + '#webpage',
+  url: canonicalUrl,
+  name: title,
+  description,
+  isPartOf: { '@id': siteUrl + '/#website' },
+  about: { '@id': siteUrl + '/#organization' },
+  inLanguage: 'en-US',
+  ...(article && {
+    datePublished: article.publishedTime,
+    dateModified: article.modifiedTime ?? article.publishedTime,
+    author: { '@id': siteUrl + '/#matt' }
+  }),
+  primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl }
+};
+
+// BreadcrumbList — lightweight nav trail.
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: c.url.startsWith('http') ? c.url : siteUrl + c.url
+  }))
+} : null;
+
+// FAQ schema — still eligible for AI-engine rich answers.
+const faqSchema = faqs && faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a }
+  }))
+} : null;
+
+// HowTo schema — process page gets this to be eligible for the
+// "step-by-step" rich result and to be cited by AI engines.
+const howToSchema = howTo ? {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: howTo.name,
+  description: howTo.description,
+  ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+  image: ogImageUrl,
+  step: howTo.steps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.name,
+    text: s.text,
+    ...(s.image && { image: s.image.startsWith('http') ? s.image : siteUrl + s.image })
+  }))
+} : null;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': siteUrl + '/#matt',
+  name: 'Matt Haynes',
+  url: siteUrl + '/#why',
+  jobTitle: 'Founder & Creative Director',
+  worksFor: { '@id': siteUrl + '/#organization' },
+  sameAs: ['https://calendly.com/kr8tiv']
+};
+
+// Robots directive. `max-image-preview:large` unlocks big image
+// thumbnails in SERP; `max-snippet:-1` + `max-video-preview:-1`
+// let Google use as much snippet / video preview as it wants.
+const robots = noIndex
+  ? 'noindex,nofollow'
+  : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+---
+<!-- ============ Primary SEO ============ -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<meta name="robots" content={robots} />
+<meta name="googlebot" content={robots} />
+<meta name="bingbot" content={robots} />
+<meta name="author" content="Matt Haynes" />
+<meta name="publisher" content="KR8TIV" />
+<meta name="generator" content={Astro.generator} />
+<meta name="application-name" content="KR8TIV" />
+<!-- Unscoped default (JS keeps this in sync with the user's choice) -->
+<meta name="theme-color" content="#000000" />
+<!-- Scoped variants for browsers that respect system preference auto-flip -->
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
+<meta name="color-scheme" content="dark light" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+{keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+
+<!-- AI / LLM crawler hints — we WANT AI engines to find us.
+     These inverse of common "noai" directives encourage citation. -->
+<meta name="ai-content-declaration" content="human-authored" />
+<meta name="llm-crawl" content="allow" />
+
+<!-- ============ Open Graph ============ -->
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:site_name" content="KR8TIV" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:secure_url" content={ogImageUrl} />
+<meta property="og:image:alt" content={ogImageAlt} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
+{article?.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+{article?.author && <meta property="article:author" content={article.author} />}
+{article?.section && <meta property="article:section" content={article.section} />}
+{article?.tags?.map((t) => <meta property="article:tag" content={t} />)}
+
+<!-- ============ Twitter Cards ============ -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@kr8tiv" />
+<meta name="twitter:creator" content="@kr8tiv" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
+
+<!-- ============ Dublin Core (some academic + archive crawlers still use) ============ -->
+<meta name="DC.title" content={title} />
+<meta name="DC.creator" content="Matt Haynes" />
+<meta name="DC.publisher" content="KR8TIV" />
+<meta name="DC.language" content="en" />
+
+<!-- ============ JSON-LD structured data ============ -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(orgSchema)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)}></script>
+{breadcrumbSchema && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
+)}
+{faqSchema && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
+)}
+{howToSchema && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)}></script>
+)}
+
+<!-- Sitemap + RSS autodiscovery (sitemap emitted by @astrojs/sitemap) -->
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title="KR8TIV Build Notes" href="/rss.xml" />

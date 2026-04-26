@@ -1,0 +1,174 @@
+---
+/**
+ * Base layout shared across every variant page.
+ * Handles <head>, fonts, grain/noise overlays, nav, scroll-progress bar,
+ * custom cursor, and mounts the shared client-side lib wiring (Lenis,
+ * GSAP ticker sync, motion toggle, magnetic CTAs, white-light easter
+ * egg). Variant-specific logic is handled inside the variant's <slot>.
+ *
+ * SEO surface lives inside <Seo />. Pass page-level props through.
+ */
+import '@styles/core.css';
+import '@styles/light-theme.css';  /* cohesive light palette when data-theme="light" */
+import '@styles/responsive.css';   /* comprehensive mobile + tablet overrides */
+import Nav from '@components/Nav.astro';
+import VariantBar from '@components/VariantBar.astro';
+import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
+import LogoSymbol from '@components/LogoSymbol.astro';
+import Seo from '@components/Seo.astro';
+import OracleOverlay from '@components/OracleOverlay.astro';
+import KintsugiOverlay from '@components/KintsugiOverlay.astro';
+import type { FaqItem, HowToStep, Crumb } from '@components/Seo.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  variant?: string;
+  activeVariant?: string;
+  canonical?: string;
+  ogImage?: string;
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article';
+  breadcrumbs?: Crumb[];
+  faqs?: FaqItem[];
+  howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
+  keywords?: string[];
+  currentNav?: 'home' | 'process' | 'start' | 'work' | 'other';
+}
+
+const {
+  title = 'KR8TIV / 侍 · Cyber-renaissance design atelier — brand, web, motion, AI',
+  description = 'KR8TIV is a cyber-renaissance design atelier. We build brands, websites, motion, video, and full AI business solutions for founders who want to be memorable — not generic. Book a no-obligation call.',
+  variant = 'prism',
+  activeVariant = 'v8-prism',
+  canonical,
+  ogImage,
+  pageType,
+  breadcrumbs,
+  faqs,
+  howTo,
+  keywords,
+  currentNav = 'home'
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-variant={variant}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <Seo
+    title={title}
+    description={description}
+    canonical={canonical}
+    ogImage={ogImage}
+    type={pageType}
+    breadcrumbs={breadcrumbs}
+    faqs={faqs}
+    howTo={howTo}
+    keywords={keywords}
+  />
+  <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
+  <link rel="apple-touch-icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Preload hero video so it's available for the LCP paint. Browser
+       decodes in the background while the HTML parses; shaves ~300ms
+       off first-frame visibility. Size hint + fetchpriority high so
+       it sits at the top of the network queue. -->
+  <link rel="preload" as="video" href="/kr8tiv-assets/3-4.mp4" type="video/mp4" fetchpriority="high" />
+  <!-- Instrument Serif + Inter Tight variable webfonts for LCP text. -->
+  <link rel="preload" as="font" href="https://fonts.gstatic.com/s/instrumentserif/v12/michhDSsN6GXqB6oBkGTAvl-PxVD2Ec7NQ.woff2" type="font/woff2" crossorigin />
+
+  <!-- Speculation Rules: prerender neighboring variant pages so the
+       variant-bar feels instant on Chrome/Edge. -->
+  <script type="speculationrules" is:inline set:html={JSON.stringify({
+    prerender: [{ source: 'document', where: { href_matches: '/kr8tiv-v*' }, eagerness: 'moderate' }]
+  })}></script>
+
+  <!-- Fonts — variable axes imported so font-variation-settings can be
+       tweened at runtime by scroll velocity / hover state. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://calendly.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&family=Orbitron:wght@400..900&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <!-- Inline SVG defs: logo glyph + liquid-glass filter, reachable by
+       url(#liquidGlass) / <use href="#kr8tiv-glyph"> from any component. -->
+  <LogoSymbol />
+
+  <div class="grain"></div>
+  <div class="noise"></div>
+  <canvas id="trail-canvas"></canvas>
+  <div class="cur" id="cur"><span class="l" id="cur-l"></span></div>
+  <div class="prog" id="prog"></div>
+
+  <Nav current={currentNav} />
+
+  <main>
+    <slot />
+  </main>
+
+  <VariantBar active={activeVariant} />
+  <WhiteLightOverlay />
+
+  <!-- HYBRID · sitewide menu layers -->
+  <OracleOverlay />
+  <KintsugiOverlay />
+
+  <!-- Client-side wiring. Astro bundles this through Vite — tree-shakes
+       unused exports. Type-checked at build time. -->
+  <script>
+    import { initScrollCore } from '@lib/scrollCore';
+    import { initCursor } from '@lib/cursor';
+    import { initCursorTrail } from '@lib/cursorTrail';
+    import { initWhiteLight } from '@lib/whiteLight';
+    import { initMotionToggle } from '@lib/motionToggle';
+    import { initMusic, initAudioReactiveNote } from '@lib/audioNote';
+    import { initKineticType } from '@lib/kineticType';
+    import { initSceneAnnouncer } from '@lib/a11yAnnounce';
+    import { initLazyVideos } from '@lib/lazyVideo';
+    import { initAsciiDither } from '@lib/asciiDither';
+    import { initSeatCounter } from '@lib/seatCounter';
+    import { initOracle } from '@lib/oracle';
+    import { initKintsugi } from '@lib/kintsugi';
+    import { initMultiStateNav } from '@lib/multiStateNav';
+
+    // Resilience wrapper: one init failing must not silently cascade
+    // into later inits. Previously a stale Vite dep cache for gsap/lenis
+    // would throw in initScrollCore and kill every later init in the
+    // chain (including the Oracle + Kintsugi menu bindings) — leaving
+    // the user with no navigable UI. Each init is now isolated.
+    const safe = (name: string, fn: () => unknown): void => {
+      try { fn(); } catch (err) { console.error(`[KR8] ${name} failed:`, err); }
+    };
+
+    safe('scrollCore',       () => initScrollCore());
+    safe('cursor',           () => initCursor());
+    safe('cursorTrail',      () => initCursorTrail());
+    safe('whiteLight',       () => initWhiteLight());
+    safe('motionToggle',     () => initMotionToggle());
+    safe('music',            () => initMusic());
+    safe('audioReactiveNote',() => initAudioReactiveNote());
+    safe('kineticType',      () => initKineticType());
+    safe('sceneAnnouncer',   () => initSceneAnnouncer());
+    safe('lazyVideos',       () => initLazyVideos());
+    safe('asciiDither',      () => initAsciiDither());
+    safe('seatCounter',      () => initSeatCounter());
+
+    // HYBRID nav system (3 layers) — isolated so stale GSAP/Lenis
+    // cache in the earlier block never blocks the menu.
+    safe('oracle',           () => initOracle());
+    safe('kintsugi',         () => initKintsugi());
+    safe('multiStateNav',    () => initMultiStateNav());
+
+    // Theme toggle lives in @lib/theme — persists + respects system pref
+    import('@lib/theme').then((m) => safe('theme', () => m.initTheme()));
+
+    console.log('%c[KR8TIV / PRISM · 08] 侍 — astro build', 'color:#ff6ad5;font:600 12px monospace');
+    console.log('%c↳ Press W for white light', 'color:#f2f1ec;font:400 11px monospace');
+  </script>
+</body>
+</html>

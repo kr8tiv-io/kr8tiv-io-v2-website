@@ -1,0 +1,1055 @@
+/* =====================================================================
+   KR8TIV / Process page — editorial showcase.
+
+   Visual anchors:
+     • Giant Instrument-Serif display type (typographic hierarchy)
+     • Dual-direction marquees of K-words as structural ornament
+     • Nine numbered process steps, each with its own dedicated slab
+     • Full-bleed "WE FIGHT BORING BRANDS AND WIN 🏆" moment
+     • Founder letter with a signature
+     • Crypto / CTA endcap + footer
+
+   Built to feel like a limited-edition editorial broadsheet that
+   happens to be a process doc. Awwwards-target: big type, asymmetric
+   layout, engineered micro-interactions, not a tutorial template.
+   ===================================================================== */
+
+/* === Sentinel header — the editorial masthead === */
+.process-mast {
+  padding: 180px 32px 80px;
+  max-width: 1680px;
+  margin: 0 auto;
+  position: relative;
+  isolation: isolate;
+}
+
+/* ──── Prism atmosphere on the /process/ masthead ─────────────────
+   Same vocabulary as the splash hero — refracted forest video +
+   chromatic CSS bars + caustic line — sized to fill the masthead's
+   bounding box, fading to transparent at the bottom so the page
+   continues into the K-word marquee cleanly. */
+.process-hero-bg {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 100vw;
+  /* Cover the full masthead block (mast-row + title) plus a touch
+     of overhang so the fade lands BELOW the headline descender. */
+  height: 100%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.process-hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  /* Same dim treatment the splash uses on its hero-bg video so the
+     prism layered on top reads as the dominant chromatic signal. */
+  filter: contrast(1.05) saturate(.85) brightness(.5);
+  opacity: .58;
+}
+.process-hero-fx {
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.process-prism-webgl {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+/* Bottom fade — the masthead atmosphere bleeds into black before
+   the K-word marquee picks up. Tighter than the splash's because
+   /process/ has way less vertical airflow above the next section. */
+.process-hero-fade {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 32vh;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,0,0,.32) 30%,
+    rgba(0,0,0,.78) 65%,
+    rgba(0,0,0,.96) 88%,
+    #000 100%);
+}
+
+/* Masthead text floats above the prism */
+.process-mast .mast-row,
+.process-mast .process-title { position: relative; z-index: 3; }
+
+/* Light-mode pairing — fade to cream + dim the bars */
+html[data-theme="light"] .process-hero-fade {
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(245, 242, 234, .32) 30%,
+    rgba(245, 242, 234, .78) 65%,
+    rgba(245, 242, 234, .96) 88%,
+    #f5f2ea 100%);
+}
+html[data-theme="light"] .process-hero-video {
+  filter: contrast(1.05) saturate(.92) brightness(.78);
+  opacity: .5;
+}
+
+/* Mobile — keep the atmosphere but tighter */
+@media (max-width: 720px) {
+  .process-hero-bg { height: 100%; }
+  .process-hero-fade { height: 22vh; }
+}
+
+/* Reduced-motion: kill the prism canvas entirely so the atmosphere
+   stays still; the dim video carries the mood on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .process-prism-webgl,
+  .process-hero-fx .prism-bars,
+  .process-hero-fx .prism-sweep { display: none; }
+}
+html.motion-off .process-prism-webgl,
+html.motion-off .process-hero-fx .prism-bars,
+html.motion-off .process-hero-fx .prism-sweep { display: none; }
+.process-mast .mast-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  gap: 32px;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 24px;
+}
+.process-mast .mast-row > * { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-muted); }
+.process-mast .mast-row .word { display: flex; gap: 28px; }
+.process-mast .mast-row .word a { color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .4s; }
+.process-mast .mast-row .word a.active { border-bottom-color: var(--accent-1); }
+
+.process-title {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(100px, 19vw, 320px);
+  line-height: .82;
+  letter-spacing: -.04em;
+  margin: 80px 0 40px;
+  color: var(--ink);
+  max-width: 14ch;
+}
+/* Italic Instrument Serif at 320px has a deep 'p' descender that
+   reaches left into the space between the two words. Pushing the em
+   a hair right (0.12em ≈ ~38px at max size) keeps "Our" and "process"
+   visually separated without creating a weird gap at small sizes. */
+.process-title em { font-style: italic; color: var(--accent-1); margin-left: .12em; }
+.process-title .small {
+  font-family: 'Instrument Serif', serif;
+  display: block;
+  font-size: clamp(20px, 2.2vw, 36px);
+  font-style: italic;
+  letter-spacing: .002em;
+  color: var(--ink-muted);
+  /* Was margin-top: 18px — at the 320px headline size the italic
+     "p" descender drops ~90px below its baseline and chewed into
+     "Modern execution." Scaling the gap with the viewport keeps
+     the descender clear at every breakpoint without leaving a
+     lake of empty space on small screens. */
+  margin-top: clamp(28px, 5.2vw, 92px);
+}
+
+/* === Giant rotating K-word marquee strips === */
+.kword-strip {
+  overflow: hidden;
+  border-top: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+  padding: 28px 0;
+  position: relative;
+  z-index: 3;
+  background: rgba(0, 0, 0, .3);
+}
+.kword-strip.reverse .kword-inner { animation-direction: reverse; }
+.kword-inner {
+  display: flex;
+  white-space: nowrap;
+  gap: 42px;
+  animation: kword-scroll 34s linear infinite;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(40px, 6.4vw, 108px);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.kword-inner .k { color: var(--ink); transition: color .6s cubic-bezier(.22, 1, .36, 1); }
+.kword-inner .k:hover { color: var(--accent-1); }
+.kword-inner .dot {
+  display: inline-flex; align-items: center;
+  color: var(--accent);
+  font-size: .5em;
+  margin: 0 6px;
+}
+.kword-strip:hover .kword-inner { animation-play-state: paused; }
+@keyframes kword-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) { .kword-inner { animation: none; } }
+html.motion-off .kword-inner { animation: none; }
+
+/* === Hero battle-cry block: "WE FIGHT BORING BRANDS AND WIN 🏆" === */
+.battle-cry {
+  padding: 180px 32px;
+  max-width: 1680px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 80px;
+  align-items: end;
+  position: relative;
+}
+@media (max-width: 980px) { .battle-cry { grid-template-columns: 1fr; gap: 40px; } }
+.battle-cry h2 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(72px, 12vw, 220px);
+  line-height: .84;
+  letter-spacing: -.038em;
+  margin: 0;
+  max-width: 18ch;
+}
+.battle-cry h2 em { font-style: italic; color: var(--accent-1); }
+.battle-cry .trophy {
+  display: inline-block;
+  animation: trophy-wobble 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.battle-cry .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--ink-muted);
+  max-width: 32ch; line-height: 1.85;
+  padding-left: 24px;
+  border-left: 2px solid var(--accent-1);
+}
+@keyframes trophy-wobble {
+  0%,100% { transform: rotate(-6deg); }
+  50%     { transform: rotate(6deg); }
+}
+@media (prefers-reduced-motion: reduce) { .trophy { animation: none; } }
+
+/* === "Boutique attention + modern execution" long-read === */
+.ethos {
+  padding: 120px 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 980px) { .ethos { grid-template-columns: 1fr; gap: 40px; } }
+.ethos .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--ink-muted);
+  line-height: 1.85;
+  position: sticky; top: 140px;
+}
+.ethos .body {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.35;
+  letter-spacing: -.008em;
+  color: var(--ink);
+  max-width: 36ch;
+}
+.ethos .body em { font-style: italic; color: var(--accent-1); }
+.ethos .body p { margin: 0 0 24px; }
+.ethos .cta-row { margin-top: 48px; display: flex; gap: 24px; flex-wrap: wrap; }
+.ethos .cta-row a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: .3em; text-transform: uppercase;
+  padding: 18px 32px;
+  border: 1px solid var(--accent-1);
+  border-radius: 4px;
+  color: var(--ink);
+  transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1), background .4s, box-shadow .4s;
+}
+.ethos .cta-row a:hover {
+  background: var(--accent-1); color: #000;
+  letter-spacing: .42em;
+  box-shadow: 0 0 32px rgba(255, 106, 213, .45);
+}
+.ethos .cta-row a.ghost { border-color: var(--edge); }
+.ethos .cta-row a.ghost:hover { background: rgba(242, 241, 236, .04); color: var(--ink); }
+
+/* === WHAT TO EXPECT anchor === */
+.expect-anchor {
+  padding: 80px 32px 0;
+  max-width: 1680px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 40px;
+  border-top: 1px solid var(--edge);
+}
+.expect-anchor h3 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(72px, 12vw, 200px);
+  line-height: .84;
+  letter-spacing: -.036em;
+  margin: 80px 0 0;
+  max-width: 12ch;
+}
+.expect-anchor h3 em { font-style: italic; color: var(--accent-1); }
+.expect-anchor .scroll-cue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--ink-muted);
+  padding-bottom: 8px;
+  display: flex; align-items: center; gap: 12px;
+}
+.expect-anchor .scroll-cue::after { content: '↓'; color: var(--accent-1); font-size: 18px; animation: bob 1.8s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* === The 9 process steps === */
+.process-steps-pro {
+  max-width: 1280px;
+  margin: 60px auto 0;
+  padding: 0 32px;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 80px 0;
+  border-top: 1px solid var(--edge);
+  transition: padding-left .6s cubic-bezier(.22, 1, .36, 1);
+}
+.step:hover { padding-left: 24px; }
+@media (max-width: 980px) { .step { grid-template-columns: 80px 1fr; gap: 24px; } .step .step-visual { grid-column: 1 / -1; } }
+.step .n {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(72px, 9vw, 136px);
+  line-height: .8;
+  letter-spacing: -.02em;
+  color: var(--accent-1);
+}
+.step .step-body .ktitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 45, 74, .5);
+  border-radius: 20px;
+  background: rgba(255, 45, 74, .05);
+}
+.step .step-body h4 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 56px);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  margin: 0 0 20px;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.step .step-body h4 em { font-style: italic; color: var(--accent-1); }
+.step .step-body p {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px; line-height: 1.6;
+  color: var(--ink); opacity: .88;
+  max-width: 44ch;
+  margin: 0 0 16px;
+}
+.step .step-body .pay {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 20px;
+}
+.step .step-body .pay .v {
+  color: var(--accent-4);
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 24px;
+  letter-spacing: -.01em;
+  margin-left: 8px;
+}
+.step .step-visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  max-width: 320px;
+  justify-self: end;
+  margin-left: auto;
+  overflow: hidden;
+  border-radius: 6px;
+  background: linear-gradient(135deg,
+    rgba(255, 106, 213, .08),
+    rgba(142, 0, 255, .06),
+    rgba(255, 45, 74, .04));
+}
+.step .step-visual::before {
+  content: attr(data-glyph);
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(120px, 18vw, 240px);
+  line-height: 1;
+  /* Bumped from rgba(255,255,255,.08) — effectively invisible on the
+     dark panel background — to a visible-but-not-overbearing pairing:
+     ~22% white at rest + a magenta edge shadow so the glyph reads
+     even without cursor interaction. Hover escalates to a confident
+     accent-1 fill. */
+  color: rgba(255, 255, 255, .22);
+  text-shadow:
+    0 0 48px rgba(255, 106, 213, .28),
+    0 0 96px rgba(142, 0, 255, .12);
+  transition: color .6s cubic-bezier(.22, 1, .36, 1),
+              text-shadow .6s cubic-bezier(.22, 1, .36, 1),
+              transform .9s cubic-bezier(.22, 1, .36, 1);
+}
+.step:hover .step-visual::before {
+  color: rgba(255, 106, 213, .55);
+  text-shadow:
+    0 0 36px rgba(255, 106, 213, .45),
+    0 0 72px rgba(142, 0, 255, .22);
+  transform: scale(1.06) rotate(-2deg);
+}
+.step .step-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 40%, rgba(255, 106, 213, .2), transparent 50%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* === ZERO ADULT SUPERVISION block === */
+.zero-adult {
+  padding: 200px 32px;
+  max-width: 1680px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+.zero-adult .preamble {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+}
+.zero-adult h3 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(120px, 22vw, 360px);
+  line-height: .78;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  margin: 0;
+}
+.zero-adult h3 em { font-style: italic; color: var(--accent-1); }
+.zero-adult .zero-glyph {
+  display: block;
+  font-size: clamp(200px, 36vw, 600px);
+  line-height: .85;
+  color: var(--accent-1);
+  font-style: italic;
+  margin: -20px 0 -60px;
+  text-shadow:
+    0 0 60px rgba(255, 106, 213, .35),
+    0 0 120px rgba(142, 0, 255, .25);
+  animation: zero-pulse 6s ease-in-out infinite;
+}
+@keyframes zero-pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.02); opacity: .95; } }
+.zero-adult .caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 48px;
+  max-width: 56ch;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.85;
+}
+
+/* === Founder letter === */
+.founder {
+  padding: 140px 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 980px) { .founder { grid-template-columns: 1fr; gap: 32px; } }
+.founder .label {
+  position: sticky; top: 140px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--ink-muted);
+  line-height: 1.85;
+}
+.founder .letter {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.4;
+  letter-spacing: -.006em;
+  color: var(--ink);
+  max-width: 44ch;
+}
+.founder .letter p { margin: 0 0 24px; }
+.founder .letter em { font-style: italic; color: var(--accent-1); }
+.founder .sig {
+  margin-top: 32px;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--accent-1);
+  letter-spacing: -.02em;
+}
+
+/* === Love + Lore block === */
+.love-lore {
+  padding: 160px 32px;
+  text-align: center;
+  position: relative;
+}
+.love-lore .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--accent-1);
+  margin-bottom: 32px;
+}
+.love-lore h3 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(64px, 10vw, 180px);
+  line-height: .88;
+  letter-spacing: -.03em;
+  margin: 0;
+  max-width: 16ch;
+  margin-left: auto; margin-right: auto;
+}
+.love-lore h3 em { font-style: italic; color: var(--accent-1); }
+.love-lore h3 .heart {
+  /* Heart now sits on its own line, centered under "are sacred",
+     so the horizontal flow doesn't crowd into the descenders or
+     fight the line wrap on narrow viewports. Parent .love-lore
+     has text-align:center, so block + auto margin centers it. */
+  display: block;
+  margin: clamp(16px, 2vw, 32px) auto 0;
+  color: var(--accent);
+  animation: heart-beat 1.8s ease-in-out infinite;
+  transform-origin: center;
+  width: fit-content;
+}
+@keyframes heart-beat { 0%,100% { transform: scale(1); } 30% { transform: scale(1.18); } 60% { transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .heart { animation: none; } .zero-glyph { animation: none; } }
+
+/* === CTA endcap === */
+.process-cta {
+  padding: 140px 32px;
+  text-align: center;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 106, 213, .08) 0%,
+    rgba(142, 0, 255, .04) 35%,
+    transparent 70%);
+}
+.process-cta h4 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 80px);
+  line-height: .95;
+  letter-spacing: -.028em;
+  margin: 0 0 40px;
+}
+.process-cta h4 em { font-style: italic; color: var(--accent-1); }
+.process-cta .cta-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.process-cta .cta-row a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; letter-spacing: .32em; text-transform: uppercase;
+  padding: 22px 44px;
+  border: 1px solid var(--accent-1);
+  border-radius: 4px;
+  color: var(--ink);
+  transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1), background .4s, box-shadow .4s, color .4s;
+}
+.process-cta .cta-row a:hover {
+  background: var(--accent-1);
+  color: #000;
+  letter-spacing: .42em;
+  box-shadow: 0 0 44px rgba(255, 106, 213, .55);
+}
+.process-cta .cta-row a.ghost { border-color: var(--edge); }
+.process-cta .cta-row a.ghost:hover { background: rgba(242, 241, 236, .04); color: var(--ink); box-shadow: none; }
+.process-cta .crypto-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 40px;
+}
+.process-cta .crypto-line .hl { color: var(--accent-4); }
+
+/* === Step progress bar (injected by processSteps.ts) ===
+   Vertical fill line on the left gutter of each .step. Fills as the
+   step passes through viewport — visual anchor so readers know where
+   they are in the nine-step sequence. */
+.step { position: relative; }
+.step .step-progress {
+  position: absolute;
+  left: -2px;
+  top: 80px;
+  bottom: 80px;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    var(--accent-1) 0%,
+    var(--accent-1) var(--fill, 0%),
+    rgba(242, 241, 236, 0.06) var(--fill, 0%),
+    rgba(242, 241, 236, 0.06) 100%);
+  pointer-events: none;
+  transition: opacity .6s;
+}
+@media (max-width: 980px) {
+  .step .step-progress { left: -8px; top: 40px; bottom: 40px; }
+}
+
+/* === Number morph CSS vars (set by numberMorph.ts) === */
+.step .n {
+  display: inline-block;
+  transform: scale(var(--n-scale, 1));
+  letter-spacing: var(--n-ls, -.02em);
+  filter: drop-shadow(0 0 var(--n-glow, 0px) rgba(255, 106, 213, .68));
+  color: color-mix(in srgb, var(--accent-1) calc(100% - var(--n-light, 0) * 45%), var(--ink) calc(var(--n-light, 0) * 45%));
+  transition: color .3s;
+  will-change: transform, filter;
+}
+
+/* === Audio-reactive trophy CSS vars (set by audioTrophy.ts) ===
+   Compose the existing `trophy-wobble` animation (rotate) with the
+   audio scale var, via a wrapper so we don't stomp the keyframe. */
+.battle-cry .trophy {
+  display: inline-block;
+  transform: rotate(-6deg) scale(var(--audio-scale, 1));
+  filter: drop-shadow(0 0 var(--audio-glow, 12px) rgba(255, 209, 102, 0.55))
+          hue-rotate(var(--audio-hue, 0deg));
+  animation: trophy-wobble 4s ease-in-out infinite;
+  transform-origin: bottom center;
+  transition: filter .2s ease-out;
+}
+/* Override the base keyframe to also multiply by --audio-scale */
+@keyframes trophy-wobble {
+  0%,100% { transform: rotate(-6deg) scale(var(--audio-scale, 1)); }
+  50%     { transform: rotate(6deg)  scale(var(--audio-scale, 1)); }
+}
+
+/* === Founder card — WebGL backing layer ===
+   Bumped idle opacity .42→.66 so the caustic/Fresnel glass surface is
+   actually visible without the user hovering the card. Hover pushes
+   further to .92 for a clear "lit up" state. */
+.founder {
+  position: relative;
+  padding: 140px 40px;
+  border-radius: 8px;
+  isolation: isolate;
+}
+/* Magenta hover wash on the founder letter was too bright — washed
+   out the cursor and made the body copy hard to read at peak.
+   Dropped both base + hover opacity by ~40% so the glow is still a
+   present atmosphere but the page reads clearly on top. */
+.founder-gl {
+  opacity: .38;
+  transition: opacity .8s cubic-bezier(.22, 1, .36, 1);
+}
+.founder:hover .founder-gl { opacity: .58; }
+/* Light-mode pairing — the cream backdrop already runs hot, lower
+   the lid further so the magenta shader doesn't strobe on hover. */
+html[data-theme="light"] .founder-gl { opacity: .28; }
+html[data-theme="light"] .founder:hover .founder-gl { opacity: .42; }
+
+/* === ZERO ADULT — let the particle-swarm canvas sit behind content === */
+.zero-adult { isolation: isolate; }
+.zero-adult > canvas { opacity: .75; }
+@media (prefers-reduced-motion: reduce) { .zero-adult > canvas { display: none; } }
+html.motion-off .zero-adult > canvas { display: none; }
+
+/* === Contact bridge: sits between process page and footer === */
+.contact-bridge {
+  padding: 120px 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Footer reuses intake-foot look. */
+.intake-foot { max-width: 1280px; margin: 120px auto 0; padding: 0 32px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .step, .step .step-visual::before,
+  .ethos .cta-row a, .process-cta .cta-row a { transition: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+ * /process/ ELEVATIONS — 12 effects layered onto the page.  All
+ * targeted via the markup tweaks in process.astro + the JS triggers
+ * in lib/processFx.ts and lib/goldDust.ts.
+ * ════════════════════════════════════════════════════════════════════ */
+
+/* ──── 1 · KINTSUGI THREAD ───────────────────────────────────────── */
+.kin-thread {
+  position: fixed;
+  left: clamp(12px, 2vw, 28px);
+  top: 0;
+  width: 32px;
+  height: 100vh;
+  z-index: 4;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 0 1.4px rgba(255, 209, 102, .55))
+          drop-shadow(0 0 5px   rgba(255, 106, 213, .25));
+}
+/* Three-tier path stack — same vocabulary as the kintsugi menu */
+.kin-thread-shadow,
+.kin-thread-gold,
+.kin-thread-hilite {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* Path is normalized to pathLength=1 so the dash math is simple. */
+  stroke-dasharray: 1;
+  /* Reveal up to scroll progress. */
+  stroke-dashoffset: calc(1 - var(--kin-thread-progress, 0));
+  transition: stroke-dashoffset .08s linear;
+}
+.kin-thread-shadow {
+  stroke: #1a0e00;
+  stroke-width: 1.3;
+  opacity: .65;
+  filter: blur(0.4px);
+}
+.kin-thread-gold {
+  stroke: #d4a636;
+  stroke-width: 0.7;
+  opacity: .92;
+}
+.kin-thread-hilite {
+  stroke: #fff4cc;
+  stroke-width: 0.18;
+  opacity: .85;
+}
+/* Small ╋ junctions at each section anchor */
+.kin-thread-anchor line {
+  stroke: rgba(255, 209, 102, .42);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  transition: stroke .4s, stroke-width .4s, opacity .4s;
+}
+.kin-thread-anchor.lit line {
+  stroke: #fff4cc;
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 4px rgba(255, 209, 102, 1))
+          drop-shadow(0 0 9px rgba(255, 106, 213, .55));
+}
+.kin-thread-anchor circle:hover ~ line,
+.kin-thread-anchor:hover line {
+  stroke: var(--accent-1);
+  stroke-width: 2.2;
+}
+
+/* Light-mode pairing — darker stroke colours to read on cream paper */
+html[data-theme="light"] .kin-thread-shadow { stroke: #3d2a04; opacity: .55; }
+html[data-theme="light"] .kin-thread-gold   { stroke: #9a6f0a; }
+html[data-theme="light"] .kin-thread-hilite { stroke: #fff2c0; }
+html[data-theme="light"] .kin-thread-anchor line { stroke: rgba(154, 111, 10, .55); }
+html[data-theme="light"] .kin-thread-anchor.lit line {
+  stroke: #1a1820;
+  filter: drop-shadow(0 0 4px rgba(154, 111, 10, 1));
+}
+
+/* Hide on small screens — the page is full-width there and the
+   thread would crowd the copy */
+@media (max-width: 720px) { .kin-thread { display: none; } }
+
+/* ──── 2 · STEP NUMBER INK DRAW ──────────────────────────────────── */
+/* Each .step's giant number gets a chromatic underline that draws
+   from left → right when the step enters viewport. */
+.step .n {
+  position: relative;
+}
+.step .n::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(255, 106, 213, .9) 0%,
+    rgba(255, 209, 102, 1)  50%,
+    rgba(60, 230, 255, .85) 100%);
+  box-shadow: 0 0 8px rgba(255, 209, 102, .6);
+  border-radius: 2px;
+  transition: width 1.1s cubic-bezier(.22, 1, .36, 1) .25s;
+}
+.step.ink-on .n::after { width: 88%; }
+
+/* ──── 3 · PAGE STITCH REVEAL ────────────────────────────────────── */
+/* Each major section gets a thin gold line that draws across its
+   top edge when scrolled into view. */
+.battle-cry, .ethos, .expect-anchor, .process-steps-pro,
+.zero-adult, .founder, .love-lore, .process-cta {
+  position: relative;
+}
+.battle-cry::before,
+.ethos::before,
+.expect-anchor::before,
+.process-steps-pro::before,
+.zero-adult::before,
+.founder::before,
+.love-lore::before,
+.process-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 209, 102, .7) 35%,
+    rgba(255, 244, 204, .9) 50%,
+    rgba(255, 209, 102, .7) 65%,
+    transparent 100%);
+  transform: translateX(-50%);
+  transition: width 1.1s cubic-bezier(.22, 1, .36, 1);
+  pointer-events: none;
+}
+.stitch-on::before { width: min(880px, 88vw); }
+
+/* ──── 4 · MARQUEE VINYL ─────────────────────────────────────────── */
+/* Speed comes from a CSS variable updated by JS based on scroll
+   velocity. Strip animation-duration is 60s ÷ uMarqueeSpeed. */
+.kword-strip .kword-inner {
+  animation-duration: calc(60s / var(--marquee-speed, 1)) !important;
+}
+.kword-strip.paused .kword-inner {
+  animation-play-state: paused;
+}
+.kword-strip .k {
+  position: relative;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: text-shadow .25s, color .25s, transform .25s;
+}
+.kword-strip .k:hover {
+  color: var(--ink);
+  /* Chromatic split on hover — magenta/cyan offset stack */
+  text-shadow:
+    -1.5px 0 0 rgba(255, 45, 74, .55),
+     1.5px 0 0 rgba( 60, 230, 255, .42),
+    0 0 8px rgba(255, 244, 204, .8),
+    0 0 18px rgba(255, 209, 102, .5);
+  transform: translateY(-1px);
+}
+
+/* ──── 5 · GOLD DUST CANVAS ──────────────────────────────────────── */
+.gold-dust-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  opacity: .68;
+}
+html[data-theme="light"] .gold-dust-canvas {
+  mix-blend-mode: multiply;
+  opacity: .35;
+}
+@media (prefers-reduced-motion: reduce) { .gold-dust-canvas { display: none; } }
+html.motion-off .gold-dust-canvas { display: none; }
+
+/* ──── 7 · FOUNDER SIGNATURE DRAW ────────────────────────────────── */
+.founder .sig {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.founder-sig-dash {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  color: var(--accent-1);
+  line-height: 1;
+}
+.founder-sig-svg {
+  width: 200px;
+  height: 64px;
+  display: block;
+}
+.founder-sig-path {
+  fill: none;
+  stroke: var(--accent-1);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* draw-on animation via stroke-dasharray */
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 2.4s cubic-bezier(.22, 1, .36, 1) .15s,
+              filter 1.2s cubic-bezier(.22, 1, .36, 1);
+  filter: drop-shadow(0 0 1px rgba(255, 106, 213, 0));
+}
+.founder .sig.drawn .founder-sig-path {
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 2px rgba(255, 106, 213, .6))
+          drop-shadow(0 0 8px rgba(255, 106, 213, .25));
+}
+
+/* ──── 8 · K-WORD FOOTNOTES ──────────────────────────────────────── */
+/* Tooltip rendered as an absolutely-positioned ::after on hover.
+   Only draws for K-words that have data-meaning set in JS. */
+.kword-strip .k[data-meaning] { position: relative; }
+.kword-strip .k[data-meaning]::after {
+  content: attr(data-meaning);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 8px);
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-4);
+  background: rgba(0, 0, 0, .82);
+  border: 1px solid rgba(255, 209, 102, .35);
+  border-radius: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s cubic-bezier(.22, 1, .36, 1);
+  z-index: 5;
+}
+.kword-strip .k[data-meaning]:hover::after,
+.kword-strip .k[data-meaning]:focus::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+html[data-theme="light"] .kword-strip .k[data-meaning]::after {
+  background: rgba(255, 255, 255, .96);
+  color: var(--accent-4);
+  border-color: rgba(154, 111, 10, .35);
+}
+
+/* ──── 9 · PROCESS HEADLINE HEAT-UP ──────────────────────────────── */
+.process-title .w,
+.process-title .small .w {
+  display: inline-block;
+  transition: text-shadow .9s cubic-bezier(.22,.62,.34,1),
+              color .9s cubic-bezier(.22,.62,.34,1);
+  pointer-events: auto;
+}
+.process-title .w:hover {
+  color: rgba(255, 250, 238, 1);
+  text-shadow:
+    -1.4px 0 0 rgba(255, 45, 74, .55),
+     1.4px 0 0 rgba(60, 230, 255, .42),
+    0 0 4px rgba(255, 246, 225, .82),
+    0 0 14px rgba(255, 209, 102, .55),
+    0 0 28px rgba(255, 130, 60, .34),
+    0 0 54px rgba(255, 45, 74, .18);
+  transition: text-shadow .35s, color .35s;
+}
+.process-title em.w:hover {
+  color: #ffbdf0;
+  text-shadow:
+    -1.4px 0 0 rgba(255, 106, 213, .55),
+     1.4px 0 0 rgba(142, 0, 255, .42),
+    0 0 4px rgba(255, 225, 245, .82),
+    0 0 14px rgba(255, 106, 213, .58),
+    0 0 28px rgba(190, 60, 235, .38);
+  transition: text-shadow .35s, color .35s;
+}
+.process-title .small .w:hover {
+  color: var(--ink);
+  text-shadow:
+    0 0 6px rgba(255, 244, 204, .65),
+    0 0 14px rgba(255, 106, 213, .35);
+}
+
+/* ──── 11 · HEART AUDIO-REACTIVE ─────────────────────────────────── */
+/* Bass level 0..1 in --heart-bass; layered onto existing heart-beat.
+   The transform stack: base scale 1, beat ±18%, plus bass kick. */
+.love-lore h3 .heart {
+  /* override the static animation with one that consumes --heart-bass */
+  animation: heart-beat 1.8s ease-in-out infinite,
+             heart-bass-kick .12s ease-out infinite alternate;
+}
+@keyframes heart-bass-kick {
+  to {
+    transform: scale(calc(1 + var(--heart-bass, 0) * 0.18));
+    filter: drop-shadow(0 0 calc(8px + var(--heart-bass, 0) * 22px) rgba(255, 45, 74, .65));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .love-lore h3 .heart { animation: none; }
+}
+html.motion-off .love-lore h3 .heart { animation: heart-beat 1.8s ease-in-out infinite; }
+
+/* ──── 12 · CTA ENDCAP SHOCKWAVE ─────────────────────────────────── */
+.cta-shockwave-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+.cta-shockwave {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 209, 102, .9);
+  box-shadow: 0 0 18px rgba(255, 209, 102, .55),
+              0 0 56px rgba(255, 106, 213, .25);
+  transform: scale(0.3);
+  opacity: 0;
+}
+.cta-shockwave-wrap.fired .cta-shockwave {
+  animation: cta-shock-burst 1.8s cubic-bezier(.16, .8, .3, 1) forwards;
+}
+.cta-shockwave-wrap.fired .cta-shockwave-2 {
+  animation-delay: .35s;
+  border-color: rgba(255, 106, 213, .85);
+}
+@keyframes cta-shock-burst {
+  0%   { transform: scale(0.25); opacity: 1;   border-width: 1.5px; }
+  18%  {                          opacity: 1;                        }
+  100% { transform: scale(28);   opacity: 0;   border-width: 0.4px; }
+}
+
+/* ──── REDUCED MOTION CATCH-ALLS ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .step .n::after { transition: none; }
+  .battle-cry::before, .ethos::before, .expect-anchor::before,
+  .process-steps-pro::before, .zero-adult::before, .founder::before,
+  .love-lore::before, .process-cta::before { transition: none; }
+  .founder-sig-path { transition: none; stroke-dashoffset: 0; }
+  .cta-shockwave { display: none; }
+  .kin-thread { display: none; }
+  .kword-strip .k:hover { text-shadow: none; transform: none; }
+  .process-title .w:hover { text-shadow: none; }
+}
+html.motion-off .kin-thread,
+html.motion-off .cta-shockwave { display: none; }
+html.motion-off .step .n::after { transition: none; width: 0; }
+html.motion-off .founder-sig-path { stroke-dashoffset: 0; transition: none; }

@@ -1,0 +1,381 @@
+/* =====================================================================
+   RESPONSIVE · mobile + tablet overrides.
+   Imported AFTER the per-variant stylesheets so it always wins. One
+   file keeps the mobile concerns together — easy to audit, easy to
+   tune, no hunting through component CSS for scattered @media rules.
+   Organized top-down in page scroll order.
+   ===================================================================== */
+
+/* =====================================================================
+   TABLET ≤ 960px
+   Most "pair of columns → stack" collapses happen here.
+   ===================================================================== */
+@media (max-width: 960px) {
+
+  /* Nav: lose the oracle + wordmark chrome at this size, keep the
+     brand text + controls. Extra breathing room on the bar. */
+  nav { height: 76px; padding: 0 20px; }
+  nav .brand-mark { display: none; }     /* SVG wordmark — keep 侍 + KR8TIV + 08 */
+
+  /* Doctrine statements — stack */
+  .stmt { grid-template-columns: 1fr; gap: 28px; margin-bottom: 80px; }
+  .stmt .n { font-size: 14px; }
+
+  /* Why / Manifesto — stack kanji+title above the three quotes */
+  .why { height: auto; }
+  .why-pin { position: relative; height: auto; min-height: 100vh; padding: 80px 0; }
+  .why-inner {
+    grid-template-columns: 1fr; padding: 0 32px; gap: 40px;
+    align-items: start;
+  }
+  .why-left .kanji { font-size: 88px; margin-bottom: 20px; }
+  .why-left h2 { font-size: clamp(48px, 10vw, 96px); }
+  .why-right { gap: 32px; }
+
+  /* Process preview (home) — collapse 3-col step to 2 */
+  .process-step { grid-template-columns: 60px 1fr; gap: 20px; }
+  .process-step .dur { grid-column: 2; margin-top: 4px; }
+  .process-step h3 { font-size: clamp(22px, 3.2vw, 36px); }
+
+  /* InlineCTA — single-column, tighter padding */
+  .inline-cta[data-variant="loud"] .box,
+  .inline-cta[data-variant="quiet"] .box {
+    grid-template-columns: 1fr; gap: 24px; padding: 44px 28px;
+  }
+  .inline-cta[data-variant="loud"] h3 { font-size: clamp(34px, 6vw, 64px); }
+  .inline-cta[data-variant="quiet"] h3 { font-size: clamp(28px, 4.4vw, 50px); }
+
+  /* Big CTA — stack the three buttons on their own lines */
+  .big-cta { padding: 100px 24px 140px; }
+  .big-cta-row { flex-direction: column; gap: 12px; }
+  .big-cta-primary, .big-cta-ghost, .big-cta-link { width: 100%; text-align: center; padding: 20px 32px; }
+  .big-cta-foot { flex-direction: column; text-align: center; gap: 12px; }
+
+  /* Footer */
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding: 60px 0 32px; }
+
+  /* Interlude — tighter vertical padding */
+  .interlude { padding: 100px 24px; }
+
+  /* Process page (/process/) */
+  .process-mast { padding: 140px 24px 60px; }
+  .process-mast .mast-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+  }
+  .process-mast .mast-row > *:nth-child(2) { order: 3; }  /* move nav below brand */
+  .process-mast .mast-row > *:nth-child(3) { order: 2; }
+  .process-title { font-size: clamp(72px, 18vw, 180px); margin: 48px 0 32px; }
+  .process-title .small { font-size: clamp(16px, 2.8vw, 24px); }
+
+  /* Battle cry, ethos, founder — already collapse at 980px; just
+     reduce vertical padding at tablet size so it's not two screens tall */
+  .battle-cry { padding: 120px 24px; }
+  .ethos { padding: 80px 24px; }
+  .founder { padding: 100px 24px; }
+
+  .zero-adult { padding: 140px 24px; }
+  .zero-adult h3 { font-size: clamp(72px, 16vw, 180px); }
+  .zero-adult .zero-glyph { font-size: clamp(140px, 28vw, 360px); margin: -10px 0 -30px; }
+
+  .love-lore { padding: 100px 24px; }
+  .process-cta { padding: 100px 24px; }
+  .process-cta h4 { font-size: clamp(28px, 4.4vw, 56px); }
+  .process-cta .cta-row { flex-direction: column; }
+  .process-cta .cta-row a { width: 100%; text-align: center; padding: 18px 28px; }
+
+  .process-steps-pro { padding: 0 24px; }
+  .step { padding: 60px 0; }
+  .step .n { font-size: clamp(56px, 10vw, 96px); }
+  .step .step-body h4 { font-size: clamp(26px, 4vw, 40px); }
+  .step .step-visual { max-width: 260px; aspect-ratio: 16 / 10; margin: 16px 0 0; justify-self: stretch; }
+  .step .step-visual::before { font-size: clamp(80px, 14vw, 140px); }
+}
+
+/* =====================================================================
+   MOBILE ≤ 720px
+   Aggressive size + grid collapses; horizontal-pin conversion.
+   ===================================================================== */
+@media (max-width: 720px) {
+
+  /* === Hero splash logo scale ===
+     The reveal-svg uses preserveAspectRatio="xMidYMid slice", which on
+     narrow portrait viewports zooms the 1920×1080 viewBox to cover —
+     that blows the 660-wide logo-mask path past the viewport edges and
+     clips K and V. Shrinking the path to ~60% of its desktop scale
+     (0.3667 → 0.22) fits the wordmark inside the screen at 390px
+     width and still leaves the mask useful for the reveal animation.
+     Translate values compensate to keep the logo centered
+     (half-width × new scale). */
+  #logo-mask-path {
+    transform: translate(-198px, -66px) scale(0.22);
+  }
+
+  /* === NAV ===
+     Hide the full nav-mid link row. Keep brand + core toggles +
+     shatter icon. ⌘K and progress already hidden by earlier rules. */
+  nav {
+    height: 64px; padding: 0 16px;
+    grid-template-columns: 1fr auto;    /* brand · controls */
+  }
+  nav .nav-mid { display: none; }
+  nav .nav-progress { display: none; }
+  nav .brand { font-size: 10px; letter-spacing: .16em; gap: 4px; }
+  nav .brand em { margin-right: 4px; font-size: 13px; }
+  nav .nav-r { gap: 6px; }
+  nav .toggle, nav .nav-shatter { width: 34px; height: 34px; }
+  nav .nav-shatter-ico { width: 16px; height: 16px; }
+  /* Oracle button hidden by existing @media (max-width: 880px) */
+
+  /* === HERO ===
+     Shrink the title significantly — 72px min on a 390px viewport
+     overflows. Reduce hero-ui padding. Marquee size stays OK. */
+  .hero.hero-reveal .hero-title {
+    font-size: clamp(40px, 10vw, 64px) !important;
+    letter-spacing: -.028em;
+  }
+  .hero.hero-reveal .hero-ui { padding: 90px 20px 40px; gap: 14px; }
+  .hero.hero-reveal .hero-ui .eye { font-size: 10px; letter-spacing: .28em; }
+  .hero.hero-reveal .hero-ui .sub { font-size: 13px; line-height: 1.55; max-width: 36ch; }
+  .hero-fade-black { height: 40vh; }
+
+  /* === MARQUEE after hero === */
+  .marquee-wrap { padding: 24px 0; }
+  .marquee-inner span { font-size: 20px; padding: 0 18px; }
+
+  /* === DOCTRINE === */
+  .doctrine { padding: 80px 0 60px; }
+  .stmt-wrap { padding: 0 24px; margin-top: 60px; }
+  .chapter-title, .doctrine h2 {
+    font-size: clamp(40px, 10vw, 72px) !important;
+    line-height: .9;
+  }
+  .stmt { margin-bottom: 60px; }
+  .stmt p { font-size: clamp(20px, 4.4vw, 30px); }
+
+  /* === SERVICES: kill horizontal pin on mobile ===
+     Horizontal scroll tied to vertical scroll feels broken on touch.
+     Convert to vertical stack — each panel reads like a normal card. */
+  .services-intro { padding: 60px 24px 40px; }
+  .services-intro h2 { font-size: clamp(40px, 10vw, 68px) !important; }
+  .services-intro p { font-size: 13px; }
+  .services-pin {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 20px 0;
+  }
+  .services-track {
+    display: flex; flex-direction: column;
+    width: 100% !important;
+    transform: none !important;          /* kill GSAP track offset */
+    gap: 40px;
+  }
+  .svc-panel {
+    width: 100% !important;
+    height: auto !important;
+    margin-right: 0 !important;
+    padding: 20px 20px 60px;
+  }
+  .svc-inner {
+    grid-template-columns: 1fr !important;
+    gap: 24px; padding: 0;
+  }
+  .svc-frame {
+    max-width: 100%;
+    aspect-ratio: 1/1;
+  }
+  .svc-copy h3 { font-size: clamp(34px, 8vw, 56px); }
+  .svc-copy p { font-size: 15px; }
+  .svc-rec, .svc-counter { display: none; }
+
+  /* === Why / Manifesto === */
+  .why-left .kanji { font-size: 72px; }
+  .why-left h2 { font-size: clamp(40px, 10vw, 72px) !important; }
+  .why-right .q { padding-left: 20px; }
+  .why-right .q p { font-size: clamp(18px, 4vw, 26px); }
+
+  /* === Interlude === */
+  .interlude { padding: 70px 20px; }
+  .interlude-inner { gap: 20px; }
+  .interlude-eye { font-size: 9.5px; letter-spacing: .32em; }
+  .interlude-frame { max-width: 260px; }
+  .interlude-caption { font-size: 15px; }
+
+  /* === Process preview (home) === */
+  .process { padding: 100px 0; }
+  .process-head { flex-direction: column; gap: 20px; padding: 0 24px 60px; align-items: flex-start; }
+  .process-head h2 { font-size: clamp(40px, 10vw, 72px) !important; }
+  .process-head p { font-size: 14px; max-width: 100% !important; }
+  .process-steps { padding: 0 24px; }
+  .process-step { padding: 24px 0; grid-template-columns: 50px 1fr; }
+  .process-step .n { font-size: 44px; }
+  .process-step h3 { font-size: clamp(20px, 5vw, 30px); }
+  .process-step p { font-size: 13.5px; }
+  .process-more { padding: 24px; margin: 60px 0 0; grid-template-columns: 1fr; gap: 16px; text-align: left; }
+  .process-more-arrow { font-size: 28px; justify-self: start; }
+
+  /* === Work === */
+  .work { padding: 100px 0; }
+  .work-head { flex-direction: column; gap: 20px; padding: 0 24px 60px; align-items: flex-start; }
+  .work-head h2 { font-size: clamp(40px, 10vw, 72px) !important; }
+  .work-head p { font-size: 14px; max-width: 100% !important; }
+  .work-grid { padding: 0 24px; gap: 24px; }
+  .work-card .meta { padding: 20px; }
+  .work-card .meta h3 { font-size: clamp(20px, 5vw, 30px); }
+
+  /* === Reel === */
+  .reel { padding: 100px 0; }
+  .reel-inner { padding: 0 24px; }
+  .reel-inner h2 { font-size: clamp(44px, 11vw, 80px) !important; }
+
+  /* === Contact === */
+  .contact { padding: 100px 0 80px; }
+  .contact-head { padding: 0 24px; }
+  .contact-head h2 { font-size: clamp(40px, 10vw, 72px) !important; }
+  .contact-cta { flex-direction: column; gap: 14px; padding: 0 24px; margin-top: 40px; }
+  .contact-cta a { width: 100%; text-align: center; }
+
+  /* === Big CTA === */
+  .big-cta { padding: 80px 20px 120px; }
+  .big-cta-title { font-size: clamp(48px, 12vw, 84px) !important; }
+  .big-cta-sub { font-size: 17px; }
+  .big-cta-sub.soft { font-size: 13.5px; }
+
+  /* === VariantBar (section indicator) === */
+  .variant-bar {
+    bottom: 16px;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 9px;
+    letter-spacing: .08em;
+  }
+  .variant-bar a { padding: 3px 6px; min-width: 22px; text-align: center; }
+
+  /* === FOOTER (home) === */
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 24px; padding: 50px 24px 32px; }
+
+  /* === PROCESS PAGE (/process/) MASTHEAD === */
+  .process-mast { padding: 120px 20px 40px; }
+  .process-mast .mast-row { padding-bottom: 16px; font-size: 10px; }
+  .process-title { font-size: clamp(56px, 15vw, 120px) !important; margin: 32px 0 24px; max-width: 100%; }
+  .process-title em { margin-left: .08em; }
+  .process-title .small { font-size: 15px; }
+
+  .kword-strip { padding: 18px 0; }
+  .kword-inner { font-size: 34px; gap: 28px; }
+  .battle-cry { padding: 80px 20px; gap: 28px; }
+  .battle-cry h2 { font-size: clamp(48px, 13vw, 96px) !important; }
+  .battle-cry .tag { font-size: 11px; padding-left: 16px; }
+
+  .ethos { padding: 60px 20px; gap: 28px; }
+  .ethos .meta { position: static; font-size: 10px; letter-spacing: .26em; }
+  .ethos .body { font-size: clamp(18px, 4.4vw, 24px); }
+  .ethos .cta-row a { font-size: 11px; padding: 14px 24px; letter-spacing: .26em; }
+
+  .expect-anchor { padding: 50px 20px 0; grid-template-columns: 1fr; gap: 12px; }
+  .expect-anchor h3 { font-size: clamp(44px, 12vw, 84px) !important; margin: 32px 0 0; }
+
+  .process-steps-pro { padding: 0 20px; }
+  .step {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 48px 0;
+  }
+  .step .n { font-size: 72px; }
+  .step .step-body { order: 2; }
+  .step .step-visual { order: 3; max-width: 100%; aspect-ratio: 16 / 9; }
+  .step .step-visual::before { font-size: clamp(80px, 18vw, 140px); }
+
+  .zero-adult { padding: 100px 20px; }
+  .zero-adult h3 { font-size: clamp(52px, 14vw, 96px) !important; }
+  .zero-adult .zero-glyph { font-size: clamp(100px, 28vw, 200px) !important; margin: -8px 0 -28px; }
+  .zero-adult .caption { font-size: 10px; letter-spacing: .28em; }
+
+  .founder { padding: 80px 20px; }
+  .founder .label { position: static; font-size: 10px; }
+  .founder .letter { font-size: clamp(18px, 4.4vw, 26px); }
+
+  .love-lore { padding: 80px 20px; }
+  .love-lore h3 { font-size: clamp(44px, 12vw, 84px) !important; }
+
+  .process-cta { padding: 80px 20px; }
+  .process-cta h4 { font-size: clamp(28px, 7vw, 44px) !important; }
+
+  /* === INTAKE PAGE (/start/) === */
+  .intake { padding: 100px 20px 60px; }
+  .intake-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .intake-head h1 { font-size: clamp(40px, 11vw, 72px) !important; }
+  .intake-head p { font-size: 14px; }
+  .intake-head .intake-shortcut { padding: 20px 20px !important; }
+  .intake-head .intake-shortcut p { font-size: 17px !important; }
+
+  .intake-nav {
+    position: static !important;
+    display: flex !important;
+    overflow-x: auto;
+    gap: 4px;
+    padding: 12px 4px;
+    border-radius: 8px;
+    background: rgba(10, 10, 16, .8);
+    margin-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .intake-nav ol { display: flex; gap: 4px; flex-direction: row; }
+  .intake-nav ol li { flex-shrink: 0; }
+  .intake-nav ol a { padding: 6px 10px; font-size: 9px; letter-spacing: .18em; }
+  .intake-nav .intake-progress { display: none; }
+
+  .intake-section { padding: 40px 0; }
+  .intake-section h2 { font-size: clamp(34px, 8vw, 54px) !important; }
+  .intake-section > .n { font-size: 88px; opacity: .12; top: -24px; }
+
+  .choice-grid { grid-template-columns: 1fr !important; }
+  .tier-grid { grid-template-columns: 1fr !important; }
+  .tier { padding: 18px; }
+
+  .intake-foot .foot-grid { grid-template-columns: 1fr 1fr; gap: 24px; padding: 60px 20px 32px; }
+  .intake-foot .foot-bar { flex-direction: column; gap: 10px; text-align: center; }
+
+  /* === FloatingCTA already responsive via its own query === */
+}
+
+/* =====================================================================
+   Extra-small ≤ 420px — iPhone SE, narrow foldables
+   ===================================================================== */
+@media (max-width: 420px) {
+  nav .brand em { display: inline; }    /* keep 侍 — remove surrounding text */
+  nav .brand { font-size: 9px; letter-spacing: .12em; }
+
+  .hero.hero-reveal .hero-title { font-size: clamp(34px, 9vw, 52px) !important; }
+
+  .why-left h2 { font-size: clamp(36px, 10vw, 60px) !important; }
+
+  .process-title { font-size: clamp(48px, 14vw, 96px) !important; }
+  .battle-cry h2 { font-size: clamp(40px, 12vw, 80px) !important; }
+
+  .step .step-visual { aspect-ratio: 4 / 3; }
+
+  .inline-cta[data-variant="loud"] h3 { font-size: clamp(28px, 8vw, 48px); }
+
+  .interlude-frame { max-width: 220px; }
+
+  .variant-bar { max-width: calc(100vw - 24px); overflow-x: auto; }
+
+  .big-cta-title { font-size: clamp(40px, 12vw, 68px) !important; }
+  .contact-head h2 { font-size: clamp(34px, 10vw, 56px) !important; }
+  .reel-inner h2 { font-size: clamp(36px, 11vw, 64px) !important; }
+}
+
+/* =====================================================================
+   Landscape phones (≤ 900w × ≤ 500h) — many clamps rely on vh, be
+   careful with tall titles in short landscape. Reduce vertical padding
+   so content reads without scrolling forever.
+   ===================================================================== */
+@media (max-height: 500px) and (max-width: 900px) {
+  .hero.hero-reveal { height: 100vh; min-height: 480px; }
+  .hero.hero-reveal .hero-title { font-size: clamp(28px, 6vw, 44px) !important; }
+  .why-pin { min-height: auto; padding: 40px 0; }
+  .big-cta { padding: 50px 20px 80px; }
+}

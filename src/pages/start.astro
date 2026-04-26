@@ -1,0 +1,526 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+
+// Start-page FAQ — ranks us for long-tail "how do I hire a design
+// agency / what should I include in a design brief" queries.
+const startFaqs = [
+  {
+    q: 'What should I include when contacting KR8TIV?',
+    a: 'Tell us who you are, what you\'re building, a rough budget range, and a target timeline. Attachments like pitch decks, brand guides, and references help but aren\'t required. The full intake form covers ten sections — it takes about eight minutes and auto-saves as you go.'
+  },
+  {
+    q: 'Do I have to fill out the whole form, or can I just talk?',
+    a: 'You can just talk. Book a free 30-minute call at calendly.com/kr8tiv — no form required, no obligation. If we need more detail after the call, we\'ll send you the form then. The form is there for people who think better in writing than on a video call.'
+  },
+  {
+    q: 'How quickly will I hear back?',
+    a: 'Within 24 hours on weekdays, 48 hours on weekends. Every inbound is read by Matt personally. If we\'re currently booked, we\'ll tell you straight and offer a waitlist date or a referral to a studio that can start sooner.'
+  },
+  {
+    q: 'Does KR8TIV accept cryptocurrency?',
+    a: 'Yes. We accept Bitcoin, Ethereum, and other major cryptocurrencies alongside standard fiat payments (wire, card, ACH). Crypto-native founders welcome.'
+  },
+  {
+    q: 'Is my information kept confidential?',
+    a: 'Yes. We only use your contact details to scope and run your project. We never sell, trade, or share your data with third parties. You can request removal of all your data at any time by emailing matt@kr8tiv.io.'
+  }
+];
+---
+<FormLayout
+  title="Start a Project · KR8TIV — free 30-min call or 8-min intake"
+  description="Start a new brand, web, motion, video or AI project with KR8TIV. Book a free no-obligation call at calendly.com/kr8tiv — or fill out the 10-section intake (auto-saves). We accept crypto and fiat."
+  canonical="/start/"
+  pageType="ContactPage"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Start a Project', url: '/start/' }
+  ]}
+  faqs={startFaqs}
+  keywords={[
+    'start a design project',
+    'hire a design agency',
+    'free design consultation',
+    'book design call',
+    'design intake form',
+    'AI consultation',
+    'crypto design agency',
+    'bitcoin design agency',
+    'no-obligation creative call',
+    'founder-first design studio',
+    'how to brief a design agency'
+  ]}
+>
+  <section class="intake">
+    <div class="intake-wrap">
+      <header class="intake-head">
+        <div class="label"><span class="b"></span>INTAKE · PROJECT REQUEST</div>
+        <h1>Let's make <em>something</em><br />worth remembering.</h1>
+        <p>Ten sections. About eight minutes. We auto-save as you go — refresh, close the tab, come back tomorrow. Your answers are stored locally until you hit submit. All fields marked with <span style="color:var(--accent-1)">✦</span> are required.</p>
+
+        <aside class="intake-shortcut" aria-label="Prefer to just talk?" style="margin-top:32px; padding:28px 32px; border:1px solid var(--edge); border-left:3px solid var(--accent-1); border-radius:4px; background:rgba(255,106,213,.04); max-width:720px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent-1); margin-bottom:10px;">Prefer to just talk?</div>
+          <p style="font-family:'Instrument Serif',serif; font-size:22px; line-height:1.35; letter-spacing:-.008em; margin:0 0 18px;">
+            Book a <em style="color:var(--accent-1); font-style:italic;">free 30-minute call</em>. <strong style="font-weight:500;">No obligation, no pitch</strong> — we just talk, see if we're a fit. If we aren't, we'll point you somewhere that is.
+          </p>
+          <p style="font-family:'Inter Tight',sans-serif; font-size:14px; line-height:1.6; color:var(--ink); opacity:.82; margin:0 0 18px; max-width:58ch;">
+            We also build <strong>full AI solutions for business</strong> — marketing automation, support agents, internal tools, content engines. If you're curious whether AI could save your team real hours every week, come ask.
+          </p>
+          <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+            <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer"
+               style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.28em; text-transform:uppercase; padding:14px 24px; border:1px solid var(--accent-1); border-radius:4px; color:var(--ink); background:var(--accent-1); color:#000; transition:letter-spacing .4s, box-shadow .4s;"
+               onmouseover="this.style.letterSpacing='.4em'; this.style.boxShadow='0 0 32px rgba(255,106,213,.45)'"
+               onmouseout="this.style.letterSpacing='.28em'; this.style.boxShadow='none'">
+              Book a call ↳
+            </a>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-muted);">or keep filling out the form ↓</span>
+          </div>
+        </aside>
+      </header>
+
+      <!-- Sticky sidebar nav -->
+      <aside class="intake-nav" aria-label="Section navigator">
+        <ol>
+          <li><a href="#s01"><span class="n">01</span>Hello</a></li>
+          <li><a href="#s02"><span class="n">02</span>Project</a></li>
+          <li><a href="#s03"><span class="n">03</span>Timeline</a></li>
+          <li><a href="#s04"><span class="n">04</span>Budget</a></li>
+          <li><a href="#s05"><span class="n">05</span>Goals</a></li>
+          <li><a href="#s06"><span class="n">06</span>Audience</a></li>
+          <li><a href="#s07"><span class="n">07</span>Competitors</a></li>
+          <li><a href="#s08"><span class="n">08</span>Tech</a></li>
+          <li><a href="#s09"><span class="n">09</span>Design</a></li>
+          <li><a href="#s10"><span class="n">10</span>Confirm</a></li>
+        </ol>
+        <div class="intake-progress">
+          <div>FILLED · <span id="intake-pct">0%</span></div>
+          <div class="intake-progress-bar"><span id="intake-progress-fill"></span></div>
+        </div>
+      </aside>
+
+      <form id="intake-form" class="intake-sections" autocomplete="on" novalidate>
+
+        <!-- ========== SECTION 01 · HELLO ========== -->
+        <section class="intake-section" id="s01">
+          <span class="n">01</span>
+          <div class="section-label">SECTION 01 · HELLO</div>
+          <h2>First, <em>who are you</em>?</h2>
+          <p>We start with the basics. The only hard bit is telling us what's keeping you up at night.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name <span class="req">✦</span></label>
+              <input type="text" id="name" name="name" required placeholder="Matt Haynes" />
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">✦</span></label>
+              <input type="email" id="email" name="email" required placeholder="you@company.com" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="company">Company / project name <span class="req">✦</span></label>
+              <input type="text" id="company" name="company" required placeholder="Acme · Oblisk · your side-quest" />
+            </div>
+            <div class="field">
+              <label for="role">Your role</label>
+              <input type="text" id="role" name="role" placeholder="Founder · CEO · designer-founder" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 555 0199" />
+            </div>
+            <div class="field">
+              <label for="where">Where are you based?</label>
+              <input type="text" id="where" name="where" placeholder="Austin · London · Costa Rica" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 02 · PROJECT BASICS ========== -->
+        <section class="intake-section" id="s02">
+          <span class="n">02</span>
+          <div class="section-label">SECTION 02 · PROJECT BASICS</div>
+          <h2>What are <em>we making</em>?</h2>
+          <p>Pick the disciplines — you can choose more than one. We'll confirm scope on the call.</p>
+
+          <div class="field">
+            <label>Discipline(s) <span class="req">✦</span></label>
+            <div class="choice-grid">
+              {[
+                ['brand', 'Branding + Identity'],
+                ['web', 'Website design'],
+                ['app', 'App / product UX'],
+                ['motion', 'Motion + 3D'],
+                ['video', 'Video editing'],
+                ['ads', 'Ads + acquisition'],
+                ['pack', 'Packaging + mockups'],
+                ['print', 'Print + editorial'],
+                ['ecom', 'Ecommerce'],
+                ['ai', 'AI partnership'],
+                ['strategy', 'Strategy only'],
+                ['other', 'Something else']
+              ].map(([v, l]) => (
+                <label class="choice" data-type="check">
+                  <input type="checkbox" name="project_type" value={v} required />
+                  {l}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Is this new or existing?</label>
+              <div class="choice-grid">
+                <label class="choice"><input type="radio" name="project_stage" value="new" />Brand new</label>
+                <label class="choice"><input type="radio" name="project_stage" value="refresh" />Refresh / rebrand</label>
+                <label class="choice"><input type="radio" name="project_stage" value="extend" />Extension of existing</label>
+                <label class="choice"><input type="radio" name="project_stage" value="tbd" />Not sure yet</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="project_desc">One-sentence pitch <span class="req">✦</span></label>
+              <textarea id="project_desc" name="project_desc" required placeholder="We're building an agent-native finance app for Solana-native traders." style="min-height: 100px;"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 03 · TIMELINE ========== -->
+        <section class="intake-section" id="s03">
+          <span class="n">03</span>
+          <div class="section-label">SECTION 03 · TIMELINE</div>
+          <h2>When does this <em>ship</em>?</h2>
+          <p>We work in structured sprints. If you have a hard launch date, say so. If you don't, say that too.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="start_date">Ideal start date</label>
+              <input type="date" id="start_date" name="start_date" />
+            </div>
+            <div class="field">
+              <label for="launch_date">Target launch date</label>
+              <input type="date" id="launch_date" name="launch_date" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="urgency">Urgency (1 = exploratory · 10 = yesterday)</label>
+            <div class="tone-slider">
+              <div class="tone-labels"><span>Exploratory</span><span class="tone-value">5</span><span>Urgent</span></div>
+              <input type="range" id="urgency" name="urgency" min="1" max="10" value="5" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 04 · BUDGET ========== -->
+        <section class="intake-section" id="s04">
+          <span class="n">04</span>
+          <div class="section-label">SECTION 04 · BUDGET</div>
+          <h2>Rough <em>investment range</em>?</h2>
+          <p>Transparency saves both of us time. Small budgets welcome — we do $10–$50 microjobs too.</p>
+
+          <div class="field">
+            <label>Budget tier <span class="req">✦</span></label>
+            <div class="tier-grid">
+              <label class="tier"><input type="radio" name="budget_tier" value="under_500" required /><span class="t-range">$10 – $500</span><span class="t-sub">Microjob</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="500_2k" /><span class="t-range">$500 – $2k</span><span class="t-sub">Small piece</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="2k_10k" /><span class="t-range">$2k – $10k</span><span class="t-sub">Focused project</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="10k_25k" /><span class="t-range">$10k – $25k</span><span class="t-sub">Full scope</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="25k_50k" /><span class="t-range">$25k – $50k</span><span class="t-sub">System build</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="50k_plus" /><span class="t-range">$50k+</span><span class="t-sub">Long-term partner</span></label>
+              <label class="tier"><input type="radio" name="budget_tier" value="flexible" /><span class="t-range">Flexible</span><span class="t-sub">Let's discuss</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Payment preference</label>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="payment_pref" value="fiat" />Standard (wire / card)</label>
+              <label class="choice"><input type="radio" name="payment_pref" value="crypto" />Crypto (BTC / ETH)</label>
+              <label class="choice"><input type="radio" name="payment_pref" value="hybrid" />Hybrid</label>
+              <label class="choice"><input type="radio" name="payment_pref" value="tbd" />Not sure</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 05 · GOALS ========== -->
+        <section class="intake-section" id="s05">
+          <span class="n">05</span>
+          <div class="section-label">SECTION 05 · GOALS</div>
+          <h2>What does <em>success</em> look like?</h2>
+          <p>Not vague things. Real outcomes. "We want to feel premium" is fine — but "we want to close our Series A with this deck" is better.</p>
+
+          <div class="field">
+            <label for="goals">Success, in your words <span class="req">✦</span></label>
+            <textarea id="goals" name="goals" required placeholder="By launch we want X. A year from now we want Y. The one thing I'd regret not having is Z."></textarea>
+          </div>
+          <div class="field">
+            <label for="kpi">Primary KPI (optional)</label>
+            <input type="text" id="kpi" name="kpi" placeholder="MRR · signups · downloads · awards · press · inbound sales" />
+          </div>
+        </section>
+
+        <!-- ========== SECTION 06 · AUDIENCE ========== -->
+        <section class="intake-section" id="s06">
+          <span class="n">06</span>
+          <div class="section-label">SECTION 06 · AUDIENCE</div>
+          <h2>Who is this <em>for</em>?</h2>
+          <p>The more specific, the better we can tune the work. One ideal person beats a demographic spreadsheet.</p>
+
+          <div class="field">
+            <label for="audience_desc">Describe your ideal customer <span class="req">✦</span></label>
+            <textarea id="audience_desc" name="audience_desc" required placeholder="31-year-old product designer at a Series-A startup, reads The Generalist, followed Lando Norris before it was cool."></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="age_range">Age range</label>
+              <input type="text" id="age_range" name="age_range" placeholder="25 – 44" />
+            </div>
+            <div class="field">
+              <label for="geography">Geography</label>
+              <input type="text" id="geography" name="geography" placeholder="US + UK · global EN · LATAM" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="psychographics">Psychographics / what they care about</label>
+            <textarea id="psychographics" name="psychographics" placeholder="Values craft over speed. Distrusts templates. Will pay a premium for real ownership."></textarea>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 07 · COMPETITORS ========== -->
+        <section class="intake-section" id="s07">
+          <span class="n">07</span>
+          <div class="section-label">SECTION 07 · COMPETITORS</div>
+          <h2><em>Competitors</em> we should study</h2>
+          <p>Three is plenty. Tell us who you love, who you envy, and who you absolutely do not want to look like.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="competitor_1">Competitor 1 URL</label>
+              <input type="url" id="competitor_1" name="competitor_1" placeholder="https://…" />
+            </div>
+            <div class="field">
+              <label for="competitor_1_note">Why they matter</label>
+              <input type="text" id="competitor_1_note" name="competitor_1_note" placeholder="Love their typography · hate their voice" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="competitor_2">Competitor 2 URL</label>
+              <input type="url" id="competitor_2" name="competitor_2" placeholder="https://…" />
+            </div>
+            <div class="field">
+              <label for="competitor_2_note">Why they matter</label>
+              <input type="text" id="competitor_2_note" name="competitor_2_note" placeholder="Reference for motion work" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="competitor_3">Competitor 3 URL</label>
+              <input type="url" id="competitor_3" name="competitor_3" placeholder="https://…" />
+            </div>
+            <div class="field">
+              <label for="competitor_3_note">Why they matter</label>
+              <input type="text" id="competitor_3_note" name="competitor_3_note" placeholder="What to avoid" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 08 · TECH ========== -->
+        <section class="intake-section" id="s08">
+          <span class="n">08</span>
+          <div class="section-label">SECTION 08 · TECH</div>
+          <h2>Technical <em>constraints</em></h2>
+          <p>Current stack, preferred hosting, integrations we should know about. Technical-agnostic projects are also fine.</p>
+
+          <div class="field">
+            <label for="current_site">Current website URL</label>
+            <input type="url" id="current_site" name="current_site" placeholder="https://your-current-site.com" />
+          </div>
+          <div class="field">
+            <label>CMS / stack preference</label>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="cms_pref" value="webflow" />Webflow</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="custom" />Custom (Astro / Next)</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="framer" />Framer</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="shopify" />Shopify</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="wordpress" />WordPress</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="none" />No website yet</label>
+              <label class="choice"><input type="radio" name="cms_pref" value="tbd" />Open to recommendation</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="integrations">Integrations / tools already in use</label>
+            <textarea id="integrations" name="integrations" placeholder="Stripe · HubSpot · Supabase · Segment · Webflow CMS · custom Postgres · Solana on-chain" style="min-height: 100px;"></textarea>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 09 · DESIGN ========== -->
+        <section class="intake-section" id="s09">
+          <span class="n">09</span>
+          <div class="section-label">SECTION 09 · DESIGN</div>
+          <h2><em>Taste</em> calibration</h2>
+          <p>Four sliders. We calibrate from there. No "wrong" answer — we've done everything from monastic to feral.</p>
+
+          <div class="field">
+            <div class="tone-slider">
+              <div class="tone-labels"><span>Luxury / restrained</span><span class="tone-value">5</span><span>Chaos / feral</span></div>
+              <input type="range" name="tone_luxury" min="1" max="10" value="5" />
+            </div>
+          </div>
+          <div class="field">
+            <div class="tone-slider">
+              <div class="tone-labels"><span>Quiet / confident</span><span class="tone-value">5</span><span>Loud / demanding</span></div>
+              <input type="range" name="tone_volume" min="1" max="10" value="5" />
+            </div>
+          </div>
+          <div class="field">
+            <div class="tone-slider">
+              <div class="tone-labels"><span>Classic / archival</span><span class="tone-value">5</span><span>Experimental / frontier</span></div>
+              <input type="range" name="tone_era" min="1" max="10" value="5" />
+            </div>
+          </div>
+          <div class="field">
+            <div class="tone-slider">
+              <div class="tone-labels"><span>Minimal / quiet</span><span class="tone-value">5</span><span>Maximalist / museumcore</span></div>
+              <input type="range" name="tone_density" min="1" max="10" value="5" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="references">References / moodboards / sites you love</label>
+            <textarea id="references" name="references" placeholder="URLs, Pinterest links, screenshots pasted in email, anything."></textarea>
+          </div>
+          <div class="field">
+            <label for="avoid">Things to avoid</label>
+            <textarea id="avoid" name="avoid" placeholder="Stripe gradients. Bento grids. AI-generated Ghibli. Lottie rockets." style="min-height: 90px;"></textarea>
+          </div>
+
+          <!-- Attachments inside Design section -->
+          <div class="field">
+            <label>Pitch decks · brand guides · past work (optional)</label>
+            <div class="file-drop">
+              <input type="file" id="attachments" name="attachments" multiple
+                     accept=".pdf,.key,.pptx,.png,.jpg,.jpeg,.gif,.svg,.fig,.sketch,.zip,.doc,.docx" />
+              <div class="drop-hint">Drop files — <em>pitch decks, brand guides, references</em></div>
+              <div class="drop-sub">pdf · key · pptx · fig · zip · png · jpg · and friends</div>
+            </div>
+            <div class="file-list" id="file-list"></div>
+            <p class="hint">We collect filenames here to prefill the email summary. Please send the actual files separately to <a href="mailto:matt@kr8tiv.io" style="color:var(--accent-1)">matt@kr8tiv.io</a> using the submission email's subject line so we can match them.</p>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 10 · FINAL CONFIRM & PROCESS ========== -->
+        <section class="intake-section" id="s10">
+          <span class="n">10</span>
+          <div class="section-label">SECTION 10 · FINAL CONFIRM &amp; PROCESS</div>
+          <h2>Last <em>nine questions</em></h2>
+          <p>Confirm the process, opt into the email list (funny and rare), consent to us keeping your data on file. All required ones are marked.</p>
+
+          <div class="consent">
+            <h4>Do you understand our engagement process?</h4>
+            <p>We sketch directions first, you pick one, we build it out in structured feedback rounds. 40% / 40% / 20% payment split. No endless "can we try one more thing?" loops. <a href="/process/">Read the full process →</a></p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="process_ack" value="yes" required />Yes, read and understood</label>
+              <label class="choice"><input type="radio" name="process_ack" value="explain" />Please walk me through it on the call</label>
+            </div>
+          </div>
+
+          <div class="consent">
+            <h4>Hilarious and rare emails — in?</h4>
+            <p>We're told they're funny. They're never frequent. You can unsubscribe with a single click, and the unsubscribe email is also funny. We may send a confirmation email to your address.</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="mailing_list" value="yes" />For sure I do</label>
+              <label class="choice"><input type="radio" name="mailing_list" value="no" />No thanks, I despise fun</label>
+            </div>
+          </div>
+
+          <div class="consent">
+            <h4>Data consent <span class="req">✦</span></h4>
+            <p>I consent to KR8TIV storing my contact details and form responses so they can contact me about this project. I understand I can request removal of my data at any time. <a href="#" onclick="event.preventDefault()">Read the Privacy &amp; Terms</a>.</p>
+            <p><strong>We promise not to</strong> sell your email, trade your data to a rival design studio, or invent an algorithm that sends people weekly memes. We use your info to run projects, invoice, send occasional marketing, and make the site less terrible. If you want us to forget you, we're honorable.</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="privacy_consent" value="yes" required />I consent</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SUBMIT ========== -->
+        <div class="intake-submit">
+          <div class="sub-note">
+            You are <em>one click</em> from the best project brief we've ever read.
+          </div>
+          <button type="submit" class="btn-submit">Submit intake ↳</button>
+          <div class="crypto-note">
+            We accept <span class="hl">Bitcoin</span>, <span class="hl">Ethereum</span>, and <span class="hl">Magic Internet Monnies</span>.<br />
+            Please send any extra attachments to <a href="mailto:matt@kr8tiv.io" style="color:var(--accent-1)">matt@kr8tiv.io</a>
+          </div>
+        </div>
+
+        <!-- Summary / email-export screen (shown after submit) -->
+        <div class="intake-summary" id="intake-summary">
+          <h3>Intake captured.</h3>
+          <p style="color:var(--ink);opacity:.82;margin-bottom:24px">
+            Below is the summary we'll send to Matt. Hit <strong>Open email</strong> to launch your mail app with the subject + body prefilled,
+            or <strong>Copy summary</strong> and send it however you like. Attachments should go in the same thread — use the subject line as reference.
+          </p>
+          <pre id="intake-summary-text"></pre>
+          <div class="sum-actions">
+            <button type="button" id="intake-mail-open">Open email</button>
+            <button type="button" id="intake-copy">Copy summary</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="intake-foot">
+      <div class="foot-grid">
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/process/">Process</a></li>
+            <li><a href="/#why">About us</a></li>
+            <li><a href="/#why">Founder</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy + Terms</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Products</h4>
+          <ul>
+            <li><a href="/#work">Portfolio</a></li>
+            <li><a href="#">Our companies</a></li>
+            <li><a href="#">AI automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/#services">Design</a></li>
+            <li><a href="mailto:matt@kr8tiv.io">Consultation</a></li>
+            <li><a href="/#services">Development</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Subscribe</h4>
+          <ul>
+            <li><a href="/build-notes/">Build notes</a></li>
+            <li><a href="mailto:matt@kr8tiv.io">Say hi</a></li>
+            <li><a href="/">← Return to splash</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bar">
+        <div>© 2026 KR8TIV · ALL RIGHTS RESERVED</div>
+        <div>WE ACCEPT BITCOIN, ETHEREUM AND MAGIC INTERNET MONNIES</div>
+        <div>INDEX / 008</div>
+      </div>
+    </footer>
+  </section>
+
+  <script>
+    import { initIntake } from '@lib/intakeForm';
+    initIntake();
+  </script>
+</FormLayout>

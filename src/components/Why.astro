@@ -1,0 +1,264 @@
+---
+/**
+ * Why / III · MANIFESTO section.
+ *
+ * Layering (back → front):
+ *   0  .why-bg video       — full-bleed manifesto background loop
+ *      .why-prism          — subtle chromatic bars overlay (softer than hero)
+ *      .why-fade-top       — top fade-to-black, blends into prior section
+ *      .why-fade-bot       — bottom fade-to-black, blends into next section
+ *   2  .why-inner          — copy (kanji + title + 3 statement cards)
+ *
+ * The prism overlay here is deliberately ~60% the intensity of the hero
+ * shader — this is a reading section, not a splash, so the chromatic
+ * effect should feel like lit-from-behind stained glass rather than a
+ * light show. Uses pure CSS gradients (no WebGL cost) keyed off a hue
+ * ramp so it cycles magenta → gold across the width.
+ */
+---
+<section class="why" id="why">
+  <div class="why-pin">
+    <div class="why-bg">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="/kr8tiv-assets/manifesto-bg.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Subtle prism — 6 vertical chromatic bars via CSS gradients.
+         Zero JS cost; mix-blend-mode: screen makes them add color
+         onto the video beneath without blocking it. -->
+    <div class="why-prism" aria-hidden="true">
+      <span style="--h:0"></span>
+      <span style="--h:45"></span>
+      <span style="--h:180"></span>
+      <span style="--h:220"></span>
+      <span style="--h:270"></span>
+      <span style="--h:320"></span>
+    </div>
+
+    <!-- Fade-to-black gradients, top and bottom. Anchored to the pin
+         so they stay locked while the section scrolls its 200vh depth. -->
+    <div class="why-fade why-fade-top" aria-hidden="true"></div>
+    <div class="why-fade why-fade-bot" aria-hidden="true"></div>
+
+    <div class="why-inner">
+      <div class="why-left">
+        <div class="chapter-label mono" style="margin-bottom:24px"><span class="b"></span>III / MANIFESTO</div>
+        <div class="kanji">侍</div>
+        <h2 class="serif">
+          <span class="line"><span>Why do</span></span>
+          <span class="line"><span>we <span class="it">exist?</span></span></span>
+        </h2>
+      </div>
+      <div class="why-right">
+        <div class="q">
+          <div class="tag">— THE REAL GOAL</div>
+          <p>Not the biggest studio. The one founders <em>quietly recommend</em> when they&rsquo;re two whiskeys deep.</p>
+          <cite>— House rules</cite>
+        </div>
+        <div class="q">
+          <div class="tag">— FOUNDER STORY</div>
+          <p>I spent years paying agencies that didn&rsquo;t understand founder challenges. So we built the partner we <em>always wished</em> we had.</p>
+          <cite>— Matt, Founder</cite>
+        </div>
+        <div class="q">
+          <div class="tag">— LONG-TERM</div>
+          <p>A twenty-dollar business card today. A twenty-thousand-dollar rebrand next year. We&rsquo;re playing the <em>long game</em>.</p>
+          <cite>— Long-term thinking</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Subtle prism — 6 vertical bars with hue tints on mix-blend screen.
+     Brightness bumped .34 → .55 after user feedback; saturation +
+     band strength also raised so the chroma reads without overpowering
+     the copy to the right. Still ≤ hero intensity. */
+  .why-prism {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: .55;
+    filter: blur(1.2px);
+  }
+  .why-prism > span {
+    flex: 1;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      hsla(var(--h), 96%, 62%, .38) 34%,
+      hsla(var(--h), 96%, 70%, .46) 50%,
+      hsla(var(--h), 96%, 62%, .38) 66%,
+      transparent 100%);
+    animation: why-prism-drift 18s ease-in-out infinite;
+    animation-delay: calc(var(--h) * -22ms);
+  }
+  @keyframes why-prism-drift {
+    0%, 100% { transform: translateX(-3%) scaleY(1); }
+    50%      { transform: translateX( 3%) scaleY(1.04); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .why-prism > span { animation: none; }
+  }
+  :global(html.motion-off) .why-prism > span { animation: none; }
+
+  /* Fade-to-black. Top + bottom bleed into neighboring sections so
+     there's no hard seam. Height = 28vh keeps the visible middle band
+     airy for the prism + video to breathe. */
+  .why-fade {
+    position: absolute;
+    left: 0; right: 0;
+    z-index: 1;
+    pointer-events: none;
+    height: 28vh;
+  }
+  .why-fade-top {
+    top: 0;
+    background: linear-gradient(180deg, #000 0%, rgba(0,0,0,.82) 40%, transparent 100%);
+  }
+  .why-fade-bot {
+    bottom: 0;
+    background: linear-gradient(0deg,   #000 0%, rgba(0,0,0,.82) 40%, transparent 100%);
+  }
+
+  /* ============ HOVER LIGHT-UP ============
+     Same idea as the hero's .logo-glow: hovering each interactive
+     element lifts a soft radial-gradient bloom behind it + brightens
+     the element's own glow. Uses ::before pseudos so we don't add
+     DOM nodes, and mix-blend-mode: screen so the glow ADDS light to
+     the video beneath instead of obscuring it. */
+
+  /* 1 · 侍 KANJI — idle glow stronger, hover escalates dramatically */
+  :global(.why-left .kanji) {
+    filter: drop-shadow(0 0 40px rgba(255, 45, 74, .55));
+    transition:
+      filter .8s cubic-bezier(.22, 1, .36, 1),
+      transform .8s cubic-bezier(.22, 1, .36, 1);
+    cursor: pointer;
+    display: inline-block;
+  }
+  :global(.why-left .kanji:hover) {
+    filter:
+      drop-shadow(0 0 80px rgba(255, 45, 74, .95))
+      drop-shadow(0 0 180px rgba(255, 106, 213, .5));
+    transform: scale(1.04);
+  }
+
+  /* 2 · "Why do we exist?" TITLE — radial bloom behind "exist?" */
+  :global(.why-left h2) { position: relative; }
+  :global(.why-left h2::after) {
+    content: '';
+    position: absolute;
+    left: -8%; top: -14%;
+    right: -8%; bottom: -14%;
+    background: radial-gradient(ellipse at 64% 64%,
+      rgba(255, 106, 213, .36) 0%,
+      rgba(255, 45, 74, .18) 38%,
+      transparent 72%);
+    filter: blur(28px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+    z-index: -1;
+  }
+  :global(.why-left h2:hover::after) { opacity: 1; }
+  :global(.why-left h2 .it) {
+    transition: color .6s cubic-bezier(.22, 1, .36, 1),
+                text-shadow .6s cubic-bezier(.22, 1, .36, 1);
+  }
+  :global(.why-left h2:hover .it) {
+    color: var(--accent-1);
+    text-shadow: 0 0 32px rgba(255, 106, 213, .7);
+  }
+
+  /* 3 · MANIFESTO CARDS — border flare + left-shift + bloom behind each */
+  :global(.why-right .q) {
+    position: relative;
+    transition:
+      border-left-color .6s cubic-bezier(.22, 1, .36, 1),
+      padding-left .6s cubic-bezier(.22, 1, .36, 1),
+      transform .6s cubic-bezier(.22, 1, .36, 1);
+    cursor: default;
+  }
+  :global(.why-right .q::before) {
+    content: '';
+    position: absolute;
+    left: -40px; top: -20px; right: -20px; bottom: -20px;
+    background: radial-gradient(ellipse at 14% 50%,
+      rgba(255, 106, 213, .26) 0%,
+      rgba(255, 45, 74, .12) 42%,
+      transparent 78%);
+    filter: blur(22px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity .7s cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+    z-index: -1;
+  }
+  :global(.why-right .q:hover) {
+    border-left-color: var(--accent-1);
+    padding-left: 44px;
+    transform: translateX(2px);
+  }
+  :global(.why-right .q:hover::before) { opacity: 1; }
+  :global(.why-right .q p em) {
+    transition: color .5s cubic-bezier(.22, 1, .36, 1),
+                text-shadow .5s cubic-bezier(.22, 1, .36, 1);
+  }
+  :global(.why-right .q:hover p em) {
+    color: var(--accent-1);
+    text-shadow: 0 0 22px rgba(255, 106, 213, .55);
+  }
+  :global(.why-right .q .tag) {
+    transition: color .5s cubic-bezier(.22, 1, .36, 1);
+  }
+  :global(.why-right .q:hover .tag) {
+    color: var(--accent-1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.why-left .kanji), :global(.why-left h2::after),
+    :global(.why-right .q), :global(.why-right .q::before),
+    :global(.why-right .q p em), :global(.why-right .q .tag) {
+      transition: none;
+    }
+    :global(.why-left .kanji:hover) { transform: none; }
+    :global(.why-right .q:hover) { transform: none; }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  // On mobile, responsive.css unpins the section (height: auto,
+  // position: relative). Don't create the ScrollTrigger pin either
+  // — it would manufacture extra scroll height that doesn't match
+  // the new layout. Ken-burns scale on the video still runs on all
+  // sizes because it looks good either way.
+  const whyMobile = window.matchMedia('(max-width: 960px)').matches;
+  if (document.querySelector('.why')) {
+    if (!whyMobile) {
+      ScrollTrigger.create({
+        trigger: '.why', start: 'top top', end: 'bottom bottom',
+        pin: '.why-pin', pinSpacing: false
+      });
+    }
+    gsap.to('.why-bg video', {
+      scale: 1.15, ease: 'none',
+      scrollTrigger: { trigger: '.why', start: 'top top', end: 'bottom top', scrub: true }
+    });
+    gsap.utils.toArray('.why-right .q').forEach((q: unknown, i: number) => {
+      gsap.fromTo(q as Element,
+        { opacity: 0, x: 40 },
+        { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: i * 0.14,
+          scrollTrigger: { trigger: q as Element, start: 'top 80%' }
+        });
+    });
+  }
+</script>

@@ -1,0 +1,802 @@
+---
+/**
+ * /work/ — the real portfolio page.
+ *
+ * Four tiers, honestly tagged. The brand thesis is "death to generic"
+ * which extends to the portfolio itself: nothing is inflated, every
+ * piece is labelled for what it actually is (CLIENT WORK / OWN
+ * COMPANY / PERSONAL / R&D), and the contrast between the tiers IS
+ * the brand voice — not a homogenized agency wall.
+ *
+ * Tier order:
+ *   001 SELECTED   — work I'd point at: Evolve, KIN, kr8tiv.ai, this site
+ *   002 BRAND KIT  — Evolve business cards (3 fronts + 1 back)
+ *   003 STUDIO LAB — Aurora, Jarvis, Pinky+Brain, Savage Fit
+ *   004 CODE VAULT — three GitHub orgs as live-stat cards
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import {
+  PORTFOLIO_SELECTED,
+  PORTFOLIO_EVOLVE_CARDS,
+  PORTFOLIO_STUDIO_LAB,
+  PORTFOLIO_CODE_VAULT
+} from '@lib/content';
+---
+<FormLayout
+  title="Selected Work · Studio Lab · Code Vault — KR8TIV"
+  description="Honest portfolio. Client work, own-company products, personal R&D, and three GitHub orgs. Every piece tagged for what it actually is — no agency theatre."
+  canonical="/work/"
+  pageType="CollectionPage"
+  currentNav="work"
+  keywords={[
+    'kr8tiv portfolio',
+    'design samurai work',
+    'evolve eco blasting case study',
+    'meet your kin',
+    'kr8tiv ai',
+    'aurora ventures',
+    'jarvis trading bot'
+  ]}
+>
+  {/* ─── Masthead ────────────────────────────────────────────── */}
+  <section class="work-mast">
+    <div class="wm-row">
+      <div class="wm-eye"><span class="b"></span>III / WORK · LIVE INDEX</div>
+      <div class="wm-meta">
+        <span class="dot"></span>HONEST INVENTORY<br/>
+        TAGGED · NOT INFLATED<br/>
+        EST. 2025
+      </div>
+    </div>
+    <h1 class="wm-title">
+      Selected work,<br/>
+      <em>studio lab,</em> code vault.
+    </h1>
+    <p class="wm-sub">
+      Every project below is tagged for what it actually is —
+      <strong>CLIENT WORK</strong>, <strong>OWN COMPANY</strong>,
+      <strong>PERSONAL</strong>, or <strong>R&amp;D</strong>.
+      If this looks like a 50-person agency, it's lying. It's one designer-engineer
+      with a few good clients and a workshop full of half-built trading bots.
+      That's the whole truth.
+    </p>
+  </section>
+
+  {/* ─── 001 · SELECTED ──────────────────────────────────────── */}
+  <section class="work-tier work-selected" id="selected">
+    <header class="tier-head">
+      <div class="tier-num">001</div>
+      <h2 class="tier-title serif">Selected.</h2>
+      <p class="tier-sub">Work I'd actually point at.</p>
+    </header>
+
+    <div class="sel-grid">
+      {PORTFOLIO_SELECTED.map((p) => (
+        <article class="sel-card" id={`sel-${p.slug}`}>
+          <div class="sel-frame port-frame">
+            {p.video ? (
+              <video
+                class="sel-video"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                data-src={p.video}
+                aria-label={`${p.title} walkthrough — silent`}
+              >
+                <source src={p.video} type="video/mp4" />
+              </video>
+            ) : (
+              <div class="sel-placeholder">
+                <div class="sel-placeholder-glyph">侍</div>
+                <div class="sel-placeholder-label">YOU&nbsp;ARE&nbsp;HERE</div>
+              </div>
+            )}
+            <span class="port-frame-grain" aria-hidden="true"></span>
+            <span class="port-frame-edge"  aria-hidden="true"></span>
+          </div>
+
+          <div class="sel-body">
+            <div class="sel-tags">
+              <span class={`tag tag--${p.tag.replace(/\s+/g, '-').toLowerCase()}`}>{p.tag}</span>
+              <span class="tag-sub">{p.subTag}</span>
+            </div>
+            <h3 class="sel-title">{p.title}</h3>
+            <p class="sel-desc" set:html={p.desc}></p>
+            {p.bullets && p.bullets.length > 0 && (
+              <ul class="sel-bullets">
+                {p.bullets.map((b) => (<li>{b}</li>))}
+              </ul>
+            )}
+            <div class="sel-links">
+              {p.href && (
+                <a href={p.href} class="sel-link sel-link--primary"
+                  target={p.href.startsWith('http') ? '_blank' : undefined}
+                  rel={p.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                  Visit live ↳
+                </a>
+              )}
+              {p.repoHref && (
+                <a href={p.repoHref} class="sel-link sel-link--ghost"
+                  target="_blank" rel="noopener noreferrer">
+                  GitHub ◊
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* ─── 002 · BRAND KIT · EVOLVE ────────────────────────────── */}
+  <section class="work-tier work-brandkit" id="brand-kit">
+    <header class="tier-head">
+      <div class="tier-num">002</div>
+      <h2 class="tier-title serif">Brand kit · <em>Evolve</em>.</h2>
+      <p class="tier-sub">
+        The Evolve rebrand was end-to-end: name, logo, brand bible, website, socials, print.
+        Three card fronts and one back below — same identity system, same restraint.
+      </p>
+    </header>
+    <div class="brandkit-grid">
+      {PORTFOLIO_EVOLVE_CARDS.map((c) => (
+        <figure class="brandkit-card port-frame">
+          <img src={c.src} alt={`Evolve business card — ${c.caption}`} loading="lazy" />
+          <figcaption class="brandkit-cap">{c.caption}</figcaption>
+          <span class="port-frame-grain" aria-hidden="true"></span>
+          <span class="port-frame-edge"  aria-hidden="true"></span>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  {/* ─── 003 · STUDIO LAB ────────────────────────────────────── */}
+  <section class="work-tier work-lab" id="studio-lab">
+    <header class="tier-head">
+      <div class="tier-num">003</div>
+      <h2 class="tier-title serif">Studio <em>lab</em>.</h2>
+      <p class="tier-sub">
+        Personal R&amp;D, venture work, friend favours, half-built infrastructure.
+        Smaller frames, denser grid, every tag honest.
+      </p>
+    </header>
+    <div class="lab-grid">
+      {PORTFOLIO_STUDIO_LAB.map((p) => (
+        <article class="lab-card">
+          <div class="lab-frame port-frame">
+            {p.video && (
+              <video
+                class="lab-video"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                data-src={p.video}
+                aria-label={`${p.title} walkthrough — silent`}
+              >
+                <source src={p.video} type="video/mp4" />
+              </video>
+            )}
+            <span class="port-frame-grain" aria-hidden="true"></span>
+            <span class="port-frame-edge"  aria-hidden="true"></span>
+          </div>
+          <div class="lab-body">
+            <div class="lab-tags">
+              <span class={`tag tag--${p.tag.replace(/\s+/g, '-').toLowerCase()}`}>{p.tag}</span>
+              <span class="tag-sub">{p.subTag}</span>
+            </div>
+            <h3 class="lab-title">{p.title}</h3>
+            <p class="lab-desc" set:html={p.desc}></p>
+            <div class="lab-links">
+              {p.href && (
+                <a href={p.href} class="lab-link" target="_blank" rel="noopener noreferrer">
+                  Live ↳
+                </a>
+              )}
+              {p.repoHref && (
+                <a href={p.repoHref} class="lab-link lab-link--ghost"
+                  target="_blank" rel="noopener noreferrer">
+                  GitHub ◊
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {/* ─── 004 · CODE VAULT ────────────────────────────────────── */}
+  <section class="work-tier work-vault" id="code-vault">
+    <header class="tier-head">
+      <div class="tier-num">004</div>
+      <h2 class="tier-title serif">Code <em>vault</em>.</h2>
+      <p class="tier-sub">
+        Code is part of the portfolio for an AI atelier. Three orgs, ~38 public repos,
+        ship in public. Open source everything, ship nightly.
+      </p>
+    </header>
+    <div class="vault-grid">
+      {PORTFOLIO_CODE_VAULT.map((org) => (
+        <a class="vault-card" href={org.href} target="_blank" rel="noopener noreferrer">
+          <div class="vault-head">
+            <span class={`tag tag--${org.kind.split('·')[0].trim().replace(/\s+/g, '-').toLowerCase()}`}>
+              {org.kind}
+            </span>
+            <span class="vault-count">{org.repoCount} repos</span>
+          </div>
+          <div class="vault-name">
+            <span class="vault-glyph">⌘</span>{org.name}
+          </div>
+          <p class="vault-bio">{org.bio}</p>
+          <ul class="vault-pinned">
+            {org.pinned.map((repo) => (
+              <li class="vault-pin">
+                <span class="vault-pin-name">{repo.name}</span>
+                <span class="vault-pin-desc">{repo.desc}</span>
+                <span class="vault-pin-meta">
+                  {repo.lang && <span class="vault-pin-lang">{repo.lang}</span>}
+                  {repo.stars !== undefined && repo.stars > 0 && (
+                    <span class="vault-pin-stars">★ {repo.stars}</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div class="vault-foot">
+            View org on GitHub ↳
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* ─── End-of-page CTA ─────────────────────────────────────── */}
+  <section class="work-cta">
+    <div class="wcta-wrap">
+      <div class="wcta-eye">PROJECT IN MIND?</div>
+      <h3 class="wcta-title serif">Let's <em>build</em>.</h3>
+      <p class="wcta-sub">
+        30-minute call, no pitch, no obligation. We'll hear what you're after,
+        tell you honestly whether we're the right fit, and if we aren't we'll
+        point you somewhere good.
+      </p>
+      <div class="wcta-row">
+        <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer"
+           class="wcta-btn wcta-btn--primary" data-cursor="magnetic">Book a call ↳</a>
+        <a href="/start/" class="wcta-btn wcta-btn--ghost">Fill out the intake ◊</a>
+        <a href="mailto:matt@kr8tiv.io" class="wcta-link">matt@kr8tiv.io</a>
+      </div>
+    </div>
+  </section>
+</FormLayout>
+
+<style>
+  /* ============================================================
+   * /work/ page styles — scoped to this page; uses brand tokens
+   * already declared in core.css + light-theme.css.
+   * ============================================================ */
+
+  /* ─── Masthead ─── */
+  .work-mast {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 180px 32px 120px;
+  }
+  .wm-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 40px; margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .wm-eye {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .42em;
+    color: var(--ink-muted); text-transform: uppercase;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .wm-eye .b {
+    width: 48px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+  }
+  .wm-meta {
+    text-align: right; color: var(--ink-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .22em; line-height: 2;
+    text-transform: uppercase;
+  }
+  .wm-meta .dot {
+    display: inline-block; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent);
+    margin-right: 8px; vertical-align: middle;
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .wm-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(56px, 8vw, 128px);
+    line-height: .92; letter-spacing: -.03em;
+    margin: 0 0 36px; color: var(--ink); max-width: 18ch;
+  }
+  .wm-title em { font-style: italic; color: var(--accent-1); }
+  .wm-sub {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.6; max-width: 64ch;
+    color: var(--ink); opacity: .82;
+  }
+  .wm-sub strong {
+    color: var(--accent-1); font-weight: 500;
+    letter-spacing: .08em; text-transform: uppercase;
+    font-size: .82em;
+  }
+
+  /* ─── Generic tier head ─── */
+  .work-tier { max-width: 1280px; margin: 0 auto; padding: 60px 32px; }
+  .tier-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 32px;
+    align-items: end;
+    margin-bottom: 56px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .tier-num {
+    grid-row: 1 / span 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(40px, 6vw, 88px); font-weight: 100;
+    letter-spacing: -.04em; color: var(--ink-muted); opacity: .55;
+    line-height: 1;
+  }
+  .tier-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 88px);
+    line-height: .94; letter-spacing: -.025em;
+    margin: 0; color: var(--ink);
+  }
+  .tier-title em { font-style: italic; color: var(--accent-1); }
+  .tier-sub {
+    grid-column: 2;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14.5px; line-height: 1.65;
+    color: var(--ink); opacity: .72; max-width: 52ch;
+    margin: 12px 0 0;
+  }
+
+  /* ─── Tags shared across tiers ─── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: .32em;
+    text-transform: uppercase; padding: 4px 10px;
+    border-radius: 2px; border: 1px solid;
+    line-height: 1.4; white-space: nowrap;
+  }
+  .tag--client-work { color: var(--accent-1); border-color: var(--accent-1); background: rgba(255,106,213,.06); }
+  .tag--own-company { color: var(--accent-4); border-color: var(--accent-4); background: rgba(255,209,102,.06); }
+  .tag--personal     { color: var(--cyan, #3dfffc); border-color: var(--cyan, #3dfffc); background: rgba(61,255,252,.05); }
+  .tag--r-d          { color: var(--accent-2); border-color: var(--accent-2); background: rgba(142,0,255,.06); }
+  .tag-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: .26em;
+    text-transform: uppercase; color: var(--ink-muted);
+    margin-left: 12px;
+  }
+
+  /* ─── Port frame (shared video/img treatment) ─── */
+  :global(.port-frame) {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--edge);
+    background: #050507;
+    transition: border-color .5s cubic-bezier(.22,1,.36,1),
+                transform   .5s cubic-bezier(.22,1,.36,1),
+                box-shadow  .5s cubic-bezier(.22,1,.36,1);
+  }
+  :global(.port-frame:hover) {
+    border-color: rgba(255, 209, 102, .55);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 64px -32px rgba(255, 209, 102, .35),
+                0 0 0 1px rgba(255, 106, 213, .12);
+  }
+  :global(.port-frame video),
+  :global(.port-frame img) {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: center;
+    filter: contrast(1.06) saturate(.92) brightness(.84);
+    transition: filter .5s cubic-bezier(.22,1,.36,1),
+                transform 1.4s cubic-bezier(.22,1,.36,1);
+  }
+  :global(.port-frame:hover video),
+  :global(.port-frame:hover img) {
+    filter: contrast(1.08) saturate(1.0) brightness(.96);
+    transform: scale(1.02);
+  }
+  :global(.port-frame-grain) {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url('/kr8tiv-assets/Design-49.gif');
+    background-size: 236px auto; background-repeat: repeat;
+    opacity: .045; mix-blend-mode: overlay; z-index: 1;
+  }
+  :global(.port-frame-edge) {
+    position: absolute; inset: 0; pointer-events: none;
+    border: 1px solid rgba(255, 209, 102, 0);
+    border-radius: 4px;
+    z-index: 2;
+    transition: border-color .5s, box-shadow .5s;
+  }
+  :global(.port-frame:hover .port-frame-edge) {
+    border-color: rgba(255, 209, 102, .35);
+    box-shadow: inset 0 0 24px rgba(255, 106, 213, .14);
+  }
+
+  /* ─── 001 SELECTED grid ─── */
+  .sel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 100px;
+  }
+  .sel-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  .sel-card:nth-child(even) { direction: rtl; }
+  .sel-card:nth-child(even) > * { direction: ltr; }
+  .sel-frame { aspect-ratio: 16 / 10; }
+  .sel-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+    background:
+      radial-gradient(ellipse at center, rgba(255,106,213,.18), transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(142,0,255,.12), transparent 70%),
+      #08080c;
+  }
+  .sel-placeholder-glyph {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(64px, 10vw, 140px);
+    color: var(--accent); opacity: .82;
+    text-shadow:
+      0 0 24px rgba(255,45,74,.35),
+      0 0 60px rgba(255,45,74,.18);
+  }
+  .sel-placeholder-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .42em;
+    color: var(--ink-muted); text-transform: uppercase;
+  }
+  .sel-tags { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin-bottom: 18px; }
+  .sel-title {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(36px, 4.4vw, 72px);
+    line-height: .98; letter-spacing: -.025em;
+    margin: 0 0 18px; color: var(--ink);
+  }
+  .sel-desc {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 16px; line-height: 1.6;
+    color: var(--ink); opacity: .82; max-width: 56ch;
+    margin: 0 0 22px;
+  }
+  .sel-desc :global(em) { color: var(--accent-1); font-style: italic; }
+  .sel-bullets {
+    list-style: none; padding: 0; margin: 0 0 28px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .sel-bullets li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; letter-spacing: .12em;
+    color: var(--ink-muted); padding-left: 16px;
+    position: relative;
+  }
+  .sel-bullets li::before {
+    content: '·'; position: absolute; left: 0;
+    color: var(--accent-1); font-weight: 700;
+  }
+  .sel-links { display: flex; gap: 14px; flex-wrap: wrap; }
+  .sel-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; letter-spacing: .3em;
+    text-transform: uppercase; padding: 14px 24px;
+    border-radius: 4px; border: 1px solid;
+    transition: letter-spacing .4s cubic-bezier(.22,1,.36,1),
+                background .3s, box-shadow .3s, color .3s;
+    white-space: nowrap;
+  }
+  .sel-link--primary {
+    background: var(--accent-1); color: #000; border-color: var(--accent-1);
+  }
+  .sel-link--primary:hover {
+    letter-spacing: .42em;
+    box-shadow: 0 0 32px rgba(255, 106, 213, .48);
+  }
+  .sel-link--ghost {
+    color: var(--ink); border-color: var(--edge); background: transparent;
+  }
+  .sel-link--ghost:hover {
+    border-color: var(--accent-4); color: var(--accent-4);
+    background: rgba(255, 209, 102, .04);
+    letter-spacing: .38em;
+  }
+
+  /* ─── 002 BRAND KIT grid ─── */
+  .brandkit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .brandkit-card {
+    aspect-ratio: 1.75 / 1;            /* business-card-ish ratio */
+    position: relative;
+  }
+  .brandkit-card img { object-fit: contain; padding: 24px; background: #06060a; }
+  .brandkit-cap {
+    position: absolute; bottom: 14px; left: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: .32em;
+    text-transform: uppercase; color: var(--accent-4);
+    background: rgba(0,0,0,.55); padding: 4px 8px;
+    border-radius: 2px; z-index: 3;
+  }
+
+  /* ─── 003 STUDIO LAB grid ─── */
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 40px;
+  }
+  .lab-card { display: flex; flex-direction: column; gap: 20px; }
+  .lab-frame { aspect-ratio: 16 / 10; }
+  .lab-tags { display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+  .lab-title {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.0; letter-spacing: -.018em;
+    margin: 0; color: var(--ink);
+  }
+  .lab-desc {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14.5px; line-height: 1.6;
+    color: var(--ink); opacity: .78; max-width: 56ch;
+    margin: 0;
+  }
+  .lab-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .lab-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .28em;
+    text-transform: uppercase; padding: 10px 16px;
+    border-radius: 3px;
+    border: 1px solid var(--accent-4); color: var(--accent-4);
+    background: transparent;
+    transition: letter-spacing .4s, background .3s, color .3s;
+  }
+  .lab-link:hover {
+    background: var(--accent-4); color: #000;
+    letter-spacing: .36em;
+  }
+  .lab-link--ghost {
+    border-color: var(--edge); color: var(--ink-muted);
+  }
+  .lab-link--ghost:hover {
+    border-color: var(--accent-1); color: var(--accent-1); background: rgba(255,106,213,.06);
+  }
+
+  /* ─── 004 CODE VAULT grid ─── */
+  .vault-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .vault-card {
+    display: flex; flex-direction: column; gap: 18px;
+    padding: 28px 26px;
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+    background: linear-gradient(160deg, rgba(255,255,255,.012), transparent 70%);
+    transition: border-color .4s, transform .4s, box-shadow .4s;
+    text-decoration: none;
+  }
+  .vault-card:hover {
+    border-color: var(--accent-4);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 60px -32px rgba(255, 209, 102, .32);
+  }
+  .vault-head {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px;
+  }
+  .vault-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .26em;
+    text-transform: uppercase; color: var(--ink-muted);
+  }
+  .vault-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17.5px; letter-spacing: .04em;
+    color: var(--ink); display: flex; align-items: baseline; gap: 8px;
+  }
+  .vault-glyph { color: var(--accent-1); }
+  .vault-bio {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 13px; line-height: 1.6;
+    color: var(--ink); opacity: .72; margin: 0;
+  }
+  .vault-pinned {
+    list-style: none; padding: 0; margin: 8px 0 0;
+    display: flex; flex-direction: column; gap: 12px;
+    border-top: 1px solid var(--edge); padding-top: 16px;
+  }
+  .vault-pin {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .vault-pin-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; color: var(--accent-4);
+    letter-spacing: .04em;
+  }
+  .vault-pin-desc {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12.5px; color: var(--ink); opacity: .72;
+    line-height: 1.45;
+  }
+  .vault-pin-meta {
+    display: flex; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .14em;
+    color: var(--ink-muted); text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .vault-pin-stars { color: var(--accent-4); }
+  .vault-foot {
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--accent-1);
+    padding-top: 14px; border-top: 1px solid var(--edge);
+  }
+
+  /* ─── End-of-page CTA ─── */
+  .work-cta {
+    max-width: 1280px; margin: 80px auto 0;
+    padding: 120px 32px 200px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 30%, rgba(255,106,213,.08), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 50% 80%, rgba(255,209,102,.05), transparent 60%);
+  }
+  .wcta-eye {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: .42em;
+    color: var(--accent-1); text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .wcta-title {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(56px, 9vw, 152px);
+    line-height: .9; letter-spacing: -.03em;
+    margin: 0 0 28px; color: var(--ink);
+  }
+  .wcta-title em { font-style: italic; color: var(--accent-1); }
+  .wcta-sub {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.5; max-width: 56ch;
+    margin: 0 auto 40px; color: var(--ink); opacity: .9;
+  }
+  .wcta-row {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+  }
+  .wcta-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; letter-spacing: .32em;
+    text-transform: uppercase; padding: 20px 36px;
+    border-radius: 4px; border: 1px solid;
+    transition: letter-spacing .4s, background .3s, box-shadow .3s, color .3s;
+    white-space: nowrap;
+  }
+  .wcta-btn--primary {
+    background: var(--accent-1); color: #000; border-color: var(--accent-1);
+  }
+  .wcta-btn--primary:hover {
+    letter-spacing: .44em;
+    box-shadow: 0 0 60px rgba(255,106,213,.45);
+  }
+  .wcta-btn--ghost {
+    color: var(--ink); border-color: var(--edge); background: transparent;
+  }
+  .wcta-btn--ghost:hover {
+    border-color: var(--accent-4); color: var(--accent-4);
+    background: rgba(255,209,102,.04); letter-spacing: .38em;
+  }
+  .wcta-link {
+    color: var(--ink-muted); padding: 20px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; text-transform: lowercase;
+    letter-spacing: .04em;
+  }
+  .wcta-link:hover { color: var(--accent-1); }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 880px) {
+    .work-mast { padding: 130px 20px 80px; }
+    .sel-card {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .sel-card:nth-child(even) { direction: ltr; }
+    .brandkit-grid { grid-template-columns: 1fr; }
+    .lab-grid { grid-template-columns: 1fr; }
+    .vault-grid { grid-template-columns: 1fr; }
+    .tier-head {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 6px;
+    }
+    .tier-num { grid-row: auto; }
+    .tier-sub { grid-column: 1; }
+  }
+
+  /* ─── Reduced motion ─── */
+  @media (prefers-reduced-motion: reduce) {
+    :global(.port-frame),
+    :global(.port-frame video),
+    :global(.port-frame img),
+    .vault-card,
+    .sel-link, .lab-link, .wcta-btn { transition: none; }
+    :global(.port-frame:hover) { transform: none; }
+    :global(.port-frame:hover video),
+    :global(.port-frame:hover img) { transform: none; }
+    .vault-card:hover { transform: none; }
+    .wm-meta .dot { animation: none; }
+  }
+</style>
+
+<script>
+  /* ──────────────────────────────────────────────────────────
+   * Lazy-load + hover-play behavior for portfolio videos.
+   * - preload="metadata" gives us the first frame as poster,
+   *   without auto-fetching the whole file.
+   * - On pointerenter the video starts playing (muted) once
+   *   it's been loaded once (load() on first hover).
+   * - On pointerleave it pauses and resets to t=0 so the next
+   *   hover starts from the top of the loop.
+   * - IntersectionObserver pauses anything off-screen.
+   * ────────────────────────────────────────────────────────── */
+  const videos = document.querySelectorAll<HTMLVideoElement>('.sel-video, .lab-video');
+  videos.forEach((v) => {
+    v.muted = true;
+    v.playsInline = true;
+    v.loop = true;
+
+    const card = v.closest('.sel-frame, .lab-frame');
+    if (!card) return;
+
+    let loadedOnce = false;
+    card.addEventListener('pointerenter', () => {
+      if (!loadedOnce) { v.load(); loadedOnce = true; }
+      v.play().catch(() => {});
+    });
+    card.addEventListener('pointerleave', () => {
+      v.pause();
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const el = e.target as HTMLVideoElement;
+        if (!e.isIntersecting && !el.paused) el.pause();
+      }
+    }, { threshold: 0 });
+    videos.forEach((v) => io.observe(v));
+  }
+</script>
