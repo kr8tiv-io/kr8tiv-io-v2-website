@@ -410,6 +410,20 @@ html[data-theme="light"] .reel-bg video {
 html[data-theme="light"] .reel-inner h2 { color: var(--ink); }
 html[data-theme="light"] .reel-inner h2 em { color: var(--accent-1); }
 
+/* Translucent KR8TIV wordmark in light mode — flip the fill + stroke
+   to ink so the see-through logo reads as etched into cream paper.
+   mix-blend-mode flipped to multiply so dark areas of the chromatic
+   peaks darken the cream behind the logo, preserving the "etched
+   glass" feel on a light surface. */
+html[data-theme="light"] .reel-logo {
+  fill: rgba(26, 24, 32, .14);
+  stroke: rgba(26, 24, 32, .58);
+  filter:
+    drop-shadow(0 0 10px rgba(26, 24, 32, .08))
+    drop-shadow(0 0 32px rgba(194, 43, 130, .18));
+  mix-blend-mode: multiply;
+}
+
 /* =====================================================================
    CONTACT — dark → cream with hover brightenings retuned
    ===================================================================== */

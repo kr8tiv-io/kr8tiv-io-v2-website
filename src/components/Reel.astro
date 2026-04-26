@@ -10,10 +10,15 @@
       <span class="reel-fade-bot"   aria-hidden="true"></span>
     </div>
     <div class="reel-inner">
-      <h2 class="serif">
-        death to<br />
-        <em>generic</em>.
-      </h2>
+      {/* Translucent KR8TIV wordmark replaces the "death to generic"
+          headline. The chromatic peaks + forest video render through
+          the see-through fill, so the logo reads as etched-glass type
+          floating over the scene. Uses the sitewide #kr8tiv-glyph
+          sprite (defined in LogoSymbol.astro), so the path data is
+          shared and infinite-crisp at any size. */}
+      <svg class="reel-logo" viewBox="0 0 1800 600" aria-label="KR8TIV" preserveAspectRatio="xMidYMid meet">
+        <use href="#kr8tiv-glyph" />
+      </svg>
     </div>
   </div>
 </section>
@@ -44,6 +49,38 @@
     background: linear-gradient(to top,
       #000 0%, rgba(0,0,0,.92) 28%, rgba(0,0,0,.55) 60%,
       rgba(0,0,0,.18) 86%, transparent 100%);
+  }
+
+  /* === Translucent KR8TIV wordmark — replaces the headline ===
+     Width clamps so the logo always sits comfortably inside the
+     reel-pin (max-width caps it at ~1100px on huge displays so it
+     doesn't blow past the centred composition). The dual fill +
+     stroke gives a dual-read: a faint white wash inside the letters
+     so the wordmark holds on busy scenes, plus a crisp 1.2px stroke
+     around every edge so the silhouette stays legible even where the
+     fill is too low-contrast against the chromatic peaks. */
+  .reel-logo {
+    display: block;
+    width: clamp(420px, 62vw, 1100px);
+    height: auto;
+    margin: 0 auto;
+    fill: rgba(255, 255, 255, .18);
+    stroke: rgba(255, 255, 255, .65);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    /* Subtle outer glow that picks up the magenta accent the rest of
+       the page leans on. Renders as a faint magenta halation around
+       the wordmark, ties the logo to the brand even when the chromatic
+       peaks are colour-shifting underneath. */
+    filter:
+      drop-shadow(0 0 12px rgba(255, 255, 255, .14))
+      drop-shadow(0 0 36px rgba(255, 106, 213, .22));
+    /* mix-blend-mode: overlay lets the chromatic peaks shimmer through
+       the fill — the wordmark literally becomes etched glass. */
+    mix-blend-mode: overlay;
+  }
+  @media (max-width: 720px) {
+    .reel-logo { width: 88vw; }
   }
 </style>
 
