@@ -86,6 +86,70 @@ html[data-theme="light"] .hero.hero-reveal .hero-title {
 /* Reveal cover — was dark panel, now cream panel */
 html[data-theme="light"] #reveal-cover { fill: #f5f2ea; }
 
+/* Splash top dimmer (`.reveal-sticky::before`) — was a hardcoded dark
+   gradient (rgba(5,5,7,...)), so in light mode it painted a black
+   wash over the top of the cream splash. Re-tuned to fade from cream
+   toward transparent at the same gradient stops. The gradient is
+   subtler in light mode because the prism bars don't blast as hot
+   when we screen-blend over a near-white background. */
+html[data-theme="light"] .reveal-sticky::before {
+  background: linear-gradient(to bottom,
+    rgba(245, 242, 234, .82) 0%,
+    rgba(245, 242, 234, .60) 30%,
+    rgba(245, 242, 234, .35) 65%,
+    rgba(245, 242, 234, 0)   100%);
+}
+
+/* Hero meta + status corner type — the ink-shadowed near-white from
+   core.css is invisible on cream. Flip to deep ink + drop the heavy
+   ink-shadow for a gentler cream-paper shadow that still lifts the
+   type off the prism bars. */
+html[data-theme="light"] .hero-top .meta,
+html[data-theme="light"] .hero-top .right {
+  color: rgba(26, 24, 32, .82);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, .55),
+    0 0 12px rgba(245, 242, 234, .65),
+    0 2px 8px rgba(245, 242, 234, .5);
+}
+html[data-theme="light"] .hero-top .meta strong {
+  color: var(--accent-1);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, .6),
+    0 0 10px rgba(194, 43, 130, .35),
+    0 2px 8px rgba(245, 242, 234, .55);
+}
+
+/* Reveal-cue cluster (music hint, music note, scroll cue) — these
+   used near-white colours that disappear on cream. Inherit the same
+   ink palette + accent magenta for the pulse/dot. */
+html[data-theme="light"] .reveal-music-hint { color: rgba(26, 24, 32, .58); }
+html[data-theme="light"] .reveal-cue .reveal-cue-icon { color: var(--accent-1); }
+html[data-theme="light"] .reveal-hint span { color: rgba(26, 24, 32, .68); }
+html[data-theme="light"] .reveal-hint .b {
+  background: linear-gradient(90deg, transparent, rgba(26, 24, 32, .55), transparent);
+}
+html[data-theme="light"] .hero.hero-reveal .hero-bot .cue,
+html[data-theme="light"] .hero.hero-reveal .hero-bot .cue span { color: rgba(26, 24, 32, .58); }
+html[data-theme="light"] .hero.hero-reveal .hero-bot .cue .b {
+  background: linear-gradient(90deg, transparent, rgba(26, 24, 32, .55), transparent);
+}
+
+/* Page-number scrollbar (01-10 cluster at bottom-centre of splash) —
+   was using ghosted near-white outlines. Flip to ink so it reads
+   on cream paper. */
+html[data-theme="light"] .scroll-progress,
+html[data-theme="light"] .progress-dots,
+html[data-theme="light"] .progress-pill {
+  color: rgba(26, 24, 32, .65);
+  border-color: var(--edge);
+  background: rgba(255, 255, 255, .55);
+}
+html[data-theme="light"] .progress-dots .dot,
+html[data-theme="light"] .progress-dots span { color: rgba(26, 24, 32, .55); }
+html[data-theme="light"] .progress-dots .dot.active,
+html[data-theme="light"] .progress-dots span.active { color: var(--accent-1); background: rgba(194, 43, 130, .15); }
+
 /* =====================================================================
    DOCTRINE — cards on cream paper
    ===================================================================== */
@@ -102,6 +166,14 @@ html[data-theme="light"] .chapter-label .b {
    SERVICES — videos stay, text + frame edges adapt
    ===================================================================== */
 html[data-theme="light"] .services { background: var(--bg); }
+/* `.services-pin` is the 100vh sticky container that hosts the
+   horizontal-scrolling service track — it had a hard #000 background
+   that punched through on light mode. Flip to cream so the panels
+   (cream paper frames) sit cleanly on the section bg. */
+html[data-theme="light"] .services-pin { background: var(--bg); }
+html[data-theme="light"] .services-track,
+html[data-theme="light"] .svc-panel,
+html[data-theme="light"] .svc-inner { background: transparent; }
 html[data-theme="light"] .svc-copy p { color: rgba(26, 24, 32, .7); }
 html[data-theme="light"] .svc-copy .meta { color: var(--ink-muted); }
 html[data-theme="light"] .svc-copy .price { color: var(--ink-muted); }
@@ -595,6 +667,107 @@ html[data-theme="light"] .cur { border-color: var(--ink); }
    ===================================================================== */
 html[data-theme="light"] ::selection {
   background: rgba(194, 43, 130, .22);
+  color: var(--ink);
+}
+
+/* =====================================================================
+   FINAL LIGHT-MODE COVERAGE PASS — sweep of every section that still
+   read as dark on cream after the first audit. Each of these had a
+   hardcoded near-black background in core.css / prism.css that wasn't
+   theme-flipped previously, producing the "patches of dark sitting on
+   a cream page" effect the user flagged. All flipped to cream/paper
+   surfaces here so the entire site reads as one cohesive day-mode.
+   ===================================================================== */
+
+/* Splash hero stage — was `background: #050507` in prism.css. The
+   reveal SVG cover already flips to cream, but the underlying stage
+   stayed hard black so on a flash of resize / orientation change you
+   could glimpse a black panel. Flip stage to cream. */
+html[data-theme="light"] .reveal-sticky { background: var(--bg); }
+
+/* Marquee strip immediately under the splash — was `background: #000`
+   creating a black band in light mode. Flip to cream paper, keep the
+   running text + dots on top in ink. */
+html[data-theme="light"] .hero.hero-reveal + .marquee-wrap {
+  background: var(--bg);
+  border-top: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+}
+html[data-theme="light"] .marquee-inner span { color: var(--ink); }
+
+/* Doctrine — already had a `background: var(--bg)` rule but the
+   prism.css declaration `.doctrine { background: #000 }` may have
+   matched at the same specificity in the dev cascade; the !important
+   here makes the cream flip absolute regardless of source order. */
+html[data-theme="light"] .doctrine { background: var(--bg) !important; }
+
+/* Contact section — was `background: #000` in core.css. Cream + ink
+   ghost buttons in light mode. */
+html[data-theme="light"] .contact {
+  background: var(--bg);
+}
+html[data-theme="light"] .contact h2,
+html[data-theme="light"] .contact .contact-head h2 { color: var(--ink); }
+html[data-theme="light"] .contact .contact-head .meta { color: var(--ink-muted); }
+html[data-theme="light"] .contact .contact-cta a {
+  border-color: var(--edge-strong);
+  color: var(--ink);
+  background: rgba(255, 255, 255, .55);
+}
+html[data-theme="light"] .contact .contact-cta a:hover {
+  background: var(--accent-1);
+  color: #fff;
+  border-color: var(--accent-1);
+}
+
+/* Work-card placeholder bg (the cream-on-cream when a card has no
+   video yet) — was #101015. Flip to a paper tone and let the shadow
+   carry the lift. */
+html[data-theme="light"] .work-card {
+  background: var(--surface-2);
+}
+
+/* Process page hero atmosphere — the prism bars + WebGL refraction
+   over the video are designed for dark, on cream they flash too
+   bright. The existing `.process-hero-fade` light variant in
+   process.css fades to cream. Add a slight desat on the bars in
+   light mode so the chromatic columns sit as muted rainbow paper
+   strips instead of fluorescent neon. */
+html[data-theme="light"] .process-hero-bg .prism-bars,
+html[data-theme="light"] .reveal-sticky .prism-bars {
+  filter: saturate(.78) brightness(.92);
+}
+html[data-theme="light"] .process-prism-webgl,
+html[data-theme="light"] .prism-webgl {
+  opacity: .85;
+  mix-blend-mode: multiply;
+}
+
+/* Process page mast-row — already hidden via process.css, but if it
+   ever comes back the borders + text colours need a light pass. */
+html[data-theme="light"] .process-mast .mast-row > div { color: var(--ink-muted); }
+html[data-theme="light"] .process-mast .mast-row .word a { color: var(--ink-muted); }
+html[data-theme="light"] .process-mast .mast-row .word a.active { color: var(--accent-1); }
+
+/* Terms page mirrors process atmosphere — same bg/fade treatment,
+   plus body type. */
+html[data-theme="light"] .terms-body,
+html[data-theme="light"] .terms-section { color: var(--ink); }
+html[data-theme="light"] .terms-section h3 { color: var(--ink); }
+html[data-theme="light"] .terms-section p { color: var(--ink); }
+html[data-theme="light"] .terms-mast h1 { color: var(--ink); }
+
+/* Footer / endcaps — anything sitting against cream needs the same
+   ink shift. */
+html[data-theme="light"] footer { color: var(--ink-muted); }
+html[data-theme="light"] footer a { color: var(--accent-1); }
+
+/* Build-notes page — the technical writeup has its own dark slabs;
+   flip them. */
+html[data-theme="light"] .build-notes,
+html[data-theme="light"] .build-notes pre,
+html[data-theme="light"] .build-notes code {
+  background: var(--surface-1);
   color: var(--ink);
 }
 

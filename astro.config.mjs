@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 // Vite + Rollup for bundling. Static output so every page is pre-rendered
 // at build time — no server needed to host.
 export default defineConfig({
-  site: 'https://kr8tiv.ai',
+  site: 'https://kr8tiv.io',
   output: 'static',
   // SEO: XML sitemap auto-generated at /sitemap-index.xml during build.
   // Referenced from robots.txt + submitted to Google Search Console.
@@ -21,7 +21,7 @@ export default defineConfig({
       filter: (page) => !page.includes('/menu-lab'),
       // Higher priority for the homepage; lower for utility pages.
       serialize(item) {
-        if (item.url === 'https://kr8tiv.ai/') return { ...item, priority: 1.0, changefreq: 'daily' };
+        if (item.url === 'https://kr8tiv.io/') return { ...item, priority: 1.0, changefreq: 'daily' };
         if (item.url.includes('/process/')) return { ...item, priority: 0.9 };
         if (item.url.includes('/start/')) return { ...item, priority: 0.9 };
         return item;

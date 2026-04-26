@@ -24,8 +24,8 @@ const { current = 'home' } = Astro.props;
 const base = current === 'home' ? '' : '/';
 
 const midLinks = [
+  { href: '/',                label: 'HOME',     key: 'home' },
   { href: `${base}#doctrine`, label: 'DOCTRINE', key: 'doctrine' },
-  { href: `${base}#services`, label: 'INDEX',    key: 'services' },
   { href: `${base}#why`,      label: 'WHY',      key: 'why' },
   /* WORK now points at the dedicated /work/ page (the full 4-tier
      portfolio). Homepage still has a 3-card teaser at #work, but

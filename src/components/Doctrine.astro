@@ -6,7 +6,12 @@
  */
 ---
 <section class="doctrine" id="doctrine">
-  <video class="obelisk-vid" id="obelisk-vid" muted playsinline preload="auto" aria-hidden="true">
+  <!-- preload="metadata" — obelisk is scroll-scrubbed via currentTime
+       (see lib/obelisk.ts), so we need duration + first-frame poster
+       on load, but NOT the full byte stream. As the user scrolls and
+       JS pokes currentTime, the browser ranges into the file on demand.
+       Cuts ~3 MB off the initial load vs preload="auto". -->
+  <video class="obelisk-vid" id="obelisk-vid" muted playsinline preload="metadata" aria-hidden="true">
     <source src="/kr8tiv-assets/oblisk-kr8tiv.mp4" type="video/mp4" />
   </video>
   <div class="wrap">

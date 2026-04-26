@@ -14,14 +14,32 @@
    layout, engineered micro-interactions, not a tutorial template.
    ===================================================================== */
 
-/* === Sentinel header — the editorial masthead === */
+/* === Sentinel header — the editorial masthead ===
+   Promoted to a full-viewport splash on the user's request: the
+   prism atmosphere should fill the whole screen the way the index
+   page does, not sit in a half-page band with black above and below.
+   max-width unset so the chromatic background bleeds edge-to-edge;
+   inner content is still centred via the .mast-row + .process-title
+   constraints below. */
 .process-mast {
   padding: 180px 32px 80px;
-  max-width: 1680px;
-  margin: 0 auto;
+  margin: 0;
   position: relative;
   isolation: isolate;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+/* The editorial mast-row duplicated the site nav: a "KR8TIV · 侍"
+   wordmark + "LUX/PROCESS/ABOUT/CONTACT" links + "VOL · 08 / PRISM"
+   tag. Two KR8TIV marks reading the same routes felt cramped and
+   redundant against the persistent site nav up top. Hidden per the
+   user's "kr8tiv logo popping up in weird places" feedback. The
+   page-specific masthead identity now flows entirely through the
+   hero atmosphere + .process-title headline below. */
+.process-mast .mast-row { display: none; }
 
 /* ──── Prism atmosphere on the /process/ masthead ─────────────────
    Same vocabulary as the splash hero — refracted forest video +
@@ -113,7 +131,13 @@ html[data-theme="light"] .process-hero-video {
 html.motion-off .process-prism-webgl,
 html.motion-off .process-hero-fx .prism-bars,
 html.motion-off .process-hero-fx .prism-sweep { display: none; }
-.process-mast .mast-row {
+/* Mast-row legacy styling (KR8TIV·侍 / LUX-PROCESS-ABOUT-CONTACT /
+   VOL·08·PRISM). Overridden to `display: none` at the top of this
+   file (.process-mast .mast-row) — the rule below stays as a record
+   of the original layout and inherits `display: none` from the
+   earlier declaration via cascade order. The legacy grid + type
+   styles only apply if/when the hide rule is reverted. */
+.process-mast .mast-row.legacy-show {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: end;
@@ -121,10 +145,10 @@ html.motion-off .process-hero-fx .prism-sweep { display: none; }
   border-bottom: 1px solid var(--edge);
   padding-bottom: 24px;
 }
-.process-mast .mast-row > * { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-muted); }
-.process-mast .mast-row .word { display: flex; gap: 28px; }
-.process-mast .mast-row .word a { color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .4s; }
-.process-mast .mast-row .word a.active { border-bottom-color: var(--accent-1); }
+.process-mast .mast-row.legacy-show > * { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-muted); }
+.process-mast .mast-row.legacy-show .word { display: flex; gap: 28px; }
+.process-mast .mast-row.legacy-show .word a { color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .4s; }
+.process-mast .mast-row.legacy-show .word a.active { border-bottom-color: var(--accent-1); }
 
 .process-title {
   font-family: 'Instrument Serif', serif;
@@ -225,7 +249,8 @@ html.motion-off .kword-inner { animation: none; }
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px; letter-spacing: .32em; text-transform: uppercase;
   color: var(--ink-muted);
-  max-width: 32ch; line-height: 1.85;
+  /* Widened from 32ch → 56ch per the same "wider columns" pass. */
+  max-width: 56ch; line-height: 1.85;
   padding-left: 24px;
   border-left: 2px solid var(--accent-1);
 }
@@ -235,31 +260,32 @@ html.motion-off .kword-inner { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) { .trophy { animation: none; } }
 
-/* === "Boutique attention + modern execution" long-read === */
+/* === "Boutique attention + modern execution" long-read ===
+   Reflowed from a 240px-meta + 36ch-body two-column to a single
+   wider column at the user's request — "no need for little baby
+   columns". The meta block now sits as a label band above the body
+   (still its own block of type, not inline) and the body runs to a
+   generous editorial measure (≤ 88ch) at a larger size. */
 .ethos {
   padding: 120px 32px;
-  max-width: 1080px;
+  max-width: 1480px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 80px;
-  align-items: start;
 }
-@media (max-width: 980px) { .ethos { grid-template-columns: 1fr; gap: 40px; } }
 .ethos .meta {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+  font-size: 12px; letter-spacing: .34em; text-transform: uppercase;
   color: var(--ink-muted);
   line-height: 1.85;
-  position: sticky; top: 140px;
+  margin-bottom: 56px;
+  position: static;
 }
 .ethos .body {
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(24px, 2.2vw, 32px);
-  line-height: 1.35;
-  letter-spacing: -.008em;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.32;
+  letter-spacing: -.01em;
   color: var(--ink);
-  max-width: 36ch;
+  max-width: 88ch;
 }
 .ethos .body em { font-style: italic; color: var(--accent-1); }
 .ethos .body p { margin: 0 0 24px; }
@@ -364,7 +390,11 @@ html.motion-off .kword-inner { animation: none; }
   font-family: 'Inter Tight', sans-serif;
   font-size: 17px; line-height: 1.6;
   color: var(--ink); opacity: .88;
-  max-width: 44ch;
+  /* Widened from 44ch → 72ch per "no little baby columns" — still
+     within editorial readability (60–80ch is the established sweet
+     spot for sans body copy at 17px), but no longer feels constrained
+     against the wide step layout. */
+  max-width: 72ch;
   margin: 0 0 16px;
 }
 .step .step-body .pay {
@@ -701,7 +731,13 @@ html.motion-off .zero-adult > canvas { display: none; }
  * ════════════════════════════════════════════════════════════════════ */
 
 /* ──── 1 · KINTSUGI THREAD ───────────────────────────────────────── */
-.kin-thread {
+/* Hidden per user request — the gold thread fixed to the left edge
+   read as a "weird yellow rope" running down every page rather than
+   as a kintsugi seam. processFx.ts still constructs the SVG (cheap)
+   so we keep the option to bring it back via a single line change,
+   but the thread itself never paints. */
+.kin-thread { display: none !important; }
+.kin-thread-disabled-when-restored {
   position: fixed;
   left: clamp(12px, 2vw, 28px);
   top: 0;

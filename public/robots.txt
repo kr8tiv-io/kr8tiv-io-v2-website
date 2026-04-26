@@ -1,5 +1,5 @@
 # ============================================================
-# robots.txt · kr8tiv.ai
+# robots.txt · kr8tiv.io
 # We WANT traditional search engines AND AI crawlers to find us.
 # This file explicitly opts us INTO AI indexing (opposite of the
 # common "block GPTBot" pattern) because discovery in ChatGPT,
@@ -126,8 +126,8 @@ Disallow: /admin/
 Disallow: /api/
 
 # ---------- Sitemaps ----------
-Sitemap: https://kr8tiv.ai/sitemap-index.xml
-Sitemap: https://kr8tiv.ai/sitemap-0.xml
+Sitemap: https://kr8tiv.io/sitemap-index.xml
+Sitemap: https://kr8tiv.io/sitemap-0.xml
 
 # Host canonicalization hint (legacy but Yandex still reads)
-Host: https://kr8tiv.ai
+Host: https://kr8tiv.io
