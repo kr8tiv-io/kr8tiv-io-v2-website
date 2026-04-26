@@ -10,15 +10,13 @@
       <span class="reel-fade-bot"   aria-hidden="true"></span>
     </div>
     <div class="reel-inner">
-      {/* Translucent KR8TIV wordmark replaces the "death to generic"
-          headline. The chromatic peaks + forest video render through
-          the see-through fill, so the logo reads as etched-glass type
-          floating over the scene. Uses the sitewide #kr8tiv-glyph
-          sprite (defined in LogoSymbol.astro), so the path data is
-          shared and infinite-crisp at any size. */}
-      <svg class="reel-logo" viewBox="0 0 1800 600" aria-label="KR8TIV" preserveAspectRatio="xMidYMid meet">
-        <use href="#kr8tiv-glyph" />
-      </svg>
+      {/* Animated noise.gif overlay (pulled from kr8tiv.io). Tiled
+          across the reel box and screen-blended so the chromatic peaks
+          + forest video shimmer through the grain. Reads as a film-
+          texture wash over the scene, not a wordmark.
+          aria-hidden because it's purely decorative — no information
+          for screen readers. */}
+      <span class="reel-noise" aria-hidden="true"></span>
     </div>
   </div>
 </section>
@@ -51,37 +49,30 @@
       rgba(0,0,0,.18) 86%, transparent 100%);
   }
 
-  /* === Translucent KR8TIV wordmark — replaces the headline ===
-     Width clamps so the logo always sits comfortably inside the
-     reel-pin (max-width caps it at ~1100px on huge displays so it
-     doesn't blow past the centred composition). The dual fill +
-     stroke gives a dual-read: a faint white wash inside the letters
-     so the wordmark holds on busy scenes, plus a crisp 1.2px stroke
-     around every edge so the silhouette stays legible even where the
-     fill is too low-contrast against the chromatic peaks. */
-  .reel-logo {
-    display: block;
-    width: clamp(420px, 62vw, 1100px);
-    height: auto;
-    margin: 0 auto;
-    fill: rgba(255, 255, 255, .18);
-    stroke: rgba(255, 255, 255, .65);
-    stroke-width: 1.2;
-    vector-effect: non-scaling-stroke;
-    /* Subtle outer glow that picks up the magenta accent the rest of
-       the page leans on. Renders as a faint magenta halation around
-       the wordmark, ties the logo to the brand even when the chromatic
-       peaks are colour-shifting underneath. */
-    filter:
-      drop-shadow(0 0 12px rgba(255, 255, 255, .14))
-      drop-shadow(0 0 36px rgba(255, 106, 213, .22));
-    /* mix-blend-mode: overlay lets the chromatic peaks shimmer through
-       the fill — the wordmark literally becomes etched glass. */
-    mix-blend-mode: overlay;
+  /* === Animated noise.gif overlay — replaces the headline ===
+     Tiled film-grain texture covering the reel box. screen-blend so
+     dark pixels of the gif dissolve and only the brighter sparkle
+     pixels add a shimmering noise wash to the chromatic peaks. The
+     gif itself is 320x240 → background-size keeps the original
+     pixel scale (no upscaling artefacts) and `repeat` tiles it
+     across the full box. */
+  .reel-noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url('/kr8tiv-assets/noise.gif');
+    background-repeat: repeat;
+    background-size: 320px 240px;
+    mix-blend-mode: screen;
+    /* Slight cap on intensity — the raw gif read as too aggressive at
+       100% opacity over the chromatic peaks. */
+    opacity: .55;
+    z-index: 3;
   }
-  @media (max-width: 720px) {
-    .reel-logo { width: 88vw; }
+  @media (prefers-reduced-motion: reduce) {
+    .reel-noise { opacity: .25; }
   }
+  html.motion-off .reel-noise { opacity: .25; }
 </style>
 
 <script>

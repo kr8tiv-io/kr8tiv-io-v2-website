@@ -410,18 +410,15 @@ html[data-theme="light"] .reel-bg video {
 html[data-theme="light"] .reel-inner h2 { color: var(--ink); }
 html[data-theme="light"] .reel-inner h2 em { color: var(--accent-1); }
 
-/* Translucent KR8TIV wordmark in light mode — flip the fill + stroke
-   to ink so the see-through logo reads as etched into cream paper.
-   mix-blend-mode flipped to multiply so dark areas of the chromatic
-   peaks darken the cream behind the logo, preserving the "etched
-   glass" feel on a light surface. */
-html[data-theme="light"] .reel-logo {
-  fill: rgba(26, 24, 32, .14);
-  stroke: rgba(26, 24, 32, .58);
-  filter:
-    drop-shadow(0 0 10px rgba(26, 24, 32, .08))
-    drop-shadow(0 0 32px rgba(194, 43, 130, .18));
+/* Reel noise overlay in light mode — flip blend to multiply + drop
+   opacity so the dark grain particles add a subtle texture to the
+   cream paper without becoming a heavy wash. screen blend (which we
+   use in dark mode) would render the bright noise pixels as full
+   white on cream, way too aggressive. multiply darkens the cream
+   slightly where the noise is bright, reads as a film-grain wash. */
+html[data-theme="light"] .reel-noise {
   mix-blend-mode: multiply;
+  opacity: .22;
 }
 
 /* =====================================================================
