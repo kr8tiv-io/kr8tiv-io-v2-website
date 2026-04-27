@@ -374,7 +374,32 @@
   .process-mast .mast-row { padding-bottom: 16px; font-size: 10px; }
   .process-title { font-size: clamp(56px, 15vw, 120px) !important; margin: 32px 0 24px; max-width: 100%; }
   .process-title em { margin-left: .08em; }
-  .process-title .small { font-size: 15px; }
+  /* User feedback (iPhone screenshot): "on mobile on process I can't
+     read the writing." The .small subtitle ("Nine steps · Boutique
+     attention · Modern execution.") used var(--ink-muted) which got
+     swallowed by the rainbow prism bars sitting directly behind it.
+     Bumped to full ink + opacity .9, layered text-shadow for hard
+     contrast against any prism colour underneath, slightly bigger
+     size so the line reads at a glance. */
+  .process-title .small {
+    font-size: 17px !important;
+    line-height: 1.4 !important;
+    color: var(--ink) !important;
+    opacity: .92;
+    text-shadow:
+      0 1px 0 rgba(0, 0, 0, .68),
+      0 2px 8px rgba(0, 0, 0, .55),
+      0 0 16px rgba(0, 0, 0, .35);
+  }
+  /* Light mode: deep ink + cream-tinted shadow so the line stays
+     readable when the prism runs hot pink/yellow on cream. */
+  html[data-theme="light"] .process-title .small {
+    color: rgba(20, 16, 28, .96) !important;
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, .58),
+      0 0 14px rgba(245, 242, 234, .7),
+      0 2px 8px rgba(245, 242, 234, .55);
+  }
 
   .kword-strip { padding: 18px 0; }
   .kword-inner { font-size: 34px; gap: 28px; }

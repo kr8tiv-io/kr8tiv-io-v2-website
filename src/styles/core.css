@@ -399,14 +399,39 @@ html.motion-off .cur { transition-duration: 0s; }
   width: 0%; z-index: 60; transition: width .12s linear;
 }
 
-/* === Typography primitives === */
-.line { display: block; overflow: hidden; }
-/* Removed will-change: transform from .line > span — there are dozens
-   of these on a typical page (every split-text line wrapper), which
-   compounded with the marquee + cursor-trail to blow past Chrome's
-   will-change budget. The transform animation is short-lived (reveal
-   only) so it doesn't need the GPU promotion hint anyway. */
-.line > span { display: block; transform: translateY(110%); }
+/* === Typography primitives ===
+   ⚠ Class-name collision: Shiki (Astro's MDX syntax-highlighter)
+   also outputs <span class="line"> for each line of a code block.
+   On /build-notes/ that meant the SplitText reveal CSS below was
+   translating every line of code 110% downward and clipping it,
+   so plaintext code blocks rendered as totally empty boxes. User
+   reported "where there should be code, but the code doesn't always
+   show up." Two-step fix:
+     1. Anchor the .line rules at :not(pre .line, .case-study .line)
+        so Shiki's lines aren't reveal-animated.
+     2. Reset the inline transform/overflow inside code blocks just
+        in case some other source emits .line classes there too. */
+.line:not(pre .line):not(.case-study .line) { display: block; overflow: hidden; }
+.line:not(pre .line):not(.case-study .line) > span { display: block; transform: translateY(110%); }
+/* Belt-and-braces: any .line that DOES end up inside a <pre> or the
+   case-study editorial column reverts to inline-with-no-transform so
+   syntax-highlighted code is visible again. */
+pre .line,
+pre .line > span,
+.case-study .line,
+.case-study .line > span {
+  display: inline !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+/* Code blocks specifically — keep .line as block-level so each code
+   line stays on its own row, but DON'T translate or clip. */
+pre code .line,
+pre.astro-code .line {
+  display: block !important;
+  transform: none !important;
+  overflow: visible !important;
+}
 .serif { font-family: 'Instrument Serif', serif; }
 .mono { font-family: 'JetBrains Mono', monospace; }
 

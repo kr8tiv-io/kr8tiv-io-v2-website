@@ -102,6 +102,33 @@ main.case-study {
    left them styleless on plaintext blocks. */
 .case-study pre.astro-code span:not([style*="color"]) { color: #f2f1ec !important; }
 
+/* Mobile: wrap long lines instead of forcing horizontal overflow.
+   On desktop the plaintext blocks use column-aligned ASCII like
+   "Astro 5                 static shell..." which only reads right
+   when the line stays on one row. On mobile that same line gets
+   pushed ~756px wide on a 414px viewport, the pre overflows past
+   body's overflow-x: hidden, and iOS Safari rendered it as a black
+   empty rectangle (user reported "where there should be code, but
+   the code doesn't always show up"). Wrapping at the word boundary
+   keeps every character visible inside the viewport. The aligned-
+   column ASCII art breaks visually but the words read correctly. */
+@media (max-width: 720px) {
+  .case-study pre,
+  .case-study pre.astro-code {
+    white-space: pre-wrap !important;
+    word-break: break-word;
+    font-size: 12px !important;
+    padding: 18px 16px !important;
+  }
+  .case-study pre code,
+  .case-study pre.astro-code code,
+  .case-study pre span,
+  .case-study pre.astro-code span {
+    white-space: pre-wrap !important;
+    word-break: break-word;
+  }
+}
+
 .case-study code {
   font-family: 'JetBrains Mono', monospace;
   font-size: .88em;
