@@ -237,6 +237,38 @@ html[data-theme="light"] .svc-frame-bloom {
   display: none;
 }
 
+/* Mobile light-mode exception: the user noted "on light mode for
+   mobile, the prism effect on these videos disappears". Desktop
+   cream pages keep the chromatic stops off because `screen` blend
+   on cream makes a muddy peach ring around every panel — fine when
+   you have 4-5 panels stretched across a wide canvas. On phones
+   the panels stack vertically and the videos read as plain white-
+   on-cream illustrations without the prism vocabulary that signals
+   "this is a kr8tiv frame." Re-enable the chromatic gradient on
+   coarse-pointer mobile with `mix-blend-mode: hard-light` instead
+   of `screen` — hard-light intensifies cream into saturated colour
+   wherever the gradient stops are vivid, so each panel reads as a
+   true rainbow refraction over the video instead of a peach halo.
+   Bloom stays off — it's an outside-the-circle effect that doesn't
+   carry meaning on phone since panels don't sit in space the same
+   way. */
+@media (pointer: coarse) and (max-width: 900px) {
+  html[data-theme="light"] .svc-frame::before {
+    display: block;
+    mix-blend-mode: hard-light;
+    opacity: calc(.62 + var(--active, 0) * .32);
+    background: linear-gradient(90deg,
+      hsla(  0, 96%, 58%, .42) 0%,
+      hsla( 30, 96%, 58%, .42) 14%,
+      hsla( 60, 96%, 58%, .42) 28%,
+      hsla(120, 96%, 58%, .42) 42%,
+      hsla(180, 96%, 58%, .42) 56%,
+      hsla(220, 96%, 58%, .42) 70%,
+      hsla(270, 96%, 58%, .42) 84%,
+      hsla(320, 96%, 58%, .42) 100%);
+  }
+}
+
 /* =====================================================================
    INLINE CTAs — flip dark boxes + ghost-button borders
    ===================================================================== */

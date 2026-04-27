@@ -179,29 +179,49 @@
      reads as breathing room, on a 6" screen it stacks with the
      section-below's padding and creates a half-screen of cream.
      User feedback (iPhone screenshot Apr 27): "can we get rid of
-     some of this white space on mobile please". */
-  .marquee-wrap { padding: 12px 0; }
+     some of this white space on mobile please".
+     Speed: desktop runs the scroll-x keyframe at 40s/loop, which on
+     a phone where each word fits across the full screen means the
+     viewer sees only ~3 words per minute — feels frozen. Halve the
+     duration to 20s on mobile so the strip reads as actual motion
+     instead of a slow-moving banner. (User: "speed up the marquee
+     on mobile by 2x only on mobile".) */
+  .marquee-wrap { padding: 8px 0; }
+  .marquee-inner { animation-duration: 20s !important; }
   .marquee-inner span { font-size: 20px; padding: 0 18px; }
 
   /* === DOCTRINE ===
-     Top padding dropped 80px → 32px and bottom 60px → 40px so the
-     chapter-label ("I / DOCTRINE") + headline land in viewport
-     without scrolling through a half-screen of empty cream. The
-     desktop spacing made sense paired with the absolutely-positioned
-     obelisk video on the right; on mobile the obelisk is hidden
-     (prism.css line 426) so that justification is gone. */
-  .doctrine { padding: 32px 0 40px; }
-  .stmt-wrap { padding: 0 24px; margin-top: 32px; }
-  .doctrine .doctrine-head { margin-bottom: 36px; }
-  .doctrine .doctrine-head > p { margin-top: 18px; font-size: 14px; line-height: 1.45; }
-  .chapter-label { margin-bottom: 12px; font-size: 10px; }
+     Second pass on the cream/black gap below the marquee — first pass
+     dropped doctrine top 80 → 32; user said "cut the whitespace here
+     in half one more time", so 32 → 16. The label ("I / DOCTRINE")
+     now sits flush under the marquee strip with just one beat of
+     breathing room. Bottom padding stays 40px so the four statements
+     have room before the next section. */
+  .doctrine { padding: 16px 0 40px; }
+  .stmt-wrap { padding: 0 24px; margin-top: 24px; }
+  .doctrine .doctrine-head { margin-bottom: 28px; }
+  .doctrine .doctrine-head > p { margin-top: 14px; font-size: 14px; line-height: 1.45; }
+  .chapter-label { margin-bottom: 10px; font-size: 10px; }
   .chapter-title, .doctrine h2 {
     font-size: clamp(40px, 10vw, 72px) !important;
     line-height: .9;
     margin: 0;
   }
-  .stmt { margin-bottom: 36px; }
-  .stmt p { font-size: clamp(20px, 4.4vw, 30px); }
+  /* Doctrine body copy: was clamp(20px, 4.4vw, 30px) at the edge of
+     a 24px gutter — read as "squished against the left side" per
+     user feedback. Bumped the size + line-height for presence,
+     slightly inset the text block so the whole paragraph breathes
+     instead of butting the screen edge. The number+label header
+     ("001 LONG GAME") stays at the parent .wrap's 24px gutter so
+     it still anchors at the left margin like a chapter mark. */
+  .stmt { margin-bottom: 32px; padding: 0 8px 0 12px; }
+  .stmt .num { padding-left: 0; }
+  .stmt p {
+    font-size: clamp(22px, 5.6vw, 32px);
+    line-height: 1.32;
+    margin-top: 14px;
+    max-width: 28ch;
+  }
 
   /* === SERVICES: kill horizontal pin on mobile ===
      Horizontal scroll tied to vertical scroll feels broken on touch.
@@ -387,7 +407,20 @@
   .zero-adult .caption { font-size: 10px; letter-spacing: .28em; }
 
   .founder { padding: 80px 20px; }
-  .founder .label { position: static; font-size: 10px; }
+  /* !important here because process.css imports AFTER responsive.css
+     and its `.founder .label { position: sticky; top: 140px }` rule
+     wins by source-order otherwise. On phones the sticky label hovers
+     over the letter body as you scroll past — user reported "under
+     a letter from matt you can see some of the text is overlapping
+     on mobile only." Static layout removes the sticky behaviour and
+     `top: auto` clears the desktop offset so the label takes its
+     natural grid-row slot above the letter. */
+  .founder .label {
+    position: static !important;
+    top: auto !important;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
   .founder .letter { font-size: clamp(18px, 4.4vw, 26px); }
 
   .love-lore { padding: 80px 20px; }
