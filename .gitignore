@@ -39,3 +39,9 @@ desktop.ini
 # build archives (Hostinger deploys)
 dist_*.zip
 
+# scratch commit-message buffers used by Windows tooling (PowerShell
+# here-strings can't be piped reliably to git commit -m, so we write
+# the message to a temp file and pass it via -F). Never want this in
+# the repo.
+.commit-msg.tmp
+
