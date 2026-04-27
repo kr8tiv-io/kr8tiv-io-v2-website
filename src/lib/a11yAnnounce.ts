@@ -9,8 +9,6 @@
  * that scroll-driven sites describe their structure to non-visual
  * users. Invisible visually (.sr-only pattern), read by AT.
  */
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 const SCENES: Array<{ selector: string; label: string }> = [
   { selector: '.hero-reveal',    label: 'Hero — splash reveal' },
   { selector: '.doctrine',        label: 'Doctrine — four statements we live by' },
@@ -57,15 +55,30 @@ function announce(text: string): void {
 
 export function initSceneAnnouncer(): void {
   ensureRegion();
-  SCENES.forEach(({ selector, label }) => {
-    const el = document.querySelector(selector);
-    if (!el) return;
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 50%',
-      end: 'bottom 50%',
-      onEnter: () => announce(label),
-      onEnterBack: () => announce(label)
-    });
+  const entries = SCENES
+    .map(({ selector, label }) => ({ el: document.querySelector(selector), label }))
+    .filter((item): item is { el: Element; label: string } => Boolean(item.el));
+  if (!entries.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    announce(entries[0].label);
+    return;
+  }
+
+  const labels = new WeakMap<Element, string>();
+  entries.forEach(({ el, label }) => labels.set(el, label));
+
+  const io = new IntersectionObserver((observed) => {
+    const best = observed
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!best) return;
+    const label = labels.get(best.target);
+    if (label) announce(label);
+  }, {
+    rootMargin: '-42% 0px -42% 0px',
+    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
   });
+
+  entries.forEach(({ el }) => io.observe(el));
 }

@@ -246,10 +246,13 @@ nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
    motion + paper texture while pushing the K mark below pattern-recog
    threshold against the chromatic prism + dark surfaces. */
 .grain {
-  background-image: url('/kr8tiv-assets/Design-49.gif');
-  background-size: 236px auto;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.16) 0 .55px, transparent .75px),
+    radial-gradient(circle at 72% 66%, rgba(255,255,255,.10) 0 .45px, transparent .7px),
+    linear-gradient(115deg, rgba(255,255,255,.035), transparent 42%, rgba(255,255,255,.025));
+  background-size: 37px 41px, 61px 53px, 100% 100%;
   background-repeat: repeat;
-  opacity: .04;
+  opacity: .035;
   /* Smooth fade in/out so when we swap visibility on the splash via
      class toggles or scroll, the watermark transitions cleanly
      instead of popping. */
@@ -268,10 +271,29 @@ nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
    underlying surface and dark pixels recess it — natural film
    grain behaviour. */
 .noise {
-  background-image: url('/kr8tiv-assets/noise.gif');
-  background-size: 320px 240px;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.18) 0 .45px, transparent .75px),
+    radial-gradient(circle at 78% 38%, rgba(0,0,0,.20) 0 .5px, transparent .8px),
+    radial-gradient(circle at 42% 84%, rgba(255,255,255,.10) 0 .4px, transparent .7px);
+  background-size: 19px 23px, 31px 29px, 47px 53px;
   background-repeat: repeat;
-  opacity: .14;
+  opacity: .11;
+}
+
+/* Fine-pointer desktops get the original animated GIF texture. Touch
+   devices keep the CSS texture above, which avoids ~400KB of GIF
+   download/decode and another animated layer on iPhone/iPad Safari. */
+@media (pointer: fine) {
+  .grain {
+    background-image: url('/kr8tiv-assets/Design-49.gif');
+    background-size: 236px auto;
+    opacity: .04;
+  }
+  .noise {
+    background-image: url('/kr8tiv-assets/noise.gif');
+    background-size: 320px 240px;
+    opacity: .14;
+  }
 }
 
 /* Suppress the Design-49.gif K-watermark while the user is at the

@@ -238,32 +238,35 @@
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+  import { isPhoneClassTouch } from '@lib/devicePolicy';
   // On mobile, responsive.css unpins the section (height: auto,
   // position: relative). Don't create the ScrollTrigger pin either
   // — it would manufacture extra scroll height that doesn't match
-  // the new layout. Ken-burns scale on the video still runs on all
-  // sizes because it looks good either way.
-  const whyMobile = window.matchMedia('(max-width: 960px)').matches;
-  if (document.querySelector('.why')) {
-    if (!whyMobile) {
+  // the new layout. Keep the static prism/video composition, but
+  // skip downloading GSAP/ScrollTrigger when the section is unpinned.
+  const whyMobile =
+    window.matchMedia('(max-width: 960px)').matches ||
+    isPhoneClassTouch();
+  if (document.querySelector('.why') && !whyMobile) {
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapMod, stMod]) => {
+      const gsap = gsapMod.gsap;
+      const ScrollTrigger = stMod.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
       ScrollTrigger.create({
         trigger: '.why', start: 'top top', end: 'bottom bottom',
         pin: '.why-pin', pinSpacing: false
       });
-    }
-    gsap.to('.why-bg video', {
-      scale: 1.15, ease: 'none',
-      scrollTrigger: { trigger: '.why', start: 'top top', end: 'bottom top', scrub: true }
-    });
-    gsap.utils.toArray('.why-right .q').forEach((q: unknown, i: number) => {
-      gsap.fromTo(q as Element,
-        { opacity: 0, x: 40 },
-        { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: i * 0.14,
-          scrollTrigger: { trigger: q as Element, start: 'top 80%' }
-        });
-    });
+      gsap.to('.why-bg video', {
+        scale: 1.15, ease: 'none',
+        scrollTrigger: { trigger: '.why', start: 'top top', end: 'bottom top', scrub: true }
+      });
+      gsap.utils.toArray('.why-right .q').forEach((q: unknown, i: number) => {
+        gsap.fromTo(q as Element,
+          { opacity: 0, x: 40 },
+          { opacity: 1, x: 0, duration: 1.1, ease: 'power3.out', delay: i * 0.14,
+            scrollTrigger: { trigger: q as Element, start: 'top 80%' }
+          });
+      });
+    }).catch((err) => console.error('[KR8·why] GSAP import failed:', err));
   }
 </script>

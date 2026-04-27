@@ -101,31 +101,66 @@ const {
   <KintsugiOverlay />
 
   <script>
-    import { initScrollCore } from '@lib/scrollCore';
-    import { initCursor } from '@lib/cursor';
-    import { initCursorTrail } from '@lib/cursorTrail';
-    import { initWhiteLight } from '@lib/whiteLight';
     import { initMotionToggle } from '@lib/motionToggle';
     import { initMusic, initAudioReactiveNote } from '@lib/audioNote';
-    import { initAsciiDither } from '@lib/asciiDither';
-    import { initSeatCounter } from '@lib/seatCounter';
     import { initOracle } from '@lib/oracle';
     import { initKintsugi } from '@lib/kintsugi';
     import { initMultiStateNav } from '@lib/multiStateNav';
+    import { isPhoneClassTouch } from '@lib/devicePolicy';
 
     // Resilience wrapper: see BaseLayout.astro for why.
     const safe = (name: string, fn: () => unknown): void => {
       try { fn(); } catch (err) { console.error(`[KR8] ${name} failed:`, err); }
     };
-    safe('scrollCore',       () => initScrollCore());
-    safe('cursor',           () => initCursor());
-    safe('cursorTrail',      () => initCursorTrail());
-    safe('whiteLight',       () => initWhiteLight());
+    const onIdle = (fn: () => void): void => {
+      const w = window as Window & {
+        requestIdleCallback?: (cb: IdleRequestCallback, opts?: IdleRequestOptions) => number;
+      };
+      if (typeof w.requestIdleCallback === 'function') {
+        w.requestIdleCallback(() => fn(), { timeout: 1200 });
+      } else {
+        window.setTimeout(fn, 280);
+      }
+    };
+
+    const phoneClassTouch = isPhoneClassTouch();
+    if (!phoneClassTouch) {
+      import('@lib/scrollCore')
+        .then((m) => safe('scrollCore', () => m.initScrollCore()))
+        .catch((err) => console.error('[KR8] scrollCore import failed:', err));
+    }
     safe('motionToggle',     () => initMotionToggle());
     safe('music',            () => initMusic());
     safe('audioReactiveNote',() => initAudioReactiveNote());
-    safe('asciiDither',      () => initAsciiDither());
-    safe('seatCounter',      () => initSeatCounter());
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      import('@lib/cursor')
+        .then((m) => safe('cursor', () => m.initCursor()))
+        .catch((err) => console.error('[KR8] cursor import failed:', err));
+    }
+
+    onIdle(() => {
+      if (phoneClassTouch) {
+        import('@lib/seatCounter')
+          .then((seats) => safe('seatCounter', () => seats.initSeatCounter()))
+          .catch((err) => console.error('[KR8] seatCounter import failed:', err));
+        return;
+      }
+
+      void Promise.all([
+        import('@lib/cursorTrail'),
+        import('@lib/whiteLight'),
+        import('@lib/asciiDither'),
+        import('@lib/seatCounter')
+      ]).then(([trail, white, ascii, seats]) => {
+        safe('cursorTrail', () => trail.initCursorTrail());
+        safe('whiteLight',  () => white.initWhiteLight());
+        safe('asciiDither', () => ascii.initAsciiDither());
+        safe('seatCounter', () => seats.initSeatCounter());
+      }).catch((err) => {
+        console.error('[KR8] deferred visual inits failed:', err);
+      });
+    });
 
     // HYBRID nav system (3 layers) — isolated from the rest
     safe('oracle',           () => initOracle());

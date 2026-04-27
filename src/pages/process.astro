@@ -520,9 +520,7 @@ const processFaqs = [
 
   <!-- Client-side enhancements specific to /process/ -->
   <script>
-    import { initProcessSteps } from '@lib/processSteps';
     import { initAudioTrophy } from '@lib/audioTrophy';
-    import { initNumberMorph } from '@lib/numberMorph';
     import { initParticleSwarm } from '@lib/particleSwarm';
     import { initProcessFx } from '@lib/processFx';
     import { initPrism } from '@lib/prism';
@@ -533,11 +531,19 @@ const processFaqs = [
     };
     const phoneClassTouch = isPhoneClassTouch();
 
-    safe('processSteps',  () => initProcessSteps());   // scrubbed reveal per step card
     safe('audioTrophy',   () => initAudioTrophy());    // trophy reacts to music level when on
-    safe('numberMorph',   () => initNumberMorph());    // scroll-driven size/glow on step numbers
     safe('particleSwarm', () => initParticleSwarm());  // canvas2d constellation behind ZERO ADULT
     safe('processFx',     () => initProcessFx());      // 12-effect orchestrator (thread / ink / stitch / marquee / heart / shockwave / footnotes)
+
+    if (!phoneClassTouch) {
+      Promise.all([
+        import('@lib/processSteps'),
+        import('@lib/numberMorph')
+      ]).then(([steps, numbers]) => {
+        safe('processSteps', () => steps.initProcessSteps()); // scrubbed reveal per step card
+        safe('numberMorph',  () => numbers.initNumberMorph()); // scroll-driven size/glow
+      }).catch((err) => console.error('[KR8·process] GSAP process imports failed:', err));
+    }
 
     if (!phoneClassTouch) {
       import('@lib/founderCard').then(({ initFounderCard }) =>

@@ -76,27 +76,28 @@
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { isPhoneClassTouch } from '@lib/devicePolicy';
-  gsap.registerPlugin(ScrollTrigger);
   // Skip the pin on mobile — responsive.css lays the reel out as a
-  // normal block so no ScrollTrigger pinSpacer is needed. Ken-burns
-  // scale on the video still runs at all sizes.
+  // normal block so no ScrollTrigger pinSpacer is needed.
   const reelMobile =
     window.matchMedia('(max-width: 720px)').matches ||
     isPhoneClassTouch();
   if (document.querySelector('.reel')) {
     if (!reelMobile) {
-      ScrollTrigger.create({
-        trigger: '.reel', start: 'top top', end: 'bottom bottom',
-        pin: '.reel-pin', pinSpacing: false
-      });
+      Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapMod, stMod]) => {
+        const gsap = gsapMod.gsap;
+        const ScrollTrigger = stMod.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.create({
+          trigger: '.reel', start: 'top top', end: 'bottom bottom',
+          pin: '.reel-pin', pinSpacing: false
+        });
+        gsap.to('.reel-bg video', {
+          scale: 1.12, ease: 'none',
+          scrollTrigger: { trigger: '.reel', start: 'top top', end: 'bottom top', scrub: true }
+        });
+      }).catch((err) => console.error('[KR8·reel] GSAP import failed:', err));
     }
-    gsap.to('.reel-bg video', {
-      scale: 1.12, ease: 'none',
-      scrollTrigger: { trigger: '.reel', start: 'top top', end: 'bottom top', scrub: true }
-    });
   }
 
   // Cursor-drawn katana trail + three.js reel scene are deferred until

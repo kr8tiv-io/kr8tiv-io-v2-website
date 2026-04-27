@@ -131,8 +131,6 @@ const {
   <!-- Client-side wiring. Astro bundles this through Vite — tree-shakes
        unused exports. Type-checked at build time. -->
   <script>
-    import { initScrollCore } from '@lib/scrollCore';
-    import { initCursor } from '@lib/cursor';
     import { initMotionToggle } from '@lib/motionToggle';
     import { initMusic, initAudioReactiveNote } from '@lib/audioNote';
     import { initSceneAnnouncer } from '@lib/a11yAnnounce';
@@ -140,6 +138,7 @@ const {
     import { initOracle } from '@lib/oracle';
     import { initKintsugi } from '@lib/kintsugi';
     import { initMultiStateNav } from '@lib/multiStateNav';
+    import { isPhoneClassTouch } from '@lib/devicePolicy';
 
     // Resilience wrapper: one init failing must not silently cascade
     // into later inits. Previously a stale Vite dep cache for gsap/lenis
@@ -163,14 +162,30 @@ const {
       }
     };
 
-    safe('scrollCore',       () => initScrollCore());
-    safe('cursor',           () => initCursor());
+    const phoneClassTouch = isPhoneClassTouch();
+    if (!phoneClassTouch) {
+      import('@lib/scrollCore')
+        .then((m) => safe('scrollCore', () => m.initScrollCore()))
+        .catch((err) => console.error('[KR8] scrollCore import failed:', err));
+    }
+    if (window.matchMedia('(pointer: fine)').matches) {
+      import('@lib/cursor')
+        .then((m) => safe('cursor', () => m.initCursor()))
+        .catch((err) => console.error('[KR8] cursor import failed:', err));
+    }
     safe('motionToggle',     () => initMotionToggle());
     safe('music',            () => initMusic());
     safe('audioReactiveNote',() => initAudioReactiveNote());
     safe('sceneAnnouncer',   () => initSceneAnnouncer());
     safe('lazyVideos',       () => initLazyVideos());
     onIdle(() => {
+      if (phoneClassTouch) {
+        import('@lib/seatCounter')
+          .then((seats) => safe('seatCounter', () => seats.initSeatCounter()))
+          .catch((err) => console.error('[KR8] seatCounter import failed:', err));
+        return;
+      }
+
       void Promise.all([
         import('@lib/cursorTrail'),
         import('@lib/whiteLight'),

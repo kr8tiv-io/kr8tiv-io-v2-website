@@ -46,6 +46,11 @@
 </section>
 
 <script>
-  import { initObelisk } from '@lib/obelisk';
-  initObelisk();
+  import { isPhoneClassTouch } from '@lib/devicePolicy';
+
+  if (!isPhoneClassTouch()) {
+    import('@lib/obelisk')
+      .then(({ initObelisk }) => initObelisk())
+      .catch((err) => console.error('[KR8·doctrine] obelisk import failed:', err));
+  }
 </script>

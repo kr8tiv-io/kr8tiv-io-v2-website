@@ -20,19 +20,27 @@ export function initMusic(): KR8Audio | null {
   if (!btn) return null;
 
   const audioEl = document.createElement('audio');
-  audioEl.src = '/kr8tiv-assets/kr8tiv-music.mp3';
   audioEl.loop = true;
   audioEl.crossOrigin = 'anonymous';
-  audioEl.preload = 'auto';
+  audioEl.preload = 'none';
   audioEl.volume = 0;
   document.body.appendChild(audioEl);
 
   let on = false;
+  let sourceAttached = false;
   let ac: AudioContext | null = null;
   let analyser: AnalyserNode | null = null;
 
+  const ensureSource = (): void => {
+    if (sourceAttached) return;
+    audioEl.src = '/kr8tiv-assets/kr8tiv-music.mp3';
+    audioEl.load();
+    sourceAttached = true;
+  };
+
   const setupAudioContext = (): void => {
     if (ac) return;
+    ensureSource();
     const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     ac = new AC();
     const src = ac.createMediaElementSource(audioEl);
@@ -46,6 +54,7 @@ export function initMusic(): KR8Audio | null {
   };
 
   btn.addEventListener('click', () => {
+    ensureSource();
     setupAudioContext();
     if (ac && ac.state === 'suspended') ac.resume().catch(() => {});
     if (on) {

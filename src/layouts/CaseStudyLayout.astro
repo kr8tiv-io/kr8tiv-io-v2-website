@@ -75,16 +75,33 @@ const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toSt
   </main>
   <WhiteLightOverlay />
   <script>
-    import { initScrollCore } from '@lib/scrollCore';
-    import { initCursor } from '@lib/cursor';
-    import { initWhiteLight } from '@lib/whiteLight';
     import { initMotionToggle } from '@lib/motionToggle';
-    import { initAsciiDither } from '@lib/asciiDither';
-    initScrollCore();
-    initCursor();
-    initWhiteLight();
+    import { isPhoneClassTouch } from '@lib/devicePolicy';
+    const phoneClassTouch = isPhoneClassTouch();
+    if (!phoneClassTouch) {
+      import('@lib/scrollCore').then((m) => m.initScrollCore());
+    }
     initMotionToggle();
-    initAsciiDither();
+    if (window.matchMedia('(pointer: fine)').matches) {
+      import('@lib/cursor').then((m) => m.initCursor());
+    }
+    const onIdle = (fn: () => void): void => {
+      const w = window as Window & {
+        requestIdleCallback?: (cb: IdleRequestCallback, opts?: IdleRequestOptions) => number;
+      };
+      if (typeof w.requestIdleCallback === 'function') w.requestIdleCallback(() => fn(), { timeout: 1200 });
+      else window.setTimeout(fn, 280);
+    };
+    onIdle(() => {
+      if (phoneClassTouch) return;
+      void Promise.all([
+        import('@lib/whiteLight'),
+        import('@lib/asciiDither')
+      ]).then(([white, ascii]) => {
+        white.initWhiteLight();
+        ascii.initAsciiDither();
+      });
+    });
   </script>
 </body>
 </html>

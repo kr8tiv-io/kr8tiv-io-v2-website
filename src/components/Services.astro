@@ -49,10 +49,7 @@ import { SERVICES } from '@lib/content';
 </section>
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { isPhoneClassTouch } from '@lib/devicePolicy';
-  gsap.registerPlugin(ScrollTrigger);
 
   const track = document.getElementById('svc-track');
   const pin = document.getElementById('svc-pin');
@@ -78,28 +75,33 @@ import { SERVICES } from '@lib/content';
     // width including all children + their margins, and auto-updates
     // on resize via invalidateOnRefresh. This is the number the pan
     // needs to travel to bring panel 12 flush with the left edge.
-    const getSlideDistance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-    ScrollTrigger.create({
-      trigger: pin,
-      start: 'top top',
-      end: () => '+=' + getSlideDistance(),
-      pin: true,
-      scrub: 0.8,
-      onUpdate: (self) => {
-        const slide = getSlideDistance();
-        track.style.transform = `translateX(${-self.progress * slide}px)`;
-        if (cnt) {
-          // Round (not floor) so the counter flips when a panel crosses
-          // the viewport center — not when it starts leaving the edge.
-          // Previously "02" was displayed while "003 Video Editing"
-          // copy was already center-stage.
-          const p = Math.max(0, Math.min(1, self.progress));
-          const idx = Math.min(panels.length - 1, Math.round(p * (panels.length - 1)));
-          cnt.textContent = String(idx + 1).padStart(2, '0');
-        }
-      },
-      invalidateOnRefresh: true
-    });
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapMod, stMod]) => {
+      const gsap = gsapMod.gsap;
+      const ScrollTrigger = stMod.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
+      const getSlideDistance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+      ScrollTrigger.create({
+        trigger: pin,
+        start: 'top top',
+        end: () => '+=' + getSlideDistance(),
+        pin: true,
+        scrub: 0.8,
+        onUpdate: (self) => {
+          const slide = getSlideDistance();
+          track.style.transform = `translateX(${-self.progress * slide}px)`;
+          if (cnt) {
+            // Round (not floor) so the counter flips when a panel crosses
+            // the viewport center — not when it starts leaving the edge.
+            // Previously "02" was displayed while "003 Video Editing"
+            // copy was already center-stage.
+            const p = Math.max(0, Math.min(1, self.progress));
+            const idx = Math.min(panels.length - 1, Math.round(p * (panels.length - 1)));
+            cnt.textContent = String(idx + 1).padStart(2, '0');
+          }
+        },
+        invalidateOnRefresh: true
+      });
+    }).catch((err) => console.error('[KR8·services] GSAP import failed:', err));
   }
 
   // === Cursor-reactive prism on each service frame ===

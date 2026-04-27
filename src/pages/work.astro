@@ -420,9 +420,18 @@ import {
   }
   :global(.port-frame-grain) {
     position: absolute; inset: 0; pointer-events: none;
-    background-image: url('/kr8tiv-assets/Design-49.gif');
-    background-size: 236px auto; background-repeat: repeat;
+    background-image:
+      radial-gradient(circle at 18% 22%, rgba(255,255,255,.16) 0 .55px, transparent .75px),
+      radial-gradient(circle at 72% 66%, rgba(255,255,255,.10) 0 .45px, transparent .7px);
+    background-size: 37px 41px, 61px 53px;
+    background-repeat: repeat;
     opacity: .045; mix-blend-mode: overlay; z-index: 1;
+  }
+  @media (pointer: fine) {
+    :global(.port-frame-grain) {
+      background-image: url('/kr8tiv-assets/Design-49.gif');
+      background-size: 236px auto;
+    }
   }
   :global(.port-frame-edge) {
     position: absolute; inset: 0; pointer-events: none;
