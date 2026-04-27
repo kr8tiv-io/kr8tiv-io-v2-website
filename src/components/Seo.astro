@@ -66,7 +66,12 @@ const {
   title,
   description,
   canonical,
-  ogImage = '/kr8tiv-assets/kr8tiv-logo-filled.png',
+  /* Default OG card — was kr8tiv-logo-filled.png (1800x600, transparent
+     RGBA) which rendered as a blank white tile in Telegram/Slack/
+     iMessage previews. Swapped to a proper 1200x630 RGB24 card with
+     the logo composited onto the brand-dark background, so previews
+     have a visible image. */
+  ogImage = '/kr8tiv-assets/og-card.png',
   ogImageAlt = 'KR8TIV — cyber-renaissance design atelier',
   type = 'WebPage',
   article,
@@ -131,12 +136,13 @@ const orgSchema = {
     url: 'https://calendly.com/kr8tiv',
     availableLanguage: ['en']
   }],
+  /* Removed instagram + x.com per user request — those accounts
+     don't currently link to live profiles. LinkedIn (company) +
+     calendly + GitHub stay as the canonical external presence. */
   sameAs: [
     'https://calendly.com/kr8tiv',
     'https://github.com/kr8tiv-io',
-    'https://www.linkedin.com/company/kr8tiv-agency',
-    'https://instagram.com/kr8tiv.ai',
-    'https://x.com/kr8tivai'
+    'https://www.linkedin.com/company/kr8tiv-agency'
   ]
 };
 

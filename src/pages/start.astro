@@ -97,7 +97,19 @@ const startFaqs = [
         </div>
       </aside>
 
-      <form id="intake-form" class="intake-sections" autocomplete="on" novalidate>
+      <form id="intake-form" class="intake-sections" autocomplete="on" novalidate
+            action="https://formsubmit.co/lucidbloks@gmail.com"
+            method="POST" enctype="multipart/form-data">
+
+        {/* FormSubmit honeypot — bots fill it, real users don't see
+            it. FormSubmit blocks any submission with this field
+            populated. Replaces their captcha (which we disabled for
+            cleaner UX via _captcha=false in intakeForm.ts). The
+            tabindex=-1 + aria-hidden + visually-hidden keep it out
+            of the user-flow entirely. */}
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off"
+          aria-hidden="true"
+          style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0;pointer-events:none;" />
 
         <!-- ========== SECTION 01 · HELLO ========== -->
         <section class="intake-section" id="s01">

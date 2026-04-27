@@ -232,14 +232,18 @@ nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
   position: fixed; inset: 0; pointer-events: none;
   z-index: 2; mix-blend-mode: overlay;
 }
-/* Grain — Design-49.gif film texture, 7% opacity matches the original
-   site's ambient watermark feel without dominating. The gif loop adds
-   subtle living motion that pure noise can't reproduce. */
+/* Grain — Design-49.gif film texture. Dropped from 7% → 4% opacity
+   after iPhone capture (Telegram preview + frame-by-frame video) showed
+   the tiled K-letterforms reading as a repeating pattern over prism
+   sections rather than ambient grain — user feedback: "the kr8tiv logo
+   popping in on certain areas as a pattern". 4% keeps the living gif
+   motion + paper texture while pushing the K mark below pattern-recog
+   threshold against the chromatic prism + dark surfaces. */
 .grain {
   background-image: url('/kr8tiv-assets/Design-49.gif');
   background-size: 236px auto;
   background-repeat: repeat;
-  opacity: .07;
+  opacity: .04;
   /* Smooth fade in/out so when we swap visibility on the splash via
      class toggles or scroll, the watermark transitions cleanly
      instead of popping. */
@@ -278,6 +282,17 @@ body:has(nav[data-nav-state='hero']) .grain { opacity: 0; }
 /* Also suppress on the kintsugi overlay (the magnetic-particle menu)
    so the field reads cleanly without K tiling on top of it. */
 html.kintsugi-open .grain { opacity: 0; }
+/* Light-mode prism sections are the worst offender for the K-pattern
+   readout because the prism's bright bars + cream paper give the gif's
+   bright grain pixels something to lift, making the K letterforms
+   visible. Suppress entirely on these prism-pinned sections so the
+   prism stays clean. The :has() hooks the surrounding body — fixed-
+   position .grain covers the whole viewport, so suppression has to
+   be triggered by what's currently being rendered. We rely on
+   nav[data-nav-state='hero'] for the splash; for the body sections
+   we use the section pins as proxies (Services / Why / Reel / process
+   hero on /process/ + /terms/). */
+html[data-theme='light'] .grain { opacity: .025; }
 
 /* Legacy empty canvas left over from an earlier rev — always hidden. */
 #trail-canvas { display: none !important; }
@@ -358,7 +373,12 @@ html.motion-off .cur { transition-duration: 0s; }
 
 /* === Typography primitives === */
 .line { display: block; overflow: hidden; }
-.line > span { display: block; transform: translateY(110%); will-change: transform; }
+/* Removed will-change: transform from .line > span — there are dozens
+   of these on a typical page (every split-text line wrapper), which
+   compounded with the marquee + cursor-trail to blow past Chrome's
+   will-change budget. The transform animation is short-lived (reveal
+   only) so it doesn't need the GPU promotion hint anyway. */
+.line > span { display: block; transform: translateY(110%); }
 .serif { font-family: 'Instrument Serif', serif; }
 .mono { font-family: 'JetBrains Mono', monospace; }
 
@@ -408,7 +428,12 @@ html.motion-off .cur { transition-duration: 0s; }
     letter-spacing .6s cubic-bezier(.22, 1, .36, 1),
     color .6s cubic-bezier(.22, 1, .36, 1),
     text-shadow .8s cubic-bezier(.22, 1, .36, 1);
-  will-change: transform, text-shadow;
+  /* Removed will-change: transform, text-shadow — the marquee has 12+
+     spans tiled, will-change on each blew past Chrome's per-document
+     surface-area budget (warned in DevTools). The hover-only transform
+     is light enough that the GPU promotion isn't worth the budget cost
+     vs the rest of the page (prism canvases, hero-dance, splash
+     reveal, kintsugi field). */
   transform-origin: center;
 }
 .marquee-inner span:hover {

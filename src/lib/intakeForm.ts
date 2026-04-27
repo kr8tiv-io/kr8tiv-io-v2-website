@@ -233,7 +233,26 @@ export function initIntake(): void {
   }
 
   // ============ Submit ============
-  root.addEventListener('submit', (e) => {
+  /* Real form POST to FormSubmit.co (free, no signup, no API key,
+     native multipart/form-data attachments up to 25 MB total). The
+     mailto: approach was symbolic — most clients can't reliably
+     attach files via mailto, so deck/PDF/image uploads were lost.
+     This new flow:
+       1. Builds a FormData from the form (text fields + files).
+       2. Adds FormSubmit's hidden meta inputs (_subject, _replyto,
+          _captcha=false, _template=table) so the email lands clean.
+       3. POSTs to https://formsubmit.co/<delivery-email> with a real
+          fetch(). FormSubmit forwards to lucidbloks@gmail.com,
+          arriving with attachments + the user's email as Reply-To
+          (so Matt can reply directly from his inbox).
+     First-ever submission triggers a one-time confirmation email
+     from FormSubmit to lucidbloks@gmail.com — once Matt clicks the
+     link, every subsequent submission lands in the inbox without
+     intervention. Free tier is 50 submissions/month per email. */
+  const FORMSUBMIT_DELIVERY_EMAIL = 'lucidbloks@gmail.com';
+  const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/${FORMSUBMIT_DELIVERY_EMAIL}`;
+
+  root.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = serialize();
     const summary = buildSummary(data, attachments);
@@ -245,25 +264,71 @@ export function initIntake(): void {
       summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    const subject = encodeURIComponent(`KR8TIV intake · ${data['name'] ?? ''} · ${data['company'] ?? ''}`);
-    const body = encodeURIComponent(summary + '\n\n' +
-      (attachments.length
-        ? `Attachments to follow (please email separately): ${attachments.map(a => a.name).join(', ')}`
-        : ''));
-    /* Submission target — temporary lucidbloks@gmail.com per user
-       directive. Once we wire a real form-handler endpoint (Formspree
-       / Web3Forms / Hostinger SMTP) the mailto: will become a fetch()
-       to that endpoint. matt@kr8tiv.io stays as the public contact
-       address everywhere else; this is just the FORM POST inbox. */
-    const mailto = `mailto:lucidbloks@gmail.com?subject=${subject}&body=${body}`;
+    // Build FormData carrying every named text field + all attachments.
+    const formData = new FormData(root);
+    // FormSubmit-specific meta. _captcha=false skips their captcha
+    // (we already use a honeypot below). _replyto pulls from the form's
+    // email field so Matt's reply lands in the user's inbox. _subject
+    // gets the name + company so Matt can triage by sender. _template=table
+    // produces a clean tabular email instead of raw key=value lines.
+    formData.set('_subject', `KR8TIV intake · ${data['name'] ?? 'unknown'} · ${data['company'] ?? ''}`.trim());
+    formData.set('_replyto', String(data['email'] ?? ''));
+    formData.set('_template', 'table');
+    formData.set('_captcha', 'false');
+    formData.set('_next', `${window.location.origin}/start/?submitted=1`);
+    // Append the human-readable summary as a hidden field so the email
+    // body has a chronological narrative on top of the auto-formatted
+    // table — easier to skim than raw rows.
+    formData.set('_summary', summary);
 
     const openBtn = document.querySelector<HTMLButtonElement>('#intake-mail-open');
     const copyBtn = document.querySelector<HTMLButtonElement>('#intake-copy');
-    if (openBtn) openBtn.onclick = () => { window.location.href = mailto; };
-    if (copyBtn) copyBtn.onclick = async () => {
-      try { await navigator.clipboard.writeText(summary); copyBtn.textContent = '✓ Copied'; } catch {}
-      setTimeout(() => { if (copyBtn) copyBtn.textContent = 'Copy summary'; }, 2000);
-    };
+    if (openBtn) {
+      openBtn.textContent = 'Sending…';
+      openBtn.setAttribute('disabled', 'true');
+    }
+
+    try {
+      const resp = await fetch(FORMSUBMIT_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        // Don't add Content-Type header — fetch sets it automatically
+        // with the correct multipart boundary. Manually setting it
+        // breaks the boundary string FormSubmit needs to parse files.
+        headers: { Accept: 'application/json' }
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      // Success: replace the summary panel CTA with a confirmation.
+      if (summaryEl && pre) {
+        pre.textContent = summary +
+          '\n\n— sent. matt will reply within 24h on weekdays / 48h on weekends —';
+      }
+      if (openBtn) {
+        openBtn.textContent = '✓ Sent';
+        openBtn.setAttribute('disabled', 'true');
+      }
+    } catch (err) {
+      // Fallback: if the fetch fails (offline, FormSubmit hiccup,
+      // ad-blocker), show a copy/email-Matt fallback so the user
+      // doesn't lose their data.
+      if (openBtn) {
+        openBtn.textContent = 'Open email instead ↳';
+        openBtn.removeAttribute('disabled');
+        const subject = encodeURIComponent(`KR8TIV intake · ${data['name'] ?? ''} · ${data['company'] ?? ''}`);
+        const body = encodeURIComponent(summary);
+        openBtn.onclick = () => {
+          window.location.href = `mailto:matt@kr8tiv.io?subject=${subject}&body=${body}`;
+        };
+      }
+      console.error('[intake] FormSubmit POST failed, mailto fallback ready:', err);
+    }
+
+    if (copyBtn) {
+      copyBtn.onclick = async () => {
+        try { await navigator.clipboard.writeText(summary); copyBtn.textContent = '✓ Copied'; } catch {}
+        setTimeout(() => { if (copyBtn) copyBtn.textContent = 'Copy summary'; }, 2000);
+      };
+    }
   });
 
   function buildSummary(data: Record<string, string | string[]>, files: Attachment[]): string {
