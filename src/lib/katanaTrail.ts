@@ -124,6 +124,13 @@ export function initKatanaTrail(
 ): KatanaTrailHandle | null {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   if (document.documentElement.classList.contains('motion-off')) return null;
+  // Mobile crash gate — see prismGL.ts. Coarse pointer means the user
+  // can't paint the trail anyway (no pointermove without hover); the
+  // entire effect is wasted GPU memory on phones.
+  if (
+    window.matchMedia('(pointer: coarse)').matches &&
+    window.matchMedia('(max-width: 900px)').matches
+  ) return null;
 
   const cfg = {
     color: opts.color ?? ([1.0, 0.55, 0.86] as [number, number, number]),

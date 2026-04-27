@@ -219,6 +219,17 @@ export function initReelScene(
 ): ReelSceneHandle | null {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   if (document.documentElement.classList.contains('motion-off')) return null;
+  // Mobile crash gate — see prismGL.ts. The reel scene runs Three.js
+  // with a VideoTexture sampling the same forest video at full
+  // resolution, plus its volumetric prism slab + refractive mirror
+  // lake passes. Each pass costs GPU memory iOS Safari can't spare
+  // alongside the other heavy scenes. responsive.css already kills
+  // the reel-pin on mobile so the section renders as a regular
+  // video block — no Three.js needed.
+  if (
+    window.matchMedia('(pointer: coarse)').matches &&
+    window.matchMedia('(max-width: 900px)').matches
+  ) return null;
 
   const cfg = {
     slabTint: opts.slabTint ?? ([1.0, 0.55, 0.86] as [number, number, number]),

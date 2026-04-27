@@ -9,7 +9,11 @@ import { KR8TIV_LOGO_D } from '@lib/content';
 <section class="hero hero-reveal" id="hero" data-nav-state="hero">
   <div class="reveal-sticky">
     <div class="hero-bg">
-      <video autoplay muted loop playsinline preload="auto">
+      <!-- preload="metadata" not "auto" — fetching the full forest
+           video upfront on mobile (~MBs) compounds the GPU memory
+           pressure that was crashing iPhone Safari. Metadata is
+           enough to start playback; the rest streams as needed. -->
+      <video autoplay muted loop playsinline preload="metadata">
         <source src="/kr8tiv-assets/3-4.mp4" type="video/mp4" />
       </video>
     </div>

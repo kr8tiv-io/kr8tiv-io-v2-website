@@ -187,6 +187,19 @@ export function initPrismGL(
   if (!canvas) return null;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   if (document.documentElement.classList.contains('motion-off')) return null;
+  // === Mobile crash gate ===
+  // iOS Safari kills the tab when too many WebGL contexts + videos
+  // share GPU memory. prismGL + katanaTrail + reelScene + goldDust
+  // canvas + 3-4 autoplay videos = OOM on iPhone. Skip the heavy
+  // refraction shader on phones — the underlying hero video + CSS
+  // prism bars already render the splash beautifully without the
+  // Three.js layer. Coarse pointer = touch device, narrow viewport =
+  // phone or small tablet. Both must be true so iPad with mouse keeps
+  // the full effect.
+  if (
+    window.matchMedia('(pointer: coarse)').matches &&
+    window.matchMedia('(max-width: 900px)').matches
+  ) return null;
 
   // WebGL2 preferred but 1 works — Three handles fallback automatically.
   // preserveDrawingBuffer so DevTools / screenshot APIs can sample the

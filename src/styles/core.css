@@ -49,6 +49,12 @@ html[data-theme="light"] {
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+/* overflow-x:hidden on BOTH html and body — on iOS Safari, body alone
+   isn't always enough; <html> can scroll horizontally when an inner
+   100vw element shifts as the address bar shows/hides during scroll.
+   Belt-and-braces stops the "jerked horizontally on scroll" iPhone bug
+   the user reported. */
+html { overflow-x: hidden; }
 body {
   font-family: 'Inter Tight', system-ui, sans-serif;
   font-size: 16px;
