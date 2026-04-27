@@ -682,11 +682,24 @@ html.motion-off .process-step:hover h3 { transform: none; }
     .chapter-label,
     .doctrine .stmt,
     .process-step,
-    .work-card,
-    .foot-col {
+    .work-card {
       animation: scroll-rise linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 28%;
+    }
+    /* Footer columns get a TIGHTER range than mid-page sections.
+       `cover 28%` requires the element to fully cover 28% of the
+       viewport before the animation finishes — but the footer sits
+       at the bottom of the page and never fully covers a tall
+       viewport, so on iPhone (where view() is supported in iOS 17+)
+       the columns got stuck at ~0.2 opacity and the menu read as
+       ghost text. `entry 100%` finishes the fade the moment the
+       element is fully visible — which always happens before page
+       end no matter the footer/viewport ratio. */
+    .foot-col {
+      animation: scroll-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
     }
   }
 }

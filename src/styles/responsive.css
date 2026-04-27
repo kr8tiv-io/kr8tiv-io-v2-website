@@ -276,8 +276,29 @@
   }
   .variant-bar a { padding: 3px 6px; min-width: 22px; text-align: center; }
 
-  /* === FOOTER (home) === */
+  /* === FOOTER (home) ===
+     Bump the contrast on phones — at desktop the .7 opacity on links
+     reads as a tasteful subtlety, but on a small dark screen with
+     iOS rendering it pushes the menu into ghost-text territory.
+     User feedback (iPhone screenshot Apr 27 2026): "the menu isn't
+     super visible with that font". Kept the same colours, just gave
+     them their full alpha back so the menu is unmistakably readable. */
   .foot-grid { grid-template-columns: 1fr 1fr; gap: 24px; padding: 50px 24px 32px; }
+  .foot-col h3,
+  .foot-col h4 {
+    color: var(--ink) !important;
+    opacity: .85;
+    font-size: 11px;
+    margin-bottom: 14px;
+  }
+  .foot-col ul li a {
+    opacity: .92 !important;
+    font-size: 15px;
+  }
+  .foot-bar {
+    color: var(--ink) !important;
+    opacity: .72;
+  }
 
   /* === PROCESS PAGE (/process/) MASTHEAD === */
   .process-mast { padding: 120px 20px 40px; }
