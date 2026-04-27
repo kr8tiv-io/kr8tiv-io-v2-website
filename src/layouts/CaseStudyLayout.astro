@@ -10,8 +10,25 @@ import Nav from '@components/Nav.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
 
-export interface Props { title: string; description?: string; }
-const { title, description } = Astro.props;
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  frontmatter?: {
+    title?: string;
+    description?: string;
+    canonical?: string;
+  };
+}
+
+const frontmatter = Astro.props.frontmatter ?? {};
+const title = Astro.props.title || frontmatter.title || 'KR8TIV build notes';
+const description =
+  Astro.props.description ||
+  frontmatter.description ||
+  'Build notes from KR8TIV: WebGL, motion, Astro architecture, and the craft behind the Prism site.';
+const canonicalPath = Astro.props.canonical || frontmatter.canonical || Astro.url.pathname;
+const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toString();
 ---
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" data-variant="editorial">
@@ -19,7 +36,15 @@ const { title, description } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
-  {description && <meta name="description" content={description} />}
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
   <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

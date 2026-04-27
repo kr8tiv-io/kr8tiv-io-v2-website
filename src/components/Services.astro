@@ -51,20 +51,22 @@ import { SERVICES } from '@lib/content';
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { isPhoneClassTouch } from '@lib/devicePolicy';
   gsap.registerPlugin(ScrollTrigger);
 
   const track = document.getElementById('svc-track');
   const pin = document.getElementById('svc-pin');
   const cnt = document.getElementById('svc-cnt');
 
-  // Mobile: skip the GSAP horizontal-pin entirely. responsive.css
-  // already stacks the panels vertically; if we still created a
-  // ScrollTrigger pin it would manufacture a tall empty pinSpacer
-  // wrapper and break the natural scroll height. Query the same
-  // breakpoint used by the CSS (720px) so the two agree.
-  const isMobile = window.matchMedia('(max-width: 720px)').matches;
+  // Touch phones/tablets: skip the GSAP horizontal-pin entirely.
+  // responsive.css stacks the panels for phone-class touch devices;
+  // if we still created a ScrollTrigger pin it would manufacture a
+  // tall pinSpacer and make iOS landscape/portrait feel jerky.
+  const isStackedServices =
+    window.matchMedia('(max-width: 720px)').matches ||
+    isPhoneClassTouch();
 
-  if (track && pin && !isMobile) {
+  if (track && pin && !isStackedServices) {
     const panels = track.querySelectorAll('.svc-panel');
     // The TRUE track width is the layout width of all panels PLUS the
     // margin-right gaps between them. Using `panels × offsetWidth`

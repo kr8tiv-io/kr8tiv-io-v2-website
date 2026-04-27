@@ -10,6 +10,7 @@
  */
 
 import * as THREE from 'three';
+import { shouldSkipHeavyVisuals } from '@lib/devicePolicy';
 
 export interface GoldDustHandle {
   dispose(): void;
@@ -73,17 +74,7 @@ const FRAG = /* glsl */ `
 `;
 
 export function initGoldDust(): GoldDustHandle | null {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
-  if (document.documentElement.classList.contains('motion-off')) return null;
-  // Mobile crash gate — see prismGL.ts. Gold dust runs a continuous
-  // WebGL particle shader at fullscreen with mix-blend-mode: screen.
-  // On mobile this stacks with the page's other GL contexts and the
-  // device class can't hold them all in memory. Drop the dust on
-  // phones — the page reads fine without it.
-  if (
-    window.matchMedia('(pointer: coarse)').matches &&
-    window.matchMedia('(max-width: 900px)').matches
-  ) return null;
+  if (shouldSkipHeavyVisuals()) return null;
 
   const canvas = document.createElement('canvas');
   canvas.className = 'gold-dust-canvas';

@@ -566,7 +566,7 @@ const lastUpdated = 'November 17, 2025';
 
   <script>
     import { initPrism } from '@lib/prism';
-    import { initPrismGL } from '@lib/prismGL';
+    import { isPhoneClassTouch } from '@lib/devicePolicy';
 
     /* Same prism wiring as /process/ — re-tag the scoped IDs the
        page uses so initPrism (which queries by ID) finds them. */
@@ -578,8 +578,12 @@ const lastUpdated = 'November 17, 2025';
       if (causticEl) causticEl.id = 'prism-caustic';
       heroEl.classList.add('hero');
     }
-    try { initPrismGL('#process-prism-webgl'); } catch (err) {
-      console.error('[KR8·terms] prismGL init failed:', err);
+    if (!isPhoneClassTouch()) {
+      import('@lib/prismGL').then(({ initPrismGL }) => {
+        try { initPrismGL('#process-prism-webgl'); } catch (err) {
+          console.error('[KR8·terms] prismGL init failed:', err);
+        }
+      }).catch((err) => console.error('[KR8·terms] prismGL import failed:', err));
     }
     try { initPrism(); } catch (err) {
       console.error('[KR8·terms] prism CSS init failed:', err);

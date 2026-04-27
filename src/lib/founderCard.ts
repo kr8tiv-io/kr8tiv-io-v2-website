@@ -14,6 +14,7 @@
  * displacement, still pretty but not animated.
  */
 import * as THREE from 'three';
+import { isPhoneClassTouch } from '@lib/devicePolicy';
 
 const VERT = /* glsl */ `
   varying vec2 vUv;
@@ -92,6 +93,7 @@ const FRAG = /* glsl */ `
 
 export function initFounderCard(): void {
   if (typeof window === 'undefined') return;
+  if (isPhoneClassTouch()) return;
   const host = document.querySelector<HTMLElement>('.founder');
   if (!host) return;
 

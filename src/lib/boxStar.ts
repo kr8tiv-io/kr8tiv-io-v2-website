@@ -21,6 +21,7 @@
  */
 
 import * as THREE from 'three';
+import { shouldSkipHeavyVisuals } from '@lib/devicePolicy';
 
 export interface BoxStarHandle {
   dispose(): void;
@@ -138,8 +139,7 @@ export function initBoxStar(
   target: HTMLElement,
   opts: BoxStarOptions = {}
 ): BoxStarHandle | null {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
-  if (document.documentElement.classList.contains('motion-off')) return null;
+  if (shouldSkipHeavyVisuals()) return null;
 
   const cfg = {
     color: opts.color ?? ([1.0, 0.55, 0.86] as [number, number, number]),

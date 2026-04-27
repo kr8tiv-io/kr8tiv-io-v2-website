@@ -231,7 +231,7 @@ const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noop
 </style>
 
 <script>
-  import { initBoxStar } from '@lib/boxStar';
+  import { isPhoneClassTouch } from '@lib/devicePolicy';
 
   // LOUD variant: cursor-reactive glow + WebGL pink-star perimeter trail.
   // The star runs around the rounded box border at ~22 sec/lap with
@@ -239,23 +239,31 @@ const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noop
   // sits on top of the existing radial gradient without dimming the
   // copy. Module is self-gating on prefers-reduced-motion / motion-off.
   const louds = document.querySelectorAll<HTMLElement>('.inline-cta[data-variant="loud"] .box');
+  const boxStarOptions = {
+    color:        [1.0, 0.55, 0.86] as [number, number, number], // buttery pink (#ff8cdb)
+    speed:        0.045,                // ~22 s per lap
+    starSize:     6,
+    trailSpacing: 0.12,
+    cornerRadius: 6,
+    intensity:    0.85
+  };
   louds.forEach((box) => {
     box.addEventListener('pointermove', (e) => {
       const r = box.getBoundingClientRect();
       box.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
       box.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
     });
-    try {
-      initBoxStar(box, {
-        color:        [1.0, 0.55, 0.86],   // buttery pink (#ff8cdb)
-        speed:        0.045,                // ~22 s per lap
-        starSize:     6,
-        trailSpacing: 0.12,
-        cornerRadius: 6,
-        intensity:    0.85
-      });
-    } catch (err) {
-      console.error('[KR8·loud-cta] boxStar init failed:', err);
-    }
   });
+
+  if (louds.length > 0 && !isPhoneClassTouch()) {
+    import('@lib/boxStar').then(({ initBoxStar }) => {
+      louds.forEach((box) => {
+        try {
+          initBoxStar(box, boxStarOptions);
+        } catch (err) {
+          console.error('[KR8·loud-cta] boxStar init failed:', err);
+        }
+      });
+    }).catch((err) => console.error('[KR8·loud-cta] boxStar import failed:', err));
+  }
 </script>

@@ -521,24 +521,29 @@ const processFaqs = [
   <!-- Client-side enhancements specific to /process/ -->
   <script>
     import { initProcessSteps } from '@lib/processSteps';
-    import { initFounderCard } from '@lib/founderCard';
     import { initAudioTrophy } from '@lib/audioTrophy';
     import { initNumberMorph } from '@lib/numberMorph';
     import { initParticleSwarm } from '@lib/particleSwarm';
     import { initProcessFx } from '@lib/processFx';
     import { initPrism } from '@lib/prism';
-    import { initPrismGL } from '@lib/prismGL';
+    import { isPhoneClassTouch } from '@lib/devicePolicy';
 
     const safe = (name: string, fn: () => unknown): void => {
       try { fn(); } catch (err) { console.error(`[KR8·process] ${name} failed:`, err); }
     };
+    const phoneClassTouch = isPhoneClassTouch();
 
     safe('processSteps',  () => initProcessSteps());   // scrubbed reveal per step card
-    safe('founderCard',   () => initFounderCard());    // WebGL glass-morph behind the founder letter
     safe('audioTrophy',   () => initAudioTrophy());    // trophy reacts to music level when on
     safe('numberMorph',   () => initNumberMorph());    // scroll-driven size/glow on step numbers
     safe('particleSwarm', () => initParticleSwarm());  // canvas2d constellation behind ZERO ADULT
     safe('processFx',     () => initProcessFx());      // 12-effect orchestrator (thread / ink / stitch / marquee / heart / shockwave / footnotes)
+
+    if (!phoneClassTouch) {
+      import('@lib/founderCard').then(({ initFounderCard }) =>
+        safe('founderCard', () => initFounderCard())
+      ).catch((err) => console.error('[KR8·process] founderCard import failed:', err));
+    }
 
     /* === Masthead prism — chromatic refraction over the splash 3-4
        video, scoped to .process-hero-bg. Both layers run because
@@ -558,22 +563,23 @@ const processFaqs = [
       heroEl.classList.add('hero');
       heroEl.classList.add('process-hero');
     }
-    let gl: { dispose: () => void } | null = null;
-    try {
-      gl = initPrismGL('#process-prism-webgl');
-    } catch (err) {
-      console.error('[KR8·process] prismGL init failed:', err);
+    if (!phoneClassTouch) {
+      import('@lib/prismGL').then(({ initPrismGL }) => {
+        try {
+          initPrismGL('#process-prism-webgl');
+        } catch (err) {
+          console.error('[KR8·process] prismGL init failed:', err);
+        }
+      }).catch((err) => console.error('[KR8·process] prismGL import failed:', err));
     }
     safe('prismCSS', () => initPrism());               // CSS bars + caustic always run
 
     /* Gold dust runs in its own module so its WebGL init can be
        lazy-loaded behind a viewport gate. */
-    import('@lib/goldDust').then(({ initGoldDust }) =>
-      safe('goldDust', () => initGoldDust())
-    ).catch((err) => console.error('[KR8·process] goldDust import failed:', err));
-
-    /* Avoid TS unused-var warning when GL bails — the dispose handle
-       is for if we ever route this through a navigation lifecycle. */
-    void gl;
+    if (!phoneClassTouch) {
+      import('@lib/goldDust').then(({ initGoldDust }) =>
+        safe('goldDust', () => initGoldDust())
+      ).catch((err) => console.error('[KR8·process] goldDust import failed:', err));
+    }
   </script>
 </FormLayout>

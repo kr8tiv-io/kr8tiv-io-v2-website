@@ -138,7 +138,7 @@ import { KR8TIV_LOGO_D } from '@lib/content';
 <script>
   import { initReveal } from '@lib/reveal';
   import { initPrism } from '@lib/prism';
-  import { initPrismGL } from '@lib/prismGL';
+  import { isPhoneClassTouch } from '@lib/devicePolicy';
 
   // Resilience + diagnostics: one throw here previously left the hero
   // stuck at initial CSS state (samurai-mark shows its red drop-shadow
@@ -168,12 +168,17 @@ import { KR8TIV_LOGO_D } from '@lib/content';
   // GL is bright or dim. The CSS in `prism-gl-active` mode dims the
   // bars ~25% so the two layers don't read as a single oversaturated
   // wall — they read as glass refraction over a rainbow source.
-  let gl = null;
-  try {
-    gl = initPrismGL('#prism-webgl');
-    if (isDev) console.log('%c[KR8·hero] prismGL init ' + (gl ? 'OK (WebGL)' : 'BAILED'), cap);
-  } catch (err) {
-    console.error('[KR8·hero] prismGL init FAILED:', err);
+  if (!isPhoneClassTouch()) {
+    import('@lib/prismGL').then(({ initPrismGL }) => {
+      try {
+        const gl = initPrismGL('#prism-webgl');
+        if (isDev) console.log('%c[KR8·hero] prismGL init ' + (gl ? 'OK (WebGL)' : 'BAILED'), cap);
+      } catch (err) {
+        console.error('[KR8·hero] prismGL init FAILED:', err);
+      }
+    }).catch((err) => console.error('[KR8·hero] prismGL import FAILED:', err));
+  } else if (isDev) {
+    console.log('%c[KR8·hero] prismGL skipped on phone-class touch device', cap);
   }
   // Always run the CSS bar animation — co-exists with WebGL when
   // present, carries the splash alone when not.
