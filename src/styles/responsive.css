@@ -140,18 +140,67 @@
   .hero.hero-reveal .hero-ui .sub { font-size: 13px; line-height: 1.55; max-width: 36ch; }
   .hero-fade-black { height: 40vh; }
 
-  /* === MARQUEE after hero === */
-  .marquee-wrap { padding: 24px 0; }
+  /* === HERO TOP META / RIGHT corner type ===
+     User feedback (iPhone screenshot Apr 27): "at the top of the
+     screen if we could make that writing a little more legible." On
+     mobile the 10px mono with text-shadow alone gets eaten by the
+     prism bars sitting directly behind. Bump the size, tighten the
+     line-height so it reads as compact paragraphs not loose lists,
+     drop a faint chip-style backdrop so the type lifts cleanly off
+     whatever bar colour is behind it. Both dark + light themes get
+     a tonal backdrop tuned to their canvas. */
+  .hero-top .meta,
+  .hero-top .right {
+    font-size: 11px;
+    line-height: 1.55;
+    letter-spacing: .18em;
+    padding: 8px 12px;
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(8, 6, 12, .42);
+    max-width: 168px;
+  }
+  .hero-top .meta strong,
+  .hero-top .right strong {
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+  /* Light theme override: cream-tinted chip + deeper ink so the
+     text stays readable when the prism bars run hot pink/yellow. */
+  html[data-theme="light"] .hero-top .meta,
+  html[data-theme="light"] .hero-top .right {
+    background: rgba(245, 242, 234, .62);
+    color: rgba(20, 16, 28, .94);
+  }
+
+  /* === MARQUEE after hero ===
+     Tighter vertical padding on phones — at desktop 24px top/bottom
+     reads as breathing room, on a 6" screen it stacks with the
+     section-below's padding and creates a half-screen of cream.
+     User feedback (iPhone screenshot Apr 27): "can we get rid of
+     some of this white space on mobile please". */
+  .marquee-wrap { padding: 12px 0; }
   .marquee-inner span { font-size: 20px; padding: 0 18px; }
 
-  /* === DOCTRINE === */
-  .doctrine { padding: 80px 0 60px; }
-  .stmt-wrap { padding: 0 24px; margin-top: 60px; }
+  /* === DOCTRINE ===
+     Top padding dropped 80px → 32px and bottom 60px → 40px so the
+     chapter-label ("I / DOCTRINE") + headline land in viewport
+     without scrolling through a half-screen of empty cream. The
+     desktop spacing made sense paired with the absolutely-positioned
+     obelisk video on the right; on mobile the obelisk is hidden
+     (prism.css line 426) so that justification is gone. */
+  .doctrine { padding: 32px 0 40px; }
+  .stmt-wrap { padding: 0 24px; margin-top: 32px; }
+  .doctrine .doctrine-head { margin-bottom: 36px; }
+  .doctrine .doctrine-head > p { margin-top: 18px; font-size: 14px; line-height: 1.45; }
+  .chapter-label { margin-bottom: 12px; font-size: 10px; }
   .chapter-title, .doctrine h2 {
     font-size: clamp(40px, 10vw, 72px) !important;
     line-height: .9;
+    margin: 0;
   }
-  .stmt { margin-bottom: 60px; }
+  .stmt { margin-bottom: 36px; }
   .stmt p { font-size: clamp(20px, 4.4vw, 30px); }
 
   /* === SERVICES: kill horizontal pin on mobile ===
