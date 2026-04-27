@@ -31,7 +31,7 @@ import { PORTFOLIO_HOMEPAGE_TEASER } from '@lib/content';
       {PORTFOLIO_HOMEPAGE_TEASER.map((p, idx) => (
         <a class="work-card port-frame" href={`/work/#sel-${p.slug}`} aria-label={`${p.title} — view full case`}>
           {p.video ? (
-            <video muted loop playsinline preload="metadata" data-src={p.video}>
+            <video muted loop playsinline preload="none" data-src={p.video}>
               <source src={p.video} type="video/mp4" />
             </video>
           ) : (

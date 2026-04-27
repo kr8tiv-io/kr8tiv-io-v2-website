@@ -80,7 +80,7 @@ import {
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="none"
                 data-src={p.video}
                 aria-label={`${p.title} walkthrough — silent`}
               >
@@ -171,7 +171,7 @@ import {
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="none"
                 data-src={p.video}
                 aria-label={`${p.title} walkthrough — silent`}
               >
@@ -763,8 +763,7 @@ import {
 <script>
   /* ──────────────────────────────────────────────────────────
    * Lazy-load + hover-play behavior for portfolio videos.
-   * - preload="metadata" gives us the first frame as poster,
-   *   without auto-fetching the whole file.
+   * - preload="none" keeps heavy reels off the critical path.
    * - On pointerenter the video starts playing (muted) once
    *   it's been loaded once (load() on first hover).
    * - On pointerleave it pauses and resets to t=0 so the next

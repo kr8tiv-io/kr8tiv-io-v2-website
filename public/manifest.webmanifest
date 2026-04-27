@@ -30,22 +30,22 @@
       "name": "Book a call",
       "short_name": "Book",
       "description": "Free 30-minute no-obligation call",
-      "url": "https://calendly.com/kr8tiv",
-      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+      "url": "/start/",
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32", "type": "image/png" }]
     },
     {
       "name": "Start a project",
       "short_name": "Start",
       "description": "Fill out the intake form",
       "url": "/start/",
-      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32", "type": "image/png" }]
     },
     {
       "name": "Our process",
       "short_name": "Process",
       "description": "How we work — nine steps",
       "url": "/process/",
-      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32" }]
+      "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32", "type": "image/png" }]
     }
   ]
 }
