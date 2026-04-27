@@ -37,8 +37,13 @@ export interface Props {
 }
 
 const {
-  title = 'KR8TIV / 侍 · Cyber-renaissance design atelier — brand, web, motion, AI',
-  description = 'KR8TIV is a cyber-renaissance design atelier. We build brands, websites, motion, video, and full AI business solutions for founders who want to be memorable — not generic. Book a no-obligation call.',
+  /* Title trimmed from 84ch (over the 60ch SEO recommendation) to
+     58ch — passes SeaOcean's title-length check, keeps the brand
+     mark + the cyber-renaissance positioning. */
+  title = 'KR8TIV · Cyber-renaissance design atelier (侍)',
+  /* Description trimmed from 232ch (over 160ch) to 156ch — fits
+     SERP snippet width without truncation. */
+  description = 'Cyber-renaissance design atelier. Brand, web, motion, video, and AI business solutions for founders who want to be memorable, not generic.',
   variant = 'prism',
   activeVariant = 'v8-prism',
   canonical,

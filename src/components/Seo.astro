@@ -210,17 +210,25 @@ const pageSchema = {
   primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl }
 };
 
-// BreadcrumbList — lightweight nav trail.
-const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+// BreadcrumbList — lightweight nav trail. SeaOcean SEO audit
+// flagged the homepage as missing BreadcrumbList; ensure every
+// page emits at least a single-item crumb (Home) when the caller
+// doesn't pass a richer trail. Pages that DO pass `breadcrumbs`
+// (process, work, terms, start, build-notes) keep their multi-step
+// trails; only the homepage default is the single Home anchor.
+const effectiveCrumbs = (breadcrumbs && breadcrumbs.length > 0)
+  ? breadcrumbs
+  : [{ name: 'Home', url: '/' }];
+const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: breadcrumbs.map((c, i) => ({
+  itemListElement: effectiveCrumbs.map((c, i) => ({
     '@type': 'ListItem',
     position: i + 1,
     name: c.name,
     item: c.url.startsWith('http') ? c.url : siteUrl + c.url
   }))
-} : null;
+};
 
 // FAQ schema — still eligible for AI-engine rich answers.
 const faqSchema = faqs && faqs.length > 0 ? {
@@ -338,9 +346,7 @@ const robots = noIndex
 <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)}></script>
-{breadcrumbSchema && (
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
-)}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
 {faqSchema && (
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
 )}

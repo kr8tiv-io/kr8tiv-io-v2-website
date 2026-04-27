@@ -34,3 +34,7 @@ desktop.ini
 
 # planning docs / scratch
 .planning/
+
+# build archives (Hostinger deploys)
+dist_*.zip
+
