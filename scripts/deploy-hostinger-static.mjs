@@ -103,7 +103,10 @@ const username = website.username;
 const archiveName = path.basename(archivePath);
 console.log(`Deploying ${archiveName} to ${domain} as ${username}`);
 
-const credentials = await api('/api/hosting/v1/files/upload-urls', { method: 'POST' });
+const credentials = await api('/api/hosting/v1/files/upload-urls', {
+  method: 'POST',
+  body: JSON.stringify({ username, domain })
+});
 if (!credentials?.url || !credentials?.auth_key || !credentials?.rest_auth_key) {
   throw new Error('Invalid Hostinger upload credentials');
 }
