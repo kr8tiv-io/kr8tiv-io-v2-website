@@ -106,6 +106,20 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
     video: '/kr8tiv-assets/portfolio/kr8tiv - evolve eco blasting.mp4'
   },
   {
+    slug: 'shane-dooley-roofing-guru',
+    title: 'Shane Dooley Roofing Guru',
+    tag: 'CLIENT WORK',
+    subTag: 'FULL REBRAND · ROOFING SERVICES · LIVE URL PENDING',
+    desc: 'Full rebrand for a friend-owned roofing services company in Newfoundland — cinematic site direction, sharper brand voice, and business-card collateral that proves service websites do not have to look generic or overpriced.',
+    bullets: [
+      'Brand direction tuned for a premium-but-accessible service market',
+      'Hero-style project walkthrough video integrated into portfolio',
+      'Front + back business-card system for field + referral handoffs',
+      'Production URL will be linked here once the site is live'
+    ],
+    video: '/kr8tiv-assets/portfolio/kr8tiv 7 - shane dooley roofing guru compressed.mp4'
+  },
+  {
     slug: 'kin',
     title: 'Meet Your KIN',
     tag: 'OWN COMPANY',
@@ -156,9 +170,8 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
   }
 ];
 
-/** Tier 2 — Brand Kit · Evolve. The four card faces (3 fronts, 1
- *  back) shown as a bento spread immediately after Selected work,
- *  making the breadth of the Evolve engagement legible. */
+/** Tier 2 — Brand Kit. Printed business-card collateral from two
+ *  full rebrands (Evolve + Shane Dooley Roofing Guru). */
 export interface BrandKitImage {
   src: string;
   caption: string;
@@ -167,7 +180,9 @@ export const PORTFOLIO_EVOLVE_CARDS: BrandKitImage[] = [
   { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(3).png', caption: 'FRONT · 01' },
   { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(2).png', caption: 'FRONT · 02' },
   { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(5).png', caption: 'FRONT · 03' },
-  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(4).png', caption: 'BACK' }
+  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(4).png', caption: 'BACK' },
+  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Front.png', caption: 'SHANE DOOLEY · FRONT' },
+  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Back.png', caption: 'SHANE DOOLEY · BACK' }
 ];
 
 /** Tier 3 — Studio Lab. Personal projects, venture work, friend
@@ -270,14 +285,11 @@ export const PORTFOLIO_CODE_VAULT: CodeVaultOrg[] = [
   }
 ];
 
-/** Tier 1 condensed — the 3 cards shown on the homepage Work section
- *  as a teaser linking through to /work/. Just the most recognizable
- *  three so the homepage reads as a curated taste, not a full index. */
-export const PORTFOLIO_HOMEPAGE_TEASER: PortfolioPiece[] = [
-  PORTFOLIO_SELECTED[0],   // Evolve
-  PORTFOLIO_SELECTED[1],   // KIN
-  PORTFOLIO_SELECTED[2]    // kr8tiv.ai
-].filter((p): p is PortfolioPiece => Boolean(p));
+/** Tier 1 condensed — the homepage Work teaser linking through to
+ *  /work/. Curated so the homepage reads as a taste, not a full index. */
+export const PORTFOLIO_HOMEPAGE_TEASER: PortfolioPiece[] = PORTFOLIO_SELECTED.filter((piece) =>
+  ['evolve', 'shane-dooley-roofing-guru', 'kin', 'kr8tiv-ai'].includes(piece.slug)
+);
 
 export interface Variant {
   slug: string;       // e.g. 'v8-prism'
