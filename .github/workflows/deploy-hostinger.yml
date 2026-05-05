@@ -1,0 +1,57 @@
+name: Deploy KR8TIV to Hostinger
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.*'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-hostinger.yml'
+      - 'scripts/deploy-hostinger-static.mjs'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Create deploy archive
+        run: |
+          python3 - <<'PY'
+          import os
+          import zipfile
+          from pathlib import Path
+
+          archive = Path('dist_hostinger.zip')
+          with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+              for path in Path('dist').rglob('*'):
+                  if path.is_file():
+                      zf.write(path, path.relative_to('dist').as_posix())
+          print(f'Created {archive} ({archive.stat().st_size} bytes)')
+          PY
+
+      - name: Install TUS client
+        run: npm install --no-save tus-js-client@^4
+
+      - name: Deploy to Hostinger
+        env:
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+          HOSTINGER_DOMAIN: kr8tiv.io
+        run: node scripts/deploy-hostinger-static.mjs dist_hostinger.zip
