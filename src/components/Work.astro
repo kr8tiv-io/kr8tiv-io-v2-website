@@ -10,7 +10,7 @@
  * Studio / In Motion). The portfolio is now real, so the homepage
  * shows a curated taste — not the whole library.
  */
-import { PORTFOLIO_HOMEPAGE_TEASER } from '@lib/content';
+import { PORTFOLIO_HOMEPAGE_TEASER, vv, videoPoster } from '@lib/content';
 ---
 <section class="work" id="work">
   <div class="wrap">
@@ -32,8 +32,8 @@ import { PORTFOLIO_HOMEPAGE_TEASER } from '@lib/content';
       {PORTFOLIO_HOMEPAGE_TEASER.map((p, idx) => (
         <a class="work-card port-frame" href={`/work/#sel-${p.slug}`} aria-label={`${p.title} — view full case`}>
           {p.video ? (
-            <video muted loop playsinline preload="none" data-src={p.video}>
-              <source src={p.video} type="video/mp4" />
+            <video muted loop playsinline preload="none" poster={videoPoster(p.video)} data-src={vv(p.video)}>
+              <source src={vv(p.video)} type="video/mp4" />
             </video>
           ) : (
             <div class="work-card-glyph">侍</div>

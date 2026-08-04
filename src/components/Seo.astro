@@ -119,10 +119,16 @@ const orgSchema = {
   },
   address: {
     '@type': 'PostalAddress',
-    addressCountry: 'CR',
-    addressRegion: 'Costa Rica'
+    addressLocality: 'Edmonton',
+    addressRegion: 'AB',
+    addressCountry: 'CA'
   },
-  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  areaServed: [
+    { '@type': 'Place', name: 'Edmonton, Alberta' },
+    { '@type': 'Place', name: 'Leduc, Alberta' },
+    { '@type': 'Place', name: 'Alberta, Canada' },
+    { '@type': 'Place', name: 'Worldwide' }
+  ],
   knowsAbout: [
     'Brand Design', 'Web Design', 'Motion Design', 'Video Editing',
     'AI Automation', 'AI Marketing', 'AI Business Solutions',
@@ -157,10 +163,15 @@ const serviceSchema = {
   image: siteUrl + ogImage,
   logo: siteUrl + '/kr8tiv-assets/kr8tiv-logo-filled.png',
   priceRange: '$$$',
-  telephone: '+1-000-000-0000',
   email: 'matt@kr8tiv.io',
-  address: { '@type': 'PostalAddress', addressCountry: 'CR' },
-  areaServed: 'Worldwide',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Edmonton',
+    addressRegion: 'AB',
+    addressCountry: 'CA'
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 53.5461, longitude: -113.4938 },
+  areaServed: ['Edmonton', 'Leduc', 'Alberta', 'Canada', 'Worldwide'],
   serviceType: [
     'Brand Identity Design',
     'Website Design & Development',
@@ -319,7 +330,7 @@ const robots = noIndex
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content="en_CA" />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:secure_url" content={ogImageUrl} />
 <meta property="og:image:alt" content={ogImageAlt} />

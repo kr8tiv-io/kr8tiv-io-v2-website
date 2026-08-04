@@ -4,6 +4,20 @@
  * string is pre-rendered into the HTML (no hydration cost).
  */
 
+/** Cache-buster for the August 2026 in-place video re-encode — same
+ *  filenames, new (much smaller) bytes. Hostinger serves assets with
+ *  a 1-year immutable cache, so re-encoded files must ship under a
+ *  new URL; a query param does that without breaking old cached HTML
+ *  that still points at the bare filenames. Bump on re-encode. */
+export const vv = (src: string): string => `${src}?v=2`;
+
+/** Poster frame for a video — extracted at encode time by
+ *  scripts/optimize-videos.py into /kr8tiv-assets/posters/<name>.jpg
+ *  so video boxes paint instantly instead of sitting blank while
+ *  bytes stream in (the old mobile "videos take forever" complaint). */
+export const videoPoster = (src: string): string =>
+  '/kr8tiv-assets/posters/' + src.split('/').pop()!.replace(/\.mp4$/, '.jpg');
+
 export interface Service {
   v: string; t: string; em: string; desc: string; tag: string; price: string;
 }
