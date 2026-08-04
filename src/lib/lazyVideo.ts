@@ -19,6 +19,17 @@ export function initLazyVideos(): void {
     videos.forEach((v) => { v.load(); v.play().catch(() => {}); });
     return;
   }
+  // Data-saver users get posters only — the video still loads (and
+  // plays) the moment its section is actually on screen, but we skip
+  // the ahead-of-time prefetch margin.
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } })
+    .connection?.saveData === true;
+  // 200px of lookahead meant a phone scrolling at normal speed reached
+  // a section before its video had bytes — the box sat on its poster
+  // (previously: sat blank) for seconds. 900px starts the fetch
+  // roughly a full viewport-and-a-half early, so by the time the
+  // section scrolls in, the (now much smaller) file is usually ready.
+  const margin = saveData ? '0px' : '900px 0px 900px 0px';
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const v = entry.target as HTMLVideoElement;
@@ -30,6 +41,6 @@ export function initLazyVideos(): void {
         if (!v.paused) v.pause();
       }
     });
-  }, { rootMargin: '200px 0px 200px 0px', threshold: 0.05 });
+  }, { rootMargin: margin, threshold: 0 });
   videos.forEach((v) => io.observe(v));
 }

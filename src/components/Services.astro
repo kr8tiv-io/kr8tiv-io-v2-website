@@ -3,7 +3,7 @@
  * Services — 12 panels rendered server-side from SERVICES data.
  * Horizontal GSAP pin attaches client-side.
  */
-import { SERVICES } from '@lib/content';
+import { SERVICES, vv, videoPoster } from '@lib/content';
 ---
 <section class="services" id="services">
   <div class="services-intro">
@@ -35,8 +35,8 @@ import { SERVICES } from '@lib/content';
             </div>
             <div class="svc-frame" data-cursor="media">
               <span class="svc-frame-bloom" aria-hidden="true"></span>
-              <video muted loop playsinline preload="none">
-                <source src={`/${s.v}`} type="video/mp4" />
+              <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
+                <source src={`/${vv(s.v)}`} type="video/mp4" />
               </video>
             </div>
           </div>

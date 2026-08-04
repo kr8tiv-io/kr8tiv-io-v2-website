@@ -19,7 +19,9 @@ import {
   PORTFOLIO_SELECTED,
   PORTFOLIO_EVOLVE_CARDS,
   PORTFOLIO_STUDIO_LAB,
-  PORTFOLIO_CODE_VAULT
+  PORTFOLIO_CODE_VAULT,
+  vv,
+  videoPoster
 } from '@lib/content';
 ---
 <FormLayout
@@ -81,10 +83,11 @@ import {
                 loop
                 playsinline
                 preload="none"
-                data-src={p.video}
+                poster={videoPoster(p.video)}
+                data-src={vv(p.video)}
                 aria-label={`${p.title} walkthrough — silent`}
               >
-                <source src={p.video} type="video/mp4" />
+                <source src={vv(p.video)} type="video/mp4" />
               </video>
             ) : (
               <div class="sel-placeholder">
@@ -172,10 +175,11 @@ import {
                 loop
                 playsinline
                 preload="none"
-                data-src={p.video}
+                poster={videoPoster(p.video)}
+                data-src={vv(p.video)}
                 aria-label={`${p.title} walkthrough — silent`}
               >
-                <source src={p.video} type="video/mp4" />
+                <source src={vv(p.video)} type="video/mp4" />
               </video>
             )}
             <span class="port-frame-grain" aria-hidden="true"></span>

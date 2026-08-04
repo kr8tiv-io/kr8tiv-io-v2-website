@@ -43,7 +43,7 @@ const {
   title = 'KR8TIV · Cyber-renaissance design atelier (侍)',
   /* Description trimmed from 232ch (over 160ch) to 156ch — fits
      SERP snippet width without truncation. */
-  description = 'Cyber-renaissance design atelier. Brand, web, motion, video, and AI business solutions for founders who want to be memorable, not generic.',
+  description = 'Cyber-renaissance design atelier in Alberta, Canada. Brand, web, motion, video, and AI business solutions for founders who want to be memorable, not generic.',
   variant = 'prism',
   activeVariant = 'v8-prism',
   canonical,
@@ -87,10 +87,22 @@ const {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://calendly.com" />
+  <!-- Loaded async (media="print" until onload) so the fonts CSS never
+       render-blocks first paint — display=swap already accepts the
+       fallback-then-swap behavior, this just unblocks the initial
+       frame on slow mobile connections. -->
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
     rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
   />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
 
   <!-- Google Analytics 4 (gtag.js) — property G-MC0STCCGFY, account
        KR8TiV Design Agency. async means the script never blocks paint. -->
