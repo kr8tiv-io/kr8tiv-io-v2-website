@@ -109,6 +109,50 @@
     max-width: calc(100vw - 24px);
   }
 
+  /* The rail is fixed chrome sitting 24px off the bottom, so whatever
+     the last content on the page happens to be renders underneath it —
+     measured on an SE, the rail was printed straight across the
+     "WE ACCEPT BITCOIN · ETHEREUM …" line at the foot of the big CTA.
+     Reserve the rail's own height (38px) plus its offset plus a gap at
+     the end of the document so the last line always clears it. */
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+
+  /* The service frames carry a decorative bloom at `inset: -16%`, which
+     is meant to bleed outside the circle. With the panels stacked
+     full-width on phones there is no horizontal container left to
+     absorb that bleed, and WebKit counts it toward the body's scroll
+     width — measured 34-40px of page overflow at 375 and 414 that
+     Chromium and Firefox both swallowed. `clip` rather than `hidden`
+     so no scroll container is created and the GSAP pin logic on wider
+     screens is untouched. */
+  .services { overflow-x: clip; }
+
+  /* Touch targets. The nav toggles are 34x34 here; Apple's floor is 44.
+     Growing the boxes would push the four-button cluster past a 320px
+     viewport (4x44 + gaps + brand > 320), so the visual size stays and
+     the HIT AREA is extended with a centred pseudo-element instead —
+     no layout change, no overflow risk, a thumb-sized target. */
+  nav .toggle,
+  nav .nav-shatter {
+    position: relative;
+  }
+  nav .toggle::after,
+  nav .nav-shatter::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    /* 40px wide, not 44: the buttons are 34px on a 6px gap, so the
+       pitch is 40. A 44px-wide target overlaps its neighbour and a tap
+       near the edge of the music button fires the theme button instead
+       — verified with elementFromPoint. Width takes the full pitch,
+       height takes the full 44 (the bar is 64px tall, there's room). */
+    width: 40px; height: 44px;
+    transform: translate(-50%, -50%);
+    /* Purely a hit target — must never paint or capture the glass FX. */
+    background: transparent;
+    pointer-events: auto;
+  }
+
   /* === Hero splash logo scale ===
      The reveal-svg uses preserveAspectRatio="xMidYMid slice", which on
      narrow portrait viewports zooms the 1920×1080 viewBox to cover —

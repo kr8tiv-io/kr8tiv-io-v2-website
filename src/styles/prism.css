@@ -167,6 +167,58 @@ html.motion-off .prism-webgl { display: none; }
   .reveal-music-hint { animation: none; opacity: .8; }
 }
 html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
+
+/* ---------------------------------------------------------------
+   SHORT VIEWPORTS (iPhone SE class — 320x568, 375x667)
+   ---------------------------------------------------------------
+   The splash stacks three things down the middle: the samurai mark
+   near the top, the wordmark punched through the cover at the exact
+   vertical centre, and this cue block anchored at `bottom: 14vh`.
+   On a tall phone that leaves plenty of air. On a 568px-tall SE it
+   does not: the cue stack is 197px tall, so 14vh (79px) from the
+   bottom puts its top edge at y=291 — and the wordmark's hole sits
+   around y=250..320. Measured result: "CLICK TO TURN ON MUSIC"
+   printed straight across the KR8TIV logo. First screen, first
+   impression, on the narrowest phone still in the wild.
+
+   Fixed by height, not width, because that's the actual constraint:
+   drop the anchor, shrink the dial, and tighten the gaps so the
+   whole stack clears the centre line.
+   --------------------------------------------------------------- */
+@media (max-height: 720px) {
+  /* Anchored in px, not vh, because the thing it has to clear is a
+     fixed-height object: the chapter rail is 38px tall sitting 24px off
+     the bottom, so its top edge is at 62px no matter the screen. A vh
+     anchor that cleared the wordmark (5vh = 28px on an SE) put
+     "SCROLL TO ENTER" straight through the rail instead — trading one
+     collision for another. 84px clears the rail with a 22px gap and
+     still leaves the cue's top edge below the wordmark. */
+  .reveal-cue {
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    gap: 10px;
+  }
+  .reveal-cue-icon { width: 62px; height: 68px; }
+  .reveal-music-hint { font-size: 9px; letter-spacing: .2em; }
+  /* Give the samurai mark up top a little of its height back too.
+     NOTE: scale it with font-size, never `transform`. The mark is
+     centred by `transform: translate(-50%,-50%)` (so a bare
+     `transform: scale()` here silently drops the centring and slams it
+     against the right edge — measured x=160..320 on a 320px screen),
+     and reveal.ts hands the same property to GSAP, which resets
+     scale to 1 on init and would undo a CSS scale anyway. */
+  .samurai-kanji { font-size: clamp(42px, 6.4vw, 66px); margin-bottom: 10px; }
+  .samurai-label { font-size: 11px; letter-spacing: .3em; }
+}
+
+/* The hint is 22 characters at .36em tracking — about 200px, which
+   wraps to two lines on every phone and reads as a broken label
+   rather than a whisper. Keep it on one line under 420px. */
+@media (max-width: 420px) {
+  .reveal-music-hint {
+    letter-spacing: .18em;
+    white-space: nowrap;
+  }
+}
 .reveal-cue-icon {
   overflow: visible;
   filter: drop-shadow(0 0 16px rgba(255, 45, 74, .85)) drop-shadow(0 0 38px rgba(255, 45, 74, .55)) drop-shadow(0 0 70px rgba(255, 45, 74, .28));

@@ -79,6 +79,20 @@
   }
   .fcta.dismissed { display: none; }
 
+  /* The pill steps aside while a section with its own CTA is under it.
+     The script has toggled `.suppressed` since this component was
+     written, but there was never a rule for it — so the class did
+     nothing and the pill sat on top of the very "Book a call" link it
+     duplicates. Most obvious on small phones, where the pill covers a
+     bigger share of the screen, but it was wrong at every width.
+     Declared after `.visible` (same specificity) so it wins, and it
+     fades rather than display:none so the return is not a pop. */
+  .fcta.visible.suppressed {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+
   .fcta-main {
     display: inline-flex;
     align-items: center;
@@ -309,14 +323,61 @@
       window.addEventListener('scroll', onScroll, { passive: true });
     }
 
-    // Suppress when passing over sections with their own CTAs
+    // Suppress when a section that has its own CTA is under the pill.
+    //
+    // This had two bugs that only showed up on small phones, where the
+    // pill is big relative to the screen and lands on top of the very
+    // link it duplicates:
+    //
+    //  1. `entries.some(e => e.isIntersecting)` — an IntersectionObserver
+    //     callback receives ONLY the entries that changed. When section A
+    //     scrolled out while section B was still on screen, `entries`
+    //     held just A, `some()` was false, and the pill un-suppressed
+    //     over B. State has to be accumulated across callbacks, not
+    //     recomputed from a partial batch.
+    //
+    //  2. `threshold: 0.3` is a fraction OF THE TARGET. `.big-cta` is
+    //     several viewports tall on a 320x568 screen, so 30% of it can
+    //     never be visible at once — the end-of-page CTA block could
+    //     never suppress anything, which is exactly where the pill was
+    //     sitting on "read the process".
+    //
+    // Both go away by asking the right question: is a CTA section
+    // intersecting the BAND OF SCREEN THE PILL OCCUPIES? A negative top
+    // rootMargin shrinks the observer root to that bottom band, so
+    // threshold 0 means "overlaps the pill's zone" regardless of how
+    // tall the section is.
     const ctaSections = document.querySelectorAll('.inline-cta, .big-cta, .process-cta, .contact-bridge');
     if (ctaSections.length) {
-      const suppressor = new IntersectionObserver((entries) => {
-        const overlapping = entries.some((e) => e.isIntersecting);
-        root.classList.toggle('suppressed', overlapping);
-      }, { threshold: 0.3 });
-      ctaSections.forEach((s) => suppressor.observe(s));
+      const active = new Set<Element>();
+      let suppressor: IntersectionObserver | null = null;
+
+      const build = (): void => {
+        suppressor?.disconnect();
+        active.clear();
+        // Height of the strip the pill lives in, measured from the
+        // bottom of the viewport. Generous so the pill is suppressed
+        // just before it would visually touch the CTA, not after.
+        const band = Math.min(260, Math.round(window.innerHeight * 0.45));
+        const top = Math.max(0, window.innerHeight - band);
+        suppressor = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) active.add(e.target);
+            else active.delete(e.target);
+          });
+          root.classList.toggle('suppressed', active.size > 0);
+        }, { rootMargin: `-${top}px 0px 0px 0px`, threshold: 0 });
+        ctaSections.forEach((s) => suppressor!.observe(s));
+      };
+
+      build();
+      // rootMargin is baked in pixels, so it has to be rebuilt when the
+      // viewport height changes — rotation, or iOS collapsing its URL bar.
+      let t = 0;
+      window.addEventListener('resize', () => {
+        window.clearTimeout(t);
+        t = window.setTimeout(build, 180);
+      }, { passive: true });
     }
 
     // Expand / collapse
