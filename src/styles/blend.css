@@ -1,0 +1,495 @@
+/* =====================================================================
+   SECTION BLENDING  ·  the seams
+   ---------------------------------------------------------------------
+   The problem this file solves, measured before it was written: every
+   section on the homepage painted its own OPAQUE fill — doctrine,
+   services, process, work, reel and contact all `rgb(245,242,234)`, and
+   the interlude a slightly different `rgb(237,233,220)`. Stacked, those
+   read as a column of butted-together rectangles, and the interlude's
+   mismatched fill drew a visible band across the page. Hard edges,
+   square boxes, exactly what we were asked to kill.
+
+   The fix is architectural, not decorative:
+
+     1. ONE GROUND. `body` already carries `var(--bg)`. Every section
+        fill is therefore redundant — they were only opaque so nothing
+        showed through. They all go transparent, and the page becomes a
+        single continuous surface with nothing to butt against.
+
+     2. TINTED WASHES, NOT FILLS. Each chapter gets a translucent wash
+        in its own hue on that shared ground, so chapters still feel
+        distinct without ever becoming boxes. Same recipe every time,
+        different hue — a radial bloom off one shoulder plus a whisper
+        of directional shade.
+
+     3. FEATHERED SEAMS. Each wash is masked so it fades to nothing at
+        its own top and bottom edge. Two adjacent washes therefore
+        cross-dissolve through a band of bare ground instead of meeting
+        at a line. This is the "blend to blend to blend".
+
+     4. A DRIFTING FIELD. One fixed, full-viewport layer of slow blooms
+        sits behind everything and drifts with scroll, so the page reads
+        as one continuous atmosphere rather than a stack of treatments.
+
+   Everything here is compositor-friendly: no per-frame layout, no
+   filters on large surfaces, no per-section JS. The only thing script
+   touches is two custom properties on <html>.
+
+   Loaded AFTER light-theme.css so it can retire the opaque fills that
+   file sets (several of which are `!important`).
+   ===================================================================== */
+
+:root {
+  /* Chapter hues as bare triplets so they can be composed into
+     rgb()/rgba() at any alpha without a second variable per opacity. */
+  --flow-magenta: 194, 43, 130;
+  --flow-purple:  103, 0, 201;
+  --flow-cyan:    0, 148, 168;
+  --flow-gold:    198, 150, 30;
+
+  /* Wash strength. Light paper takes far less tint than dark before it
+     turns muddy — these are the two numbers to tune if the whole page
+     ever needs to be louder or quieter. */
+  --wash-a: .085;
+  --wash-b: .05;
+
+  /* How much of a section's height is given over to feathering at each
+     end. Below ~7% the crossfade reads as a soft edge rather than a
+     dissolve; above ~20% the chapter loses its centre. */
+  --seam: 14%;
+}
+
+html[data-theme="dark"] {
+  --flow-magenta: 255, 106, 213;
+  --flow-purple:  142, 0, 255;
+  --flow-cyan:    0, 209, 255;
+  --flow-gold:    255, 209, 102;
+  --wash-a: .13;
+  --wash-b: .07;
+}
+
+/* ---------------------------------------------------------------------
+   1 · THE DRIFTING FIELD
+   One fixed layer behind all content. Three wide blooms that ease
+   across the viewport as the page scrolls, driven by a single custom
+   property (--flow-y, 0..1) written once per frame by sectionFlow.ts.
+   Because it is `position: fixed` and only its gradient positions
+   change, it never triggers layout — and because the blooms are huge
+   and soft, a low-resolution layer is indistinguishable from a
+   high-resolution one, which is why this is a gradient and not a
+   texture or a canvas.
+   --------------------------------------------------------------------- */
+.flow-field {
+  position: fixed;
+  inset: -10vh -10vw;          /* overscan so blooms can sit off-edge */
+  z-index: 0;
+  pointer-events: none;
+  --flow-y: 0;
+  background:
+    radial-gradient(48vw 42vh at calc(18% + var(--flow-y) * 26%) calc(22% + var(--flow-y) * 18%),
+      rgba(var(--flow-magenta), var(--wash-a)), transparent 68%),
+    radial-gradient(42vw 38vh at calc(88% - var(--flow-y) * 30%) calc(64% - var(--flow-y) * 24%),
+      rgba(var(--flow-purple), var(--wash-b)), transparent 66%),
+    radial-gradient(56vw 46vh at calc(46% + var(--flow-y) * 12%) calc(96% - var(--flow-y) * 40%),
+      rgba(var(--flow-cyan), var(--wash-b)), transparent 70%);
+  /* The field must never compete with type. Screen on dark lifts the
+     blooms out of black; multiply on paper lets them sink into it. */
+  mix-blend-mode: screen;
+  opacity: .9;
+  will-change: background-position;
+}
+/* Light theme TINTS, it does not darken. `multiply` on cream paper
+   compounds with the grain and noise overlays and turns the page grey —
+   measured as a real contrast loss on body copy in the process chapter,
+   not a subjective preference. Normal blend over low-alpha hues gives
+   the wash without touching luminance. */
+html[data-theme="light"] .flow-field {
+  mix-blend-mode: normal;
+  opacity: .8;
+}
+
+/* The optional WebGL layer (auroraField.ts) mounts inside the field and
+   adds the folding that gradients cannot do. It is an ENHANCEMENT — if
+   it never mounts, the CSS field above is the finished design, not a
+   fallback. Stretched from a deliberately tiny buffer; every feature in
+   the shader is a soft blob many times larger than a pixel, so the
+   upscale costs nothing and shows nothing. */
+.flow-aurora {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .6s ease;
+}
+
+/* Content has to sit above the field. `main` gets a stacking context;
+   the field is z-0, everything else climbs over it. */
+main { position: relative; z-index: 1; }
+
+/* ---------------------------------------------------------------------
+   2 · RETIRE THE OPAQUE FILLS
+   These are the rectangles. Both themes, and hard enough to beat the
+   `!important` fills already in light-theme.css.
+   --------------------------------------------------------------------- */
+.doctrine,
+.services,
+.services-pin,
+.process,
+.work,
+.reel,
+.contact,
+.interlude,
+html[data-theme="light"] .doctrine,
+html[data-theme="light"] .services,
+html[data-theme="light"] .services-pin,
+html[data-theme="light"] .process,
+html[data-theme="light"] .work,
+html[data-theme="light"] .reel,
+html[data-theme="light"] .contact,
+html[data-theme="light"] .interlude {
+  background: transparent !important;
+}
+
+/* ---------------------------------------------------------------------
+   3 · THE WASHES
+   `.blend` is the shared treatment; `--tint` is the only thing that
+   changes per chapter. The wash lives on a ::before so it can be masked
+   independently of the section's own content and never affects layout.
+
+   The mask is the whole trick: the wash is fully present through the
+   middle of the section and fades to zero at both ends, so where two
+   chapters meet, both are already at zero and the eye sees only the
+   shared ground. No line, no edge, no box.
+   --------------------------------------------------------------------- */
+.doctrine, .services, .why, .interlude, .process, .work, .reel, .contact {
+  position: relative;
+  isolation: isolate;
+}
+.doctrine::before, .services::before, .why::before, .interlude::before,
+.process::before, .work::before, .reel::before, .contact::before {
+  content: '';
+  position: absolute;
+  /* Bleed past the section's own bounds so the dissolve starts before
+     the boundary rather than at it. */
+  inset: -12% 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 86% at var(--tint-x, 26%) var(--tint-y, 12%),
+      rgba(var(--tint), var(--wash-a)), transparent 62%),
+    linear-gradient(168deg, rgba(var(--tint), var(--wash-b)), transparent 58%);
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0,
+    #000 var(--seam),
+    #000 calc(100% - var(--seam)),
+    transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    transparent 0,
+    #000 var(--seam),
+    #000 calc(100% - var(--seam)),
+    transparent 100%);
+}
+
+/* Chapter hues, in scroll order. Alternating the bloom's shoulder
+   (left / right) keeps a long page from feeling like a repeating
+   pattern — the light appears to travel down the page. */
+.doctrine   { --tint: var(--flow-cyan);    --tint-x: 22%; }
+.services   { --tint: var(--flow-magenta); --tint-x: 78%; }
+.why        { --tint: var(--flow-purple);  --tint-x: 30%; }
+.interlude  { --tint: var(--flow-magenta); --tint-x: 50%; --tint-y: 40%; }
+.process    { --tint: var(--flow-gold);    --tint-x: 74%; }
+.work       { --tint: var(--flow-cyan);    --tint-x: 26%; }
+.reel       { --tint: var(--flow-magenta); --tint-x: 70%; }
+.contact    { --tint: var(--flow-purple);  --tint-x: 34%; }
+
+/* The services pin is a viewport-height element inside a tall spacer;
+   a wash bled across the pin would slide relative to the page while
+   pinned. The chapter's wash belongs to the section, not the pin. */
+.services-pin::before { content: none; }
+
+/* ---------------------------------------------------------------------
+   4 · SEAM BREATH
+   Where two chapters are unusually close (a CTA wedged between two
+   heavy sections), the crossfade band gets thin. These sections carry
+   the ground themselves so the dissolve keeps its room.
+   --------------------------------------------------------------------- */
+.inline-cta { position: relative; }
+.inline-cta::before {
+  content: '';
+  position: absolute;
+  inset: -18% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(70% 120% at 50% 50%,
+    rgba(var(--flow-magenta), calc(var(--wash-b) * .8)), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 26%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 26%, #000 74%, transparent 100%);
+}
+
+/* The hero hands off to the page. The marquee strip between them used
+   to be the hard line where the splash ended; now the splash bleeds
+   through it into the doctrine. */
+.marquee-wrap {
+  position: relative;
+  background: transparent;
+}
+.marquee-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -140% 0 -160%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(var(--flow-magenta), calc(var(--wash-a) * .7)),
+    transparent 62%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 100%);
+}
+
+/* ---------------------------------------------------------------------
+   5 · IMAGERY, FEATHERED
+   No square photos. Every rectangular media block gets a mask that
+   feathers its edges into the page and a vignette that rounds off its
+   corners, so imagery dissolves instead of sitting in a frame.
+
+   `mask-composite` intersects the two masks. WebKit needs the
+   `-webkit-` pair and the `source-in` keyword; the standard property
+   uses `intersect`. Both are declared — a browser that understands
+   neither simply gets the unfeathered image, which is the old
+   behaviour, not a broken one.
+   --------------------------------------------------------------------- */
+.interlude-frame,
+.work-card,
+.reel-bg,
+.why-bg {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 16%, #000 84%, transparent 100%),
+    radial-gradient(130% 120% at 50% 50%, #000 52%, transparent 88%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 16%, #000 84%, transparent 100%),
+    radial-gradient(130% 120% at 50% 50%, #000 52%, transparent 88%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* The interlude was the worst offender — a hard-edged rectangle on a
+   slightly-off background. Lose the frame entirely and let the footage
+   sit in the page. */
+.interlude-frame {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.interlude-frame video {
+  border-radius: 0 !important;
+}
+
+/* The work card was `background: #101015` — an opaque dark plate behind
+   every poster. Feathering the card while it still carried that plate
+   would just have produced a feathered dark rectangle. The plate goes;
+   the page shows through the feathered edge. */
+.work-card { background: transparent !important; }
+
+/* Why and Reel already blended themselves into their neighbours with
+   `.why-fade-*` / `.reel-fade-*` — flat gradients painted in the old
+   solid background colour. That technique cannot survive a tinted
+   ground: the overlays sit inside `main` (above the drifting field), so
+   they would paint a flat band exactly where the field's colour should
+   be showing through, and the seam would come back as a stripe of the
+   wrong colour. Masking the video itself achieves the same fade with no
+   colour dependency at all, so the overlays are retired. */
+.why-fade-top, .why-fade-bot,
+.reel-fade-top, .reel-fade-bot {
+  display: none !important;
+}
+
+/* The doctrine's obelisk loop already carried an ellipse mask, but the
+   ellipse was too small for its box in the vertical axis: at
+   `ellipse 54% 72% at 50% 50%` the top-centre of the frame sits at 69%
+   of the mask's radius, where the gradient is still ~55% opaque. The
+   mask therefore got CUT by the element's own edge, drawing a straight
+   grey line clean across the page — measured, and clearly visible once
+   the washes underneath went soft. Intersecting a vertical feather
+   guarantees the alpha reaches zero at the boundary no matter what the
+   ellipse is doing. */
+.doctrine .obelisk-vid {
+  -webkit-mask-image:
+    radial-gradient(ellipse 54% 72% at 50% 50%,
+      rgba(0,0,0,1) 22%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.52) 70%,
+      rgba(0,0,0,.18) 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 54% 72% at 50% 50%,
+      rgba(0,0,0,1) 22%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.52) 70%,
+      rgba(0,0,0,.18) 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* ---------------------------------------------------------------------
+   6 · DISSOLVING RULES
+   Softening the washes exposed what was actually drawing the boxes: a
+   set of full-width 1px borders. `#interlude` carried one on its top
+   AND bottom edge, which is the hard line that survived every gradient
+   we put behind it; `.marquee-wrap` had a matching pair, and the CTA
+   blocks were literal bordered rectangles.
+
+   The structure those rules provide is worth keeping — a page this long
+   needs punctuation. What has to go is the *hardness*. Every section
+   rule becomes a hairline that fades out before it reaches either
+   margin, so it reads as a drawn line rather than a container edge, and
+   nothing on the page terminates in a corner.
+
+   Control borders (buttons, links) are deliberately left alone: a
+   button needs a defined edge to read as pressable, and those are
+   controls, not seams.
+   --------------------------------------------------------------------- */
+
+/* The interlude's own frame — the literal box. */
+.interlude {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* Shared feathered-rule treatment. A 1px gradient that is fully
+   transparent at both margins, so it has no ends to see. */
+.marquee-wrap,
+.inline-cta[data-variant="whisper"] .whisper,
+.big-cta-foot {
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  position: relative;
+}
+.marquee-wrap::after,
+.inline-cta[data-variant="whisper"] .whisper::after,
+.big-cta-foot::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0,
+    var(--edge) 22%,
+    var(--edge) 78%,
+    transparent 100%);
+}
+/* The marquee is bounded on both sides; give it a matching lower rule. */
+.marquee-wrap::marker { content: none; }
+.marquee-wrap { --marquee-rule: 1; }
+
+/* The big CTA's separator was a full-bleed 1px bar. */
+.big-cta::before {
+  background: linear-gradient(90deg,
+    transparent 0, var(--edge) 20%, var(--edge) 80%, transparent 100%) !important;
+}
+
+/* The inline CTA boxes were rectangles with a hard 1px outline — the
+   loud variant in full brand magenta. They keep their presence through
+   the wash and a feathered top rule instead of an outline, so a reader
+   scrolling past sees a lit area of page rather than a card. */
+/* Dropping the outline was not enough: the box also carries a filled
+   radial background which, sized farthest-corner, tints nearly the whole
+   element and is then clipped dead at its bounds — an unoutlined
+   rectangle is still a rectangle.
+
+   The fill cannot simply be masked in place, because a mask on `.box`
+   applies to its CHILDREN too and would fade the CTA buttons sitting
+   near the bottom edge. So the fill moves to its own layer behind the
+   content, and that layer gets feathered on both axes. The copy and
+   buttons stay at full strength; the lit area they sit in has no edge
+   anywhere. The perimeter boxStar trail rides the same layer, so it
+   dissolves at the corners instead of tracing a rectangle nobody can
+   see. */
+/* NOTE ON SPECIFICITY — this cost a round trip. `!important` does not
+   beat a more specific selector that is ALSO `!important`, and
+   light-theme.css sets this fill as
+   `html[data-theme="light"] .inline-cta[data-variant="loud"] .box`
+   (0,4,1). An unqualified `.inline-cta[data-variant="loud"] .box`
+   (0,3,1) loses, so the fill stayed on the element and kept drawing its
+   rectangle no matter what the layer behind it did. Both theme-
+   qualified forms are spelled out below. */
+.inline-cta[data-variant="quiet"] .box,
+.inline-cta[data-variant="loud"] .box,
+html[data-theme="light"] .inline-cta[data-variant="quiet"] .box,
+html[data-theme="light"] .inline-cta[data-variant="loud"] .box,
+html[data-theme="dark"] .inline-cta[data-variant="quiet"] .box,
+html[data-theme="dark"] .inline-cta[data-variant="loud"] .box {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  position: relative;
+  isolation: isolate;
+}
+
+/* The boxStar trail is a canvas the full size of the box, and it draws
+   the travelling light along the (now invisible) perimeter. Unmasked it
+   re-drew the rectangle in glow form — visible as a lit corner in the
+   top right. It rides the same feather as the fill. */
+.inline-cta .box > canvas {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 9%,  #000 91%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 9%,  #000 91%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.inline-cta[data-variant="quiet"] .box::after,
+.inline-cta[data-variant="loud"] .box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Layer 1: the hairline, which the mask fades out at both ends.
+     Layer 2: the chapter fill, inherited from the original design. */
+  background:
+    linear-gradient(to bottom, var(--edge) 0 1px, transparent 1px),
+    radial-gradient(ellipse at 82% 12%,
+      rgba(var(--flow-magenta), .10) 0%,
+      rgba(var(--flow-purple), .06) 38%,
+      transparent 76%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+/* The loud variant keeps its accent — as a bloom, not an outline. */
+.inline-cta[data-variant="loud"] .box::after {
+  background:
+    linear-gradient(to bottom, rgba(var(--flow-magenta), .5) 0 1px, transparent 1px),
+    radial-gradient(ellipse at 82% 12%,
+      rgba(var(--flow-magenta), .13) 0%,
+      rgba(var(--flow-purple), .07) 38%,
+      transparent 76%);
+}
+/* The hover bloom lives on ::before and must sit behind content too. */
+.inline-cta[data-variant="loud"] .box::before { z-index: -1; }
+
+/* ---------------------------------------------------------------------
+   7 · HONEST FALLBACKS
+   --------------------------------------------------------------------- */
+
+/* Reduced motion / motion-off: the field stops drifting. It does not
+   disappear — the blending IS the design, and a static wash is not
+   motion. Only the movement goes. */
+@media (prefers-reduced-motion: reduce) {
+  .flow-field { --flow-y: .5 !important; transition: none !important; }
+}
+html.motion-off .flow-field { --flow-y: .5 !important; transition: none !important; }
+
+/* Print: no washes, no field. */
+@media print {
+  .flow-field, .blend::before, .inline-cta::before, .marquee-wrap::before { display: none !important; }
+}

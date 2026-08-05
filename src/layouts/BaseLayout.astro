@@ -12,6 +12,7 @@ import '@styles/fonts.css';       /* self-hosted woff2 — must precede core.css
 import '@styles/core.css';
 import '@styles/light-theme.css';  /* cohesive light palette when data-theme="light" */
 import '@styles/responsive.css';   /* comprehensive mobile + tablet overrides */
+import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
 import '@styles/elevate.css';      /* premium interaction layer — hovers, card physics, brand chrome */
 import Nav from '@components/Nav.astro';
 import VariantBar from '@components/VariantBar.astro';
@@ -132,6 +133,10 @@ const {
        url(#liquidGlass) / <use href="#kr8tiv-glyph"> from any component. -->
   <LogoSymbol />
 
+  {/* The drifting atmosphere every section dissolves through. Fixed,
+      behind all content, no text or imagery on it — see blend.css. */}
+  <div class="flow-field" aria-hidden="true"></div>
+
   <div class="grain"></div>
   <div class="noise"></div>
   <canvas id="trail-canvas"></canvas>
@@ -203,6 +208,12 @@ const {
     safe('audioReactiveNote',() => initAudioReactiveNote());
     safe('sceneAnnouncer',   () => initSceneAnnouncer());
     safe('lazyVideos',       () => initLazyVideos());
+    // Section blending drives one custom property per frame — it belongs
+    // with the core scroll wiring, not the deferred visual layer, or the
+    // page would render its seams flat for the first second.
+    import('@lib/sectionFlow')
+      .then((m) => safe('sectionFlow', () => m.initSectionFlow()))
+      .catch((err) => console.error('[KR8] sectionFlow import failed:', err));
     onIdle(() => {
       if (phoneClassTouch) {
         import('@lib/seatCounter')
@@ -210,6 +221,12 @@ const {
           .catch((err) => console.error('[KR8] seatCounter import failed:', err));
         return;
       }
+
+      // Aurora is an enhancement on top of a complete CSS field, so it
+      // waits for idle and self-gates on device class inside.
+      import('@lib/auroraField')
+        .then((m) => safe('auroraField', () => m.initAuroraField()))
+        .catch(() => { /* CSS field is the design; nothing to report */ });
 
       void Promise.all([
         import('@lib/cursorTrail'),
