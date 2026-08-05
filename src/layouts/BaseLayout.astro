@@ -8,9 +8,12 @@
  *
  * SEO surface lives inside <Seo />. Pass page-level props through.
  */
+import '@styles/fonts.css';       /* self-hosted woff2 — must precede core.css */
 import '@styles/core.css';
 import '@styles/light-theme.css';  /* cohesive light palette when data-theme="light" */
 import '@styles/responsive.css';   /* comprehensive mobile + tablet overrides */
+import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
+import '@styles/elevate.css';      /* premium interaction layer — hovers, card physics, brand chrome */
 import Nav from '@components/Nav.astro';
 import VariantBar from '@components/VariantBar.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
@@ -34,6 +37,8 @@ export interface Props {
   howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
   keywords?: string[];
   currentNav?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'other';
+  /** Above-the-fold image to preload for LCP (e.g. a hero poster). */
+  lcpImage?: string;
 }
 
 const {
@@ -53,7 +58,8 @@ const {
   faqs,
   howTo,
   keywords,
-  currentNav = 'home'
+  currentNav = 'home',
+  lcpImage
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -82,27 +88,35 @@ const {
     prerender: [{ source: 'document', where: { href_matches: '/kr8tiv-v*' }, eagerness: 'moderate' }]
   })}></script>
 
-  <!-- Fonts — variable axes imported so font-variation-settings can be
-       tweened at runtime by scroll velocity / hover state. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fonts — self-hosted woff2 (see src/styles/fonts.css). Variable
+       axes are preserved (JetBrains Mono 100–800, Inter Tight 100–900)
+       so font-variation-settings can still be tweened at runtime by
+       scroll velocity / hover state.
+
+       Previously these came from fonts.googleapis.com behind a
+       media="print" swap: that dodged render-blocking but cost a DNS
+       + TLS + CSS round trip to a third origin before the browser
+       even learned which woff2 to request — on a throttled phone that
+       is most of a second of fallback-font text. Same bytes, own
+       origin, discovered on the first connection.
+
+       The two faces the first screen actually paints (hero serif +
+       mono chrome, latin subset) are preloaded; the rest arrive with
+       the stylesheet. `crossorigin` is required on font preloads even
+       same-origin — without it the preload is fetched in a different
+       CORS mode than the CSS request and downloads twice. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/instrument-serif-normal-400-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/jetbrains-mono-normal-100800-latin.woff2" />
   <link rel="dns-prefetch" href="https://calendly.com" />
-  <!-- Loaded async (media="print" until onload) so the fonts CSS never
-       render-blocks first paint — display=swap already accepts the
-       fallback-then-swap behavior, this just unblocks the initial
-       frame on slow mobile connections. -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-  </noscript>
+
+  <!-- LCP hint: on pages whose first paint is a poster frame behind a
+       video (the homepage hero), preloading it means the largest
+       element decodes while the JS chunks are still parsing instead
+       of after the lazy-video observer fires. Opt-in per page — a
+       blanket preload would be a wasted request on /work/ or /terms/. -->
+  {lcpImage && <link rel="preload" as="image" href={lcpImage} fetchpriority="high" />}
 
   <!-- Google Analytics 4 (gtag.js) — property G-MC0STCCGFY, account
        KR8TiV Design Agency. async means the script never blocks paint. -->
@@ -118,6 +132,10 @@ const {
   <!-- Inline SVG defs: logo glyph + liquid-glass filter, reachable by
        url(#liquidGlass) / <use href="#kr8tiv-glyph"> from any component. -->
   <LogoSymbol />
+
+  {/* The drifting atmosphere every section dissolves through. Fixed,
+      behind all content, no text or imagery on it — see blend.css. */}
+  <div class="flow-field" aria-hidden="true"></div>
 
   <div class="grain"></div>
   <div class="noise"></div>
@@ -190,6 +208,12 @@ const {
     safe('audioReactiveNote',() => initAudioReactiveNote());
     safe('sceneAnnouncer',   () => initSceneAnnouncer());
     safe('lazyVideos',       () => initLazyVideos());
+    // Section blending drives one custom property per frame — it belongs
+    // with the core scroll wiring, not the deferred visual layer, or the
+    // page would render its seams flat for the first second.
+    import('@lib/sectionFlow')
+      .then((m) => safe('sectionFlow', () => m.initSectionFlow()))
+      .catch((err) => console.error('[KR8] sectionFlow import failed:', err));
     onIdle(() => {
       if (phoneClassTouch) {
         import('@lib/seatCounter')
@@ -198,18 +222,26 @@ const {
         return;
       }
 
+      // Aurora is an enhancement on top of a complete CSS field, so it
+      // waits for idle and self-gates on device class inside.
+      import('@lib/auroraField')
+        .then((m) => safe('auroraField', () => m.initAuroraField()))
+        .catch(() => { /* CSS field is the design; nothing to report */ });
+
       void Promise.all([
         import('@lib/cursorTrail'),
         import('@lib/whiteLight'),
         import('@lib/kineticType'),
         import('@lib/asciiDither'),
-        import('@lib/seatCounter')
-      ]).then(([trail, white, kinetic, ascii, seats]) => {
+        import('@lib/seatCounter'),
+        import('@lib/cardTilt')
+      ]).then(([trail, white, kinetic, ascii, seats, tilt]) => {
         safe('cursorTrail', () => trail.initCursorTrail());
         safe('whiteLight',  () => white.initWhiteLight());
         safe('kineticType', () => kinetic.initKineticType());
         safe('asciiDither', () => ascii.initAsciiDither());
         safe('seatCounter', () => seats.initSeatCounter());
+        safe('cardTilt',    () => tilt.initCardTilt());
       }).catch((err) => {
         console.error('[KR8] deferred visual inits failed:', err);
       });

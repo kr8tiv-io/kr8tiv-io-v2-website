@@ -1,0 +1,22 @@
+{
+  "_readme": [
+    "THE ONE FILE THAT DRIVES THE AVAILABILITY PILL ON THE SITE.",
+    "Edit it whenever bookings actually change, commit, and the pill updates.",
+    "If this file is missing, malformed, or stale past `staleAfterDays`, the",
+    "pill silently falls back to the evergreen line below — the site never",
+    "shows a number it cannot stand behind.",
+    "",
+    "slots        : how many project slots are genuinely open right now (0 is allowed)",
+    "quarter      : the quarter those slots are for, e.g. 'Q3 2026'",
+    "nextQuarter  : the quarter shown once the current one is full",
+    "updated      : ISO date you last touched this file (YYYY-MM-DD)",
+    "staleAfterDays: after this many days with no update, drop to evergreen",
+    "evergreen    : the honest, undateable fallback line"
+  ],
+  "slots": 1,
+  "quarter": "Q3 2026",
+  "nextQuarter": "Q4 2026",
+  "updated": "2026-08-04",
+  "staleAfterDays": 45,
+  "evergreen": "Booking selectively · 2–3 engagements at a time"
+}

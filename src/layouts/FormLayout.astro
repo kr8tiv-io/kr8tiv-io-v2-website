@@ -5,10 +5,13 @@
  * keeps nav, cursor, grain texture, motion toggle, white-light easter
  * egg. Imports form-specific CSS. Full SEO via <Seo /> component.
  */
+import '@styles/fonts.css';       /* self-hosted woff2 — must precede core.css */
 import '@styles/core.css';
 import '@styles/intake.css';
 import '@styles/light-theme.css';  /* cohesive light palette */
 import '@styles/responsive.css';   /* mobile + tablet overrides */
+import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
+import '@styles/elevate.css';      /* premium interaction layer — hovers, card physics, brand chrome */
 import Nav from '@components/Nav.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
@@ -65,21 +68,13 @@ const {
   />
   <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
   <link rel="apple-touch-icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://calendly.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-  </noscript>
+  <!-- Self-hosted fonts (src/styles/fonts.css) — see BaseLayout for why
+       the third-party stylesheet was dropped. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/instrument-serif-normal-400-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/jetbrains-mono-normal-100800-latin.woff2" />
 
   <!-- Google Analytics 4 (gtag.js) — same property as BaseLayout. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>
@@ -92,6 +87,10 @@ const {
 </head>
 <body>
   <LogoSymbol />
+  {/* The same drifting atmosphere as the homepage. The blending has to
+      be sitewide or the seams reappear the moment a visitor clicks
+      through to /work/ or /process/ — see blend.css. */}
+  <div class="flow-field" aria-hidden="true"></div>
   <div class="noise"></div>
   <div class="cur" id="cur"><span class="l" id="cur-l"></span></div>
   <div class="prog" id="prog"></div>
@@ -147,7 +146,19 @@ const {
         .catch((err) => console.error('[KR8] cursor import failed:', err));
     }
 
+    // Section blending drives one custom property per frame — core, not
+    // deferred, or these pages render their seams flat for a beat.
+    import('@lib/sectionFlow')
+      .then((m) => safe('sectionFlow', () => m.initSectionFlow()))
+      .catch((err) => console.error('[KR8] sectionFlow import failed:', err));
+
     onIdle(() => {
+      // Aurora is an enhancement on a complete CSS field; self-gates on
+      // device class inside.
+      import('@lib/auroraField')
+        .then((m) => safe('auroraField', () => m.initAuroraField()))
+        .catch(() => { /* CSS field is the design; nothing to report */ });
+
       if (phoneClassTouch) {
         import('@lib/seatCounter')
           .then((seats) => safe('seatCounter', () => seats.initSeatCounter()))

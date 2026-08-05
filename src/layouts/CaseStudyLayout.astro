@@ -4,8 +4,11 @@
  * the full splash-page layout. Drops prism-specific scripts (no hero
  * video, no reveal) and ships only the shared nav + grain overlay.
  */
+import '@styles/fonts.css';       /* self-hosted woff2 — must precede core.css */
 import '@styles/core.css';
 import '@styles/build-notes.css';
+import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
+import '@styles/elevate.css';      /* premium interaction layer — selection, scrollbar, focus, footer */
 import Nav from '@components/Nav.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
@@ -46,20 +49,13 @@ const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toSt
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <link rel="icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@100..800&family=Inter+Tight:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-  </noscript>
+  <!-- Self-hosted fonts (src/styles/fonts.css) — see BaseLayout for why
+       the third-party stylesheet was dropped. Editorial pages lead with
+       body copy, so the serif + mono latin subsets are preloaded. -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/instrument-serif-normal-400-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/jetbrains-mono-normal-100800-latin.woff2" />
 
   <!-- Google Analytics 4 (gtag.js) — same property as BaseLayout. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>

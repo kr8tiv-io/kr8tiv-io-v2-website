@@ -22,20 +22,29 @@ import SeatCounter from '@components/SeatCounter.astro';
       We also build full <strong>AI systems for business</strong> — marketing automations, support agents, internal tools, content engines. If you're curious whether AI could save your team real hours every week, come ask.
     </p>
 
-    <SeatCounter size="large" />
-
-    <div class="big-cta-row">
+    {/* One primary action. This block used to offer four equal-weight
+        choices — call, intake, process, email — at the exact moment a
+        reader has decided to act, which is the classic way to convert a
+        decision into a hesitation. Booking is now the only button; the
+        other three survive as a single quiet line for the people who
+        specifically want them. The availability pill sits directly
+        above the button so the scarcity figure reads as a reason to
+        press it rather than as unrelated page furniture. */}
+    <div class="big-cta-act">
+      <SeatCounter size="large" />
       <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer" class="big-cta-primary" data-cursor="magnetic">
         Book a call ↳
       </a>
-      <a href="/start/" class="big-cta-ghost">Fill out the intake</a>
-      <a href="/process/" class="big-cta-ghost">Read the process</a>
-      <a href="mailto:matt@kr8tiv.io" class="big-cta-link">matt@kr8tiv.io</a>
+      <p class="big-cta-alt">
+        Rather not talk yet? <a href="/start/">Fill out the intake</a> ·
+        <a href="/process/">read the process</a> ·
+        <a href="mailto:matt@kr8tiv.io">matt@kr8tiv.io</a>
+      </p>
     </div>
 
     <div class="big-cta-foot">
       <span>WE ACCEPT <b>BITCOIN</b> · <b>ETHEREUM</b> · CRYPTOCURRENCY · AND REGULAR MONEY TOO</span>
-      <span>AI + BRAND + WEB + MOTION · COSTA RICA · GLOBAL</span>
+      <span>AI + BRAND + WEB + MOTION · ALBERTA · GLOBAL</span>
     </div>
   </div>
 </section>
@@ -100,14 +109,36 @@ import SeatCounter from '@components/SeatCounter.astro';
   }
   .big-cta-sub.soft strong { color: var(--accent-1); font-weight: 500; }
 
-  .big-cta-row {
+  /* Single-action column: availability → button → quiet alternatives.
+     Vertical stacking is deliberate — it reads as one decision with a
+     footnote instead of a row of equal options. */
+  .big-cta-act {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 20px;
     margin: 56px 0 48px;
   }
+  .big-cta-alt {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    margin: 8px 0 0;
+    max-width: 60ch;
+  }
+  .big-cta-alt a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--edge);
+    text-underline-offset: 4px;
+    transition: color .3s, text-decoration-color .3s;
+  }
+  .big-cta-alt a:hover {
+    color: var(--accent-1);
+    text-decoration-color: var(--accent-1);
+  }
+
   .big-cta-primary,
   .big-cta-ghost,
   .big-cta-link {
@@ -171,8 +202,9 @@ import SeatCounter from '@components/SeatCounter.astro';
 
   @media (max-width: 880px) {
     .big-cta { padding: 120px 24px 160px; }
-    .big-cta-row { flex-direction: column; }
-    .big-cta-primary, .big-cta-ghost, .big-cta-link { width: 100%; text-align: center; }
+    .big-cta-act { width: 100%; }
+    .big-cta-primary { width: 100%; text-align: center; }
+    .big-cta-alt { font-size: 13px; }
     .big-cta-foot { flex-direction: column; text-align: center; }
   }
 </style>

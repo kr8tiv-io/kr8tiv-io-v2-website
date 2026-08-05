@@ -22,6 +22,34 @@ export interface Service {
   v: string; t: string; em: string; desc: string; tag: string; price: string;
 }
 
+/* ============================================================
+ * PRICING FLOORS  ·  edit these numbers here, nowhere else
+ * ------------------------------------------------------------
+ * These are ENGAGEMENT FLOORS ("from"), not teaser prices. The
+ * previous values ($50+ branding, $50+ video, $200+ web) were at
+ * war with the proposals this studio actually sends — a founder
+ * reading "Awwwards-level design" beside "$50+" concludes either
+ * the quality or the price is a lie, and it invites tire-kickers
+ * while handing real prospects a reason to negotiate down.
+ *
+ * The one deliberately accessible entry point (the starter site)
+ * survives — but it's framed as the bottom rung of a ladder in
+ * the services intro copy, not as the price of the house.
+ * ============================================================ */
+const FLOOR = {
+  starterWeb:  '$1,200+',
+  identity:    '$500+',
+  video:       '$400+',
+  ecom:        '$1,500+',
+  uxui:        '$1,500+',
+  industry:    '$600+',
+  packaging:   '$800+',
+  studio:      '$1,500+',
+  ads:         '$900+',
+  appProduct:  '$3,500+',
+  motion:      '$750+'
+} as const;
+
 /* Service videos are aligned to the original kr8tiv.io mapping. The
    live site assigns each discipline a specific loop — those reads
    carry intent (e.g. WEBSITE DESIGN → 2-4.mp4 monitor sweep, STUDIO →
@@ -30,17 +58,17 @@ export interface Service {
    video (3-4) for Packaging, and routed forrestbackground/8-1 to
    ads + app product instead of UX/UI's 8-1. Restored to original. */
 export const SERVICES: Service[] = [
-  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'We build sites that work, look sharp, and say something worth reading.',              tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: '$200+' },
-  { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Build a logo and company brand that captures and holds attention.',                   tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: '$50+'  },
-  { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                              tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: '$50+'  },
-  { v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                           tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: '$500+' },
-  { v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'We design user experiences people love — for web applications, mobile apps.',         tag: '/ 005 — Design for Print, Magazines, Music, Real Estate, Travel + Hospitality',       price: '$500+' },
-  { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Industry Design',    em: 'Industry',   desc: 'Specialized design for print and digital in luxury real estate, music.',              tag: '/ 006 — Design for Print, Magazines, Music, Real Estate, Travel + Hospitality',       price: '$100+' },
-  { v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                      tag: '/ 007 — Ritual-level Packaging Design',                                               price: '$300+' },
-  { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',              tag: '/ 008 — Web + A/V + Print Studio',                                                    price: '$600+' },
-  { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                  tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: '$400+' },
-  { v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                tag: '/ 010 — Native + Web App Product Design',                                             price: '$1k+'  },
-  { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                            tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: '$250+' }
+  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'We build sites that work, look sharp, and say something worth reading.',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
+  { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'A logo, a system, and a story that captures attention and holds it.',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
+  { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
+  { v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
+  { v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
+  { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Industry Design',    em: 'Industry',   desc: 'Specialized print and digital design for luxury real estate, music, travel, and hospitality.',             tag: '/ 006 — Design for Print, Magazines, Music, Real Estate, Travel + Hospitality',       price: FLOOR.industry   },
+  { v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           tag: '/ 007 — Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
+  { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
+  { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
+  { v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
+  { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
   /* AI Partnership panel removed at user request — the Design-34 loop
      (with on-video "Life, the universe, everything?" lettering) lived
      on the original kr8tiv.io as a manifesto piece, not a service. AI

@@ -228,6 +228,57 @@ const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noop
       padding: 44px 28px;
     }
   }
+
+  /* --- Small iPhones (320-430) ---------------------------------
+     Two problems, both from tracking that was tuned on a desktop:
+
+     · The eyebrow runs .36em. "NO OBLIGATION · 30 MIN" is ~250px at
+       that spacing, so on a 320px screen it wrapped and stranded
+       "MIN" alone on line two — an orphan in a three-word label.
+       Tightening the tracking gets it back on one line; capping the
+       tracking transition target stops the hover state re-breaking it.
+
+     · The whisper link measured 137x20 — a 20px-tall tap target on
+       a primary "Book a call". Apple's floor is 44. Padding it out
+       vertically fixes the target without moving the underline,
+       which stays pinned to the text via a bottom border on an
+       inline-block of the natural text height. --- */
+  @media (max-width: 430px) {
+    .inline-cta .eye {
+      font-size: 10px;
+      letter-spacing: .2em;
+    }
+    .inline-cta[data-variant="whisper"] .whisper {
+      padding: 30px 20px;
+      gap: 18px;
+      letter-spacing: .18em;
+      font-size: 11px;
+    }
+    .inline-cta[data-variant="whisper"] .whisper-link {
+      /* 11px line-height ~16px + 14px top + 14px bottom = 44px */
+      padding: 14px 4px;
+      display: inline-block;
+      border-bottom: 0;
+      /* Keep the underline on the glyphs, not on the padding box. */
+      text-decoration: underline;
+      text-decoration-color: var(--accent-1);
+      text-underline-offset: 5px;
+    }
+    .inline-cta[data-variant="whisper"] .whisper-link:hover {
+      letter-spacing: .24em;   /* was .42em — re-wrapped the line at 320 */
+    }
+    .inline-cta .cta-primary,
+    .inline-cta .cta-ghost {
+      letter-spacing: .2em;
+      padding: 18px 22px;
+      white-space: normal;     /* nowrap forced overflow at 320 */
+      text-align: center;
+    }
+    .inline-cta .cta-primary:hover { letter-spacing: .26em; }
+    .inline-cta .cta-ghost:hover { letter-spacing: .24em; }
+    .inline-cta .row { width: 100%; }
+    .inline-cta .row > a { flex: 1 1 100%; }
+  }
 </style>
 
 <script>

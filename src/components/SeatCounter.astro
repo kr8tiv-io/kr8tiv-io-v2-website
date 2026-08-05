@@ -1,8 +1,11 @@
 ---
 /**
- * SeatCounter — small pulsing "N slots remaining · Q2" pill.
- * Populated client-side by `initSeatCounter()` based on the current
- * week of the year (deterministic, not a fake-urgency ticker).
+ * SeatCounter — small pulsing "N slots open · Q3 2026" pill.
+ *
+ * Populated client-side by `initSeatCounter()` from the editable
+ * /availability.json. The evergreen fallback is inlined here as a data
+ * attribute so the pill reads honestly even before (or without) the
+ * fetch — see src/lib/seatCounter.ts for the staleness rules.
  *
  * Usage: <SeatCounter /> or <SeatCounter size="large" mode="current" />
  */
@@ -12,8 +15,15 @@ export interface Props {
   id?: string;
 }
 const { size = 'small', mode = 'current', id } = Astro.props;
+const EVERGREEN = 'Booking selectively · 2–3 engagements at a time';
 ---
-<span class={`seat-counter seat-${size}`} id={id} data-seat-counter={mode} role="status"></span>
+<span
+  class={`seat-counter seat-${size}`}
+  id={id}
+  data-seat-counter={mode}
+  data-seat-evergreen={EVERGREEN}
+  role="status"
+><span class="seat-dot" aria-hidden="true"></span><span class="seat-text">{EVERGREEN}</span></span>
 
 <style>
   .seat-counter {
@@ -81,5 +91,36 @@ const { size = 'small', mode = 'current', id } = Astro.props;
 
   @media (max-width: 640px) {
     .seat-counter :global(.seat-meta) { display: none; }
+  }
+
+  /* Small iPhones: at .22em tracking "1 SLOT OPEN · Q3 2026" is wider
+     than a 320px screen minus the pill's own padding, so it wrapped and
+     left "2026" stranded on its own line under the year it belongs to.
+     Tighter tracking + a smaller face keeps the whole claim on one
+     line, which is the point of a pill. */
+  @media (max-width: 430px) {
+    .seat-counter {
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      padding: 9px 14px;
+      gap: 8px;
+      max-width: calc(100vw - 40px);
+    }
+    .seat-counter.seat-large {
+      font-size: 11px;
+      letter-spacing: .14em;
+      padding: 12px 18px;
+      gap: 10px;
+    }
+    /* Only the quarter label is protected from breaking — that was the
+       actual complaint ("Q3" on one line, "2026" stranded on the next).
+       Do NOT nowrap .seat-text: it also carries the evergreen fallback
+       sentence ("Booking selectively · 2–3 engagements at a time"),
+       which is ~383px unbroken and pushed the body 34px past the
+       viewport on WebKit at 375 and 414. Whichever string is in the DOM
+       when you measure decides whether you see the bug — which is why
+       it looked intermittent. */
+    .seat-counter :global(.seat-q) { white-space: nowrap; }
+    .seat-counter :global(.seat-text) { min-width: 0; }
   }
 </style>

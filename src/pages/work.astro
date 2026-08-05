@@ -605,11 +605,19 @@ import {
   /* ─── 004 CODE VAULT grid ─── */
   .vault-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* minmax(0, 1fr), not 1fr. A `1fr` track has an automatic minimum of
+       min-content, so the track refuses to shrink below the widest
+       unbreakable thing inside the card — here the "OWN COMPANY ·
+       DESIGN" tag beside "12 REPOS" in the card head, both mono and
+       heavily tracked. On a 320px screen that pushed the card to 332px
+       and gave the whole /work/ page horizontal scroll. Every wider
+       phone had enough room to hide it. */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
   }
   .vault-card {
     display: flex; flex-direction: column; gap: 18px;
+    min-width: 0;   /* flex items get the same auto-minimum as grid tracks */
     padding: 28px 26px;
     border: 1px solid var(--edge);
     border-radius: 6px;
@@ -625,6 +633,8 @@ import {
   .vault-head {
     display: flex; justify-content: space-between; align-items: center;
     gap: 12px;
+    flex-wrap: wrap;   /* tag + repo count stack rather than force width */
+    min-width: 0;
   }
   .vault-count {
     font-family: 'JetBrains Mono', monospace;
@@ -748,7 +758,7 @@ import {
     .sel-card:nth-child(even) { direction: ltr; }
     .brandkit-grid { grid-template-columns: 1fr; }
     .lab-grid { grid-template-columns: 1fr; }
-    .vault-grid { grid-template-columns: 1fr; }
+    .vault-grid { grid-template-columns: minmax(0, 1fr); }
     .tier-head {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto auto;
