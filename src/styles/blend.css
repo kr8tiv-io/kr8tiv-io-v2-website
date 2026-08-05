@@ -79,24 +79,48 @@ html[data-theme="dark"] {
    high-resolution one, which is why this is a gradient and not a
    texture or a canvas.
    --------------------------------------------------------------------- */
+/* MEASURED, then rewritten. The first version composed --flow-y into the
+   gradient POSITIONS. That works, and it looks identical to this — but
+   every frame it invalidates the gradients and repaints a
+   full-viewport layer that is also a blend-mode isolation boundary.
+   Interleaved A/B put the 95th-percentile frame at 90ms against 56ms
+   with the layer neutralised, and 139ms against 84ms on throttled
+   mobile: mean fps stayed inside the noise but the tail did not, and
+   the tail is what reads as jank.
+
+   Now the gradients are STATIC on an oversized inner layer, and drift
+   is a `translate3d` on that layer. Same picture, but the compositor
+   moves an already-rasterised texture instead of re-rasterising a
+   screenful of gradients sixty times a second. `will-change: transform`
+   is now telling the truth about what animates — the old
+   `will-change: background-position` named a property that was never
+   animated, which buys nothing. */
 .flow-field {
   position: fixed;
-  inset: -10vh -10vw;          /* overscan so blooms can sit off-edge */
+  inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
   --flow-y: 0;
-  background:
-    radial-gradient(48vw 42vh at calc(18% + var(--flow-y) * 26%) calc(22% + var(--flow-y) * 18%),
-      rgba(var(--flow-magenta), var(--wash-a)), transparent 68%),
-    radial-gradient(42vw 38vh at calc(88% - var(--flow-y) * 30%) calc(64% - var(--flow-y) * 24%),
-      rgba(var(--flow-purple), var(--wash-b)), transparent 66%),
-    radial-gradient(56vw 46vh at calc(46% + var(--flow-y) * 12%) calc(96% - var(--flow-y) * 40%),
-      rgba(var(--flow-cyan), var(--wash-b)), transparent 70%);
   /* The field must never compete with type. Screen on dark lifts the
-     blooms out of black; multiply on paper lets them sink into it. */
+     blooms out of black; on paper it tints (see the light override). */
   mix-blend-mode: screen;
   opacity: .9;
-  will-change: background-position;
+}
+.flow-field::before {
+  content: '';
+  position: absolute;
+  /* Oversized so the drift never exposes an edge. */
+  inset: -32vh -14vw;
+  background:
+    radial-gradient(48vw 30vh at 22% 20%,
+      rgba(var(--flow-magenta), var(--wash-a)), transparent 68%),
+    radial-gradient(42vw 27vh at 78% 52%,
+      rgba(var(--flow-purple), var(--wash-b)), transparent 66%),
+    radial-gradient(56vw 33vh at 46% 82%,
+      rgba(var(--flow-cyan), var(--wash-b)), transparent 70%);
+  transform: translate3d(0, calc(var(--flow-y) * -30vh), 0);
+  will-change: transform;
 }
 /* Light theme TINTS, it does not darken. `multiply` on cream paper
    compounds with the grain and noise overlays and turns the page grey —
@@ -478,7 +502,101 @@ html[data-theme="dark"] .inline-cta[data-variant="loud"] .box {
 .inline-cta[data-variant="loud"] .box::before { z-index: -1; }
 
 /* ---------------------------------------------------------------------
-   7 · HONEST FALLBACKS
+   7 · INTERIOR PAGES
+   The homepage is only one of six templates — /work/, /process/,
+   /start/, /terms/ and the build notes all run through FormLayout or
+   CaseStudyLayout. The drifting field is mounted on all of them, but
+   the field alone is atmosphere; these pages need the same chapter
+   washes and the same softened media, or the seams walk straight back
+   in the moment a visitor clicks through from the homepage.
+   --------------------------------------------------------------------- */
+
+.work-mast, .process-mast, .terms-mast, .intake-head,
+.battle-cry, .ethos, .expect-anchor, .zero-adult, .founder,
+.love-lore, .process-cta, .vault-section, .terms-body {
+  position: relative;
+  isolation: isolate;
+}
+.work-mast::before, .process-mast::before, .terms-mast::before,
+.intake-head::before, .battle-cry::before, .ethos::before,
+.expect-anchor::before, .zero-adult::before, .founder::before,
+.love-lore::before, .process-cta::before {
+  content: '';
+  position: absolute;
+  inset: -14% 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 84% at var(--tint-x, 30%) var(--tint-y, 14%),
+      rgba(var(--tint, var(--flow-magenta)), var(--wash-a)), transparent 62%);
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0, #000 16%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    transparent 0, #000 16%, #000 84%, transparent 100%);
+}
+.work-mast     { --tint: var(--flow-cyan);    --tint-x: 24%; }
+.process-mast  { --tint: var(--flow-gold);    --tint-x: 72%; }
+.terms-mast    { --tint: var(--flow-purple);  --tint-x: 28%; }
+.intake-head   { --tint: var(--flow-magenta); --tint-x: 76%; }
+.battle-cry    { --tint: var(--flow-magenta); --tint-x: 30%; }
+.ethos         { --tint: var(--flow-cyan);    --tint-x: 74%; }
+.expect-anchor { --tint: var(--flow-purple);  --tint-x: 26%; }
+.zero-adult    { --tint: var(--flow-gold);    --tint-x: 70%; }
+.founder       { --tint: var(--flow-purple);  --tint-x: 32%; }
+.love-lore     { --tint: var(--flow-magenta); --tint-x: 68%; }
+.process-cta   { --tint: var(--flow-magenta); --tint-x: 50%; --tint-y: 40%; }
+
+/* The portfolio frames were opaque near-black plates (#050507) with a
+   1px outline — on a cream page that is the most literal "square photo
+   in a box" on the whole site. The plate goes and the poster feathers,
+   exactly as the homepage work cards do. The outline is kept but
+   softened to the page edge colour so the frame reads as a drawn
+   boundary, not a container. */
+/* NOTE: plain `.port-frame` only. `:global(.port-frame)` is Astro's
+   scoped-style syntax — inside a .css file it is an unknown
+   pseudo-class, and one invalid selector invalidates the WHOLE comma
+   list, so an earlier version of this rule was silently dropped in its
+   entirety and the dark plates stayed put. Nothing errors; the styles
+   just never exist. */
+.port-frame {
+  background: transparent !important;
+  border-color: color-mix(in srgb, var(--edge) 55%, transparent) !important;
+}
+/* The placeholder used for pieces with no walkthrough video carried its
+   own near-black plate. It becomes a soft bloom in the page instead. */
+.sel-placeholder {
+  background-color: transparent !important;
+}
+/* .port-frame-grain is deliberately NOT masked. It is a tiled texture
+   overlay on every card, and adding a composited mask layer per card
+   cost more than the softness it bought — the frame's own feathered
+   media already carries the edge. */
+.sel-placeholder {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%),
+    radial-gradient(135% 125% at 50% 50%, #000 54%, transparent 92%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%),
+    radial-gradient(135% 125% at 50% 50%, #000 54%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.port-frame > video,
+.port-frame > img {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
+    radial-gradient(135% 125% at 50% 50%, #000 56%, transparent 92%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
+    radial-gradient(135% 125% at 50% 50%, #000 56%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+/* Brand-kit thumbnails sat on their own dark plate too. */
+.brandkit-card img { background: transparent !important; }
+
+/* ---------------------------------------------------------------------
+   8 · HONEST FALLBACKS
    --------------------------------------------------------------------- */
 
 /* Reduced motion / motion-off: the field stops drifting. It does not

@@ -10,6 +10,7 @@ import '@styles/core.css';
 import '@styles/intake.css';
 import '@styles/light-theme.css';  /* cohesive light palette */
 import '@styles/responsive.css';   /* mobile + tablet overrides */
+import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
 import '@styles/elevate.css';      /* premium interaction layer — hovers, card physics, brand chrome */
 import Nav from '@components/Nav.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
@@ -86,6 +87,10 @@ const {
 </head>
 <body>
   <LogoSymbol />
+  {/* The same drifting atmosphere as the homepage. The blending has to
+      be sitewide or the seams reappear the moment a visitor clicks
+      through to /work/ or /process/ — see blend.css. */}
+  <div class="flow-field" aria-hidden="true"></div>
   <div class="noise"></div>
   <div class="cur" id="cur"><span class="l" id="cur-l"></span></div>
   <div class="prog" id="prog"></div>
@@ -141,7 +146,19 @@ const {
         .catch((err) => console.error('[KR8] cursor import failed:', err));
     }
 
+    // Section blending drives one custom property per frame — core, not
+    // deferred, or these pages render their seams flat for a beat.
+    import('@lib/sectionFlow')
+      .then((m) => safe('sectionFlow', () => m.initSectionFlow()))
+      .catch((err) => console.error('[KR8] sectionFlow import failed:', err));
+
     onIdle(() => {
+      // Aurora is an enhancement on a complete CSS field; self-gates on
+      // device class inside.
+      import('@lib/auroraField')
+        .then((m) => safe('auroraField', () => m.initAuroraField()))
+        .catch(() => { /* CSS field is the design; nothing to report */ });
+
       if (phoneClassTouch) {
         import('@lib/seatCounter')
           .then((seats) => safe('seatCounter', () => seats.initSeatCounter()))
