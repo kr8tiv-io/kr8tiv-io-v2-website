@@ -99,6 +99,16 @@
    ===================================================================== */
 @media (max-width: 720px) {
 
+  /* Chapter rail: never wider than the screen, and sit above the iOS
+     home indicator. The matching lift for the floating CTA pill (which
+     used to land on top of chapter "10") lives in FloatingCTA.astro —
+     its styles are Astro-scoped, so an unscoped rule here loses on
+     specificity no matter how late it's imported. */
+  .variant-bar {
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    max-width: calc(100vw - 24px);
+  }
+
   /* === Hero splash logo scale ===
      The reveal-svg uses preserveAspectRatio="xMidYMid slice", which on
      narrow portrait viewports zooms the 1920×1080 viewBox to cover —

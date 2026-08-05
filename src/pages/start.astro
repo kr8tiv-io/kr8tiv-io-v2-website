@@ -6,7 +6,7 @@ import FormLayout from '@layouts/FormLayout.astro';
 const startFaqs = [
   {
     q: 'What should I include when contacting KR8TIV?',
-    a: 'Tell us who you are, what you\'re building, a rough budget range, and a target timeline. Attachments like pitch decks, brand guides, and references help but aren\'t required. The full intake form covers ten sections — it takes about eight minutes and auto-saves as you go.'
+    a: 'Only four things are required: who you are, what you\'re building, a short description, and a rough budget range — about two minutes. The form has ten sections in total, but everything past section four is optional depth (goals, audience, competitors, tech, taste). Attachments like pitch decks, brand guides, and references help but aren\'t required. It auto-saves as you go.'
   },
   {
     q: 'Do I have to fill out the whole form, or can I just talk?',
@@ -55,7 +55,7 @@ const startFaqs = [
       <header class="intake-head">
         <div class="label"><span class="b"></span>INTAKE · PROJECT REQUEST</div>
         <h1>Let's make <em>something</em><br />worth remembering.</h1>
-        <p>Ten sections. About eight minutes. We auto-save as you go — refresh, close the tab, come back tomorrow. Your answers are stored locally until you hit submit. All fields marked with <span style="color:var(--accent-1)">✦</span> are required.</p>
+        <p><strong style="font-weight:500;">Four short sections is enough to send this.</strong> Only the fields marked <span style="color:var(--accent-1)">✦</span> are required — who you are, what you&rsquo;re making, and a rough budget. Everything after that is optional depth for people who think better in writing; fill in as much or as little as you like. We auto-save as you go, so you can close the tab and come back tomorrow. Your answers stay in this browser until you hit submit.</p>
 
         <aside class="intake-shortcut" aria-label="Prefer to just talk?" style="margin-top:32px; padding:28px 32px; border:1px solid var(--edge); border-left:3px solid var(--accent-1); border-radius:4px; background:rgba(255,106,213,.04); max-width:720px;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent-1); margin-bottom:10px;">Prefer to just talk?</div>
@@ -263,9 +263,14 @@ const startFaqs = [
           <h2>What does <em>success</em> look like?</h2>
           <p>Not vague things. Real outcomes. "We want to feel premium" is fine — but "we want to close our Series A with this deck" is better.</p>
 
+          {/* Was required. Sections 01–04 are all we actually need to
+              open a conversation; forcing two long-form essays before
+              the submit button unlocks is what turned a first touch
+              into an eight-minute commitment. Still asked, still the
+              most useful thing on the page — just no longer a gate. */}
           <div class="field">
-            <label for="goals">Success, in your words <span class="req">✦</span></label>
-            <textarea id="goals" name="goals" required placeholder="By launch we want X. A year from now we want Y. The one thing I'd regret not having is Z."></textarea>
+            <label for="goals">Success, in your words</label>
+            <textarea id="goals" name="goals" placeholder="By launch we want X. A year from now we want Y. The one thing I'd regret not having is Z."></textarea>
           </div>
           <div class="field">
             <label for="kpi">Primary KPI (optional)</label>
@@ -281,8 +286,8 @@ const startFaqs = [
           <p>The more specific, the better we can tune the work. One ideal person beats a demographic spreadsheet.</p>
 
           <div class="field">
-            <label for="audience_desc">Describe your ideal customer <span class="req">✦</span></label>
-            <textarea id="audience_desc" name="audience_desc" required placeholder="31-year-old product designer at a Series-A startup, reads The Generalist, followed Lando Norris before it was cool."></textarea>
+            <label for="audience_desc">Describe your ideal customer</label>
+            <textarea id="audience_desc" name="audience_desc" placeholder="31-year-old product designer at a Series-A startup, reads The Generalist, followed Lando Norris before it was cool."></textarea>
           </div>
           <div class="field-row">
             <div class="field">

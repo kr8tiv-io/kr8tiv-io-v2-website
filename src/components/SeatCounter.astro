@@ -1,8 +1,11 @@
 ---
 /**
- * SeatCounter — small pulsing "N slots remaining · Q2" pill.
- * Populated client-side by `initSeatCounter()` based on the current
- * week of the year (deterministic, not a fake-urgency ticker).
+ * SeatCounter — small pulsing "N slots open · Q3 2026" pill.
+ *
+ * Populated client-side by `initSeatCounter()` from the editable
+ * /availability.json. The evergreen fallback is inlined here as a data
+ * attribute so the pill reads honestly even before (or without) the
+ * fetch — see src/lib/seatCounter.ts for the staleness rules.
  *
  * Usage: <SeatCounter /> or <SeatCounter size="large" mode="current" />
  */
@@ -12,8 +15,15 @@ export interface Props {
   id?: string;
 }
 const { size = 'small', mode = 'current', id } = Astro.props;
+const EVERGREEN = 'Booking selectively · 2–3 engagements at a time';
 ---
-<span class={`seat-counter seat-${size}`} id={id} data-seat-counter={mode} role="status"></span>
+<span
+  class={`seat-counter seat-${size}`}
+  id={id}
+  data-seat-counter={mode}
+  data-seat-evergreen={EVERGREEN}
+  role="status"
+><span class="seat-dot" aria-hidden="true"></span><span class="seat-text">{EVERGREEN}</span></span>
 
 <style>
   .seat-counter {

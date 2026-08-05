@@ -1,0 +1,213 @@
+/* KR8TIV elevate — premium interaction layer (August 2026).
+   Additive polish over core.css: richer hover states, card physics
+   hooks, brand selection/scrollbar/focus, and touch feedback. Every
+   color rides the existing CSS variables so the light theme inherits
+   for free. All motion is gated behind prefers-reduced-motion and
+   html.motion-off, matching the site's established contract. */
+
+/* === Brand text selection === */
+::selection {
+  background: var(--accent-1);
+  color: #050507;
+  text-shadow: none;
+}
+
+/* === Thin brand scrollbar (desktop) === */
+@media (pointer: fine) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(242, 241, 236, .18) transparent;
+  }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(242, 241, 236, .16);
+    border: 3px solid var(--bg);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-1); }
+  html[data-theme="light"] { scrollbar-color: rgba(10, 10, 12, .22) transparent; }
+  html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(10, 10, 12, .18); }
+  html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: var(--accent-2); }
+}
+
+/* === Focus ring worthy of the brand (keyboard users) === */
+:focus-visible {
+  outline: 1.5px solid var(--accent-1);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* === Headline rag control — balances multi-line serif headings so
+   no orphan word hangs alone, across every viewport. Progressive
+   enhancement; older browsers simply ignore it. === */
+.chapter-title,
+.doctrine-head h2,
+.work-head h2,
+.contact-head h2,
+.reel-inner h2,
+.stmt p {
+  text-wrap: balance;
+}
+
+/* ============================================================
+   WORK CARDS — museum-plinth treatment
+   JS (cardTilt.ts) drives --rx/--ry (tilt) and --mx/--my (specular
+   position). Without JS the card falls back to the original scale
+   hover, so nothing depends on the script existing.
+   ============================================================ */
+.work-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --sheen: 0;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+
+/* Hairline gradient frame that ignites on hover — conic spectrum
+   echoing the prism, masked to a 1px border so it reads as a lit
+   edge, not a sticker. */
+.work-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  padding: 1px;
+  background: conic-gradient(from 210deg at 50% 50%,
+    var(--accent-3), var(--accent-4), var(--accent-1),
+    var(--accent-2), var(--accent-3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity .55s cubic-bezier(.22, 1, .36, 1);
+}
+.work-card:hover::after,
+.work-card:focus-within::after { opacity: .75; }
+
+/* Specular highlight that follows the cursor — a soft light source
+   gliding across the poster/video surface. */
+.work-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, .14), transparent 60%);
+  mix-blend-mode: screen;
+  opacity: calc(var(--sheen) * 1);
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Meta bar choreography: tag tracks open, title lifts, an arrow
+   glyph surfaces from the right. */
+.work-card .meta .tag {
+  transition: letter-spacing .5s cubic-bezier(.22, 1, .36, 1), color .5s cubic-bezier(.22, 1, .36, 1);
+}
+.work-card:hover .meta .tag { letter-spacing: .42em; color: var(--accent-4); }
+.work-card .meta h3 {
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+.work-card:hover .meta h3 { transform: translateY(-3px); }
+.work-card .meta::after {
+  content: '\2197';                 /* ↗ */
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  color: var(--accent-1);
+  opacity: 0;
+  transform: translate(-8px, 8px);
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1), transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.work-card:hover .meta::after { opacity: 1; transform: translate(0, 0); }
+
+/* ============================================================
+   CONTACT CTAS — ink-fill sweep
+   The border pair the site already has, plus a bottom-up fill that
+   inverts the label. Fill color rides --ink so light theme inverts
+   correctly (dark text bg -> cream label and vice versa).
+   ============================================================ */
+.contact-cta a {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    border-color .4s var(--ease),
+    letter-spacing .4s var(--ease),
+    color .45s cubic-bezier(.22, 1, .36, 1);
+}
+.contact-cta a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+.contact-cta a:hover { color: var(--bg); }
+.contact-cta a:hover::before { transform: scaleY(1); }
+
+/* ============================================================
+   FOOTER LINKS — underline slide (replaces opacity-only hover)
+   ============================================================ */
+.foot-col ul li a {
+  background-image: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: opacity .3s var(--ease), background-size .45s cubic-bezier(.22, 1, .36, 1);
+}
+.foot-col ul li a:hover { background-size: 100% 1px; }
+
+/* ============================================================
+   DOCTRINE STATEMENTS — accent rule grows in on hover alongside
+   the existing padding shift.
+   ============================================================ */
+.stmt { position: relative; }
+.stmt::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.stmt:hover::before { transform: scaleY(1); }
+
+/* ============================================================
+   TOUCH FEEDBACK — phones and tablets have no hover; give cards
+   and CTAs a tactile press so taps feel acknowledged.
+   ============================================================ */
+@media (hover: none) {
+  .work-card:active { transform: scale(.985); transition-duration: .18s; }
+  .contact-cta a:active { transform: scale(.97); transition-duration: .15s; }
+  /* Meta arrow is hover-gated on desktop; on touch keep it visible
+     so the affordance isn't lost. */
+  .work-card .meta::after { opacity: .8; transform: none; }
+}
+
+/* ============================================================
+   MOTION CONTRACT — flatten everything under reduced motion or the
+   site's own motion toggle. Cards stay interactive, just still.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .work-card { transform: none !important; }
+  .work-card::before { display: none; }
+  .contact-cta a::before { transition: none; }
+  .stmt::before { transition: none; }
+}
+html.motion-off .work-card { transform: none !important; }
+html.motion-off .work-card::before { display: none; }

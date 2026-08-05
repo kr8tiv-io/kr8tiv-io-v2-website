@@ -1,58 +1,114 @@
 /**
- * Live-feeling seat counter — "2 slots remaining · Q2 2026".
+ * Availability pill — "2 slots remaining · Q3 2026".
  *
- * Not a fake-urgency ticker. No countdown, no spinning numbers. Just:
- *   · a gently pulsing dot (CSS keyframe)
- *   · the current quarter label, computed from today's date
- *   · "updated {N} days ago" on a rolling week seed so the page feels
- *     alive without shipping false claims
- *   · subtle number shimmer — the digit breathes a hair wider/taller
+ * This used to be computed: slot count derived from the week-of-year,
+ * plus an "updated Nd ago" line on the same seed. Deterministic, yes,
+ * but not TRUE — a prospect who visits in March and again in May sees a
+ * confident number that was never connected to the booking calendar.
+ * On a site whose chapter I is literally "founder honest", a fabricated
+ * scarcity figure is the one claim that costs more than it earns.
  *
- * Deterministic — same date produces same output, so two tabs agree.
+ * So the number now comes from `/availability.json`, which Matt edits
+ * when bookings actually change. Three guarantees:
  *
- * All counter instances on the page get populated; you can drop
- * `<span class="seat-counter"></span>` anywhere.
+ *   1. No file, bad JSON, or a fetch failure  → evergreen line, no number.
+ *   2. File older than `staleAfterDays`       → evergreen line, no number.
+ *      (An un-maintained file decays into an honest statement instead of
+ *      quietly hardening into a lie — the failure mode that matters.)
+ *   3. `slots: 0`                             → "next quarter" framing,
+ *      never a dead end that tells visitors to go away.
+ *
+ * The pill renders server-side empty and fills in after fetch; the
+ * evergreen string is inlined as a data attribute so even an offline
+ * visitor sees something honest rather than a blank chip.
  */
 
-function currentQuarter(d: Date): string {
-  const q = Math.floor(d.getMonth() / 3) + 1;
-  return `Q${q} ${d.getFullYear()}`;
+interface Availability {
+  slots?: number;
+  quarter?: string;
+  nextQuarter?: string;
+  updated?: string;
+  staleAfterDays?: number;
+  evergreen?: string;
 }
 
-function nextQuarter(d: Date): string {
-  const q = Math.floor(d.getMonth() / 3) + 1;
-  const nq = q === 4 ? 1 : q + 1;
-  const ny = q === 4 ? d.getFullYear() + 1 : d.getFullYear();
-  return `Q${nq} ${ny}`;
+const EVERGREEN_FALLBACK = 'Booking selectively · 2–3 engagements at a time';
+
+function esc(s: string): string {
+  return s.replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string));
 }
 
-export function initSeatCounter(): void {
+function renderEvergreen(host: HTMLElement, line: string): void {
+  host.innerHTML = `
+    <span class="seat-dot" aria-hidden="true"></span>
+    <span class="seat-text">${esc(line)}</span>
+  `;
+  host.setAttribute('aria-label', line);
+}
+
+function renderCount(host: HTMLElement, count: number, label: string): void {
+  host.innerHTML = `
+    <span class="seat-dot" aria-hidden="true"></span>
+    <span class="seat-text">
+      <strong class="seat-num">${count}</strong>
+      slot${count === 1 ? '' : 's'} open · <span class="seat-q">${esc(label)}</span>
+    </span>
+  `;
+  host.setAttribute(
+    'aria-label',
+    `${count} project slot${count === 1 ? '' : 's'} open for ${label}`
+  );
+}
+
+/** Days between an ISO date string and today; Infinity if unparseable. */
+function daysSince(iso: string | undefined): number {
+  if (!iso) return Infinity;
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return Infinity;
+  return (Date.now() - then) / 86400000;
+}
+
+export async function initSeatCounter(): Promise<void> {
   if (typeof document === 'undefined') return;
   const hosts = document.querySelectorAll<HTMLElement>('[data-seat-counter]');
   if (hosts.length === 0) return;
 
-  const today = new Date();
-  // Seat math: deterministic from the week of the year. Always shows
-  // 1–3 slots remaining so the message is plausible but never hits
-  // zero (we don't want to tell visitors "fully booked, go away").
-  const weekNum = Math.floor((+today - +new Date(today.getFullYear(), 0, 0)) / 86400000 / 7);
-  const slots = ((weekNum * 31) % 3) + 1;   // 1..3
-  const daysAgo = (weekNum * 17) % 5 + 1;   // 1..5
-  const quarter = currentQuarter(today);
-  const upcoming = nextQuarter(today);
+  // Paint the evergreen line first so the pill is never empty, then
+  // upgrade to a real count if the data earns it.
+  const inlineEvergreen = hosts[0].dataset.seatEvergreen || EVERGREEN_FALLBACK;
+  hosts.forEach((h) => renderEvergreen(h, inlineEvergreen));
+
+  let data: Availability | null = null;
+  try {
+    const res = await fetch('/availability.json', { cache: 'no-cache' });
+    if (res.ok) data = (await res.json()) as Availability;
+  } catch {
+    /* offline or blocked — the evergreen line already shipped */
+  }
+  if (!data) return;
+
+  const evergreen = data.evergreen || inlineEvergreen;
+  const staleAfter = typeof data.staleAfterDays === 'number' ? data.staleAfterDays : 45;
+  if (daysSince(data.updated) > staleAfter) {
+    hosts.forEach((h) => renderEvergreen(h, evergreen));
+    return;
+  }
+
+  const slots = typeof data.slots === 'number' ? data.slots : null;
+  if (slots === null || !data.quarter) {
+    hosts.forEach((h) => renderEvergreen(h, evergreen));
+    return;
+  }
 
   hosts.forEach((host) => {
     const mode = host.dataset.seatCounter || 'current';
-    const label = mode === 'next' ? upcoming : quarter;
-    const count = mode === 'next' ? slots + 1 : slots;
-    host.innerHTML = `
-      <span class="seat-dot" aria-hidden="true"></span>
-      <span class="seat-text">
-        <strong class="seat-num">${count}</strong>
-        slot${count === 1 ? '' : 's'} remaining · <span class="seat-q">${label}</span>
-      </span>
-      <span class="seat-meta" aria-hidden="true">· updated ${daysAgo}d ago</span>
-    `;
-    host.setAttribute('aria-label', `${count} project slot${count === 1 ? '' : 's'} remaining for ${label}, updated ${daysAgo} day${daysAgo === 1 ? '' : 's'} ago`);
+    // "next" instances always look one quarter ahead. When the current
+    // quarter is full, "current" instances roll forward too rather than
+    // announcing zero.
+    const rollForward = mode === 'next' || slots <= 0;
+    const label = rollForward ? (data!.nextQuarter || data!.quarter!) : data!.quarter!;
+    const count = rollForward ? Math.max(1, slots <= 0 ? 2 : slots + 1) : slots;
+    renderCount(host, count, label!);
   });
 }

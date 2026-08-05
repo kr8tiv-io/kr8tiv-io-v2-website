@@ -199,12 +199,24 @@ import { KR8TIV_LOGO_D } from '@lib/content';
   if (heroVid) {
     heroVid.muted = true;
     heroVid.playsInline = true;
-    const kick = () => { heroVid.play().catch(() => {}); };
+    // The hero loop is the single biggest piece of motion on the page,
+    // so the visible motion toggle has to reach it too — otherwise
+    // "motion off" leaves a full-bleed video running behind the
+    // wordmark. lazyVideo.ts owns every other video; the hero is
+    // preload="metadata" so it lives outside that observer.
+    const motionOff = () => document.documentElement.classList.contains('motion-off');
+    const kick = () => { if (!motionOff()) heroVid.play().catch(() => {}); };
     kick();
     // Second kick after a tick in case the first race'd metadata load.
     heroVid.addEventListener('loadedmetadata', kick, { once: true });
     // And a pointer-down fallback — any user interaction unblocks autoplay.
     document.addEventListener('pointerdown', kick, { once: true });
+    new MutationObserver(() => {
+      if (motionOff()) {
+        heroVid.pause();
+        try { heroVid.currentTime = 0; } catch { /* not seekable yet */ }
+      } else { kick(); }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
 
   // Logo + kanji hover glow zones

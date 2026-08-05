@@ -279,6 +279,21 @@ html.motion-off .kword-inner { animation: none; }
   margin-bottom: 56px;
   position: static;
 }
+/* Live availability inside the ethos meta column. Reuses the seat
+   counter's data hook (so it tracks /availability.json) but renders as
+   plain mono text — the pill chrome belongs on CTAs, not in a spec
+   column. The dot is dropped; the number inherits the column's case. */
+.ethos .ethos-avail { display: inline; }
+.ethos .ethos-avail .seat-dot { display: none; }
+.ethos .ethos-avail .seat-text { display: inline; }
+.ethos .ethos-avail .seat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  color: var(--accent-1);
+  margin-right: .35em;
+}
+.ethos .ethos-avail .seat-q { color: var(--accent-4); }
+
 .ethos .body {
   font-family: 'Instrument Serif', serif;
   font-size: clamp(28px, 2.6vw, 40px);

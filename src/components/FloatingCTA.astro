@@ -39,7 +39,7 @@
       <span class="fcta-emoji" aria-hidden="true">✎</span>
       <span>
         <strong>Fill the intake</strong>
-        <span class="sub">Ten sections · auto-saves · ~8 min</span>
+        <span class="sub">Four required fields · auto-saves · ~2 min</span>
       </span>
     </a>
     <a href="/process/" class="fcta-row" role="menuitem">
@@ -241,6 +241,20 @@
     .fcta-panel { width: calc(100vw - 32px); }
     .fcta-main .fcta-label { display: none; }
     .fcta-main { padding: 14px; }
+  }
+
+  /* Phones: clear the chapter rail.
+     The rail (.variant-bar) is fixed at bottom:24px, centered, 305px
+     wide. This pill collapses to a 61px circle at bottom:16px right:16px,
+     so its left edge is `100vw - 77` and the rail's right edge is
+     `(100vw + 305) / 2` — they cross below ~459px. On a 390px screen
+     that put the pill directly on top of chapter "10" at z-index 9500,
+     swallowing the last stop of the site's own navigation.
+     No horizontal room exists at this width, so stack: lift the pill
+     over the rail (24px offset + 38px tall + a ~20px gap) and take the
+     iOS home-indicator inset with it. */
+  @media (max-width: 480px) {
+    .fcta { bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
   }
 
   @media (prefers-reduced-motion: reduce) {

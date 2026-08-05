@@ -158,6 +158,23 @@ nav .nav-progress {
 }
 @media (max-width: 880px) { nav .nav-progress { display: none; } }
 
+/* The nav grid is `1fr auto 1fr`; the link row sits in the middle
+   `auto` column and lays out at a fixed ~533px regardless of viewport.
+   Measured: brand + 533 + the control cluster stops fitting just under
+   880px — at 768px the right-hand cluster ended at x=811, so 43px of
+   the shatter/menu button hung off the screen and the menu was simply
+   unreachable on tablets and small laptops. (It went unnoticed because
+   the links are opacity:0 until the "final" nav state, so the column
+   was invisible but still claiming its width.)
+   880px is already this nav's collapse point — it's where ⌘K and the
+   progress readout drop out — so the link row joins them, and the grid
+   stops reserving space for a column that no longer renders. The
+   Kintsugi shatter menu and Oracle carry navigation below this size. */
+@media (max-width: 880px) {
+  nav { grid-template-columns: 1fr auto; }   /* brand · controls */
+  nav .nav-mid { display: none; }
+}
+
 nav .nav-r { justify-self: end; display: flex; gap: 10px; align-items: center; }
 
 /* Oracle ⌘K button in nav */
