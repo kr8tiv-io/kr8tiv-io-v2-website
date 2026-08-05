@@ -284,8 +284,9 @@ html[data-theme="light"] .interlude {
    neither simply gets the unfeathered image, which is the old
    behaviour, not a broken one.
    --------------------------------------------------------------------- */
-.interlude-frame,
-.work-card,
+/* FULL-BLEED backgrounds: feather top and bottom only. They are meant to
+   run the width of the screen, so a horizontal feather would just draw a
+   vignette on the viewport edges. */
 .reel-bg,
 .why-bg {
   -webkit-mask-image:
@@ -294,6 +295,27 @@ html[data-theme="light"] .interlude {
   mask-image:
     linear-gradient(to bottom, transparent 0, #000 16%, #000 84%, transparent 100%),
     radial-gradient(130% 120% at 50% 50%, #000 52%, transparent 88%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* CARDS sitting inside the page need BOTH axes. The radial above never
+   reaches zero horizontally on a wide card — at the left edge the
+   distance is 0.5w against a 1.3w radius, i.e. 38%, still inside the
+   52% solid stop — so the work cards kept crisp vertical edges while
+   their tops and bottoms dissolved. Measured on the finished build, not
+   assumed. An explicit horizontal feather fixes what the ellipse
+   cannot. */
+.interlude-frame,
+.work-card {
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 15%, #000 85%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 15%, #000 85%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
@@ -405,6 +427,52 @@ html[data-theme="light"] .interlude {
 /* The marquee is bounded on both sides; give it a matching lower rule. */
 .marquee-wrap::marker { content: none; }
 .marquee-wrap { --marquee-rule: 1; }
+
+/* Vertical accent rules get the same treatment as the horizontal ones.
+   The manifesto's three quote cards each carried `border-left: 1px`, and
+   stacked at a 48px gap the eye joins them into one unbroken line down
+   the middle of the chapter — the exact hard edge the rest of this file
+   exists to remove. Now a gradient that fades at both ends, so each
+   card is marked without being fenced. */
+.why-right .q {
+  border-left-color: transparent !important;
+  position: relative;
+}
+.why-right .q::after {
+  content: '';
+  position: absolute;
+  left: -1px; top: 0; bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    transparent 0, var(--edge) 18%, var(--edge) 82%, transparent 100%);
+  transition: background .6s cubic-bezier(.22, 1, .36, 1);
+}
+.why-right .q:hover::after {
+  background: linear-gradient(to bottom,
+    transparent 0,
+    rgba(var(--flow-magenta), .75) 18%,
+    rgba(var(--flow-magenta), .75) 82%,
+    transparent 100%);
+}
+
+/* The intake page's "prefer to just talk?" aside had a 3px accent bar. */
+.intake-shortcut {
+  border-left-color: transparent !important;
+  position: relative;
+}
+.intake-shortcut::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    transparent 0,
+    rgba(var(--flow-magenta), .8) 16%,
+    rgba(var(--flow-magenta), .8) 84%,
+    transparent 100%);
+}
 
 /* The big CTA's separator was a full-bleed 1px bar. */
 .big-cta::before {
@@ -574,21 +642,25 @@ html[data-theme="dark"] .inline-cta[data-variant="loud"] .box {
 .sel-placeholder {
   -webkit-mask-image:
     linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%),
-    radial-gradient(135% 125% at 50% 50%, #000 54%, transparent 92%);
+    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
   mask-image:
     linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%),
-    radial-gradient(135% 125% at 50% 50%, #000 54%, transparent 92%);
+    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
 .port-frame > video,
 .port-frame > img {
   -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
-    radial-gradient(135% 125% at 50% 50%, #000 56%, transparent 92%);
+    linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 10%, #000 90%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 58%, transparent 94%);
   mask-image:
-    linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%),
-    radial-gradient(135% 125% at 50% 50%, #000 56%, transparent 92%);
+    linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%),
+    linear-gradient(to right,  transparent 0, #000 10%, #000 90%, transparent 100%),
+    radial-gradient(135% 130% at 50% 50%, #000 58%, transparent 94%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
