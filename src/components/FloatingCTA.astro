@@ -257,17 +257,25 @@
     .fcta-main { padding: 14px; }
   }
 
-  /* Phones: clear the chapter rail.
-     The rail (.variant-bar) is fixed at bottom:24px, centered, 305px
-     wide. This pill collapses to a 61px circle at bottom:16px right:16px,
-     so its left edge is `100vw - 77` and the rail's right edge is
-     `(100vw + 305) / 2` — they cross below ~459px. On a 390px screen
-     that put the pill directly on top of chapter "10" at z-index 9500,
-     swallowing the last stop of the site's own navigation.
-     No horizontal room exists at this width, so stack: lift the pill
-     over the rail (24px offset + 38px tall + a ~20px gap) and take the
-     iOS home-indicator inset with it. */
-  @media (max-width: 480px) {
+  /* Clear the chapter rail.
+     The rail (.variant-bar) is fixed at bottom:24px and centred. This
+     pill is bottom-right. Whether they collide depends on BOTH widths,
+     and the pill's width jumps at 640px where its label comes back —
+     so the collision is not a single breakpoint. Measured overlap
+     across the range, at 30% scroll:
+
+        320-480  none (pill is a 61px circle)
+        540-640  none
+        720      13x26   <- label returns, pill is 193px wide
+        768      48x41
+        834      20x41
+        900+     none    (viewport finally wide enough)
+
+     An earlier fix only covered 480 and below, so the pill sat on the
+     chapter rail through the whole tablet band. Lifting it above the
+     rail everywhere under 880px covers every measured collision with
+     room to spare, and is visually consistent from phone to tablet. */
+  @media (max-width: 880px) {
     .fcta { bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
   }
 
