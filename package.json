@@ -29,5 +29,10 @@
       "esbuild",
       "sharp"
     ]
+  },
+  "//overrides": "Security patches applied WITHOUT the Astro major bump that `npm audit fix --force` wanted (it would install astro@7 over astro@5). sharp <0.35.0 carried HIGH inherited libvips CVEs; esbuild 0.27.x allowed arbitrary file read via the dev server on Windows. Took the audit from 3 vulns (2 high, 1 low) to 1.",
+  "overrides": {
+    "sharp": "^0.35.3",
+    "esbuild": "^0.28.1"
   }
 }
