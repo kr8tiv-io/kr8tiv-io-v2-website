@@ -1,0 +1,129 @@
+---
+/**
+ * 404 — the page a mistyped URL lands on.
+ *
+ * Until now there wasn't one, so a bad link on kr8tiv.io served
+ * Hostinger's default error page: grey Times New Roman, the hosting
+ * company's name, no way back. On a studio site selling art direction
+ * that is the single worst page anyone can see, and it was the only
+ * page nobody had designed.
+ *
+ * It reuses BaseLayout, so it inherits the whole blending system — the
+ * drifting field, the feathered seams, the nav, the footer — and reads
+ * as part of the site rather than an exit from it. Apache serves it via
+ * the ErrorDocument rule in public/.htaccess, which means it returns a
+ * real 404 status rather than a soft 200.
+ */
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Not found · KR8TIV"
+  description="That page doesn't exist. Here's the way back."
+  canonical="/404/"
+  currentNav="other"
+>
+  <section class="four04">
+    <div class="wrap">
+      <div class="four04-eye"><span class="b"></span>404 · DEAD END</div>
+      <h1 class="four04-title">
+        This one got <em>away</em> from us.
+      </h1>
+      <p class="four04-sub">
+        The page you asked for isn&rsquo;t here — moved, renamed, or it never
+        existed. Either way that&rsquo;s on us, not on you.
+      </p>
+      <nav class="four04-links" aria-label="Where to go instead">
+        <a href="/" class="four04-primary">Back to the start ↳</a>
+        <span class="four04-alt">
+          Or jump to <a href="/work/">the work</a> ·
+          <a href="/process/">the process</a> ·
+          <a href="/start/">start a project</a>
+        </span>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .four04 {
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    padding: 200px 32px 160px;
+    position: relative;
+    isolation: isolate;
+  }
+  .four04 .wrap { max-width: 900px; margin: 0 auto; }
+  .four04-eye {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .four04-eye .b {
+    width: 44px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-1));
+  }
+  .four04-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(52px, 9vw, 140px);
+    line-height: .92;
+    letter-spacing: -.035em;
+    margin: 0 0 32px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .four04-title em { font-style: italic; color: var(--accent-1); }
+  .four04-sub {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(19px, 2vw, 26px);
+    line-height: 1.45;
+    color: var(--ink);
+    opacity: .9;
+    max-width: 52ch;
+    margin: 0 0 48px;
+  }
+  .four04-links { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .four04-primary {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    padding: 20px 36px;
+    background: var(--accent-1);
+    color: #000;
+    border-radius: 4px;
+    transition: letter-spacing .4s cubic-bezier(.22, 1, .36, 1), box-shadow .4s;
+  }
+  .four04-primary:hover {
+    letter-spacing: .4em;
+    box-shadow: 0 0 48px rgba(255, 106, 213, .42);
+  }
+  .four04-alt {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14.5px;
+    color: var(--ink-muted);
+    line-height: 1.9;
+  }
+  .four04-alt a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--edge);
+    text-underline-offset: 4px;
+    transition: color .3s, text-decoration-color .3s;
+  }
+  .four04-alt a:hover { color: var(--accent-1); text-decoration-color: var(--accent-1); }
+
+  @media (max-width: 430px) {
+    .four04 { padding: 150px 20px 120px; min-height: 70vh; }
+    .four04-primary { width: 100%; text-align: center; letter-spacing: .2em; }
+    .four04-primary:hover { letter-spacing: .26em; }
+    .four04-eye { letter-spacing: .26em; font-size: 10px; }
+  }
+</style>
