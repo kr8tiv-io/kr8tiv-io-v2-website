@@ -1,0 +1,149 @@
+# =====================================================================
+# REPLACEMENT for .github/workflows/deploy-hostinger.yml
+# ---------------------------------------------------------------------
+# It lives here rather than in .github/workflows/ because the token this
+# repo is pushed with is an OAuth app credential WITHOUT the `workflow`
+# scope, and GitHub refuses any push that creates or edits a workflow
+# file without it:
+#
+#   ! [remote rejected] main -> main (refusing to allow an OAuth App to
+#     create or update workflow `.github/workflows/deploy-hostinger.yml`
+#     without `workflow` scope)
+#
+# TO APPLY (either one, ~20 seconds):
+#
+#   A. From a shell with a `workflow`-scoped login:
+#        gh auth refresh -s workflow
+#        cp ci/deploy-hostinger.improved.yml .github/workflows/deploy-hostinger.yml
+#        git add .github/workflows/deploy-hostinger.yml
+#        git commit -m "ci: node 24 actions, cache-policy guard, live verification"
+#        git push
+#
+#   B. Or in the browser: open
+#        github.com/kr8tiv-io/kr8tiv-io-v2-website/blob/main/.github/workflows/deploy-hostinger.yml
+#      click the pencil, paste this file's contents (everything below the
+#      `name:` line), commit.
+#
+# WHAT CHANGED AND WHY
+#   · actions/checkout@v4 + setup-node@v4 -> @v5. Those two target Node
+#     20, which the runners now force onto Node 24 while emitting a
+#     deprecation warning — that warning was the SECOND of the two
+#     annotations on the failure email. v5 targets Node 24 natively.
+#   · node-version 20 -> 22 (20 is end-of-life; 22 is current LTS).
+#   · npm cache enabled — roughly 40s off every run.
+#   · Pre-flight credential check, so a missing/expired token fails in
+#     seconds with a named error instead of burning a full build to die
+#     at the last step.
+#   · concurrency group, so two pushes cannot race the same origin.
+#   · archive step asserts >50 files — a truncated build used to be
+#     silently uploadable.
+#   · PUBLIC_BUILD_ID stamps the commit SHA into the HTML, and the new
+#     verify step proves the LIVE site is serving it. A green check now
+#     means the site actually changed, not just that the API took a zip.
+# =====================================================================
+name: Deploy KR8TIV to Hostinger
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.*'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-hostinger.yml'
+      - 'scripts/deploy-hostinger-static.mjs'
+      - 'scripts/verify-live.mjs'
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check deploy credentials
+        env:
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+        run: |
+          if [ -z "$HOSTINGER_API_TOKEN" ]; then
+            echo "::error title=Missing secret::HOSTINGER_API_TOKEN is not set. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          echo "HOSTINGER_API_TOKEN is present (${#HOSTINGER_API_TOKEN} chars)."
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Security audit (report only)
+        run: npm audit --audit-level=critical || true
+
+      - name: Build static site
+        env:
+          PUBLIC_BUILD_ID: ${{ github.sha }}
+        run: npm run build
+
+      - name: Verify cache policy shipped
+        run: |
+          if [ ! -f dist/.htaccess ]; then
+            echo "::error title=Missing .htaccess::public/.htaccess did not reach dist/. Cache headers would be wrong on live."
+            exit 1
+          fi
+          echo "dist/.htaccess present ($(wc -c < dist/.htaccess) bytes)."
+
+      - name: Create deploy archive
+        run: |
+          python3 - <<'PY'
+          import zipfile
+          from pathlib import Path
+
+          archive = Path('dist_hostinger.zip')
+          count = 0
+          with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+              for path in Path('dist').rglob('*'):
+                  if path.is_file():
+                      zf.write(path, path.relative_to('dist').as_posix())
+                      count += 1
+          print(f'Created {archive} ({archive.stat().st_size} bytes, {count} files)')
+          assert count > 50, f'archive only has {count} files - build looks incomplete'
+          PY
+
+      - name: Install TUS client
+        run: npm install --no-save --legacy-peer-deps tus-js-client@^4
+
+      - name: Deploy to Hostinger
+        env:
+          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+          HOSTINGER_DOMAIN: kr8tiv.io
+        run: node scripts/deploy-hostinger-static.mjs dist_hostinger.zip
+
+      - name: Wait for propagation
+        run: sleep 45
+
+      - name: Verify live site + caches
+        env:
+          PUBLIC_BUILD_ID: ${{ github.sha }}
+        run: node scripts/verify-live.mjs https://kr8tiv.io
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### kr8tiv.io deploy"
+            echo ""
+            echo "- commit: \`${{ github.sha }}\`"
+            echo "- live: https://kr8tiv.io"
+          } >> $GITHUB_STEP_SUMMARY

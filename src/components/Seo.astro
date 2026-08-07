@@ -89,6 +89,19 @@ const canonicalUrl = canonical
   : siteUrl + Astro.url.pathname;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
 
+/* ------------------- BUILD STAMP -------------------
+   Deploy verification has to answer "is the origin serving the build I
+   just pushed?", and matching on copy strings only ever gives a guess —
+   a phrase can exist in two builds, and a cache can serve a mix. This is
+   an exact answer. scripts/verify-live.mjs reads this meta tag from the
+   live URL and compares it to the local dist; anything else is a stale
+   cache or a partial upload, and it says so instead of shrugging.
+   CI passes the commit SHA; local builds fall back to a timestamp. */
+const BUILD_ID = (
+  import.meta.env.PUBLIC_BUILD_ID ||
+  `local-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`
+).slice(0, 16);
+
 // ------------------- JSON-LD blocks -------------------
 
 // Sitewide Organization — appears on every page so Google can
@@ -301,6 +314,10 @@ const robots = noIndex
 <!-- ============ Primary SEO ============ -->
 <title>{title}</title>
 <meta name="description" content={description} />
+{/* Build stamp — read by scripts/verify-live.mjs to prove which build
+    the origin is actually serving. Cheap, exact, and impossible to
+    confuse with a cached older deploy. */}
+<meta name="x-kr8tiv-build" content={BUILD_ID} />
 <link rel="canonical" href={canonicalUrl} />
 <meta name="robots" content={robots} />
 <meta name="googlebot" content={robots} />

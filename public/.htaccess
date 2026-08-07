@@ -1,0 +1,94 @@
+# =====================================================================
+# kr8tiv.io — cache policy
+# ---------------------------------------------------------------------
+# Ships in public/, so it lands at the site root on every deploy.
+#
+# THE PROBLEM THIS SOLVES, measured on the live site before it existed:
+#
+#     HTML                  Cache-Control: public, max-age=300
+#     /kr8tiv-assets/*.mp4  Cache-Control: public, max-age=31536000
+#
+# A year-long cache on 103 files with STABLE filenames means a returning
+# visitor can hold a year-old copy of any asset that gets re-encoded
+# under the same name — which is exactly why a `?v=` query param had to
+# be bolted onto the video URLs by hand.
+#
+# THE RULE THAT MAKES DEPLOYS SAFE: cache forever only what carries a
+# content hash in its filename; never cache the document that points at
+# those files.
+#
+#   · HTML        — always revalidate. It is small, it carries an ETag,
+#                   and it is the entry point: if the document is fresh,
+#                   it references the new hashed bundles and the whole
+#                   new build appears at once. This single rule is what
+#                   makes "the new version shows immediately" true.
+#   · /_astro/*   — content-hashed by Astro (auroraField.Bm-hLSy6.js).
+#                   The name changes when the bytes change, so a
+#                   one-year immutable cache is free and correct.
+#   · fonts       — self-hosted woff2, versioned by filename.
+#   · media       — long-lived but NOT immutable, so a changed file is
+#                   picked up on the next revalidation even if someone
+#                   forgets to bump the ?v= param. Big videos still get
+#                   the bandwidth win.
+#   · JSON        — availability.json drives the live booking pill; it
+#                   must never be stale.
+# =====================================================================
+
+<IfModule mod_headers.c>
+
+  # --- Documents: never serve a stale entry point --------------------
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+
+  # --- Content-hashed bundles: immutable ----------------------------
+  <FilesMatch "^.*\.[0-9a-zA-Z_-]{8,}\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # --- Self-hosted fonts --------------------------------------------
+  <FilesMatch "\.(woff2|woff|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+
+  # --- Media: long, but revalidatable -------------------------------
+  <FilesMatch "\.(mp4|webm|mp3|jpg|jpeg|png|webp|avif|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </FilesMatch>
+
+  # --- Live data + crawler files: always fresh -----------------------
+  <FilesMatch "\.(json|webmanifest|xml|txt)$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+
+  # --- Security headers (free, and expected of an agency site) ------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+</IfModule>
+
+# --- Compression ----------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    text/javascript application/javascript application/json \
+    application/xml image/svg+xml application/manifest+json
+</IfModule>
+
+# --- Correct types so caching and decoding behave -------------------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+  AddType model/gltf-binary .glb
+</IfModule>
+
+# --- Trailing-slash friendly static routing -------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ /$1/index.html [L]
+</IfModule>
