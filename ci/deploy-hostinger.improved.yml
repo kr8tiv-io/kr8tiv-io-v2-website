@@ -1,45 +1,55 @@
 # =====================================================================
 # REPLACEMENT for .github/workflows/deploy-hostinger.yml
 # ---------------------------------------------------------------------
-# It lives here rather than in .github/workflows/ because the token this
-# repo is pushed with is an OAuth app credential WITHOUT the `workflow`
-# scope, and GitHub refuses any push that creates or edits a workflow
-# file without it:
+# WHY IT LIVES HERE AND NOT IN .github/workflows/
+# The credential this repo is pushed with is an OAuth app token WITHOUT
+# the `workflow` scope, and GitHub refuses any push that creates or
+# edits a workflow file without it:
 #
 #   ! [remote rejected] main -> main (refusing to allow an OAuth App to
 #     create or update workflow `.github/workflows/deploy-hostinger.yml`
 #     without `workflow` scope)
 #
-# TO APPLY (either one, ~20 seconds):
+# Verified on both the git credential and the gh CLI login. So this file
+# has to be applied by someone whose login has the scope.
 #
-#   A. From a shell with a `workflow`-scoped login:
+# TO APPLY (either route, about 20 seconds):
+#
+#   A. Browser — fastest:
+#        github.com/kr8tiv-io/kr8tiv-io-v2-website/blob/main/.github/workflows/deploy-hostinger.yml
+#      click the pencil, select all, paste everything from the `name:`
+#      line down, commit to main.
+#
+#   B. Shell, from a login that has the scope:
 #        gh auth refresh -s workflow
 #        cp ci/deploy-hostinger.improved.yml .github/workflows/deploy-hostinger.yml
-#        git add .github/workflows/deploy-hostinger.yml
-#        git commit -m "ci: node 24 actions, cache-policy guard, live verification"
+#        git commit -am "ci: graceful skip without token, node 24 actions"
 #        git push
 #
-#   B. Or in the browser: open
-#        github.com/kr8tiv-io/kr8tiv-io-v2-website/blob/main/.github/workflows/deploy-hostinger.yml
-#      click the pencil, paste this file's contents (everything below the
-#      `name:` line), commit.
+# ---------------------------------------------------------------------
+# WHAT THIS FIXES
 #
-# WHAT CHANGED AND WHY
-#   · actions/checkout@v4 + setup-node@v4 -> @v5. Those two target Node
-#     20, which the runners now force onto Node 24 while emitting a
-#     deprecation warning — that warning was the SECOND of the two
-#     annotations on the failure email. v5 targets Node 24 natively.
-#   · node-version 20 -> 22 (20 is end-of-life; 22 is current LTS).
-#   · npm cache enabled — roughly 40s off every run.
-#   · Pre-flight credential check, so a missing/expired token fails in
-#     seconds with a named error instead of burning a full build to die
-#     at the last step.
-#   · concurrency group, so two pushes cannot race the same origin.
-#   · archive step asserts >50 files — a truncated build used to be
-#     silently uploadable.
-#   · PUBLIC_BUILD_ID stamps the commit SHA into the HTML, and the new
-#     verify step proves the LIVE site is serving it. A green check now
-#     means the site actually changed, not just that the API took a zip.
+# 1. NO MORE "ALL JOBS HAVE FAILED" EMAILS WHILE THE TOKEN IS UNSET.
+#    Previously every push to main ran straight into the deploy step,
+#    got a 401 from Hostinger, and exited 1 — a red X and an email each
+#    time. Now the token is read into an env var and every deploy step
+#    is gated on it. With no token the job BUILDS, VERIFIES, and exits
+#    green with a clear note in the run summary. Nothing is silently
+#    skipped-and-forgotten: the summary says, in plain words, that the
+#    deploy was skipped and what to do about it.
+#
+#    This deliberately does NOT use `continue-on-error`. That would mark
+#    the step failed-but-tolerated and still shows a red-ish result;
+#    worse, it would also swallow a REAL deploy failure once the token
+#    exists. Gating on the token skips cleanly when the token is absent
+#    and still fails loudly when a present token breaks.
+#
+# 2. The Node 20 deprecation warning (the second annotation on the
+#    failure email): actions/checkout@v4 and setup-node@v4 target Node
+#    20 and are force-run on Node 24. Bumped to @v5, and node-version
+#    20 -> 22 (20 is end-of-life).
+#
+# 3. Deploys are verified rather than assumed — see the verify step.
 # =====================================================================
 name: Deploy KR8TIV to Hostinger
 
@@ -65,6 +75,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
+    # Read the secret ONCE into the job env. `secrets` is not available
+    # in job-level `if:`, but env IS available to step-level `if:`, so
+    # this is what makes the graceful skip possible.
+    env:
+      HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+      HOSTINGER_DOMAIN: kr8tiv.io
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -75,15 +93,18 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Check deploy credentials
-        env:
-          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
+      # One place decides whether this run deploys. Every deploy step
+      # below reads this output, so the rule lives in exactly one spot.
+      - name: Check for deploy credentials
+        id: creds
         run: |
-          if [ -z "$HOSTINGER_API_TOKEN" ]; then
-            echo "::error title=Missing secret::HOSTINGER_API_TOKEN is not set. Add it under Settings > Secrets and variables > Actions."
-            exit 1
+          if [ -n "$HOSTINGER_API_TOKEN" ]; then
+            echo "have_token=true" >> "$GITHUB_OUTPUT"
+            echo "HOSTINGER_API_TOKEN is present (${#HOSTINGER_API_TOKEN} chars). Deploy will run."
+          else
+            echo "have_token=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy skipped::HOSTINGER_API_TOKEN is not set, so the Hostinger upload is skipped. The build still ran and was verified. Add the secret under Settings > Secrets and variables > Actions to enable deploys."
           fi
-          echo "HOSTINGER_API_TOKEN is present (${#HOSTINGER_API_TOKEN} chars)."
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -96,15 +117,20 @@ jobs:
           PUBLIC_BUILD_ID: ${{ github.sha }}
         run: npm run build
 
-      - name: Verify cache policy shipped
+      # The build is the part worth protecting whether or not we deploy:
+      # a broken build should still fail this workflow loudly.
+      - name: Verify build output
         run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          test -f dist/404.html   || { echo "::error::dist/404.html missing"; exit 1; }
           if [ ! -f dist/.htaccess ]; then
             echo "::error title=Missing .htaccess::public/.htaccess did not reach dist/. Cache headers would be wrong on live."
             exit 1
           fi
-          echo "dist/.htaccess present ($(wc -c < dist/.htaccess) bytes)."
+          echo "dist OK — $(find dist -type f | wc -l) files, .htaccess $(wc -c < dist/.htaccess) bytes."
 
       - name: Create deploy archive
+        if: steps.creds.outputs.have_token == 'true'
         run: |
           python3 - <<'PY'
           import zipfile
@@ -122,18 +148,19 @@ jobs:
           PY
 
       - name: Install TUS client
+        if: steps.creds.outputs.have_token == 'true'
         run: npm install --no-save --legacy-peer-deps tus-js-client@^4
 
       - name: Deploy to Hostinger
-        env:
-          HOSTINGER_API_TOKEN: ${{ secrets.HOSTINGER_API_TOKEN }}
-          HOSTINGER_DOMAIN: kr8tiv.io
+        if: steps.creds.outputs.have_token == 'true'
         run: node scripts/deploy-hostinger-static.mjs dist_hostinger.zip
 
       - name: Wait for propagation
+        if: steps.creds.outputs.have_token == 'true'
         run: sleep 45
 
       - name: Verify live site + caches
+        if: steps.creds.outputs.have_token == 'true'
         env:
           PUBLIC_BUILD_ID: ${{ github.sha }}
         run: node scripts/verify-live.mjs https://kr8tiv.io
@@ -142,8 +169,15 @@ jobs:
         if: always()
         run: |
           {
-            echo "### kr8tiv.io deploy"
+            echo "### kr8tiv.io"
             echo ""
             echo "- commit: \`${{ github.sha }}\`"
-            echo "- live: https://kr8tiv.io"
+            if [ "${{ steps.creds.outputs.have_token }}" = "true" ]; then
+              echo "- deploy: **ran** → https://kr8tiv.io"
+            else
+              echo "- deploy: **skipped — no HOSTINGER_API_TOKEN**"
+              echo "- the build ran and was verified; only the upload was skipped"
+              echo ""
+              echo "To enable deploys: hPanel → avatar menu → Account Information → API tokens → Create token, then paste it into repo **Settings → Secrets and variables → Actions → \`HOSTINGER_API_TOKEN\`**."
+            fi
           } >> $GITHUB_STEP_SUMMARY
