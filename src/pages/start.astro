@@ -230,7 +230,11 @@ const startFaqs = [
           <span class="n">04</span>
           <div class="section-label">SECTION 04 · BUDGET</div>
           <h2>Rough <em>investment range</em>?</h2>
-          <p>Transparency saves both of us time. Small budgets welcome — we do $10–$50 microjobs too.</p>
+          {/* Said "$10–$50" while the budget radio five lines below it
+              — and both FAQ answers on /process/ — say $10–$500. The
+              page contradicted itself within one screen. $500 is the
+              real floor, per the form's own tier. */}
+          <p>Transparency saves both of us time. Small budgets welcome — we take $10–$500 microjobs too.</p>
 
           <div class="field">
             <label>Budget tier <span class="req">✦</span></label>
@@ -431,8 +435,14 @@ const startFaqs = [
         <section class="intake-section" id="s10">
           <span class="n">10</span>
           <div class="section-label">SECTION 10 · FINAL CONFIRM &amp; PROCESS</div>
-          <h2>Last <em>nine questions</em></h2>
-          <p>Confirm the process, opt into the email list (funny and rare), consent to us keeping your data on file. All required ones are marked.</p>
+          {/* Was "Last nine questions". This section contains three:
+              process acknowledgement, newsletter opt-in, and data
+              consent. Counted the fields rather than trusting the
+              heading — a false number on the last screen of a form,
+              from a studio selling precision, is the worst place to be
+              caught rounding. */}
+          <h2>Last <em>three questions</em></h2>
+          <p>Confirm the process, opt into the email list (funny and rare), and consent to us keeping your answers on file. Two of the three are required.</p>
 
           <div class="consent">
             <h4>Do you understand our engagement process?</h4>
