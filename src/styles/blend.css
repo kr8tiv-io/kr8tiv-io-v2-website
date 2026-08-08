@@ -352,6 +352,32 @@ html[data-theme="light"] .interlude {
   display: none !important;
 }
 
+/* THE SERVICE-FRAME BLOOM, CONTAINED AT EVERY WIDTH.
+   `.svc-frame-bloom` is a decorative halo at `inset: -16%`, deliberately
+   bleeding outside its circle. On a 961px-wide frame that is ~96px of
+   bleed with nothing to absorb it, and it lands OUTSIDE any
+   overflow-hidden ancestor — so it inflates `document.body.scrollWidth`
+   past the viewport. `html { overflow-x: hidden }` hides the symptom, so
+   nobody can scroll to it, but the overflow is real and it is the kind
+   that turns into a visible sideways scroll the moment that html rule
+   is touched.
+
+   This was clipped once before, for a WebKit-only case at 375/414 — but
+   that fix lived inside `@media (max-width: 720px)`, so TABLETS were
+   never covered. Measured here at 768 and 834 on both Firefox and
+   WebKit: body 864 against a 768 viewport, dark theme only, because
+   light-theme.css sets this element `display: none` and the bleed
+   simply does not exist there. A breakpoint-scoped fix for a
+   width-independent problem is how the same bug comes back wearing a
+   different viewport — so the containment now lives with the blending
+   system and applies everywhere.
+
+   `clip`, not `hidden`: it establishes no scroll container and no
+   containing block for fixed positioning, so the GSAP horizontal pin
+   inside `.services` is untouched (verified at 1440 with the pin
+   active). */
+.services { overflow-x: clip; }
+
 /* The doctrine's obelisk loop already carried an ellipse mask, but the
    ellipse was too small for its box in the vertical axis: at
    `ellipse 54% 72% at 50% 50%` the top-centre of the frame sits at 69%

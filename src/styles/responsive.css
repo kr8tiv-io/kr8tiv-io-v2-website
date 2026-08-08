@@ -117,15 +117,6 @@
      the end of the document so the last line always clears it. */
   body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 
-  /* The service frames carry a decorative bloom at `inset: -16%`, which
-     is meant to bleed outside the circle. With the panels stacked
-     full-width on phones there is no horizontal container left to
-     absorb that bleed, and WebKit counts it toward the body's scroll
-     width — measured 34-40px of page overflow at 375 and 414 that
-     Chromium and Firefox both swallowed. `clip` rather than `hidden`
-     so no scroll container is created and the GSAP pin logic on wider
-     screens is untouched. */
-  .services { overflow-x: clip; }
 
   /* Touch targets. The nav toggles are 34x34 here; Apple's floor is 44.
      Growing the boxes would push the four-button cluster past a 320px
