@@ -66,12 +66,14 @@ const {
   title,
   description,
   canonical,
-  /* Default OG card — was kr8tiv-logo-filled.png (1800x600, transparent
-     RGBA) which rendered as a blank white tile in Telegram/Slack/
-     iMessage previews. Swapped to a proper 1200x630 RGB24 card with
-     the logo composited onto the brand-dark background, so previews
-     have a visible image. */
-  ogImage = '/kr8tiv-assets/og-card.png',
+  /* Default OG card — v2, designed 2026-08-12. The v1 card composited
+     the jagged pixel-trace logo (outline runoff, muddy fills). v2 is
+     rendered from the true-vector mark (kr8tiv-logo-clean.svg) with the
+     site's own tokens: Instrument Serif italic hero line, JetBrains
+     Mono tracked labels, ink #f2f1ec on #050507, prism-gradient rule.
+     New filename on purpose: X/Facebook cache og:image by URL, so a
+     changed file at the old path would keep serving the old card. */
+  ogImage = '/kr8tiv-assets/og-card-v2.png',
   ogImageAlt = 'KR8TIV — cyber-renaissance design atelier',
   type = 'WebPage',
   article,
