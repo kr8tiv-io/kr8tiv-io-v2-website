@@ -172,6 +172,9 @@
   nav .toggle, nav .nav-shatter { width: 34px; height: 34px; }
   nav .nav-shatter-ico { width: 16px; height: 16px; }
   /* Oracle button hidden by existing @media (max-width: 880px) */
+  /* Call pill stays — it is the one nav item that must survive every
+     width. Compact metrics so brand + call + toggles fit at 390px. */
+  .nav-call { height: 34px; padding: 0 10px; font-size: 10.5px; letter-spacing: .06em; gap: 6px; }
 
   /* === HERO ===
      Shrink the title significantly — 72px min on a 390px viewport
@@ -585,8 +588,15 @@
 @media (max-width: 420px) {
   nav .brand em { display: inline; }    /* keep 侍 — remove surrounding text */
   nav .brand { font-size: 9px; letter-spacing: .12em; }
+  /* The number keeps its seat even on an SE — the icon goes instead,
+     and the music toggle (least essential control) cedes its slot. */
+  .nav-call { padding: 0 8px; font-size: 10px; letter-spacing: .04em; }
+  .nav-call svg { display: none; }
+  nav #music-btn { display: none; }
 
   .hero.hero-reveal .hero-title { font-size: clamp(34px, 9vw, 52px) !important; }
+  .hero.hero-reveal .hero-call { padding: 13px 20px; font-size: 13.5px; letter-spacing: .1em; }
+  .hero.hero-reveal .hero-call-sub { display: none; }
 
   .why-left h2 { font-size: clamp(36px, 10vw, 60px) !important; }
 

@@ -357,6 +357,54 @@ html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
   75%   { transform: translate3d(3px,-8px,0) rotate(-.08deg); }
 }
 
+/* === Hero click-to-call — the loudest CTA on the page === */
+.hero.hero-reveal .hero-call-row {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  margin-top: 26px;
+  pointer-events: auto;
+}
+.hero.hero-reveal .hero-call {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px;
+  border: 1px solid rgba(255, 106, 213, .65);
+  border-radius: 999px;
+  background: rgba(255, 106, 213, .1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px; font-weight: 700; letter-spacing: .16em;
+  white-space: nowrap;
+  box-shadow: 0 0 24px rgba(255, 106, 213, .25), inset 0 0 18px rgba(255, 106, 213, .06);
+  transition: background .4s var(--ease), border-color .4s var(--ease),
+              box-shadow .4s var(--ease), transform .4s var(--ease);
+}
+.hero.hero-reveal .hero-call svg {
+  width: 17px; height: 17px; fill: var(--accent-1); stroke: none;
+  animation: hero-call-ring 3.2s ease-in-out infinite;
+}
+@keyframes hero-call-ring {
+  0%, 86%, 100% { transform: rotate(0); }
+  88% { transform: rotate(-14deg); }
+  90% { transform: rotate(12deg); }
+  92% { transform: rotate(-9deg); }
+  94% { transform: rotate(6deg); }
+  96% { transform: rotate(-3deg); }
+}
+@media (prefers-reduced-motion: reduce) { .hero.hero-reveal .hero-call svg { animation: none; } }
+html.motion-off .hero.hero-reveal .hero-call svg { animation: none; }
+.hero.hero-reveal .hero-call:hover {
+  background: rgba(255, 106, 213, .22);
+  border-color: var(--accent-1);
+  box-shadow: 0 0 40px rgba(255, 106, 213, .5), inset 0 0 22px rgba(255, 106, 213, .1);
+  transform: translateY(-2px);
+}
+.hero.hero-reveal .hero-call-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: .3em;
+  color: rgba(242, 241, 236, .55);
+}
+
 /* === Per-word heat-up glow === */
 .hero.hero-reveal .hero-title .w {
   display: inline-block;

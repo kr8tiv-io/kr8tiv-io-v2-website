@@ -30,11 +30,20 @@ import SeatCounter from '@components/SeatCounter.astro';
         specifically want them. The availability pill sits directly
         above the button so the scarcity figure reads as a reason to
         press it rather than as unrelated page furniture. */}
+    {/* Two buttons, one action: "talk to Matt". The phone is for the
+        reader who wants to talk NOW; Calendly for the one who wants to
+        pick a slot. Same destination, different urgency — this is not
+        the four-equal-choices trap the note above retired. */}
     <div class="big-cta-act">
       <SeatCounter size="large" />
-      <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer" class="big-cta-primary" data-cursor="magnetic">
-        Book a call ↳
-      </a>
+      <div class="big-cta-btns">
+        <a href="tel:+17809155471" class="big-cta-primary" data-cursor="magnetic">
+          Call 780-915-5471
+        </a>
+        <a href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer" class="big-cta-primary big-cta-book" data-cursor="magnetic">
+          Book a call ↳
+        </a>
+      </div>
       <p class="big-cta-alt">
         Rather not talk yet? <a href="/start/">Fill out the intake</a> ·
         <a href="/process/">read the process</a> ·
@@ -162,6 +171,22 @@ import SeatCounter from '@components/SeatCounter.astro';
     box-shadow: 0 0 64px rgba(255, 106, 213, .5),
                 0 0 140px rgba(255, 106, 213, .22);
   }
+  .big-cta-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  /* The booking button steps back to an outline so the phone number is
+     unmistakably the headline action. */
+  .big-cta-book {
+    background: transparent;
+    color: var(--ink);
+  }
+  .big-cta-book:hover {
+    background: rgba(255, 106, 213, .1);
+    color: var(--ink);
+  }
   .big-cta-ghost {
     color: var(--ink);
     border: 1px solid var(--edge);
@@ -203,6 +228,7 @@ import SeatCounter from '@components/SeatCounter.astro';
   @media (max-width: 880px) {
     .big-cta { padding: 120px 24px 160px; }
     .big-cta-act { width: 100%; }
+    .big-cta-btns { width: 100%; flex-direction: column; }
     .big-cta-primary { width: 100%; text-align: center; }
     .big-cta-alt { font-size: 13px; }
     .big-cta-foot { flex-direction: column; text-align: center; }

@@ -197,6 +197,34 @@ nav .nav-r { justify-self: end; display: flex; gap: 10px; align-items: center; }
 .nav-oracle:hover .nav-oracle-plus { opacity: 1; }
 @media (max-width: 880px) { .nav-oracle { display: none; } }
 
+/* Click-to-call pill — deliberately the loudest thing in the nav.
+   Magenta accent (the site's primary CTA hue, same as the floating
+   pill) so it reads as "the action", not another quiet toggle. */
+.nav-call {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 106, 213, .55);
+  background: rgba(255, 106, 213, .08);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px; font-weight: 600; letter-spacing: .14em;
+  white-space: nowrap;
+  box-shadow: 0 0 14px rgba(255, 106, 213, .18);
+  transition: border-color .4s var(--ease), background .4s var(--ease),
+              box-shadow .4s var(--ease), letter-spacing .4s var(--ease);
+}
+.nav-call svg {
+  width: 13px; height: 13px; flex-shrink: 0;
+  fill: var(--accent-1); stroke: none;
+}
+.nav-call:hover {
+  border-color: var(--accent-1);
+  background: rgba(255, 106, 213, .18);
+  box-shadow: 0 0 22px rgba(255, 106, 213, .4);
+  letter-spacing: .18em;
+}
+
 /* Kintsugi shatter trigger */
 .nav-shatter {
   width: 40px; height: 36px; border-radius: 18px;
