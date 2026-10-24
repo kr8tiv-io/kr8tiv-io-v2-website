@@ -12,11 +12,11 @@
 export const vv = (src: string): string => `${src}?v=2`;
 
 /** Poster frame for a video — extracted at encode time by
- *  scripts/optimize-videos.py into /kr8tiv-assets/posters/<name>.jpg
+ *  scripts/optimize-videos.py into /kr8tiv-assets/posters/<name>.webp
  *  so video boxes paint instantly instead of sitting blank while
  *  bytes stream in (the old mobile "videos take forever" complaint). */
 export const videoPoster = (src: string): string =>
-  '/kr8tiv-assets/posters/' + src.split('/').pop()!.replace(/\.mp4$/, '.jpg');
+  '/kr8tiv-assets/posters/' + src.split('/').pop()!.replace(/\.mp4$/, '.webp');
 
 export interface Service {
   v: string; t: string; em: string; desc: string; tag: string; price: string;
@@ -219,12 +219,12 @@ export interface BrandKitImage {
   caption: string;
 }
 export const PORTFOLIO_EVOLVE_CARDS: BrandKitImage[] = [
-  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(3).png', caption: 'FRONT · 01' },
-  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(2).png', caption: 'FRONT · 02' },
-  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(5).png', caption: 'FRONT · 03' },
-  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(4).png', caption: 'BACK' },
-  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Front.png', caption: 'SHANE DOOLEY · FRONT' },
-  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Back.png', caption: 'SHANE DOOLEY · BACK' }
+  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(3).webp', caption: 'FRONT · 01' },
+  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(2).webp', caption: 'FRONT · 02' },
+  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(5).webp', caption: 'FRONT · 03' },
+  { src: '/kr8tiv-assets/portfolio/evolve-cards/Evolve Business Card(4).webp', caption: 'BACK' },
+  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Front.webp', caption: 'SHANE DOOLEY · FRONT' },
+  { src: '/kr8tiv-assets/portfolio/dooley-cards/Shane-Dooley-Business-Card-Back.webp', caption: 'SHANE DOOLEY · BACK' }
 ];
 
 /** Tier 3 — Studio Lab. Personal projects, venture work, friend

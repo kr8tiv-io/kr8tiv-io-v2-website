@@ -145,7 +145,7 @@ import {
     <div class="brandkit-grid">
       {PORTFOLIO_EVOLVE_CARDS.map((c) => (
         <figure class="brandkit-card port-frame">
-          <img src={c.src} alt={`Business card mockup — ${c.caption}`} loading="lazy" />
+          <img src={c.src} alt={`Business card mockup — ${c.caption}`} loading="lazy" decoding="async" />
           <figcaption class="brandkit-cap">{c.caption}</figcaption>
           <span class="port-frame-grain" aria-hidden="true"></span>
           <span class="port-frame-edge"  aria-hidden="true"></span>
