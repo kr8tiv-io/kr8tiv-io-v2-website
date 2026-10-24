@@ -98,8 +98,10 @@ const startFaqs = [
       </aside>
 
       <form id="intake-form" class="intake-sections" autocomplete="on" novalidate
-            action="https://formsubmit.co/lucidbloks@gmail.com"
-            method="POST" enctype="multipart/form-data">
+            method="POST">
+        {/* Delivery is handled in src/lib/intakeForm.ts (FormSubmit AJAX).
+            No inbox address lives in this markup on purpose. */}
+        <div class="intake-errors" id="intake-errors" role="alert" aria-live="assertive" hidden></div>
 
         {/* FormSubmit honeypot — bots fill it, real users don't see
             it. FormSubmit blocks any submission with this field
@@ -175,7 +177,7 @@ const startFaqs = [
                 ['other', 'Something else']
               ].map(([v, l]) => (
                 <label class="choice" data-type="check">
-                  <input type="checkbox" name="project_type" value={v} required />
+                  <input type="checkbox" name="project_type" value={v} data-required-group="project_type" />
                   {l}
                 </label>
               ))}
@@ -478,6 +480,7 @@ const startFaqs = [
             You are <em>one click</em> from the best project brief we've ever read.
           </div>
           <button type="submit" class="btn-submit">Submit intake ↳</button>
+          <p class="intake-status" id="intake-status" role="status" aria-live="polite"></p>
           <div class="crypto-note">
             We accept <span class="hl">Bitcoin</span>, <span class="hl">Ethereum</span>, and <span class="hl">Magic Internet Monnies</span>.<br />
             Please send any extra attachments to <a href="mailto:matt@kr8tiv.io" style="color:var(--accent-1)">matt@kr8tiv.io</a>
@@ -486,10 +489,9 @@ const startFaqs = [
 
         <!-- Summary / email-export screen (shown after submit) -->
         <div class="intake-summary" id="intake-summary">
-          <h3>Intake captured.</h3>
-          <p style="color:var(--ink);opacity:.82;margin-bottom:24px">
-            Below is the summary we'll send to Matt. Hit <strong>Open email</strong> to launch your mail app with the subject + body prefilled,
-            or <strong>Copy summary</strong> and send it however you like. Attachments should go in the same thread — use the subject line as reference.
+          <h3 id="intake-summary-title">Intake sent.</h3>
+          <p id="intake-summary-lead" style="color:var(--ink);opacity:.82;margin-bottom:24px">
+            Matt has your brief and replies within 24h on weekdays. A copy of what you sent is below. Attachments: reply to his email or send them to matt@kr8tiv.io with your name in the subject.
           </p>
           <pre id="intake-summary-text"></pre>
           <div class="sum-actions">

@@ -9,11 +9,11 @@
  *   • Drag-and-drop file list
  *   • Submit: serialize to text summary, prefill mailto, copy-to-clipboard
  *
- * No backend — the form is a client-side collector that hands the
- * user a mailto and a clipboard payload. Attachments are gathered,
- * displayed, and the user is guided to email them separately to
- * Matt@kr8tiv.io (the legacy flow noted in the brief).
+ * Delivery: FormSubmit AJAX via ./intakeDelivery (no inbox address in markup).
+ * Attachments are listed in the email; the user sends the files separately.
  */
+
+import { sendIntake, EMAIL_RE, MIN_FILL_MS } from './intakeDelivery';
 
 const STORAGE_KEY = 'kr8tiv-intake-v1';
 
@@ -85,6 +85,10 @@ export function initIntake(): void {
     el.addEventListener('click', (e) => {
       // Only fire when the click isn't on the underlying input (prevents double-toggle).
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
+      // .choice is a <label>: without this, the label's native activation
+      // re-toggles the checkbox right after we set it, so multi-select
+      // options looked selected but were never actually checked or sent.
+      e.preventDefault();
       updateChoice(el);
     });
   });
@@ -232,103 +236,148 @@ export function initIntake(): void {
     return out;
   }
 
-  // ============ Submit ============
-  /* Real form POST to FormSubmit.co (free, no signup, no API key,
-     native multipart/form-data attachments up to 25 MB total). The
-     mailto: approach was symbolic — most clients can't reliably
-     attach files via mailto, so deck/PDF/image uploads were lost.
-     This new flow:
-       1. Builds a FormData from the form (text fields + files).
-       2. Adds FormSubmit's hidden meta inputs (_subject, _replyto,
-          _captcha=false, _template=table) so the email lands clean.
-       3. POSTs to https://formsubmit.co/<delivery-email> with a real
-          fetch(). FormSubmit forwards to lucidbloks@gmail.com,
-          arriving with attachments + the user's email as Reply-To
-          (so Matt can reply directly from his inbox).
-     First-ever submission triggers a one-time confirmation email
-     from FormSubmit to lucidbloks@gmail.com — once Matt clicks the
-     link, every subsequent submission lands in the inbox without
-     intervention. Free tier is 50 submissions/month per email. */
-  const FORMSUBMIT_DELIVERY_EMAIL = 'lucidbloks@gmail.com';
-  const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/${FORMSUBMIT_DELIVERY_EMAIL}`;
+  // ============ Validation ============
+  const startedAt = Date.now();
+  const errorBox = document.querySelector<HTMLElement>('#intake-errors');
+  const statusEl = document.querySelector<HTMLElement>('#intake-status');
+  const submitBtn = root.querySelector<HTMLButtonElement>('button[type="submit"]');
 
+  const labelFor = (el: HTMLElement): string => {
+    const field = el.closest('.field, .consent');
+    const lab = field?.querySelector('label:not(.choice):not(.tier), h4');
+    return (lab?.textContent || (el as HTMLInputElement).name || 'This field').replace(/[✦*]/g, '').trim();
+  };
+  const clearErrors = (): void => {
+    root.querySelectorAll('.field-error').forEach((n) => n.remove());
+    root.querySelectorAll('[aria-invalid="true"]').forEach((n) => n.removeAttribute('aria-invalid'));
+    root.querySelectorAll('.is-invalid').forEach((n) => n.classList.remove('is-invalid'));
+    if (errorBox) { errorBox.hidden = true; errorBox.innerHTML = ''; }
+  };
+  const flag = (el: HTMLElement, msg: string, groupEl?: HTMLElement | null): void => {
+    const anchor = groupEl || el;
+    if (groupEl) groupEl.classList.add('is-invalid'); else el.setAttribute('aria-invalid', 'true');
+    const m = document.createElement('span');
+    m.className = 'field-error';
+    m.id = `err-${(el as HTMLInputElement).name || el.id}`;
+    m.textContent = msg;
+    anchor.insertAdjacentElement('afterend', m);
+    if (!groupEl) el.setAttribute('aria-describedby', m.id);
+  };
+
+  function validate(): { el: HTMLElement; msg: string }[] {
+    clearErrors();
+    const errs: { el: HTMLElement; msg: string }[] = [];
+    const seenGroups = new Set<string>();
+    const groupCheck = (el: HTMLInputElement, msg: string) => {
+      if (seenGroups.has(el.name)) return;
+      seenGroups.add(el.name);
+      if (!root.querySelector(`[name="${CSS.escape(el.name)}"]:checked`)) {
+        const grid = el.closest<HTMLElement>('.choice-grid, .tier-grid');
+        flag(el, msg, grid); errs.push({ el: grid || el, msg });
+      }
+    };
+    root.querySelectorAll<HTMLInputElement>('[data-required-group]').forEach((el) =>
+      groupCheck(el, 'Pick at least one.'));
+    root.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((el) => {
+      if (el.type === 'radio' || el.type === 'checkbox') { groupCheck(el as HTMLInputElement, 'Choose one option.'); return; }
+      const v = (el.value || '').trim();
+      if (!v) { const msg = `${labelFor(el)} is required.`; flag(el, msg); errs.push({ el, msg }); return; }
+      if (el.type === 'email' && !EMAIL_RE.test(v)) { const msg = 'Enter a valid email address.'; flag(el, msg); errs.push({ el, msg }); }
+    });
+    if (errs.length && errorBox) {
+      errorBox.hidden = false;
+      errorBox.innerHTML = `<strong>${errs.length} thing${errs.length > 1 ? 's' : ''} to fix before sending:</strong><ul></ul>`;
+      const ul = errorBox.querySelector('ul')!;
+      errs.forEach(({ el, msg }) => {
+        const li = document.createElement('li'); const a = document.createElement('a');
+        a.href = '#'; a.textContent = msg;
+        a.addEventListener('click', (ev) => { ev.preventDefault(); el.scrollIntoView({ block: 'center' }); (el.querySelector?.('input') as HTMLElement | null ?? el).focus?.(); });
+        li.appendChild(a); ul.appendChild(li);
+      });
+    }
+    return errs;
+  }
+
+  // ============ Submit ============
+  // Delivery goes through FormSubmit's AJAX route (see intakeDelivery.ts).
+  // The success panel only appears after FormSubmit answers success:"true".
   root.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const errs = validate();
+    if (errs.length) {
+      errorBox?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const first = errs[0]!.el;
+      (first.matches('input,textarea,select') ? first : first.querySelector<HTMLElement>('input'))?.focus({ preventScroll: true });
+      if (statusEl) { statusEl.textContent = 'Not sent yet. Fix the highlighted fields.'; statusEl.classList.add('is-error'); }
+      return;
+    }
     const data = serialize();
+    // Spam guards: honeypot filled, or submitted faster than a human could.
+    const honey = String(data['_honey'] ?? '').trim();
+    if (honey || Date.now() - startedAt < MIN_FILL_MS) {
+      if (statusEl) { statusEl.textContent = 'Hmm, that was fast. Give it a second and try again.'; statusEl.classList.add('is-error'); }
+      return;
+    }
     const summary = buildSummary(data, attachments);
+    const flat: Record<string, string> = {};
+    for (const [k, v] of Object.entries(data)) {
+      if (k.startsWith('_') || k === 'attachments') continue;
+      flat[k] = Array.isArray(v) ? v.join(', ') : v;
+    }
+    if (attachments.length) flat['attachments_to_follow'] = attachments.map((f) => f.name).join(', ');
+    flat['summary'] = summary;
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+    if (statusEl) { statusEl.textContent = 'Sending…'; statusEl.classList.remove('is-error'); }
+
+    const res = await sendIntake(flat, {
+      subject: `KR8TIV intake · ${data['name'] ?? 'unknown'} · ${data['company'] ?? ''}`.trim(),
+      replyTo: String(data['email'] ?? ''),
+      site: 'kr8tiv.io/start',
+    });
+
     const summaryEl = document.querySelector<HTMLElement>('#intake-summary');
     const pre = document.querySelector<HTMLElement>('#intake-summary-text');
-    if (summaryEl && pre) {
-      pre.textContent = summary;
-      summaryEl.classList.add('show');
-      summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    // Build FormData carrying every named text field + all attachments.
-    const formData = new FormData(root);
-    // FormSubmit-specific meta. _captcha=false skips their captcha
-    // (we already use a honeypot below). _replyto pulls from the form's
-    // email field so Matt's reply lands in the user's inbox. _subject
-    // gets the name + company so Matt can triage by sender. _template=table
-    // produces a clean tabular email instead of raw key=value lines.
-    formData.set('_subject', `KR8TIV intake · ${data['name'] ?? 'unknown'} · ${data['company'] ?? ''}`.trim());
-    formData.set('_replyto', String(data['email'] ?? ''));
-    formData.set('_template', 'table');
-    formData.set('_captcha', 'false');
-    formData.set('_next', `${window.location.origin}/start/?submitted=1`);
-    // Append the human-readable summary as a hidden field so the email
-    // body has a chronological narrative on top of the auto-formatted
-    // table — easier to skim than raw rows.
-    formData.set('_summary', summary);
-
     const openBtn = document.querySelector<HTMLButtonElement>('#intake-mail-open');
     const copyBtn = document.querySelector<HTMLButtonElement>('#intake-copy');
-    if (openBtn) {
-      openBtn.textContent = 'Sending…';
-      openBtn.setAttribute('disabled', 'true');
-    }
+    const title = document.querySelector<HTMLElement>('#intake-summary-title');
+    const lead = document.querySelector<HTMLElement>('#intake-summary-lead');
+    if (pre) pre.textContent = summary;
+    if (copyBtn) copyBtn.onclick = async () => {
+      try { await navigator.clipboard.writeText(summary); copyBtn.textContent = '✓ Copied'; } catch {}
+      setTimeout(() => { copyBtn.textContent = 'Copy summary'; }, 2000);
+    };
 
-    try {
-      const resp = await fetch(FORMSUBMIT_ENDPOINT, {
-        method: 'POST',
-        body: formData,
-        // Don't add Content-Type header — fetch sets it automatically
-        // with the correct multipart boundary. Manually setting it
-        // breaks the boundary string FormSubmit needs to parse files.
-        headers: { Accept: 'application/json' }
-      });
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      // Success: replace the summary panel CTA with a confirmation.
-      if (summaryEl && pre) {
-        pre.textContent = summary +
-          '\n\n— sent. matt will reply within 24h on weekdays / 48h on weekends —';
-      }
+    if (res.ok) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch {}
+      if (title) title.textContent = 'Intake sent.';
+      if (lead) lead.textContent = 'Matt has your brief and replies within 24h on weekdays. A copy of what you sent is below. Attachments: reply to his email or send them to matt@kr8tiv.io with your name in the subject.';
+      if (openBtn) openBtn.hidden = true;
+      if (submitBtn) submitBtn.textContent = '✓ Sent';
+      if (statusEl) statusEl.textContent = 'Sent. Matt replies within 24h on weekdays.';
+    } else {
+      console.error('[intake] delivery failed:', res.reason);
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Try again ↳'; }
+      if (statusEl) { statusEl.textContent = "Couldn't send. Your answers are saved: try again, or email them below."; statusEl.classList.add('is-error'); }
+      if (title) title.textContent = 'Not sent yet.';
+      if (lead) lead.textContent = 'Something blocked the send (ad-blocker, network, or our form service). Your answers are saved in this browser. Email them to Matt with one click, or copy the summary.';
       if (openBtn) {
-        openBtn.textContent = '✓ Sent';
-        openBtn.setAttribute('disabled', 'true');
-      }
-    } catch (err) {
-      // Fallback: if the fetch fails (offline, FormSubmit hiccup,
-      // ad-blocker), show a copy/email-Matt fallback so the user
-      // doesn't lose their data.
-      if (openBtn) {
-        openBtn.textContent = 'Open email instead ↳';
-        openBtn.removeAttribute('disabled');
+        openBtn.hidden = false; openBtn.textContent = 'Email it to Matt ↳';
         const subject = encodeURIComponent(`KR8TIV intake · ${data['name'] ?? ''} · ${data['company'] ?? ''}`);
-        const body = encodeURIComponent(summary);
-        openBtn.onclick = () => {
-          window.location.href = `mailto:matt@kr8tiv.io?subject=${subject}&body=${body}`;
-        };
+        openBtn.onclick = () => { window.location.href = `mailto:matt@kr8tiv.io?subject=${subject}&body=${encodeURIComponent(summary)}`; };
       }
-      console.error('[intake] FormSubmit POST failed, mailto fallback ready:', err);
     }
+    if (summaryEl) { summaryEl.classList.add('show'); summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
 
-    if (copyBtn) {
-      copyBtn.onclick = async () => {
-        try { await navigator.clipboard.writeText(summary); copyBtn.textContent = '✓ Copied'; } catch {}
-        setTimeout(() => { if (copyBtn) copyBtn.textContent = 'Copy summary'; }, 2000);
-      };
-    }
+  // Clear a field's error as soon as the user fixes it.
+  root.addEventListener('input', (ev) => {
+    const t = ev.target as HTMLElement;
+    if (t.getAttribute('aria-invalid') === 'true') { t.removeAttribute('aria-invalid'); document.getElementById(`err-${(t as HTMLInputElement).name}`)?.remove(); }
+  });
+  root.addEventListener('click', (ev) => {
+    const grid = (ev.target as HTMLElement).closest('.choice-grid.is-invalid, .tier-grid.is-invalid');
+    if (grid) { grid.classList.remove('is-invalid'); grid.nextElementSibling?.classList.contains('field-error') && grid.nextElementSibling.remove(); }
   });
 
   function buildSummary(data: Record<string, string | string[]>, files: Attachment[]): string {
