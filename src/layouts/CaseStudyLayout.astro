@@ -36,6 +36,12 @@ const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toSt
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" data-variant="editorial">
 <head>
+  <!-- Theme bootstrap: runs before first paint so there is no flash.
+       Dark is ALWAYS the first-visit default, whatever the OS setting.
+       Only an explicit toggle click (stored under kr8tiv-theme-choice)
+       can switch to light. The old key "kr8tiv-theme" was auto-written
+       from prefers-color-scheme, so it is ignored and cleared. -->
+  <script is:inline>(function(){var d=document.documentElement,t='dark';try{localStorage.removeItem('kr8tiv-theme');var s=localStorage.getItem('kr8tiv-theme-choice');if(s==='light'||s==='dark')t=s;}catch(e){}d.setAttribute('data-theme',t);})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
