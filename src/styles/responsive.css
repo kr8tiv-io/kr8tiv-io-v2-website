@@ -627,3 +627,36 @@
   .why-pin { min-height: auto; padding: 40px 0; }
   .big-cta { padding: 50px 20px 80px; }
 }
+
+/* =====================================================================
+   SERVICES on phones / touch tablets: native swipe carousel.
+   The GSAP scroll-jacked pin stays desktop-only (Services.astro skips it
+   on these devices), but instead of stacking 11 tall cards vertically we
+   keep the "Scroll sideways." promise with a native, scroll-snapped
+   horizontal track. Native overflow-x scrolling is GPU-cheap and does
+   not fight iOS Safari address-bar physics the way a pin does.
+   ===================================================================== */
+@media (max-width: 720px), (pointer: coarse) and (max-width: 900px) {
+  .services-track {
+    flex-direction: row !important;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+    scrollbar-width: none;
+    padding: 0 7.5vw;
+    scroll-padding: 0 7.5vw;
+    box-sizing: border-box;
+  }
+  .services-track::-webkit-scrollbar { display: none; }
+  .svc-panel {
+    flex: 0 0 85vw;
+    width: 85vw !important;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    padding: 20px 4px 40px;
+  }
+}
