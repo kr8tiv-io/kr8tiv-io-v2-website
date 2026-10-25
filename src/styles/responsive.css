@@ -271,41 +271,6 @@
     max-width: 28ch;
   }
 
-  /* === SERVICES: kill horizontal pin on mobile ===
-     Horizontal scroll tied to vertical scroll feels broken on touch.
-     Convert to vertical stack — each panel reads like a normal card. */
-  .services-intro { padding: 60px 24px 40px; }
-  .services-intro h2 { font-size: clamp(40px, 10vw, 68px) !important; }
-  .services-intro p { font-size: 13px; }
-  .services-pin {
-    position: relative !important;
-    height: auto !important;
-    overflow: visible !important;
-    padding: 20px 0;
-  }
-  .services-track {
-    display: flex; flex-direction: column;
-    width: 100% !important;
-    transform: none !important;          /* kill GSAP track offset */
-    gap: 40px;
-  }
-  .svc-panel {
-    width: 100% !important;
-    height: auto !important;
-    margin-right: 0 !important;
-    padding: 20px 20px 60px;
-  }
-  .svc-inner {
-    grid-template-columns: 1fr !important;
-    gap: 24px; padding: 0;
-  }
-  .svc-frame {
-    max-width: 100%;
-    aspect-ratio: 1/1;
-  }
-  .svc-copy h3 { font-size: clamp(34px, 8vw, 56px); }
-  .svc-copy p { font-size: 15px; }
-  .svc-rec, .svc-counter { display: none; }
 
   /* === Why / Manifesto === */
   .why-left .kanji { font-size: 72px; }
@@ -540,47 +505,6 @@
   /* === FloatingCTA already responsive via its own query === */
 }
 
-/* =====================================================================
-   Touch devices ≤ 900px
-   iPhone landscape and iPad portrait can be wider than the 720px phone
-   breakpoint but still behave like touch-first mobile surfaces. Keep
-   the services section vertical there so GSAP pinning never fights
-   Safari's scroll/address-bar physics.
-   ===================================================================== */
-@media (pointer: coarse) and (max-width: 900px) {
-  .services-pin {
-    position: relative !important;
-    height: auto !important;
-    overflow: visible !important;
-    padding: 20px 0;
-  }
-  .services-track {
-    display: flex;
-    flex-direction: column;
-    width: 100% !important;
-    transform: none !important;
-    gap: 40px;
-  }
-  .svc-panel {
-    width: 100% !important;
-    height: auto !important;
-    margin-right: 0 !important;
-    padding: 20px 20px 60px;
-  }
-  .svc-inner {
-    grid-template-columns: 1fr !important;
-    gap: 24px;
-    padding: 0;
-  }
-  .svc-frame {
-    max-width: 100%;
-    aspect-ratio: 1/1;
-  }
-  .svc-copy h3 { font-size: clamp(34px, 8vw, 56px); }
-  .svc-copy p { font-size: 15px; }
-  .svc-rec,
-  .svc-counter { display: none; }
-}
 
 /* =====================================================================
    Extra-small ≤ 420px — iPhone SE, narrow foldables
@@ -629,34 +553,43 @@
 }
 
 /* =====================================================================
-   SERVICES on phones / touch tablets: native swipe carousel.
-   The GSAP scroll-jacked pin stays desktop-only (Services.astro skips it
-   on these devices), but instead of stacking 11 tall cards vertically we
-   keep the "Scroll sideways." promise with a native, scroll-snapped
-   horizontal track. Native overflow-x scrolling is GPU-cheap and does
-   not fight iOS Safari address-bar physics the way a pin does.
+   SERVICES on phones / touch tablets: same forced horizontal scroll as
+   desktop. Services.astro pins .services-pin with ScrollTrigger and
+   vertical scrolling drives .services-track sideways. These rules only
+   resize the panels so each card fits one small-viewport screen.
+   Heights use svh (fallback vh) so the pinned section stays the same
+   height when the iOS address bar shows or hides, and nothing jumps.
    ===================================================================== */
 @media (max-width: 720px), (pointer: coarse) and (max-width: 900px) {
-  .services-track {
-    flex-direction: row !important;
-    gap: 16px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    touch-action: pan-x pan-y;
-    scrollbar-width: none;
-    padding: 0 7.5vw;
-    scroll-padding: 0 7.5vw;
-    box-sizing: border-box;
-  }
-  .services-track::-webkit-scrollbar { display: none; }
+  .services-intro { padding: 60px 24px 40px; }
+  .services-intro h2 { font-size: clamp(40px, 10vw, 68px) !important; }
+  .services-intro p { font-size: 13px; }
+  .services-pin { height: 100vh; height: 100svh; overflow: hidden; }
   .svc-panel {
-    flex: 0 0 85vw;
-    width: 85vw !important;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    padding: 20px 4px 40px;
+    width: 100vw !important;
+    margin-right: 0 !important;
+    padding: 76px 0 24px;
+    align-items: flex-start;
   }
+  .svc-panel:last-child { margin-right: 0 !important; }
+  .svc-inner {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+    padding: 0 24px;
+    align-content: start;
+  }
+  .svc-copy .meta { font-size: 10.5px; letter-spacing: .22em; margin-bottom: 12px; padding-right: 70px; }
+  .svc-copy h3 { font-size: clamp(32px, 9vw, 48px); margin-bottom: 12px; }
+  .svc-copy p { font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+  .svc-copy .price { font-size: 10.5px; letter-spacing: .22em; }
+  .svc-copy .price .p { font-size: 28px; margin-top: 4px; }
+  .svc-frame {
+    width: min(72vw, 34svh);
+    max-width: none;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+  .svc-rec { display: none; }
+  .svc-counter { top: 76px; right: 20px; font-size: 9px; letter-spacing: .2em; }
+  .svc-counter .n { font-size: 40px; margin-bottom: 4px; }
 }
