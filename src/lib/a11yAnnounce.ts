@@ -12,7 +12,7 @@
 const SCENES: Array<{ selector: string; label: string }> = [
   { selector: '.hero-reveal',    label: 'Hero — splash reveal' },
   { selector: '.doctrine',        label: 'Doctrine — four statements we live by' },
-  { selector: '.services',        label: 'Services — eleven disciplines' },
+  { selector: '.services',        label: 'Services — twelve disciplines' },
   { selector: '.why',             label: 'Why — the founder manifesto' },
   { selector: '.process',         label: 'Process — four phases' },
   { selector: '.work',            label: 'Work — selected case studies' },
