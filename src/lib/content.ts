@@ -37,7 +37,7 @@ export interface Service {
  * the services intro copy, not as the price of the house.
  * ============================================================ */
 const FLOOR = {
-  starterWeb:  '$1,200+',
+  starterWeb:  '$750+',
   identity:    '$500+',
   video:       '$400+',
   ecom:        '$1,500+',
@@ -68,6 +68,7 @@ export const SERVICES: Service[] = [
   { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
   { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
   { v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
+  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Search + AI Visibility', em: 'search', desc: 'Get found on Google and in AI answers without renting your traffic from ads.',                tag: '/ 012 — SEO, AI Search (ChatGPT, Gemini, Perplexity), Schema, Local Listings + Content', price: 'QUOTE' /* TODO(Matt): set floor */ },
   { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
   /* AI Partnership panel removed at user request — the Design-34 loop
      (with on-video "Life, the universe, everything?" lettering) lived
