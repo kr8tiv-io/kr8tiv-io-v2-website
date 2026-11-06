@@ -1,0 +1,44 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+import '@styles/services.css';
+import { posts, fmtDate } from '@lib/blog';
+---
+<FormLayout
+  title="Design & Marketing Field Notes | KR8TIV"
+  description="Practical design and marketing field notes from an Edmonton studio: websites, storefront signs, campaigns, blogging and local advertising for Alberta businesses."
+  canonical="/blog/"
+  pageType="CollectionPage"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Field notes', url: '/blog/' }]}
+>
+  <main class="svp" id="main">
+    <header class="svp-hero">
+      <img class="svp-hero-img" src="/kr8tiv-assets/services/blog-hero.webp" alt="Writing desk in a dark atelier lit by warm gold light" width="1280" height="720" fetchpriority="high" />
+      <div>
+        <div class="svp-eyebrow">KR8TIV · Field notes</div>
+        <h1>Field notes. <em>For your next good move.</em></h1>
+        <p class="svp-intro">Practical design and marketing thinking for founders who would rather understand the decision than buy another buzzword. From Edmonton, useful wherever you’re building.</p>
+      </div>
+    </header>
+    <section class="svp-sec">
+      <div class="fn-list">
+        {posts.map((p) => (
+          <a class="fn-card" href={`/blog/${p.slug}/`}>
+            <span class="fn-meta">
+              {p.draft ? <span class="fn-draft">Draft · in review</span> : <>Published {fmtDate(p.publish_date)}</>}
+            </span>
+            <h2>{p.title}</h2>
+            <p>{p.excerpt}</p>
+            <span class="fn-meta">{p.author}{p.draft ? ` · drafted ${fmtDate(p.publish_date)}` : ''}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+    <section class="svp-sec">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">Ready to act on it?</div><h2>Notes are free. <em>Matt’s time</em> is the shortcut.</h2></div>
+        <figure class="svp-plate"><img src="/kr8tiv-assets/services/blog-support.webp" alt="Open notebook with sketches beside a glowing screen" width="1280" height="720" loading="lazy" /></figure>
+      </div>
+      <p style="text-align:center;margin-top:6vh"><a class="svp-cta" href="/start/">Start a project <span aria-hidden="true">→</span></a></p>
+    </section>
+  </main>
+</FormLayout>

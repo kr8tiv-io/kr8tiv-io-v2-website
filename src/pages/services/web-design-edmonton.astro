@@ -1,0 +1,60 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [
+  { q: 'How much does a website cost?', a: 'Full website design starts from $1,200 CAD and focused landing pages from $600 CAD. Those are starting points, not packages. Final deliverables, ongoing costs and exclusions are agreed in writing before the build.' },
+  { q: 'Who supplies the copy, photos and other assets?', a: 'That is decided in the scope. Bring what you already have; if words, imagery or brand pieces are missing, we flag them early and agree who creates them.' },
+  { q: 'Who owns and updates the site after launch?', a: 'Ownership, accounts, updates and handoff are agreed before work starts, so you know exactly what you receive and who maintains it.' },
+  { q: 'How long does a website take?', a: 'It depends on the scope and how quickly content and feedback arrive. Matt confirms the timeline with you once the scope is clear rather than promising a generic turnaround.' },
+  { q: 'Do you only work with Edmonton businesses?', a: 'KR8TIV is based in Edmonton and works with businesses across Alberta and Canada remotely. Meetings and delivery are planned around the real project.' },
+  { q: 'Will a new website get me to the top of Google?', a: 'No one can honestly promise a ranking or an AI recommendation. The scope can cover page structure, titles, descriptions, internal links, readable HTML and search setup so the site explains itself clearly.' }
+];
+---
+<FormLayout
+  title="Web Design in Edmonton | KR8TIV"
+  description="Founder-led web design in Edmonton. Memorable websites, clear offers and search foundations for Alberta and Canadian businesses. Full websites from $1,200 CAD."
+  canonical="/services/web-design-edmonton/"
+  ogImage="/kr8tiv-assets/og-card-v2.png"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/web-design-edmonton/' }, { name: 'Web design in Edmonton', url: '/services/web-design-edmonton/' }]}
+  faqs={faqs}
+  keywords={['web design Edmonton', 'website design Alberta', 'landing page design Edmonton', 'small business website Canada']}
+>
+  <ServicePage
+    eyebrow="Edmonton · Web design"
+    h1="Web design in Edmonton. <em>Built to be remembered.</em>"
+    intro="Your website should feel like your business on its best day—and make it obvious how to hire you. Work directly with Matt on the look, the words and the route from curious visitor to real conversation."
+    price="Full websites from $1,200 CAD · Landing pages from $600 CAD · Scope agreed before the build"
+    cta={{ label: 'Show Matt what needs to change', href: '/start/' }}
+    hero={{ src: '/kr8tiv-assets/services/web-design-edmonton-hero.webp', alt: 'Dark atelier scene with glowing website layouts suspended in light' }}
+    sections={[
+      { num: '01 · Clarity', title: 'Pretty is the invitation. <em>Clear</em> is what gets the call.',
+        body: ['We connect the visual direction to the questions a customer actually has: what do you do, is it right for me, and what happens next? Useful service pages, readable copy and a working enquiry path belong in the brief—not as an afterthought.'],
+        plate: { src: '/kr8tiv-assets/services/web-design-edmonton-support.webp', alt: 'Close detail of a website wireframe on a dark drafting surface' } },
+      { num: '02 · Scope', title: 'One good page, or a <em>whole new world</em>?',
+        body: ['Start with the job the site needs to do. Then pick the smallest build that does it well.'],
+        cards: [
+          { k: 'From $600 CAD', t: 'Landing page', d: 'One focused offer and one clear next step. Scoped to the job.' },
+          { k: 'From $1,200 CAD', t: 'Full website', d: 'The broader brand, service and enquiry experience. Scoped to the job.' },
+          { k: 'Quoted to the work', t: 'Existing-site improvements', d: 'Start with what is confusing or broken. We quote the fix rather than promising a rebuild everyone needs.' }
+        ] },
+      { num: '03 · Foundations', title: 'Make the foundations as good as the <em>front door</em>.',
+        body: ['The scope can cover page structure, titles and descriptions, internal links, readable HTML and search setup. That helps the site explain itself to people and to search engines.', 'It does not buy a Google position or guarantee an AI recommendation. Anyone who promises that is selling something else.'] },
+      { num: '04 · Process', title: 'How a site <em>gets made</em>.',
+        steps: [
+          { t: 'Brief', d: 'What you sell, who buys it, and what a good enquiry looks like.' },
+          { t: 'Direction', d: 'Look, structure and words agreed before anything is built.' },
+          { t: 'Build', d: 'Pages, content and enquiry path built and reviewed with you.' },
+          { t: 'Handoff', d: 'Accounts, ownership and updates handed over as agreed.' }
+        ] }
+    ]}
+    faqs={faqs}
+    finalTitle="Ready for a site that <em>does its job</em>?"
+    related={[
+      { label: 'Branding', href: '/services/branding/' },
+      { label: 'Storefront + sign design', href: '/services/print-signage-design/' },
+      { label: 'Field notes', href: '/blog/' },
+      { label: 'Process', href: '/process/' },
+      { label: 'Work', href: '/work/' }
+    ]}
+  />
+</FormLayout>

@@ -2,6 +2,16 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { readdirSync, readFileSync } from 'node:fs';
+
+// Field Notes drafts render locally (noindex) but stay out of the sitemap
+// until Matt releases them (frontmatter `draft: false`).
+const draftBlogSlugs = readdirSync('./src/data/blog')
+  .filter((f) => f.endsWith('.md'))
+  .map((f) => readFileSync('./src/data/blog/' + f, 'utf8'))
+  .filter((src) => /^draft:\s*true/m.test(src))
+  .map((src) => (src.match(/^slug:\s*"?([^"\n]+)"?/m) || [])[1])
+  .filter(Boolean);
 
 // Astro 5 ships view-transitions as a built-in integration and uses
 // Vite + Rollup for bundling. Static output so every page is pre-rendered
@@ -18,12 +28,13 @@ export default defineConfig({
       priority: 0.8,
       lastmod: new Date(),
       // Keep /menu-lab/ out of the sitemap (internal preview only).
-      filter: (page) => !page.includes('/menu-lab'),
+      filter: (page) => !page.includes('/menu-lab') && !draftBlogSlugs.some((s) => page.includes('/blog/' + s + '/')),
       // Higher priority for the homepage; lower for utility pages.
       serialize(item) {
         if (item.url === 'https://kr8tiv.io/') return { ...item, priority: 1.0, changefreq: 'daily' };
         if (item.url.includes('/process/')) return { ...item, priority: 0.9 };
         if (item.url.includes('/start/')) return { ...item, priority: 0.9 };
+        if (item.url.includes('/services/')) return { ...item, priority: 0.9 };
         return item;
       }
     })

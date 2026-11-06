@@ -19,7 +19,7 @@ export const videoPoster = (src: string): string =>
   '/kr8tiv-assets/posters/' + src.split('/').pop()!.replace(/\.mp4$/, '.webp');
 
 export interface Service {
-  v: string; t: string; em: string; desc: string; tag: string; price: string;
+  v: string; t: string; em: string; desc: string; tag: string; price: string; href?: string;
 }
 
 /* ============================================================
@@ -43,6 +43,7 @@ const FLOOR = {
   ecom:        '$1,500+',
   uxui:        '$1,500+',
   industry:    '$600+',
+  signConcept: '~$500',   /* sign concept only — PM variable, production separate (Matt t1853u/t1854u) */
   packaging:   '$800+',
   studio:      '$1,500+',
   ads:         '$900+',
@@ -58,12 +59,12 @@ const FLOOR = {
    video (3-4) for Packaging, and routed forrestbackground/8-1 to
    ads + app product instead of UX/UI's 8-1. Restored to original. */
 export const SERVICES: Service[] = [
-  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'We build sites that work, look sharp, and say something worth reading.',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
-  { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'A logo, a system, and a story that captures attention and holds it.',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
+  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
+  { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
   { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
   { v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
   { v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
-  { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Industry Design',    em: 'Industry',   desc: 'Specialized print and digital design for luxury real estate, music, travel, and hospitality.',             tag: '/ 006 — Design for Print, Magazines, Music, Real Estate, Travel + Hospitality',       price: FLOOR.industry   },
+  { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006 — Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
   { v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           tag: '/ 007 — Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
   { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
   { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
