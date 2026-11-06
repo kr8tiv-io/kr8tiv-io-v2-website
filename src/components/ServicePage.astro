@@ -4,16 +4,17 @@
  * Plates are atmosphere only; every word is live HTML type.
  */
 import '@styles/services.css';
+import AnimatedPlate from '@components/AnimatedPlate.astro';
 export interface Card { k: string; t: string; d: string; }
 export interface Step { t: string; d: string; }
 export interface Section {
   id?: string; num: string; title: string; body?: string[];
-  cards?: Card[]; steps?: Step[]; plate?: { src: string; alt: string };
+  cards?: Card[]; steps?: Step[]; plate?: { src: string; alt: string; video?: string };
 }
 export interface Props {
   eyebrow: string; h1: string; intro: string; price?: string;
   cta: { label: string; href: string };
-  hero: { src: string; alt: string };
+  hero: { src: string; alt: string; video?: string };
   sections: Section[];
   faqs: { q: string; a: string }[];
   finalTitle: string;
@@ -23,8 +24,8 @@ const { eyebrow, h1, intro, price, cta, hero, sections, faqs, finalTitle, relate
 ---
 <main class="svp" id="main">
   <header class="svp-hero">
-    <img class="svp-hero-img" src={hero.src} alt={hero.alt} width="1280" height="720" fetchpriority="high" decoding="async" />
-    <div>
+    <AnimatedPlate src={hero.src} alt={hero.alt} video={hero.video} variant="hero" priority />
+    <div class="svp-hero-copy">
       <div class="svp-eyebrow">{eyebrow}</div>
       <h1 set:html={h1} />
       <p class="svp-intro">{intro}</p>
@@ -48,7 +49,9 @@ const { eyebrow, h1, intro, price, cta, hero, sections, faqs, finalTitle, relate
             </ol>
           )}
           {s.plate && (
-            <figure class="svp-plate"><img src={s.plate.src} alt={s.plate.alt} width="1280" height="720" loading="lazy" decoding="async" /></figure>
+            <figure class="svp-plate">
+              <AnimatedPlate src={s.plate.src} alt={s.plate.alt} video={s.plate.video} variant="support" />
+            </figure>
           )}
         </div>
       </div>

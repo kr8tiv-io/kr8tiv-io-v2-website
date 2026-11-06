@@ -120,6 +120,7 @@ const {
     import { initKintsugi } from '@lib/kintsugi';
     import { initMultiStateNav } from '@lib/multiStateNav';
     import { isPhoneClassTouch } from '@lib/devicePolicy';
+    import { initPlateMotion } from '@lib/plateMotion';
 
     // Resilience wrapper: see BaseLayout.astro for why.
     const safe = (name: string, fn: () => unknown): void => {
@@ -143,6 +144,7 @@ const {
         .catch((err) => console.error('[KR8] scrollCore import failed:', err));
     }
     safe('motionToggle',     () => initMotionToggle());
+    safe('plateMotion',      () => initPlateMotion());
     safe('music',            () => initMusic());
     safe('audioReactiveNote',() => initAudioReactiveNote());
 
