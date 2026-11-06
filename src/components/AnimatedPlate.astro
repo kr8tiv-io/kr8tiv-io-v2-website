@@ -1,11 +1,13 @@
 ---
 /**
- * Atmosphere plate — AVIF + WebP, never carries SEO text.
- * Motion is CSS ken-burns + glow; paused off-screen / reduced-motion.
+ * Atmosphere plate — AVIF/WebP poster + optional looping MP4.
+ * Never carries SEO text. Video pauses off-screen / reduced-motion /
+ * site motion-off; poster remains the visible fallback.
  */
 export interface Props {
-  src: string; // path without extension, e.g. /kr8tiv-assets/services/blog-hero
+  src: string; // path without extension or with .webp
   alt: string;
+  video?: string; // /kr8tiv-assets/services/*.mp4
   variant?: 'hero' | 'support';
   width?: number;
   height?: number;
@@ -14,6 +16,7 @@ export interface Props {
 const {
   src,
   alt,
+  video,
   variant = 'support',
   width = 1280,
   height = 720,
@@ -23,8 +26,16 @@ const webp = src.endsWith('.webp') ? src : `${src}.webp`;
 const stem = webp.replace(/\.webp$/, '');
 const avif = `${stem}.avif`;
 const imgClass = variant === 'hero' ? 'svp-hero-img' : 'svp-plate-img';
+const vidClass = variant === 'hero' ? 'svp-hero-vid' : 'svp-plate-vid';
 ---
-<div class:list={['svp-plate-stage', `svp-plate-stage--${variant}`]} data-svp-plate>
+<div
+  class:list={[
+    'svp-plate-stage',
+    `svp-plate-stage--${variant}`,
+    video && 'svp-plate-stage--has-video',
+  ]}
+  data-svp-plate
+>
   <picture>
     <source type="image/avif" srcset={avif} width={width} height={height} />
     <img
@@ -38,6 +49,21 @@ const imgClass = variant === 'hero' ? 'svp-hero-img' : 'svp-plate-img';
       fetchpriority={priority ? 'high' : undefined}
     />
   </picture>
+  {video && (
+    <video
+      class={vidClass}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload={priority ? 'metadata' : 'none'}
+      poster={webp}
+      aria-hidden="true"
+      data-svp-plate-video
+    >
+      <source src={video} type="video/mp4" />
+    </video>
+  )}
   <span class="svp-plate-glow" aria-hidden="true"></span>
   <span class="svp-plate-veil" aria-hidden="true"></span>
 </div>

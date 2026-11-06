@@ -1,4 +1,4 @@
-/* services.css — SEO buying pages + Field Notes (Imagine pass + plate motion).
+/* services.css — SEO buying pages + Field Notes (Imagine pass + video plates).
    Type is live HTML: Instrument Serif heads, JetBrains Mono labels,
    Inter Tight body. Plates carry atmosphere only — never text. */
 .svp { color: var(--ink); }
@@ -69,6 +69,36 @@
   aspect-ratio: 16 / 9;
   transform-origin: 48% 52%;
   will-change: transform, filter;
+}
+
+/* Looping MP4 sits above the poster; object-fit matches stills */
+.svp-plate-stage--hero .svp-hero-vid,
+.svp-plate-stage--support .svp-plate-vid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+  background: #0a0a0c;
+}
+.svp-plate-stage--support .svp-plate-vid {
+  aspect-ratio: 16 / 9;
+}
+.svp-plate-stage--has-video picture {
+  z-index: 0;
+}
+/* Video owns motion — no ken-burns fighting the loop */
+.svp-plate-stage--has-video.is-inview .svp-hero-img,
+.svp-plate-stage--has-video.is-inview .svp-plate-img,
+.svp-plate-stage--has-video.is-inview .svp-hero-vid,
+.svp-plate-stage--has-video.is-inview .svp-plate-vid {
+  animation: none !important;
+  transform: none;
+  filter: none;
+  will-change: auto;
 }
 
 /* Soft magenta/gold light sweep — cyber-renaissance pulse */
@@ -152,6 +182,8 @@
     filter: none !important;
   }
   .svp-plate-glow { opacity: .18; }
+  .svp-plate-stage .svp-hero-vid,
+  .svp-plate-stage .svp-plate-vid { display: none !important; }
 }
 html.motion-off .svp-plate-stage .svp-hero-img,
 html.motion-off .svp-plate-stage .svp-plate-img,
@@ -162,6 +194,12 @@ html.svp-plates-static .svp-plate-stage .svp-plate-glow {
   animation: none !important;
   transform: none !important;
   filter: none !important;
+}
+html.motion-off .svp-plate-stage .svp-hero-vid,
+html.motion-off .svp-plate-stage .svp-plate-vid,
+html.svp-plates-static .svp-plate-stage .svp-hero-vid,
+html.svp-plates-static .svp-plate-stage .svp-plate-vid {
+  display: none !important;
 }
 html.motion-off .svp-plate-glow,
 html.svp-plates-static .svp-plate-glow { opacity: .16; }
