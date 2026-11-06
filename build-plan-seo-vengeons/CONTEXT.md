@@ -1,0 +1,12 @@
+# Vengeons SEO pass — hard rules
+- Repo: /workspace/kio-seo-imagine on branch seo/vengeons-pass.
+- Pricing CAD locked: full website from $1,200; landing from $600; sign/storefront concept ~$500 + variable-rate full PM. Do not invent other prices.
+- No fake clients, results, offices, reviews, or rankings.
+- Voice: fun, playful, innovative; never cold, stiff, or generic AI-slop. Fonts: Instrument Serif + JetBrains Mono (+ existing body).
+- All SEO text is live HTML — never baked into video/images.
+- No thin city-clone pages.
+- Never deploy, never merge to main, never push to main, never touch Hostinger, never force-push.
+- You may commit on seo/vengeons-pass. Parent agent pushes the feature branch.
+- Prompt 001: if no GSC paste, draft intent titles flagged NEEDS-GSC.
+- Field notes / blog posts stay draft unless the prompt explicitly flips publish.
+- Client name elsewhere is Ramzi Adam — not relevant here; do not invent KR8TIV case studies.

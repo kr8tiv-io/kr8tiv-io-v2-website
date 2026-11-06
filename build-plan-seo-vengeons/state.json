@@ -1,0 +1,14 @@
+{
+  "status": "finished",
+  "current": "",
+  "prompts": {
+    "000-inventory-raw-html": {
+      "status": "BLOCKED",
+      "started": "2026-11-06T12:49:35-06:00",
+      "grok_pid": "2697591",
+      "reason": "usage"
+    }
+  },
+  "updated": "2026-11-06T12:52:07-06:00",
+  "pid": 2697554
+}
