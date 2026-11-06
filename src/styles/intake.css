@@ -56,7 +56,7 @@
   font-size: clamp(17px, 1.5vw, 22px);
   line-height: 1.55; color: var(--ink);
   max-width: 62ch;
-  opacity: .88;
+  opacity: .94;
 }
 
 /* === Sticky side nav — section list + progress === */
@@ -158,7 +158,7 @@
 .intake-section h2 em { font-style: italic; color: var(--accent-1); }
 .intake-section > p {
   font-size: 16px; line-height: 1.6; color: var(--ink);
-  opacity: .82;
+  opacity: .92;
   margin: 0 0 48px; max-width: 58ch;
 }
 
@@ -211,7 +211,7 @@
   -webkit-appearance: none; appearance: none;
 }
 .field input::placeholder,
-.field textarea::placeholder { color: rgba(242, 241, 236, .32); }
+.field textarea::placeholder { color: rgba(242, 241, 236, .52); }
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
@@ -588,3 +588,24 @@
 .choice-grid.is-invalid, .tier-grid.is-invalid { outline: 1px solid #c8323c; outline-offset: 6px; border-radius: 8px; }
 .intake-status { min-height: 1.4em; margin-top: 12px; font-size: 13px; color: var(--ink); opacity: .85; }
 .intake-status.is-error { color: #c8323c; opacity: 1; }
+
+
+/* Matt Nov 6: form subtext / labels / hints brighter on grain.
+   Titles (h1/h2) stay on --ink / accent — only supporting chrome. */
+.intake-head .label,
+.intake-nav a,
+.intake-progress,
+.intake-section .section-label,
+.field label,
+.field .hint,
+.tier .t-range,
+.tone-slider .tone-labels,
+.file-item .fsize {
+  color: rgba(242, 241, 236, .78);
+}
+.intake-nav a:hover { color: var(--ink); }
+.intake-nav a.active { color: var(--ink); }
+.choice,
+.tier {
+  color: rgba(242, 241, 236, .88);
+}
