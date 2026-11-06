@@ -616,14 +616,18 @@ html.motion-off .hero.hero-reveal .hero-call svg { animation: none; }
    read as a chapter mark when sized like this rather than a thumbnail.
    Borderless, no aspect-ratio constraint, no box-shadow / glow / hover
    transforms — clean loop on its own. */
+.interlude-stage {
+  /* Sizing/padding owned by blend.css; keep a prism fallback if blend loads late. */
+  width: 100%;
+}
 .interlude-frame {
   position: relative;
   width: 100%;
-  max-width: 960px;            /* 3× the prior 320 px */
-  margin: 0 auto;              /* center within .interlude-inner */
+  max-width: 860px;            /* slightly inside the stage so soft black margin shows */
+  margin: 0 auto;
   background: transparent;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;           /* pool lives outside; mask handles dissolve */
   line-height: 0;              /* kill inline-video gap beneath */
 }
 .interlude-frame video {

@@ -25,7 +25,7 @@ import { PORTFOLIO_HOMEPAGE_TEASER, vv, videoPoster } from '@lib/content';
           <span class="line"><span>portfolio <span class="it">wall</span>.</span></span>
         </h2>
       </div>
-      <p style="max-width: 360px; color: var(--ink-muted); font-size: 14.5px; line-height: 1.8;">
+      <p class="work-lede">
         Four live engagements below. Full portfolio — selected work, studio lab,
         and the code vault — lives on the dedicated <a href="/work/" style="color: var(--accent-1); border-bottom: 1px solid var(--accent-1);">work page</a>.
       </p>
@@ -94,11 +94,18 @@ import { PORTFOLIO_HOMEPAGE_TEASER, vv, videoPoster } from '@lib/content';
   .work-badge--own-company { color: var(--accent-4); border-color: var(--accent-4); background: rgba(255,209,102,.06); }
   .work-badge--personal     { color: var(--cyan); border-color: var(--cyan); background: rgba(61,255,252,.05); }
 
+  .work-lede {
+    max-width: 360px;
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: rgba(242, 241, 236, .82);
+    text-shadow: 0 1px 2px rgba(0,0,0,.45);
+  }
   .work-sub {
     display: block; margin-top: 6px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 9.5px; letter-spacing: .28em;
-    color: var(--ink-muted); text-transform: uppercase;
+    color: rgba(242, 241, 236, .78); text-transform: uppercase;
   }
 
   .work-foot {

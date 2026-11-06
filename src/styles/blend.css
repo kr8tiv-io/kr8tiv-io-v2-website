@@ -306,28 +306,70 @@ html[data-theme="light"] .interlude {
    their tops and bottoms dissolved. Measured on the finished build, not
    assumed. An explicit horizontal feather fixes what the ellipse
    cannot. */
-.interlude-frame,
 .work-card {
+  /* Matt Nov 6: softer outer dissolve into the grain — was reading as
+     a hard portfolio tile. Wider feather + softer radial. */
   -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, #000 15%, #000 85%, transparent 100%),
-    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
-    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 8%, #000 24%, #000 76%, rgba(0,0,0,.4) 92%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.45) 7%, #000 20%, #000 80%, rgba(0,0,0,.45) 93%, transparent 100%),
+    radial-gradient(ellipse 120% 115% at 50% 50%, #000 38%, rgba(0,0,0,.75) 58%, transparent 90%);
   mask-image:
-    linear-gradient(to bottom, transparent 0, #000 15%, #000 85%, transparent 100%),
-    linear-gradient(to right,  transparent 0, #000 11%, #000 89%, transparent 100%),
-    radial-gradient(135% 130% at 50% 50%, #000 56%, transparent 94%);
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 8%, #000 24%, #000 76%, rgba(0,0,0,.4) 92%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.45) 7%, #000 20%, #000 80%, rgba(0,0,0,.45) 93%, transparent 100%),
+    radial-gradient(ellipse 120% 115% at 50% 50%, #000 38%, rgba(0,0,0,.75) 58%, transparent 90%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
 
-/* The interlude was the worst offender — a hard-edged rectangle on a
-   slightly-off background. Lose the frame entirely and let the footage
-   sit in the page. */
+/* Interlude chrome plate — Matt Nov 6: more black around the piece,
+   then a beautiful soft fade into the grain (was reading as a
+   crunched hard rectangle). Stage holds an oversized black pool;
+   the video itself gets a wider, gentler dissolve so its baked-in
+   black edges never terminate as a box. */
+.interlude-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Room for the pool to breathe past the video edges. */
+  padding: 72px 48px;
+  box-sizing: border-box;
+}
+.interlude-pool {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 48% at 50% 50%,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, .92) 28%,
+      rgba(0, 0, 0, .55) 52%,
+      rgba(0, 0, 0, .18) 72%,
+      transparent 88%);
+}
 .interlude-frame {
+  position: relative;
+  z-index: 1;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
+  /* Wider, softer dissolve than the old shared mask — black margin
+     around the chrome stays opaque longer, then eases out. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.35) 10%, #000 28%, #000 72%, rgba(0,0,0,.35) 90%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.4) 8%,  #000 22%, #000 78%, rgba(0,0,0,.4) 92%, transparent 100%),
+    radial-gradient(ellipse 108% 95% at 50% 50%, #000 42%, rgba(0,0,0,.7) 62%, transparent 92%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.35) 10%, #000 28%, #000 72%, rgba(0,0,0,.35) 90%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.4) 8%,  #000 22%, #000 78%, rgba(0,0,0,.4) 92%, transparent 100%),
+    radial-gradient(ellipse 108% 95% at 50% 50%, #000 42%, rgba(0,0,0,.7) 62%, transparent 92%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 .interlude-frame video {
   border-radius: 0 !important;
@@ -679,14 +721,15 @@ html[data-theme="dark"] .inline-cta[data-variant="loud"] .box {
 }
 .port-frame > video,
 .port-frame > img {
+  /* Match the softer work-card dissolve so /work/ tiles match homepage. */
   -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%),
-    linear-gradient(to right,  transparent 0, #000 10%, #000 90%, transparent 100%),
-    radial-gradient(135% 130% at 50% 50%, #000 58%, transparent 94%);
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 8%, #000 24%, #000 76%, rgba(0,0,0,.4) 92%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.45) 7%, #000 20%, #000 80%, rgba(0,0,0,.45) 93%, transparent 100%),
+    radial-gradient(ellipse 120% 115% at 50% 50%, #000 38%, rgba(0,0,0,.75) 58%, transparent 90%);
   mask-image:
-    linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%),
-    linear-gradient(to right,  transparent 0, #000 10%, #000 90%, transparent 100%),
-    radial-gradient(135% 130% at 50% 50%, #000 58%, transparent 94%);
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 8%, #000 24%, #000 76%, rgba(0,0,0,.4) 92%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.45) 7%, #000 20%, #000 80%, rgba(0,0,0,.45) 93%, transparent 100%),
+    radial-gradient(ellipse 120% 115% at 50% 50%, #000 38%, rgba(0,0,0,.75) 58%, transparent 90%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
@@ -708,4 +751,20 @@ html.motion-off .flow-field { --flow-y: .5 !important; transition: none !importa
 /* Print: no washes, no field. */
 @media print {
   .flow-field, .blend::before, .inline-cta::before, .marquee-wrap::before { display: none !important; }
+}
+
+/* Soften the drawn edge ring so cards don't read as hard rectangles. */
+.port-frame-edge {
+  opacity: .35 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
