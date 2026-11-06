@@ -287,6 +287,7 @@
   .interlude-inner { gap: 20px; }
   .interlude-eye { font-size: 9.5px; letter-spacing: .32em; }
   .interlude-frame { max-width: 260px; }
+  .interlude-stage { padding: 40px 20px; }
   .interlude-caption { font-size: 15px; }
 
   /* === Process preview (home) === */
@@ -532,6 +533,7 @@
   .inline-cta[data-variant="loud"] h3 { font-size: clamp(28px, 8vw, 48px); }
 
   .interlude-frame { max-width: 220px; }
+  .interlude-stage { padding: 28px 12px; }
 
   .variant-bar { max-width: calc(100vw - 24px); overflow-x: auto; }
 

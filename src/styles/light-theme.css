@@ -374,6 +374,21 @@ html[data-theme="light"] .interlude-frame {
 /* Ditto for the soft accent bloom that used to ring the dark frame. */
 html[data-theme="light"] .interlude-glow { opacity: 0; }
 
+/* Soft cream pool (dark-mode black pool counterpart) so the inverted
+   chrome plate still dissolves into the paper ground. */
+html[data-theme="light"] .interlude-pool {
+  background:
+    radial-gradient(ellipse 58% 48% at 50% 50%,
+      rgba(245, 242, 234, 1) 0%,
+      rgba(245, 242, 234, .9) 28%,
+      rgba(245, 242, 234, .45) 52%,
+      rgba(245, 242, 234, .12) 72%,
+      transparent 88%);
+}
+html[data-theme="light"] .interlude-stage {
+  padding: 64px 40px;
+}
+
 /* =====================================================================
    PROCESS PREVIEW (homepage) — cards on cream
    ===================================================================== */

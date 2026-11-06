@@ -116,17 +116,22 @@ const homepageFaqs = [
   <section class="interlude" id="interlude" aria-hidden="true">
     <div class="interlude-inner">
       <div class="interlude-eye"><span class="b"></span>INTERLUDE</div>
-      <div class="interlude-frame">
-        <!-- Same loop as the "Design 34" Work card (/002 · branding).
-             preload="none" so the bytes don't fly until lazyVideo.ts'
-             IntersectionObserver brings this section into view (autoplay
-             still fires the moment we hit the root margin). The
-             interlude sits BELOW the splash + doctrine + services so it
-             would be a wasted prefetch on first paint. -->
-        <video muted loop playsinline preload="none" poster="/kr8tiv-assets/posters/Design-29-2-1.webp">
-          <source src="/kr8tiv-assets/Design-29-2-1.mp4?v=2" type="video/mp4" />
-        </video>
-        <span class="interlude-glow" aria-hidden="true"></span>
+      <div class="interlude-stage">
+        <!-- Soft black pool behind the chrome plate — fades into the
+             grain so the video no longer reads as a hard rectangle. -->
+        <span class="interlude-pool" aria-hidden="true"></span>
+        <div class="interlude-frame">
+          <!-- Same loop as the "Design 34" Work card (/002 · branding).
+               preload="none" so the bytes don't fly until lazyVideo.ts'
+               IntersectionObserver brings this section into view (autoplay
+               still fires the moment we hit the root margin). The
+               interlude sits BELOW the splash + doctrine + services so it
+               would be a wasted prefetch on first paint. -->
+          <video muted loop playsinline preload="none" poster="/kr8tiv-assets/posters/Design-29-2-1.webp">
+            <source src="/kr8tiv-assets/Design-29-2-1.mp4?v=2" type="video/mp4" />
+          </video>
+          <span class="interlude-glow" aria-hidden="true"></span>
+        </div>
       </div>
       <div class="interlude-caption">— between <em>why</em> &amp; <em>how</em></div>
     </div>
