@@ -1,5 +1,6 @@
 ---
 import FormLayout from '@layouts/FormLayout.astro';
+import AnimatedPlate from '@components/AnimatedPlate.astro';
 import '@styles/services.css';
 import { posts, fmtDate } from '@lib/blog';
 ---
@@ -12,8 +13,8 @@ import { posts, fmtDate } from '@lib/blog';
 >
   <main class="svp" id="main">
     <header class="svp-hero">
-      <img class="svp-hero-img" src="/kr8tiv-assets/services/blog-hero.webp" alt="Writing desk in a dark atelier lit by warm gold light" width="1280" height="720" fetchpriority="high" />
-      <div>
+      <AnimatedPlate src="/kr8tiv-assets/services/blog-hero.webp" alt="Writing desk in a dark atelier lit by warm gold light" variant="hero" priority />
+      <div class="svp-hero-copy">
         <div class="svp-eyebrow">KR8TIV · Field notes</div>
         <h1>Field notes. <em>For your next good move.</em></h1>
         <p class="svp-intro">Practical design and marketing thinking for founders who would rather understand the decision than buy another buzzword. From Edmonton, useful wherever you’re building.</p>
@@ -36,7 +37,9 @@ import { posts, fmtDate } from '@lib/blog';
     <section class="svp-sec">
       <div class="svp-sec-grid">
         <div><div class="svp-num">Ready to act on it?</div><h2>Notes are free. <em>Matt’s time</em> is the shortcut.</h2></div>
-        <figure class="svp-plate"><img src="/kr8tiv-assets/services/blog-support.webp" alt="Open notebook with sketches beside a glowing screen" width="1280" height="720" loading="lazy" /></figure>
+        <figure class="svp-plate">
+          <AnimatedPlate src="/kr8tiv-assets/services/blog-support.webp" alt="Open notebook with sketches beside a glowing screen" variant="support" />
+        </figure>
       </div>
       <p style="text-align:center;margin-top:6vh"><a class="svp-cta" href="/start/">Start a project <span aria-hidden="true">→</span></a></p>
     </section>

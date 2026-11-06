@@ -1,0 +1,43 @@
+---
+/**
+ * Atmosphere plate — AVIF + WebP, never carries SEO text.
+ * Motion is CSS ken-burns + glow; paused off-screen / reduced-motion.
+ */
+export interface Props {
+  src: string; // path without extension, e.g. /kr8tiv-assets/services/blog-hero
+  alt: string;
+  variant?: 'hero' | 'support';
+  width?: number;
+  height?: number;
+  priority?: boolean;
+}
+const {
+  src,
+  alt,
+  variant = 'support',
+  width = 1280,
+  height = 720,
+  priority = false,
+} = Astro.props;
+const webp = src.endsWith('.webp') ? src : `${src}.webp`;
+const stem = webp.replace(/\.webp$/, '');
+const avif = `${stem}.avif`;
+const imgClass = variant === 'hero' ? 'svp-hero-img' : 'svp-plate-img';
+---
+<div class:list={['svp-plate-stage', `svp-plate-stage--${variant}`]} data-svp-plate>
+  <picture>
+    <source type="image/avif" srcset={avif} width={width} height={height} />
+    <img
+      class={imgClass}
+      src={webp}
+      alt={alt}
+      width={width}
+      height={height}
+      decoding="async"
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : undefined}
+    />
+  </picture>
+  <span class="svp-plate-glow" aria-hidden="true"></span>
+  <span class="svp-plate-veil" aria-hidden="true"></span>
+</div>
