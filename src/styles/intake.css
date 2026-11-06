@@ -543,7 +543,7 @@
   max-width: 1280px; margin: 120px auto 0; padding: 0 32px;
 }
 .intake-foot .foot-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 48px;
   padding: 60px 0 32px; border-top: 1px solid var(--edge);
 }
 @media (max-width: 720px) { .intake-foot .foot-grid { grid-template-columns: 1fr 1fr; } }

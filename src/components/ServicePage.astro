@@ -1,0 +1,80 @@
+---
+/**
+ * ServicePage — shared body for /services/* buying pages.
+ * Plates are atmosphere only; every word is live HTML type.
+ */
+import '@styles/services.css';
+export interface Card { k: string; t: string; d: string; }
+export interface Step { t: string; d: string; }
+export interface Section {
+  id?: string; num: string; title: string; body?: string[];
+  cards?: Card[]; steps?: Step[]; plate?: { src: string; alt: string };
+}
+export interface Props {
+  eyebrow: string; h1: string; intro: string; price?: string;
+  cta: { label: string; href: string };
+  hero: { src: string; alt: string };
+  sections: Section[];
+  faqs: { q: string; a: string }[];
+  finalTitle: string;
+  related: { label: string; href: string }[];
+}
+const { eyebrow, h1, intro, price, cta, hero, sections, faqs, finalTitle, related } = Astro.props;
+---
+<main class="svp" id="main">
+  <header class="svp-hero">
+    <img class="svp-hero-img" src={hero.src} alt={hero.alt} width="1280" height="720" fetchpriority="high" decoding="async" />
+    <div>
+      <div class="svp-eyebrow">{eyebrow}</div>
+      <h1 set:html={h1} />
+      <p class="svp-intro">{intro}</p>
+      {price && <p class="svp-price">{price}</p>}
+      <a class="svp-cta" href={cta.href}>{cta.label} <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  {sections.map((s) => (
+    <section class="svp-sec" id={s.id}>
+      <div class="svp-sec-grid">
+        <div>
+          <div class="svp-num">{s.num}</div>
+          <h2 set:html={s.title} />
+        </div>
+        <div class="svp-body">
+          {s.body?.map((p) => <p set:html={p} />)}
+          {s.steps && (
+            <ol class="svp-steps">
+              {s.steps.map((st) => <li><div><strong>{st.t}</strong>{st.d}</div></li>)}
+            </ol>
+          )}
+          {s.plate && (
+            <figure class="svp-plate"><img src={s.plate.src} alt={s.plate.alt} width="1280" height="720" loading="lazy" decoding="async" /></figure>
+          )}
+        </div>
+      </div>
+      {s.cards && (
+        <div class="svp-cards">
+          {s.cards.map((c) => <div class="svp-card"><span class="k">{c.k}</span><h3>{c.t}</h3><p>{c.d}</p></div>)}
+        </div>
+      )}
+    </section>
+  ))}
+
+  <section class="svp-sec svp-faq" id="faq">
+    <div class="svp-sec-grid">
+      <div><div class="svp-num">Questions</div><h2>Straight <em>answers</em>.</h2></div>
+      <div>
+        {faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="svp-final">
+    <div class="svp-num">Edmonton · Alberta · Canada</div>
+    <h2 set:html={finalTitle} />
+    <a class="svp-cta" href={cta.href}>{cta.label} <span aria-hidden="true">→</span></a>
+    <nav class="svp-related" aria-label="Related">
+      {related.map((r) => <a href={r.href}>{r.label}</a>)}
+    </nav>
+  </section>
+</main>

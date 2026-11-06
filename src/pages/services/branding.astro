@@ -1,0 +1,53 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [
+  { q: 'Can you help a new business set up its brand?', a: 'Yes. We can work through positioning, identity and the first customer-facing assets. Scope depends on what you need to launch.' },
+  { q: 'Can you work with an existing logo?', a: 'Yes. We review what works, what creates confusion, and whether refinement makes more sense than a full rebrand.' },
+  { q: 'Does branding include business cards and signage?', a: 'It can. Deliverables are listed in your scope. Sign concepts start from about $500 CAD, and at variable rates KR8TIV can also source suppliers and manage manufacturing coordination, handoff and installation liaison. Fabricators and builders do the physical work.' },
+  { q: 'Will we get guidelines and usable files?', a: 'We agree on file formats, usage guidance and handoff before work starts, so your team and suppliers know exactly what they will receive.' },
+  { q: 'Where do you work?', a: 'KR8TIV is based in Edmonton and works with businesses across Alberta and Canada.' }
+];
+---
+<FormLayout
+  title="Branding & Logo Design in Edmonton | KR8TIV"
+  description="Build a clear brand with KR8TIV in Edmonton. Logo design, visual identity, brand voice, and a system for your website, signage, packaging, and print."
+  canonical="/services/branding/"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/branding/' }, { name: 'Branding', url: '/services/branding/' }]}
+  faqs={faqs}
+  keywords={['branding Edmonton', 'logo design Edmonton', 'visual identity Alberta', 'brand design Canada']}
+>
+  <ServicePage
+    eyebrow="Edmonton · Branding + identity"
+    h1="A brand with a <em>world of its own</em>."
+    intro="The logo is the hello. The rest is how people remember you. KR8TIV connects the identity, the words and the places your customers meet the business—from a phone screen to the storefront."
+    price="Scoped to the business · Quoted before work starts"
+    cta={{ label: 'Build the right first impression', href: '/start/' }}
+    hero={{ src: '/kr8tiv-assets/services/branding-hero.webp', alt: 'Brand identity pieces arranged in a dark, gold-lit studio' }}
+    sections={[
+      { num: '01 · Direction', title: 'Set the direction <em>before</em> the assets.',
+        body: ['Start with what you sell, who buys it, and why they should choose you. That brief guides the logo, colours, typography and language.', 'The work should feel like your business—not a template with your name on it.'] },
+      { num: '02 · System', title: 'A logo, colour and type system you can <em>actually use</em>.',
+        body: ['Your logo has to work beyond the presentation. On a storefront. On a business card. On a phone screen where someone is deciding whether to call.'],
+        plate: { src: '/kr8tiv-assets/services/branding-support.webp', alt: 'Detail of brand materials and colour studies on a dark surface' },
+        cards: [
+          { k: 'Identity', t: 'Logo system', d: 'Primary mark, variations and the rules that keep them consistent.' },
+          { k: 'Voice', t: 'Words that sound like you', d: 'The language customers hear from your site, sign and sales.' },
+          { k: 'Applications', t: 'Everywhere it lives', d: 'Website direction, signage, packaging, menus and business cards.' }
+        ] },
+      { num: '03 · Handoff', title: 'Applications and a <em>clean handoff</em>.',
+        body: ['Build what you need now and keep the system ready for the next piece. File formats, usage guidance and supplier-ready artwork are agreed in the scope.'] },
+      { num: '04 · Refinement', title: 'Already have a brand? <em>Refine it.</em>',
+        body: ['Not every business needs a full rebrand. We look at what is working, what is causing confusion, and recommend the smallest change that fixes it.'] }
+    ]}
+    faqs={faqs}
+    finalTitle="Set up the brand you want people <em>to remember</em>."
+    related={[
+      { label: 'Web design Edmonton', href: '/services/web-design-edmonton/' },
+      { label: 'Sign design', href: '/services/print-signage-design/' },
+      { label: 'Packaging', href: '/services/print-signage-design/#packaging' },
+      { label: 'Cards + menus', href: '/services/print-signage-design/#menus-cards' },
+      { label: 'Work', href: '/work/' }
+    ]}
+  />
+</FormLayout>

@@ -1,0 +1,30 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+import '@styles/services.css';
+import { posts, fmtDate } from '@lib/blog';
+export function getStaticPaths() {
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { slug: p.slug } }));
+}
+const post = posts.find((p) => p.slug === Astro.props.slug)!;
+const { Content } = post;
+---
+<FormLayout
+  title={post.seo_title ?? `${post.title} | KR8TIV`}
+  description={post.meta_description}
+  canonical={`/blog/${post.slug}/`}
+  pageType="Article"
+  noIndex={post.draft}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Field notes', url: '/blog/' }, { name: post.title, url: `/blog/${post.slug}/` }]}
+>
+  <main class="svp" id="main">
+    <article class="fn-article">
+      <p class="fn-meta" style="margin-top:110px">
+        <a href="/blog/" style="color:inherit">← Field notes</a> ·
+        {post.draft ? <span class="fn-draft">Draft for Matt’s review — not yet published</span> : <>Published {fmtDate(post.publish_date)}</>}
+        {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · {post.author}
+      </p>
+      <Content />
+      <p style="margin-top:8vh"><a class="svp-cta" href="/start/" style="color:var(--ink)">Talk to Matt about your project <span aria-hidden="true">→</span></a></p>
+    </article>
+  </main>
+</FormLayout>

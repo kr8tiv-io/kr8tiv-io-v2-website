@@ -22,8 +22,10 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
               described the page layout to the person already looking at
               it. Replaced with the thing a buyer actually wants to know
               about an eleven-discipline list. */}
-          Most studios do one of these well and quietly subcontract the rest.
-          These are all in-house, and the same person answers for every one.
+          One founder-led studio in Edmonton for the brand, the website, and the work
+          that brings customers in. Matt stays involved. For storefronts, KR8TIV designs
+          and can manage the journey from concept through supplier sourcing, manufacturing
+          coordination and installation liaison. Fabricators and builders do the physical work.
           <span class="services-floor-note">
             Figures are engagement floors, not menu prices — where a real project starts.
             Small one-off pieces sit below them; ask and we&rsquo;ll tell you honestly.
@@ -44,6 +46,7 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
               ))}</h3>
               <p>{s.desc}</p>
               <div class="price">ENGAGEMENTS FROM<span class="p">{s.price}</span></div>
+              {s.href && <a class="svc-more" href={s.href}>Explore {s.t.toLowerCase()} <span aria-hidden="true">→</span></a>}
             </div>
             <div class="svc-frame" data-cursor="media">
               <span class="svc-frame-bloom" aria-hidden="true"></span>

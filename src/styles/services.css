@@ -1,0 +1,65 @@
+/* services.css — SEO buying pages + Field Notes (Nov 6 Imagine pass).
+   Type is live HTML: Instrument Serif heads, JetBrains Mono labels,
+   Inter Tight body. Plates carry atmosphere only — never text. */
+.svp { color: var(--ink); }
+.svp-hero { position: relative; min-height: 88vh; display: grid; align-items: end; padding: 140px 6vw 8vh; overflow: hidden; isolation: isolate; }
+.svp-hero-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.svp-hero::after { content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(5,5,7,.92) 0%, rgba(5,5,7,.72) 42%, rgba(5,5,7,.18) 100%),
+              linear-gradient(0deg, var(--bg) 0%, rgba(5,5,7,0) 38%); }
+.svp-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold, #d8b26a); margin-bottom: 26px; display: flex; gap: 14px; align-items: center; }
+.svp-eyebrow::before { content: ''; width: 36px; height: 1px; background: currentColor; }
+.svp h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(48px, 7.4vw, 124px); line-height: .95; letter-spacing: -.025em; max-width: 14ch; margin: 0; color: #f2f1ec; }
+.svp h1 em, .svp h2 em { font-style: italic; color: var(--gold, #d8b26a); }
+.svp-intro { font-size: clamp(17px, 1.35vw, 21px); line-height: 1.6; max-width: 54ch; margin: 30px 0 0; color: rgba(242,241,236,.86); }
+.svp-price { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; margin-top: 26px; color: #f2f1ec; line-height: 1.8; max-width: 70ch; }
+.svp-cta { display: inline-flex; gap: 12px; align-items: center; margin-top: 36px; padding: 18px 28px; border: 1px solid rgba(242,241,236,.4); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #f2f1ec; text-decoration: none; background: rgba(5,5,7,.35); backdrop-filter: blur(8px); transition: background .3s var(--ease), color .3s var(--ease); }
+.svp-cta:hover { background: #f2f1ec; color: #050507; }
+.svp-sec { padding: 13vh 6vw; border-top: 1px solid var(--edge); }
+.svp-sec-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6vw; align-items: start; }
+.svp-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-muted, rgba(242,241,236,.55)); margin-bottom: 18px; }
+.svp h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(36px, 4.4vw, 72px); line-height: 1.02; letter-spacing: -.02em; margin: 0; max-width: 16ch; }
+.svp h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(24px, 2vw, 32px); margin: 0 0 12px; }
+.svp p, .svp li { font-size: 17px; line-height: 1.7; color: var(--ink-soft, rgba(242,241,236,.8)); }
+.svp-body p { max-width: 62ch; margin: 0 0 1.1em; }
+.svp-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 7vh; }
+.svp-card { border: 1px solid var(--edge); border-radius: 18px; padding: 30px; background: linear-gradient(160deg, rgba(242,241,236,.045), rgba(242,241,236,.01)); }
+.svp-card .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold, #d8b26a); margin-bottom: 16px; display: block; }
+.svp-card p { margin: 0; font-size: 16px; }
+.svp-plate { margin: 0; border-radius: 22px; overflow: hidden; border: 1px solid var(--edge); }
+.svp-plate img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+.svp-steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 0; }
+.svp-steps li { counter-increment: s; display: grid; grid-template-columns: 70px 1fr; padding: 24px 0; border-bottom: 1px solid var(--edge); }
+.svp-steps li::before { content: counter(s, decimal-leading-zero); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .2em; color: var(--gold, #d8b26a); padding-top: 6px; }
+.svp-steps strong { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 26px; color: var(--ink); margin-bottom: 4px; }
+.svp-faq details { border-bottom: 1px solid var(--edge); padding: 22px 0; }
+.svp-faq summary { cursor: pointer; font-family: 'Instrument Serif', serif; font-size: clamp(21px, 1.8vw, 28px); list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+.svp-faq summary::after { content: '+'; font-family: 'JetBrains Mono', monospace; color: var(--gold, #d8b26a); }
+.svp-faq details[open] summary::after { content: '–'; }
+.svp-faq p { margin: 14px 0 0; max-width: 70ch; }
+.svp-final { text-align: center; padding: 16vh 6vw; border-top: 1px solid var(--edge); }
+.svp-final h2 { margin: 0 auto; max-width: 18ch; }
+.svp-related { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+.svp-related a { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-muted, rgba(242,241,236,.6)); text-decoration: none; border-bottom: 1px solid var(--edge); padding-bottom: 4px; }
+.svp-related a:hover { color: var(--ink); }
+/* Field notes */
+.fn-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+.fn-card { display: flex; flex-direction: column; gap: 14px; border: 1px solid var(--edge); border-radius: 18px; padding: 32px; text-decoration: none; color: inherit; background: linear-gradient(160deg, rgba(242,241,236,.045), rgba(242,241,236,.01)); transition: border-color .3s var(--ease), transform .3s var(--ease); }
+.fn-card:hover { border-color: rgba(216,178,106,.6); transform: translateY(-3px); }
+.fn-card h2 { font-size: clamp(26px, 2.2vw, 34px); max-width: none; }
+.fn-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-muted, rgba(242,241,236,.6)); }
+.fn-article { max-width: 760px; margin: 0 auto; padding: 8vh 6vw 12vh; }
+.fn-article h2 { font-size: clamp(30px, 3.2vw, 46px); margin: 2.2em 0 .6em; max-width: none; }
+.fn-article h3 { margin-top: 1.8em; }
+.fn-article a { color: var(--gold, #d8b26a); }
+.fn-article table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 15px; }
+.fn-article th, .fn-article td { border-bottom: 1px solid var(--edge); padding: 10px 8px; text-align: left; vertical-align: top; }
+.fn-article ul, .fn-article ol { padding-left: 1.3em; }
+.fn-draft { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #050507; background: var(--gold, #d8b26a); padding: 4px 10px; border-radius: 999px; display: inline-block; }
+[data-theme="light"] .svp-hero h1, [data-theme="light"] .svp-hero .svp-intro, [data-theme="light"] .svp-hero .svp-price, [data-theme="light"] .svp-hero .svp-cta { color: #f2f1ec; }
+@media (max-width: 860px) {
+  .svp-sec-grid { grid-template-columns: 1fr; }
+  .svp-hero { min-height: 78vh; padding-top: 120px; }
+  .svp-hero::after { background: linear-gradient(0deg, rgba(5,5,7,.96) 0%, rgba(5,5,7,.7) 55%, rgba(5,5,7,.35) 100%); }
+}
+.fn-article h1 { font-size: clamp(40px, 5vw, 72px); max-width: none; margin: 24px 0 36px; }

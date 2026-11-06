@@ -1,0 +1,67 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [
+  { q: 'What does the $500 cover?', a: 'A sign concept starts from about $500 CAD. It is not an installed-sign quote. Concept deliverables and revisions are agreed up front; project management, fabrication, installation and specialist costs are quoted separately.' },
+  { q: 'Can you manage the whole project?', a: 'Yes. KR8TIV can project-manage from concept through supplier sourcing, manufacturing coordination and handoff, and installation liaison, at variable rates agreed to the scope.' },
+  { q: 'Do you manufacture or install the sign yourselves?', a: 'No. Fabricators and builders carry out that work under KR8TIV coordination as scoped. KR8TIV handles design and project management, not an owned factory or installation crew.' },
+  { q: 'Can you design the store as well as the sign?', a: 'Yes. Storefront design, full store design and 3D immersive store experiences can be scoped together with packaging, menus and cards. Specialist technical and construction responsibilities are agreed with qualified providers.' },
+  { q: 'Do you handle permits and engineering?', a: 'No. Permits, engineering, electrical, accessibility/code review and landlord approvals are confirmed with qualified providers and the relevant authority before production. A visualisation is not construction approval.' },
+  { q: 'Can you work with our supplier outside Edmonton?', a: 'Yes. We plan around your supplier\u2019s requirements for Alberta and Canadian projects. Delivery arrangements and management scope depend on the actual location.' }
+];
+---
+<FormLayout
+  title="Storefront & Sign Design in Edmonton | KR8TIV"
+  description="Edmonton storefront, sign and immersive store design. Concepts from about $500 CAD; variable-rate project management across Alberta and Canada."
+  canonical="/services/print-signage-design/"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/print-signage-design/' }, { name: 'Storefront + sign design', url: '/services/print-signage-design/' }]}
+  faqs={faqs}
+  howTo={{ name: 'From sign concept to installation liaison', description: 'How KR8TIV takes a storefront sign from concept to installation with independent fabricators.', steps: [
+    { name: 'Brief', text: 'Send storefront photos, dimensions, brand files, goals and landlord or supplier requirements.' },
+    { name: 'Direction', text: 'Agree creative direction, deliverables, responsibilities and project-management scope.' },
+    { name: 'Sourcing', text: 'Source a suitable sign company or fabricator and compare specifications and quotes.' },
+    { name: 'Manufacturing handoff', text: 'Coordinate approved artwork and manufacturing handoff; the supplier confirms feasibility.' },
+    { name: 'Installation liaison', text: 'Liaise around installation as scoped; builders and trades perform the physical work.' }
+  ] }}
+  keywords={['storefront sign design Edmonton', 'sign design Alberta', 'store design Edmonton', 'immersive store design Canada', 'packaging design Edmonton', 'menu design Edmonton']}
+>
+  <ServicePage
+    eyebrow="Edmonton · Storefront + sign design"
+    h1="From first sketch to storefront. <em>One clear direction.</em>"
+    intro="A beautiful sign gets you noticed. A whole store world makes the visit feel right. KR8TIV connects the storefront, the space and the details—then can manage the journey that gets the idea into the real world."
+    price="Sign concepts from about $500 CAD · Full project management at variable rates"
+    cta={{ label: 'Tell Matt what you’re building', href: '/start/' }}
+    hero={{ src: '/kr8tiv-assets/services/storefront-design-hero.webp', alt: 'Illuminated storefront concept glowing on a dark street' }}
+    sections={[
+      { num: '01 · Who does what', title: 'We design and manage. <em>Specialists build.</em>',
+        body: ['KR8TIV designs and manages. Fabricators and builders perform fabrication and installation under our coordination, as scoped.', 'Concept, management and physical-production costs are separate, and every one of them is itemised in the quote before work starts.'] },
+      { num: '02 · The journey', title: 'From concept to <em>install liaison</em>.',
+        steps: [
+          { t: 'Concept', d: 'Storefront photos, dimensions, brand files and goals become a sign concept—from about $500 CAD.' },
+          { t: 'Source the sign company', d: 'We find a suitable sign company or fabricator and compare specifications and quotes with you.' },
+          { t: 'Manufacturing coordination', d: 'Approved artwork is handed off; the supplier confirms technical feasibility and production specs.' },
+          { t: 'Installation liaison', d: 'We liaise around installation as scoped. Permits, engineering, electrical and landlord responsibilities are confirmed before production.' }
+        ] },
+      { num: '03 · The whole first impression', title: 'Storefronts, stores and <em>3D immersive</em> experiences.',
+        body: ['Storefront design, full store design and 3D immersive store experiences can share one direction. A 3D store concept lets you explore the atmosphere, layout and customer journey before physical work is committed.'],
+        plate: { src: '/kr8tiv-assets/services/storefront-design-support.webp', alt: 'Immersive 3D store interior concept with warm architectural light' },
+        cards: [
+          { k: 'From ~$500 CAD', t: 'Concept only', d: 'A sign concept with agreed artwork, views and revisions.' },
+          { k: 'Variable rate', t: 'Design + managed delivery', d: 'Supplier sourcing, quote and spec coordination, artwork handoff, manufacturing coordination and installation liaison.' },
+          { k: 'Quoted to scope', t: 'A whole store world', d: 'Full store design and immersive 3D experience with coordinated packaging, menus and cards.' }
+        ] },
+      { id: 'packaging', num: '04 · Packaging', title: 'Packaging that <em>belongs</em> to your brand.',
+        body: ['The package has a job before anyone opens it: say what the product is, keep important information readable, and be recognisable next time.', 'Bring the supplier dieline, dimensions and print requirements. We design artwork and mockups around them and can manage the packaging journey as scoped. Manufacturers confirm materials and production; you remain responsible for approved claims and required labelling.'] },
+      { id: 'menus-cards', num: '05 · Menus + cards', title: 'Menus and cards people can <em>actually read</em>.',
+        body: ['A card should make it easy to contact you. A menu should make the choices clear. Start with approved information—names, items, prices—then we design around your printer\u2019s size, stock, finish and bleed.', 'KR8TIV can coordinate printer sourcing and handoff as scoped. Printing and delivery are separate from design.'] }
+    ]}
+    faqs={faqs}
+    finalTitle="A sign concept from about $500—or the <em>whole store</em>, managed."
+    related={[
+      { label: 'Branding', href: '/services/branding/' },
+      { label: 'Web design Edmonton', href: '/services/web-design-edmonton/' },
+      { label: 'Sign-design buyer guide', href: '/blog/storefront-sign-design-edmonton/' },
+      { label: 'Work', href: '/work/' }
+    ]}
+  />
+</FormLayout>
