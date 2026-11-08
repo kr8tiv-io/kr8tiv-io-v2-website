@@ -28,7 +28,7 @@ export default defineConfig({
       priority: 0.8,
       lastmod: new Date(),
       // Keep /menu-lab/ out of the sitemap (internal preview only).
-      filter: (page) => !page.includes('/menu-lab') && !draftBlogSlugs.some((s) => page.includes('/blog/' + s + '/')),
+      filter: (page) => !page.includes('/404') && !page.includes('/menu-lab') && !draftBlogSlugs.some((s) => page.includes('/blog/' + s + '/')),
       // Higher priority for the homepage; lower for utility pages.
       serialize(item) {
         if (item.url === 'https://kr8tiv.io/') return { ...item, priority: 1.0, changefreq: 'daily' };

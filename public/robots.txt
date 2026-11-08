@@ -1,9 +1,8 @@
 # ============================================================
 # robots.txt · kr8tiv.io
 # We WANT traditional search engines AND AI crawlers to find us.
-# This file explicitly opts us INTO AI indexing (opposite of the
-# common "block GPTBot" pattern) because discovery in ChatGPT,
-# Perplexity, Claude, and Gemini is now a core acquisition channel.
+# Existing crawler permissions are preserved. Allowing a crawler does not
+# guarantee indexing, model use, citations or assistant recommendations.
 # ============================================================
 
 # ---------- Traditional search engines ----------
@@ -11,7 +10,6 @@ User-agent: Googlebot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Crawl-delay: 0
 
 User-agent: Googlebot-Image
 Allow: /
@@ -109,7 +107,7 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-# ---------- Bad actors — still blocked ----------
+# ---------- Existing optional crawler restrictions (preserved) ----------
 User-agent: SemrushBot
 Disallow: /
 

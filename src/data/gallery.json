@@ -1,0 +1,132 @@
+[
+  {
+    "order": 1,
+    "name": "2240 Speed Shop",
+    "url": "https://2240speedshop.com/",
+    "category": "WEBSITE",
+    "description": "Classic restoration and restomod web presence, with a bold automotive direction.",
+    "poster": "/kr8tiv-assets/portfolio/2240speedshop-com.webp",
+    "alt": "2240 Speed Shop website homepage preview",
+    "video": null
+  },
+  {
+    "order": 2,
+    "name": "Evolve Eco Blasting",
+    "url": "https://www.evolveecoblasting.com/",
+    "category": "WEBSITE",
+    "description": "A surface-preparation website with a clear industrial identity.",
+    "poster": "/kr8tiv-assets/portfolio/evolveecoblasting-com.webp",
+    "alt": "Evolve Eco Blasting website homepage preview",
+    "video": "/kr8tiv-assets/portfolio/kr8tiv - evolve eco blasting.mp4"
+  },
+  {
+    "order": 3,
+    "name": "Final Finish Epoxy",
+    "url": "https://lightgrey-wasp-945457.hostingersite.com/",
+    "category": "STAGING / WEBSITE",
+    "description": "A polished flooring website direction, balancing material detail with clear service navigation.",
+    "poster": "/kr8tiv-assets/portfolio/lightgrey-wasp-945457-hostingersite-com.webp",
+    "alt": "Final Finish Epoxy website homepage preview (staging)",
+    "video": null
+  },
+  {
+    "order": 4,
+    "name": "AntiHero",
+    "url": "https://antihero.community/",
+    "category": "WEBSITE",
+    "description": "A high-contrast identity and web experience built around the AntiHero community.",
+    "poster": "/kr8tiv-assets/portfolio/antihero-community.webp",
+    "alt": "AntiHero website homepage preview",
+    "video": null
+  },
+  {
+    "order": 5,
+    "name": "PrimeTime Contractors",
+    "url": "https://orange-wolverine-521574.hostingersite.com/",
+    "category": "STAGING / WEBSITE",
+    "description": "An industrial scaffolding website direction for an Alberta contractor.",
+    "poster": "/kr8tiv-assets/portfolio/orange-wolverine-521574-hostingersite-com.webp",
+    "alt": "PrimeTime Contractors website homepage preview (staging)",
+    "video": null
+  },
+  {
+    "order": 6,
+    "name": "Shane Dooley Roofing Guru",
+    "url": "https://shaneroofingguru.com/",
+    "category": "WEBSITE",
+    "description": "A roofing website with coordinated visual identity and contact paths.",
+    "poster": "/kr8tiv-assets/portfolio/shaneroofingguru-com.webp",
+    "alt": "Shane Dooley Roofing Guru website homepage preview",
+    "video": "/kr8tiv-assets/portfolio/kr8tiv 7 - shane dooley roofing guru compressed.mp4"
+  },
+  {
+    "order": 7,
+    "name": "Aurora Ventures",
+    "url": "https://auroraventures.agency/",
+    "category": "OWN COMPANY / WEBSITE",
+    "description": "A studio venture web presence.",
+    "poster": "/kr8tiv-assets/portfolio/auroraventures-agency.webp",
+    "alt": "Aurora Ventures website homepage preview",
+    "video": "/kr8tiv-assets/portfolio/kr8tiv 1 - aurora ventures.mp4"
+  },
+  {
+    "order": 8,
+    "name": "Meet Your KIN",
+    "url": "https://meetyourkin.com/",
+    "category": "OWN COMPANY / WEBSITE",
+    "description": "A distinct web presence for Meet Your KIN.",
+    "poster": "/kr8tiv-assets/portfolio/meetyourkin-com.webp",
+    "alt": "Meet Your KIN website homepage preview",
+    "video": null
+  },
+  {
+    "order": 9,
+    "name": "KR8TIV AI",
+    "url": "https://kr8tiv.ai/",
+    "category": "OWN COMPANY / WEBSITE",
+    "description": "A web presence presenting business back-office automation.",
+    "poster": "/kr8tiv-assets/portfolio/kr8tiv-ai.webp",
+    "alt": "KR8TIV AI website homepage preview",
+    "video": null
+  },
+  {
+    "order": 10,
+    "name": "KR8TIV",
+    "url": "https://kr8tiv.io/",
+    "category": "OWN COMPANY / WEBSITE",
+    "description": "The studio’s own brand and website.",
+    "poster": "/kr8tiv-assets/portfolio/kr8tiv-io.webp",
+    "alt": "KR8TIV website homepage preview",
+    "video": null
+  },
+  {
+    "order": 11,
+    "name": "KR8TIV business cards",
+    "url": "/kr8tiv-assets/portfolio/03-foil-business-cards.webp",
+    "category": "OWN COMPANY / BUSINESS CARDS",
+    "description": "KR8TIV’s brushed-metal front and illustrated dark reverse, shown in the supplied presentation mockup.",
+    "poster": "/kr8tiv-assets/portfolio/03-foil-business-cards.webp",
+    "alt": "KR8TIV business-card mockup showing a brushed-metal logo front and an illustrated black reverse",
+    "video": null
+  },
+  {
+    "order": 12,
+    "name": "Evolve Eco Blasting business cards",
+    "url": "/kr8tiv-assets/portfolio/evolve-business-cards.webp",
+    "category": "CLIENT WORK / BUSINESS CARDS",
+    "description": "An industrial front and coordinated mountain reverse from the supplied Evolve card suite.",
+    "poster": "/kr8tiv-assets/portfolio/evolve-business-cards.webp",
+    "alt": "Evolve Eco Blasting card design with industrial architecture on the front and a mountain landscape reverse",
+    "video": null
+  },
+  {
+    "order": 13,
+    "name": "Shane Dooley business cards",
+    "url": "/kr8tiv-assets/portfolio/shane-business-cards.webp",
+    "category": "CLIENT WORK / BUSINESS CARDS",
+    "description": "The paired front and reverse from the Shane Dooley Roofing Guru identity system.",
+    "poster": "/kr8tiv-assets/portfolio/shane-business-cards.webp",
+    "alt": "Shane Dooley Roofing Guru business-card design, front and reverse shown together",
+    "video": null
+  }
+]

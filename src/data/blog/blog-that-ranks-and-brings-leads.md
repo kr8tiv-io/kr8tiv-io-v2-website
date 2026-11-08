@@ -1,40 +1,46 @@
 ---
-title: "How to create a business blog that earns search traffic and useful enquiries"
-seo_title: "How to build a blog that brings leads in Alberta | KR8TIV"
-meta_description: "Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection, Google AI-search basics, cadence, and lead tracking."
-slug: "blog-that-ranks-and-brings-leads"
-primary_phrase: "how to create a business blog"
-secondary_phrases: ["blogging for small business Alberta", "Edmonton blog SEO", "Google AI search optimisation", "blog topics that bring leads"]
-target_geo: ["Edmonton", "Alberta", "Canada"]
-publish_date: "2026-11-06"
-timezone: "America/Edmonton"
-status: "DRAFT-READY-FOR-MATT"
-draft: true
-language: "en-CA"
-author: "KR8TIV Agency"
-reviewer: "Matt"
-review_status: "PENDING"
-canonical_url: "https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads"
-canonical_status: "PROPOSED-NOT-LIVE"
-excerpt: "Teaches question research, original examples, article structure, technical checks, sustainable cadence, and lead measurement."
-services: ["Website Design", "Copywriting", "Marketing systems teaching"]
-related_slugs: ["marketing-campaign-edmonton", "website-that-earns-its-keep-alberta"]
-faq: [{"question": "Can a new business blog rank in Edmonton?", "answer": "It can compete for relevant queries, but ranking is not guaranteed. Start with specific customer questions, original useful material, sound technical setup, and internal links from your website."}, {"question": "How long should a business blog post be?", "answer": "Long enough to resolve the question without repetition. Google does not prescribe an ideal word count. A complex decision may need a detailed guide; a narrow answer may not."}, {"question": "Can I use AI to help write articles?", "answer": "Yes, with human responsibility for accuracy and usefulness. Check facts, add original judgement, protect customer information, and reject invented examples presented as real results."}, {"question": "Should I make separate blog posts for every Alberta city?", "answer": "Only when there is genuinely distinct information to share. Swapping city names in otherwise identical articles creates little value. Use accurate service-area pages and local detail where it matters."}]
-faq_schema_enabled: false
-business_entity_ref: "https://kr8tiv.io/#business"
-schema: {"@context": "https://schema.org", "@type": "Article", "headline": "How to create a business blog that earns search traffic and useful enquiries", "description": "Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection, Google AI-search basics, cadence, and lead tracking.", "inLanguage": "en-CA", "mainEntityOfPage": "https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads", "author": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "publisher": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "about": ["Website Design", "Copywriting", "Marketing systems teaching"], "spatialCoverage": [{"@type": "Place", "name": "Edmonton, Alberta, Canada"}, {"@type": "Place", "name": "Alberta, Canada"}, {"@type": "Place", "name": "Canada"}]}
-source_urls: ["https://developers.google.com/search/docs/fundamentals/ai-optimization-guide", "https://kr8tiv.io/"]
-sources_checked_date: "2026-11-06"
-editorial_notes: ["Draft only. Do not publish without Matt's editorial approval.", "Publication date is requested draft metadata, not evidence of live publication. Set actual datePublished and dateModified at release.", "Current CAD website and sign-concept floors follow PRICING-LOCK-2026-11-06.md. Confirm taxes, exclusions and other service fees in the actual scope before release.", "Pricing locked 2026-11-06: full website design from $1,200; landing pages from $600 (CAD). Quote full-site floor as $1,200+; landing pages as from $600 when that scope applies."]
+slug: blog-that-ranks-and-brings-leads
+title: How to create a business blog that earns search traffic and useful enquiries
+seo_title: How to build a blog that brings leads in Alberta | KR8TIV
+meta_description: Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection,
+  Google AI-search basics, cadence, and lead tracking.
+excerpt: Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection, Google
+  AI-search basics, cadence, and lead tracking.
+publish_date: '2026-11-08'
+draft: false
+status: prepared-for-owner-review-not-published
+author: KR8TIV Agency
+category: Field notes
+tags:
+- Content strategy
+- SEO
+- Edmonton
+- Alberta
+hero_alt: Still life of a blank notebook, laptop and glass prism on a dark desk
+hero_poster: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-poster.webp
+hero_video: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-hero.mp4
+faq:
+- question: Can a new business blog rank in Edmonton?
+  answer: It can compete for relevant queries, but ranking is not guaranteed. Start with specific customer questions,
+    original useful material, sound technical setup, and internal links from your website.
+- question: How long should a business blog post be?
+  answer: Long enough to resolve the question without repetition. Google does not prescribe an ideal word count.
+    A complex decision may need a detailed guide; a narrow answer may not.
+- question: Can I use AI to help write articles?
+  answer: Yes, with human responsibility for accuracy and usefulness. Check facts, add original judgement, protect
+    customer information, and reject invented examples presented as real results.
+- question: Should I make separate blog posts for every Alberta city?
+  answer: Only when there is genuinely distinct information to share. Swapping city names in otherwise identical
+    articles creates little value. Use accurate service-area pages and local detail where it matters.
 ---
 
 # How to create a business blog that earns search traffic and useful enquiries
 
 Build a blog around the questions customers need answered before they buy. Give each article one clear job, add something readers cannot get from a generic summary, and connect the answer to a relevant service. Then make the page accessible to search engines and measure what visitors do next.
 
-For an Edmonton business, that might mean explaining what affects a storefront-sign brief, how to prepare for a website project, or what an advertising test can tell you. "Marketing tips" is a broad category. "What should I send a designer before replacing my storefront sign?" is a usable brief.
+For an Edmonton business, that might mean explaining what affects a storefront-sign brief, how to prepare for a website project, or what an advertising test can tell you. “Marketing tips” is a broad category. “What should I send a designer before replacing my storefront sign?” is a usable brief.
 
-KR8TIV · kr8tiv.io takes the design-led view: useful content and a useful website need to work together. Matt helps businesses set up brands and teaches marketing systems as part of the service. An article earns attention by solving a problem. The website helps the right reader take the next step without a hard sell.
+KR8TIV · kr8tiv.io takes the design-led view: useful content and a useful website need to work together. KR8TIV’s published services connect brand identity, web design and marketing work, with deliverables agreed in the project scope. An article earns attention by solving a problem. The website helps the right reader take the next step without a hard sell.
 
 ## How do you find blog topics that can bring leads?
 
@@ -42,12 +48,12 @@ Start with questions from enquiries, sales calls, project handoffs, and customer
 
 Make a list of the last ten questions people asked before hiring you. Remove names and private project details. Sort the questions into four groups:
 
-- Fit: Is this service right for my situation?
-- Cost: What changes the scope or price?
-- Process: What do I need to provide, and what happens next?
-- Risk: What could cause delays, disappointment, or extra work?
+* Fit: Is this service right for my situation?
+* Cost: What changes the scope or price?
+* Process: What do I need to provide, and what happens next?
+* Risk: What could cause delays, disappointment, or extra work?
 
-For a Canadian creative business, "How much does branding cost?" can become several distinct topics. A cost guide explains scope. A production guide explains the files needed for signage. A process guide explains how to give useful feedback. Do not publish three articles that all repeat the same price paragraph.
+For a Canadian creative business, “How much does branding cost?” can become several distinct topics. A cost guide explains scope. A production guide explains the files needed for signage. A process guide explains how to give useful feedback. Do not publish three articles that all repeat the same price paragraph.
 
 Choose your first topic where you have both buyer relevance and something useful to contribute. Search demand matters, but a relevant question you can answer well is a better starting point than a popular question outside your expertise.
 
@@ -57,7 +63,7 @@ Choose a plain-language phrase that describes the main question. Use it naturall
 
 Open Google and inspect the results for that question. Note whether people mainly receive tutorials, local services, product pages, or comparisons. This is a qualitative check of intent, not proof that your page will rank.
 
-If someone searches "website designer Edmonton," they may want a service provider now. A service page is usually the more direct fit. "What should be included in a website redesign brief?" suits an article that helps a reader prepare.
+If someone searches “website designer Edmonton,” they may want a service provider now. A service page is usually the more direct fit. “What should be included in a website redesign brief?” suits an article that helps a reader prepare.
 
 Give the article a clear boundary. A blogging-process guide does not need to become a complete guide to paid advertising. Link to the related article instead. This keeps the page useful and reduces overlap across the site.
 
@@ -69,7 +75,7 @@ Add a worked example, a decision tool, an annotated asset, or a specific explana
 
 For a website-planning article, provide a page brief they can copy. For a signage article, show a labelled concept at realistic viewing distance. For advertising, explain the difference between platform-reported leads and qualified enquiries.
 
-Real project material is valuable only when you have permission to use it. If you do not, create a demonstration and label it "Concept" or "Illustrative example." Never turn a made-up example into a case study.
+Real project material is valuable only when you have permission to use it. If you do not, create a demonstration and label it “Concept” or “Illustrative example.” Never turn a made-up example into a case study.
 
 Keep a small evidence folder for each article. Include official sources, approved photographs, notes that support factual claims, and the date you checked time-sensitive details. Do not invent a personal anecdote because a page needs more personality.
 
@@ -92,15 +98,15 @@ Short answers help people scanning a page or listening to a spoken response. The
 
 Edit every section against one question: does this help the reader make the decision? Cut the long introduction about how fast the digital world changes. Keep the sentence that explains which photos a designer needs.
 
-## How do you optimise a blog for Google's AI features?
+## How do you optimise a blog for Google’s AI features?
 
-Follow foundational SEO and create helpful, original content. Google's official [generative AI search guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says its AI search experiences rely on core Search ranking and quality systems.
+Follow foundational SEO and create helpful, original content. Google’s official [generative AI search guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says its AI search experiences rely on core Search ranking and quality systems.
 
 The guide prioritises non-commodity, people-first content and technical clarity. It says Google Search does not use llms.txt for visibility or rankings, and there is no special schema required for generative AI search.
 
 Give readers clear authorship, honest examples, relevant sources, and accessible text. Use images and video when they explain something words alone cannot show. An image of a form is less useful than a copyable form with a supporting screenshot.
 
-Eligibility is not a placement guarantee. No writer can promise an AI Overview citation or a Google position. Google's guidance covers Google Search. It does not establish a method for ranking in Siri or every other assistant.
+Eligibility is not a placement guarantee. No writer can promise an AI Overview citation or a Google position. Google’s guidance covers Google Search. It does not establish a method for ranking in Siri or every other assistant.
 
 ## What technical checks does each blog post need?
 
@@ -108,15 +114,15 @@ Each article needs a stable URL, a descriptive title, a useful summary, crawlabl
 
 Before publishing, check:
 
-- The URL returns a successful response and shows the full article on mobile.
-- The production page has no accidental noindex directive or crawl block.
-- The canonical URL points to the intended public version.
-- The title and meta description describe this article rather than the whole agency.
-- The article has a visible author and accurate publication information.
-- Images have appropriate descriptions, sensible dimensions, and permission for use.
-- Related links and the enquiry form work.
+* The URL returns a successful response and shows the full article on mobile.
+* The production page has no accidental noindex directive or crawl block.
+* The canonical URL points to the intended public version.
+* The title and meta description describe this article rather than the whole agency.
+* The article has a visible author and accurate publication information.
+* Images have appropriate descriptions, sensible dimensions, and permission for use.
+* Related links and the enquiry form work.
 
-Structured data must match visible facts. Article markup can describe the article. Business markup can describe the real business. A FAQ section can help readers without creating a special entitlement to FAQ rich results.
+Structured data must match visible facts. Article markup can describe the article. Business markup can describe the real business. A FAQ section can help readers. Google’s [documentation changelog](https://developers.google.com/search/updates) records that FAQ rich results stopped appearing in Google Search on May 7, 2026; do not sell FAQ markup as a way to obtain them.
 
 Search Console helps you inspect indexing and search performance. Do not confuse submitting a sitemap with getting indexed. Discovery, indexing, and ranking are separate steps.
 
@@ -139,6 +145,22 @@ Use Search Console for search visibility and indexing checks. Where available fo
 A blog may influence a buyer who returns through another channel. Ask how they found you without expecting perfect recall. Review content by topic and business value, not only total sessions.
 
 If an article gets relevant impressions but few clicks, inspect the title and search intent. If readers arrive but never explore the service, check whether the article attracts the right audience and offers a relevant next step.
+
+## A one-page brief for your next article
+
+Before opening a blank document, complete this worksheet with someone who answers customer enquiries:
+
+- **Reader:** the person making the decision, not “everyone in Alberta.”
+- **Decision:** one question they should be able to resolve after reading.
+- **Evidence:** a source, an approved asset or an observation you can actually explain.
+- **Useful output:** a checklist, comparison or brief the reader can use.
+- **Boundary:** the neighbouring question this article will not try to answer.
+- **Next step:** the relevant service page, not a generic sales pitch.
+- **Maintenance owner:** the person who checks changing information later.
+
+For an illustrative article about replacing a sign, the output might be a photography checklist: a straight-on wall view, the wider approach, the entrance and measurements. A reader can assemble that pack before contacting a designer. Link the brief to the [sign-design service](https://kr8tiv.io/services/print-signage-design/) and the [guide to signage that attracts customers](https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/) rather than repeating both pages inside the article.
+
+Review the draft against the promised output. If the checklist is missing, another introduction will not fix it. If every section repeats the same advice, combine them. The brief should make it easier to judge usefulness without chasing an arbitrary word count.
 
 ## Frequently asked questions
 

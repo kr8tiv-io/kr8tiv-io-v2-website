@@ -79,6 +79,7 @@
 
 # --- Correct types so caching and decoding behave -------------------
 <IfModule mod_mime.c>
+  AddType video/webm .webm
   AddType font/woff2 .woff2
   AddType application/manifest+json .webmanifest
   AddType model/gltf-binary .glb

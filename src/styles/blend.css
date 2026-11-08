@@ -768,3 +768,20 @@ html.motion-off .flow-field { --flow-y: .5 !important; transition: none !importa
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+
+/* Interlude: the independently rendered poster cannot disappear while video
+   starts. The source media has an alpha channel in place of its black ground; there is no
+   mask, inset shadow or dark overlay on the chrome itself. The soft pool is
+   a separate radial layer BEHIND the mark, not a rectangular frame shadow. */
+.interlude-frame{aspect-ratio:960/236;background:transparent!important;box-shadow:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+.interlude-frame>img{display:block;width:100%;height:auto;visibility:visible}
+.interlude-frame>video{position:absolute;inset:0;width:100%;height:100%;visibility:hidden;object-fit:contain}
+.interlude-frame>img,.interlude-frame>video{opacity:1;mask-image:none!important;-webkit-mask-image:none!important}
+.interlude-frame.is-playing>img{visibility:hidden}
+.interlude-frame.is-playing>video{visibility:visible}
+html:not([data-theme=light]) .interlude-frame>img,html:not([data-theme=light]) .interlude-frame>video{filter:none!important;mix-blend-mode:normal}
+html:not([data-theme=light]) .interlude-pool{inset:-40px -5%;opacity:.4;filter:blur(24px);background:radial-gradient(ellipse closest-side,rgba(5,2,4,.8) 0%,rgba(5,2,4,.45) 45%,rgba(5,2,4,.12) 75%,transparent 100%)}
+html[data-theme=light] .interlude-frame>img{filter:invert(1) hue-rotate(180deg);mix-blend-mode:multiply}
+@media(prefers-reduced-motion:reduce){.interlude-frame>video{visibility:hidden!important}.interlude-frame>img{visibility:visible!important}}
+html.motion-off .interlude-frame>video{visibility:hidden!important}
+html.motion-off .interlude-frame>img{visibility:visible!important}

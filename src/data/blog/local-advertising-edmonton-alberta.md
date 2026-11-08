@@ -1,31 +1,36 @@
 ---
-title: "How to run local advertising that brings better enquiries in Edmonton"
-seo_title: "Local advertising in Edmonton: a useful test | KR8TIV"
-meta_description: "Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead tracking. Build a test before spending more."
-slug: "local-advertising-edmonton-alberta"
-primary_phrase: "local advertising Edmonton"
-secondary_phrases: ["Google Ads Edmonton small business", "paid social Alberta", "local advertising budget Canada", "video ads Edmonton"]
-target_geo: ["Edmonton", "Alberta", "Canada"]
-publish_date: "2026-11-06"
-timezone: "America/Edmonton"
-status: "DRAFT-READY-FOR-MATT"
-draft: true
-language: "en-CA"
-author: "KR8TIV Agency"
-reviewer: "Matt"
-review_status: "PENDING"
-canonical_url: "https://kr8tiv.io/blog/local-advertising-edmonton-alberta"
-canonical_status: "PROPOSED-NOT-LIVE"
-excerpt: "A practical local-ad test covering channel choice, budget assumptions, location settings, search terms, video, and lead quality."
-services: ["Ads + Acquisition", "Video Editing", "Website Design"]
-related_slugs: ["marketing-campaign-edmonton", "website-that-earns-its-keep-alberta"]
-faq: [{"question": "Is CAD $500 enough to test local advertising?", "answer": "It may support a narrow media test, but the answer depends on click costs, service value, and the evidence you need. It is not a reliable universal monthly budget, and creative or setup costs are separate."}, {"question": "Can ads guarantee customers in Edmonton?", "answer": "No. Ads can buy distribution, not guaranteed sales. Offer quality, competition, targeting, website experience, response, and delivery capacity all affect results."}, {"question": "Do I need video to advertise a local business?", "answer": "No. A strong still image or a clear search ad may suit the task. Use video when showing the service helps buyers understand it, with captions and permission for the material."}, {"question": "Should I advertise across Canada?", "answer": "Only if you can serve that market and afford to test it. A remote service may have national reach. An onsite business needs a service area that supports profitable delivery."}]
-faq_schema_enabled: false
-business_entity_ref: "https://kr8tiv.io/#business"
-schema: {"@context": "https://schema.org", "@type": "Article", "headline": "How to run local advertising that brings better enquiries in Edmonton", "description": "Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead tracking. Build a test before spending more.", "inLanguage": "en-CA", "mainEntityOfPage": "https://kr8tiv.io/blog/local-advertising-edmonton-alberta", "author": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "publisher": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "about": ["Ads + Acquisition", "Video Editing", "Website Design"], "spatialCoverage": [{"@type": "Place", "name": "Edmonton, Alberta, Canada"}, {"@type": "Place", "name": "Alberta, Canada"}, {"@type": "Place", "name": "Canada"}]}
-source_urls: ["https://support.google.com/google-ads/answer/1722038?hl=en", "https://kr8tiv.io/"]
-sources_checked_date: "2026-11-06"
-editorial_notes: ["Draft only. Do not publish without Matt's editorial approval.", "Publication date is requested draft metadata, not evidence of live publication. Set actual datePublished and dateModified at release.", "Current CAD website and sign-concept floors follow PRICING-LOCK-2026-11-06.md. Confirm taxes, exclusions and other service fees in the actual scope before release."]
+slug: local-advertising-edmonton-alberta
+title: How to run local advertising that brings better enquiries in Edmonton
+seo_title: 'Local advertising in Edmonton: a useful test | KR8TIV'
+meta_description: Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and
+  qualified-lead tracking. Build a test before spending more.
+excerpt: Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead
+  tracking. Build a test before spending more.
+publish_date: '2026-11-08'
+draft: false
+status: prepared-for-owner-review-not-published
+author: KR8TIV Agency
+category: Field notes
+tags:
+- Advertising
+- Edmonton
+- Alberta
+hero_alt: Still life of a local campaign sign, blank mailer and phone
+hero_poster: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-poster.webp
+hero_video: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-hero.mp4
+faq:
+- question: Is CAD $500 enough to test local advertising?
+  answer: It may support a narrow media test, but the answer depends on click costs, service value, and the evidence
+    you need. It is not a reliable universal monthly budget, and creative or setup costs are separate.
+- question: Can ads guarantee customers in Edmonton?
+  answer: No. Ads can buy distribution, not guaranteed sales. Offer quality, competition, targeting, website experience,
+    response, and delivery capacity all affect results.
+- question: Do I need video to advertise a local business?
+  answer: No. A strong still image or a clear search ad may suit the task. Use video when showing the service helps
+    buyers understand it, with captions and permission for the material.
+- question: Should I advertise across Canada?
+  answer: Only if you can serve that market and afford to test it. A remote service may have national reach. An
+    onsite business needs a service area that supports profitable delivery.
 ---
 
 # How to run local advertising that brings better enquiries in Edmonton
@@ -44,7 +49,7 @@ Imagine a fictional Edmonton mobile detailing business. A person searching for i
 
 Search is not automatically profitable because the intent is clear. Competition, enquiry quality, price, and capacity affect the result. Social is not automatically cheap because an impression costs less. You still need suitable buyers to act.
 
-Start with one channel if the budget cannot support a meaningful test on both. Choose based on your buyer's behaviour and the evidence you can show, not the platform you enjoy using personally.
+Start with one channel if the budget cannot support a meaningful test on both. Choose based on your buyer’s behaviour and the evidence you can show, not the platform you enjoy using personally.
 
 ## How much should an Alberta small business spend on ads?
 
@@ -66,7 +71,7 @@ Keep enough budget for the page and follow-up. Paying to send people into a brok
 
 Set locations deliberately and inspect both the targeting options and actual lead locations. A city name in the campaign title does not limit where every prospect lives.
 
-Google's [advanced location guidance](https://support.google.com/google-ads/answer/1722038?hl=en) distinguishes people in or regularly in a location from people who also show interest in it. The default can include that broader interest group.
+Google’s [advanced location guidance](https://support.google.com/google-ads/answer/1722038?hl=en) distinguishes people in or regularly in a location from people who also show interest in it. The default can include that broader interest group.
 
 For a service restricted to nearby properties, consider whether presence-based targeting better fits the business. A venue attracting visitors from elsewhere may have a reason to include interest. Check the options available for the campaign type you use rather than applying one setting everywhere.
 
@@ -78,7 +83,7 @@ Edmonton, St. Albert, Sherwood Park, and other nearby communities are not interc
 
 Name the service, establish fit, and give an accurate next step. Match the ad to a page that delivers the same information.
 
-For the fictional detailing business, a useful message might mention interior detailing in Edmonton, the vehicle types accepted, and how to request an appointment. Avoid "same-day appointments" unless the business can reliably provide them and keep the ad current.
+For the fictional detailing business, a useful message might mention interior detailing in Edmonton, the vehicle types accepted, and how to request an appointment. Avoid “same-day appointments” unless the business can reliably provide them and keep the ad current.
 
 Group related searches by the service and destination they need. Someone looking for fleet work may need different information from someone booking a personal vehicle. The distinction matters more than creating dozens of tiny groups without a clear reason.
 
@@ -120,13 +125,31 @@ Compare media-only cost with full campaign cost. A campaign can look efficient i
 
 ## When should you change or stop an advertising test?
 
-Fix broken delivery, tracking, and irrelevant traffic promptly. Make performance decisions against a pre-agreed review point, available evidence, and the business's ability to absorb the spend.
+Fix broken delivery, tracking, and irrelevant traffic promptly. Make performance decisions against a pre-agreed review point, available evidence, and the business’s ability to absorb the spend.
 
 Define stop conditions before launch. Examples include a broken form, spending beyond the authorised budget, or repeated enquiries for an unavailable service. Those need action even when the sample is small.
 
 Other decisions need patience and judgement. A low-volume service may take longer to generate enough qualified opportunities. Do not repeatedly change the audience and offer before you can understand either.
 
-At each review, write down what happened, what you believe caused it, and the one change you want to test. Include the person answering enquiries. Their notes often explain why a dashboard's "lead" never became a useful conversation.
+At each review, write down what happened, what you believe caused it, and the one change you want to test. Include the person answering enquiries. Their notes often explain why a dashboard’s “lead” never became a useful conversation.
+
+## Separate an advertising problem from a response problem
+
+Trace several enquiries through the whole process before deciding that an ad needs replacing. Use the minimum customer information necessary and keep the review private.
+
+For each enquiry, ask:
+
+1. Did the person request the advertised service in a workable location?
+2. Did a real person receive the enquiry?
+3. Was the reply sent within the response expectation the business published?
+4. Did the next step make sense to the buyer?
+5. Is the opportunity still open, unsuitable, quoted or won?
+
+Suppose the fictional detailing campaign attracts suitable requests, but the booking reply asks people to repeat everything they already submitted. That gives you a process change to test. It does not justify claiming that another video will solve the issue.
+
+If enquiries consistently concern a service you do not provide, compare the actual search terms, ad wording and destination page. If the offer is right but nobody receives submissions, repair the form before buying more traffic. A [focused landing page](https://kr8tiv.io/services/web-design-edmonton/) may be useful, but only if it fixes the identified gap.
+
+Keep the distinction in the report: delivery, enquiry quality, follow-up and sales are related stages, not interchangeable metrics. This prevents a campaign review from turning into an argument about which dashboard number looks most impressive.
 
 ## Frequently asked questions
 
@@ -148,4 +171,4 @@ Only if you can serve that market and afford to test it. A remote service may ha
 
 ## Make the test useful before making it bigger
 
-Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV's published Ads + Acquisition engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start).
+Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV’s published Ads + Acquisition engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start).

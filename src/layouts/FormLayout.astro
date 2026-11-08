@@ -26,6 +26,8 @@ export interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  article?: {publishedTime?: string; modifiedTime?: string; author?: string; section?: string; tags?: string[]};
   pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article';
   breadcrumbs?: Crumb[];
   faqs?: FaqItem[];
@@ -40,6 +42,8 @@ const {
   description = 'KR8TIV — cyber-renaissance design atelier. Brands, websites, motion, video, and full AI business solutions.',
   canonical,
   ogImage,
+  ogImageAlt,
+  article,
   pageType,
   breadcrumbs,
   faqs,
@@ -65,6 +69,8 @@ const {
     description={description}
     canonical={canonical}
     ogImage={ogImage}
+    ogImageAlt={ogImageAlt}
+    article={article}
     type={pageType}
     breadcrumbs={breadcrumbs}
     faqs={faqs}

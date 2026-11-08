@@ -1,36 +1,41 @@
 ---
-title: "How to build a marketing campaign that brings in customers in Edmonton"
-seo_title: "How to build a marketing campaign in Edmonton | KR8TIV"
-meta_description: "Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes a worked example and a first-month plan."
-slug: "marketing-campaign-edmonton"
-primary_phrase: "marketing campaign Edmonton"
-secondary_phrases: ["small business marketing Alberta", "how to create a marketing campaign", "marketing campaigns that bring customers", "video marketing Edmonton"]
-target_geo: ["Edmonton", "Alberta", "Canada"]
-publish_date: "2026-11-06"
-timezone: "America/Edmonton"
-status: "DRAFT-READY-FOR-MATT"
-draft: true
-language: "en-CA"
-author: "KR8TIV Agency"
-reviewer: "Matt"
-review_status: "PENDING"
-canonical_url: "https://kr8tiv.io/blog/marketing-campaign-edmonton"
-canonical_status: "PROPOSED-NOT-LIVE"
-excerpt: "Builds a measurable campaign from the offer through creative, landing page, follow-up, and contribution-margin maths."
-services: ["Marketing campaign creative", "Ads + Acquisition", "Video Editing", "Website Design"]
-related_slugs: ["local-advertising-edmonton-alberta", "blog-that-ranks-and-brings-leads"]
-faq: [{"question": "How do I market a small business in Edmonton on a limited budget?", "answer": "Start with one profitable service, one realistic service area, and a page that helps people enquire. Use customer questions to choose content and test one suitable acquisition channel before adding more."}, {"question": "Should I advertise across Alberta right away?", "answer": "Only if you can serve that area profitably. Travel, delivery, scheduling, and follow-up capacity matter more than the size of the audience."}, {"question": "How long does a marketing campaign take to work?", "answer": "Delivery and early enquiries can appear before there is enough evidence about profitable sales. Set a review period around your buying cycle and budget. No fixed timeline guarantees results."}, {"question": "Can video help a trades marketing campaign?", "answer": "Yes, when it answers a buying question. Show preparation, access, process, or a finished detail with permission. Use captions and a clear next step rather than relying on entertainment alone."}]
-faq_schema_enabled: false
-business_entity_ref: "https://kr8tiv.io/#business"
-schema: {"@context": "https://schema.org", "@type": "Article", "headline": "How to build a marketing campaign that brings in customers in Edmonton", "description": "Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes a worked example and a first-month plan.", "inLanguage": "en-CA", "mainEntityOfPage": "https://kr8tiv.io/blog/marketing-campaign-edmonton", "author": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "publisher": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "about": ["Marketing campaign creative", "Ads + Acquisition", "Video Editing", "Website Design"], "spatialCoverage": [{"@type": "Place", "name": "Edmonton, Alberta, Canada"}, {"@type": "Place", "name": "Alberta, Canada"}, {"@type": "Place", "name": "Canada"}]}
-source_urls: ["https://kr8tiv.io/", "https://kr8tiv.io/process"]
-sources_checked_date: "2026-11-06"
-editorial_notes: ["Draft only. Do not publish without Matt's editorial approval.", "Publication date is requested draft metadata, not evidence of live publication. Set actual datePublished and dateModified at release.", "Current CAD website and sign-concept floors follow PRICING-LOCK-2026-11-06.md. Confirm taxes, exclusions and other service fees in the actual scope before release."]
+slug: marketing-campaign-edmonton
+title: How to build a marketing campaign that brings in customers in Edmonton
+seo_title: How to build a marketing campaign in Edmonton | KR8TIV
+meta_description: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries.
+  Includes a worked example and a first-month plan.
+excerpt: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes
+  a worked example and a first-month plan.
+publish_date: '2026-11-08'
+draft: false
+status: prepared-for-owner-review-not-published
+author: KR8TIV Agency
+category: Field notes
+tags:
+- Marketing
+- Edmonton
+- Alberta
+hero_alt: Still life of coordinated geometric print and screen campaign artwork
+hero_poster: /kr8tiv-assets/blog/marketing-campaign-edmonton-poster.webp
+hero_video: /kr8tiv-assets/blog/marketing-campaign-edmonton-hero.mp4
+faq:
+- question: How do I market a small business in Edmonton on a limited budget?
+  answer: Start with one profitable service, one realistic service area, and a page that helps people enquire. Use
+    customer questions to choose content and test one suitable acquisition channel before adding more.
+- question: Should I advertise across Alberta right away?
+  answer: Only if you can serve that area profitably. Travel, delivery, scheduling, and follow-up capacity matter
+    more than the size of the audience.
+- question: How long does a marketing campaign take to work?
+  answer: Delivery and early enquiries can appear before there is enough evidence about profitable sales. Set a
+    review period around your buying cycle and budget. No fixed timeline guarantees results.
+- question: Can video help a trades marketing campaign?
+  answer: Yes, when it answers a buying question. Show preparation, access, process, or a finished detail with permission.
+    Use captions and a clear next step rather than relying on entertainment alone.
 ---
 
 # How to build a marketing campaign that brings in customers in Edmonton
 
-A useful marketing campaign connects one customer problem to one clear offer, then measures whether the resulting enquiries become profitable work. Start with the job you want to sell, build a page that answers the buyer's questions, and choose a channel that reaches people who need that job done.
+A useful marketing campaign connects one customer problem to one clear offer, then measures whether the resulting enquiries become profitable work. Start with the job you want to sell, build a page that answers the buyer’s questions, and choose a channel that reaches people who need that job done.
 
 At KR8TIV · kr8tiv.io, the creative brief starts with the business outcome. The studio designs immersive visual experiences and helps businesses set up their brands and find clients. A sharp video matters. So does a memorable website. But neither can decide which customers you can serve profitably. Make that decision before you commission the creative.
 
@@ -46,13 +51,13 @@ Write this sentence first:
 
 Our example business offers commercial floor-coating assessments in Edmonton. It can serve nearby industrial properties, but long travel makes small jobs harder to justify. Its campaign therefore targets facility decision-makers inside its real operating area, rather than everyone in Alberta.
 
-KR8TIV's [project process](https://kr8tiv.io/process) explains how creative work moves from the brief to delivery. For your own campaign, define a qualified enquiry before launch. For this example, it means a commercial property, a suitable floor, a workable location, and a person able to discuss the project. Someone requesting a service the business does not provide is an enquiry, but not a qualified one.
+KR8TIV’s [project process](https://kr8tiv.io/process) explains how creative work moves from the brief to delivery. For your own campaign, define a qualified enquiry before launch. For this example, it means a commercial property, a suitable floor, a workable location, and a person able to discuss the project. Someone requesting a service the business does not provide is an enquiry, but not a qualified one.
 
 ## How do you choose an offer people actually want?
 
-Choose the next useful step in the buyer's decision, not a discount by default. The offer must explain what happens, what the buyer receives, and what commitment is involved.
+Choose the next useful step in the buyer’s decision, not a discount by default. The offer must explain what happens, what the buyer receives, and what commitment is involved.
 
-A vague offer says, "Get quality service." A useful version says, "Request a floor-coating assessment. Send your approximate floor area, current surface, location, and intended use so we can discuss suitable next steps."
+A vague offer says, “Get quality service.” A useful version says, “Request a floor-coating assessment. Send your approximate floor area, current surface, location, and intended use so we can discuss suitable next steps.”
 
 Only promise a free assessment, a fixed turnaround, or a warranty when you can honour it. If a site visit has a fee, explain that before booking. Buyers appreciate knowing the rules.
 
@@ -60,15 +65,15 @@ Interview three recent customers, with permission, or review your own enquiry no
 
 Turn the answers into a short brief:
 
-- The triggering problem in the customer's own language.
-- The service that addresses that problem.
-- The practical limits, including location and availability.
-- The evidence needed to feel comfortable enquiring.
-- The next step and what happens after it.
+* The triggering problem in the customer’s own language.
+* The service that addresses that problem.
+* The practical limits, including location and availability.
+* The evidence needed to feel comfortable enquiring.
+* The next step and what happens after it.
 
 ## How much can you afford to acquire a customer?
 
-Work backwards from contribution margin, not revenue. Contribution margin is the money left after the direct costs of delivering the job, before the remaining overhead and profit requirements.
+Work backwards from contribution margin, not revenue. [Contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) is sales revenue minus variable costs—the costs that change with the work delivered. It is not net profit: fixed costs still have to be covered.
 
 Suppose a fictional job brings in CAD $2,000 and costs CAD $1,200 to deliver. That leaves CAD $800 before overhead and profit. Spending CAD $700 to acquire that customer would leave little room for either.
 
@@ -125,7 +130,7 @@ Measure qualified enquiries, response time, quotes, sales, and contribution afte
 
 Maintain a small enquiry log. Record date, source when known, service requested, qualified status, next action, quote value, and final outcome. Collect only what you need and restrict access to customer details.
 
-Use tagged campaign links, a tested form-success event, and a source question such as "How did you hear about us?" None provides perfect attribution. A prospect may watch a video, search your name later, and then call from a saved number.
+Use tagged campaign links, a tested form-success event, and a source question such as “How did you hear about us?” None provides perfect attribution. A prospect may watch a video, search your name later, and then call from a saved number.
 
 Review the log alongside analytics. Plenty of traffic with no enquiries suggests an offer, fit, page, or tracking problem. Qualified enquiries with few quotes may point to follow-up or capacity. Plenty of quotes with few sales needs a different conversation from low click-through rate.
 
@@ -138,6 +143,26 @@ In week one, write the brief, check the economics, and gather approved material.
 During the next two weeks, check spend and delivery regularly. Review actual enquiries with the owner. Remove clearly irrelevant targeting and repair broken tracking promptly. Keep a change log so you know what happened when.
 
 At the review date, decide whether to continue, revise, or stop. A small sample may be inconclusive. Do not increase spending just to make a campaign feel active.
+
+## Use a decision sheet, not just a campaign report
+
+Give the owner and the person answering enquiries the same short review sheet. A dashboard screenshot alone rarely captures whether the work suits the business.
+
+| Record | What to enter |
+| --- | --- |
+| Hypothesis | The service, buyer and next step being tested |
+| Authorised costs | Media, setup, creative and management, kept separate |
+| Enquiries received | Actual enquiries, with spam and test submissions identified |
+| Qualification | The agreed criteria, applied consistently |
+| Sales progress | Follow-up, quotes and won work without counting a quote as revenue |
+| Unknowns | Missing attribution, unresolved quotes and incomplete tracking |
+| Decision | Continue, change one thing, pause or stop—and why |
+
+For the fictional floor-coating campaign, ten form submissions might include four unsuitable residential requests. Keep those four visible in the review. Hiding them makes the acquisition cost appear better and removes evidence that the message or targeting needs work.
+
+Record open opportunities separately from lost ones. A commercial buyer still discussing access is not automatically a failed lead because the reporting month ended. Conversely, an unanswered enquiry is not evidence that the offer worked.
+
+When the creative changes, keep the previous files and log the change date. The [brand system](https://kr8tiv.io/services/branding/) should stay recognisable while you test the message; you do not need a new identity for every experiment.
 
 ## Frequently asked questions
 
@@ -159,4 +184,4 @@ Yes, when it answers a buying question. Show preparation, access, process, or a 
 
 ## Build the campaign around the job you want
 
-Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV's live Ads + Acquisition engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start).
+Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV’s live Ads + Acquisition engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start).
