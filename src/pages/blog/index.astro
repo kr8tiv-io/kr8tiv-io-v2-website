@@ -24,7 +24,7 @@ import { posts, fmtDate } from '@lib/blog';
       <div class="fn-list">
         {posts.map((p) => (
           <a class="fn-card" href={`/blog/${p.slug}/`}>
-            <img class="fn-card-poster" src={p.hero_poster} alt={p.hero_alt} width="1024" height="576" loading="lazy" />
+            <img class="fn-card-poster" src={p.hero_poster} alt={p.hero_alt} width="1280" height="720" loading="lazy" />
             <span class="fn-meta">
               {p.draft ? <span class="fn-draft">Draft · in review</span> : <>Published {fmtDate(p.publish_date)}</>}
             </span>

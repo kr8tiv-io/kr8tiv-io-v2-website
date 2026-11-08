@@ -9,7 +9,7 @@ for f in posts:
  p=dist/'blog'/m['slug']/'index.html';doc=BeautifulSoup(p.read_text(),'html.parser');assert len(doc.select('h1'))==1,p
  robots=doc.select_one('meta[name=robots]')['content'];assert 'noindex' not in robots,p
  canonical='https://kr8tiv.io/blog/'+m['slug']+'/';assert doc.select_one('link[rel=canonical]')['href']==canonical;assert canonical in urls
- assert doc.select_one('meta[property="og:type"]')['content']=='article';assert '/blog/'+m['slug']+'-poster.webp' in doc.select_one('meta[property="og:image"]')['content']
+ assert doc.select_one('meta[property="og:type"]')['content']=='article';assert doc.select_one('meta[property="og:image:width"]')['content']=='1280';assert doc.select_one('meta[property="og:image:height"]')['content']=='720';assert '/blog/'+m['slug']+'-poster.webp' in doc.select_one('meta[property="og:image"]')['content']
  schemas=[json.loads(n.string) for n in doc.select('script[type="application/ld+json"]')];article=next(n for n in schemas if n.get('@type')=='Article');assert article['headline'] and article['image'] and article['publisher']
  faq=next(n for n in schemas if n.get('@type')=='FAQPage');assert len(faq['mainEntity'])==4
  norm=lambda t:t.replace('’',"'").replace('‘',"'").replace('“','\"').replace('”','\"')
@@ -34,3 +34,10 @@ walkthroughs=work.select('[data-gallery-video]');assert len(walkthroughs)==3
 for v in walkthroughs:assert not v.has_attr('src') and not v.has_attr('autoplay') and v.has_attr('muted') and v.has_attr('hidden') and v['preload']=='none'
 assert len([p for p in work.select('.portfolio-type') if 'OWN COMPANY / WEBSITE' in p.text])==4
 print('PASS 13 distinct gallery displays, 3 deferred real walkthroughs, own-company labels')
+
+home=BeautifulSoup((dist/'index.html').read_text(),'html.parser');mark=home.select_one('.interlude-frame');poster=mark.find('img');video=mark.find('video')
+assert poster and poster['loading']=='eager' and 'transparent.webp' in poster['src'] and (dist/poster['src'].lstrip('/')).is_file()
+assert video and not video.has_attr('src') and not video.find('source') and not video.has_attr('autoplay') and (dist/video['data-src'].lstrip('/')).is_file()
+for card in work.select('.portfolio-card'):
+ if 'BUSINESS CARDS' in card.get_text():assert card.find('img')['loading']=='eager'
+print('PASS independent transparent logo fallback, deferred alpha video and eager business-card art')

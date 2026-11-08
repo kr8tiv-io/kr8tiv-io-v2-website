@@ -65,7 +65,7 @@ export function safePlay(v: HTMLVideoElement): void {
 }
 
 export function initLazyVideos(): void {
-  const videos = document.querySelectorAll<HTMLVideoElement>('video[preload="none"]');
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[preload="none"]:not([data-interlude-video])');
   if (!videos.length || !('IntersectionObserver' in window)) {
     // Fallback: just play them all (unless motion is off).
     if (!motionEffectsDisabled()) {

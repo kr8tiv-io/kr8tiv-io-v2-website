@@ -8,7 +8,7 @@ const items=teaser?cards.slice(0,4):cards;
 {items.map(p=>(
 <article class="portfolio-card" id={`sel-${p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`}>
 <a class="portfolio-image" href={teaser?'/work/':p.url} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined} aria-label={`${p.name} — ${p.category.includes('BUSINESS')?'view artwork':'visit website'}`}>
-<img src={p.poster} alt={p.alt} width="1600" height="1000" loading="lazy" decoding="async" />
+<img src={p.poster} alt={p.alt} width="1600" height="1000" loading={p.category.includes('BUSINESS CARDS') ? 'eager' : 'lazy'} decoding="async" />
 {p.video&&<video muted loop playsinline preload="none" poster={p.poster} data-gallery-video data-src={p.video} aria-hidden="true" hidden></video>}
 </a>
 <div class="portfolio-copy"><p class="portfolio-type">{p.category}</p><h3>{p.name}</h3><p>{p.description}</p><a class="portfolio-link" href={teaser?'/work/':p.url} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined}>{p.category.includes('STAGING')?'View staging':p.category.includes('BUSINESS')?'View design':'View project'} ↗</a></div>

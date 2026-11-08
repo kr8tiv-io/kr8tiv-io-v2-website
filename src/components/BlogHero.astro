@@ -4,7 +4,7 @@ const {poster,video,alt}=Astro.props;
 ---
 <figure class="note-hero">
   <div class="note-hero-frame">
-    <img src={poster} alt={alt} width="1024" height="576" fetchpriority="high" />
+    <img src={poster} alt={alt} width="1280" height="720" fetchpriority="high" />
     <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>
   </div>
   <figcaption>AI-generated concept illustration · not a completed client project</figcaption>

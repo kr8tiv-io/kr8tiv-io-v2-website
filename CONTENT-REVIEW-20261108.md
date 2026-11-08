@@ -5,8 +5,8 @@
 Integrated into the public-source clone at `site/`, branch `content/nov8` (baseline 7335116). All ten articles are in the existing Markdown/Field Notes format and rendered into `site/dist`; no publishing was performed.
 
 - Five new guides revised; five existing articles fact-checked and expanded with decision worksheets, comparison/acceptance tests and FAQs. All ten have draft false, production indexing intent, four visible FAQs each, Article + FAQPage JSON-LD, tailored metadata/OG images/canonicals/alt text and related links. No article is flagged unfinished editorially; Matt's final approval is still required.
-- All ten have newly generated silent six-second MP4 hero loops and optimized WebP posters. Video source is deferred on phones, reduced-motion, Save-Data, site motion-off and off-screen states; poster remains usable without JavaScript. Actual browser behavior and motion aesthetics still need browser QA. No temporary hero placeholders were needed.
-- Interlude mask removed; supplied outward-only shadow applied. Video darkening filter removed. CSS/build inspection passed; final 1440/390 visual confirmation is pending.
+- All ten have newly generated silent six-second MP4 hero loops and optimized WebP posters. Video source is deferred on phones, reduced-motion, Save-Data, site motion-off and off-screen states; poster remains usable without JavaScript. Follow-up browser QA confirms the sample article’s still/normal playback and poster fallbacks; Matt’s approval of all ten loops remains. No temporary hero placeholders were needed.
+- Interlude follow-up fixed a real cold-start video/poster race and baked-in black matte. An independent transparent poster and deferred alpha video retain the chrome; the soft radial pool is behind the mark. Final 1440/1024/390 captures pass in reduced and normal motion. See MEDIA-FIX-20261108.md.
 - Gallery uses one component on home and work pages: opaque framed 16:10 images and consistent type. Ten websites plus three business-card displays; no duplicate URLs.
 - RSS contains ten posts. Sitemap contains ten post URLs and excludes preview/404. 404 is noindex,follow. Unconfirmed coordinates, priceRange and conflicting founding date are omitted; original values remain in history. llms.txt now uses the correct .io navigation links. Human-only authorship assertion removed. Existing crawler allow/block policies preserved.
 
@@ -62,17 +62,17 @@ Both Final Finish and PrimeTime websites are clearly labelled staging. Final Fin
 - `npm run typecheck`: 0 errors, 0 warnings, 3 existing inline-script hints.
 - `npm run test:content`: ten articles, forty visible FAQ answers with semantic schema parity, indexing metadata, hero assets, RSS, sitemap and 404 checks passed.
 - `npm run test:gallery`: 13/13 HTTP 200.
-- ffprobe: all ten compressed loops have video-only streams, H264, faststart; about 6.04 seconds, 848×480. Posters are 1024×576.
+- ffprobe: all ten compressed loops have video-only streams, H264, faststart; about 6.04 seconds, 848×480. Posters are 1280×720.
 - Dependency compatibility: original npm ci failed (MDX 5.0.6 peer Astro ^6 vs installed Astro 5.18.2). Changed MDX to compatible ^4.3.14, regenerated lock, and clean installation/build passed. No force/legacy-peer-deps used.
 - SECURITY FOLLOW-UP: npm audit reports 13 vulnerabilities (1 critical, 10 high, 1 moderate, 1 low), including Astro's AVIF optimization advisory. Not represented as a security-clean stack. Framework-major upgrades are outside this content task. Astro preview was stopped; current review server is a loopback-only plain static file server. See `qa/npm-audit.json`.
 
-## Browser screenshots — not complete
+## Browser screenshots — follow-up verified
 
-No final local-build screenshots were captured. Do not represent this task as fully visually signed off. Browser/desktop interaction requires a delegated browser executor, and this run had no dispatch/subagent tool. A prepared Playwright capture/assertion script is at `qa/capture-final.mjs` and has NOT been executed.
+The earlier pending-browser note is superseded. At the explicit follow-up request, Playwright was run from `/workspace/primetime/`, where it is installed. Captures were visually inspected, and stronger decoding/alpha/pixel checks were added after the original DOM-only assertions missed the empty media.
 
-Target folder: `/workspace/kr8tiv-io/shots/final/` (contains `PENDING.md`, not proof images). Required outputs still pending: gallery, logo, blog-index and one post at both 1440 and 390 widths. Parent should delegate the local preview at http://localhost:4321/ for captures and actual visual review. Test normal desktop video playback, reduced motion, Save-Data, touch/mobile fallback and no horizontal overflow.
+Current screenshots and JSON results: `/workspace/kr8tiv-io/shots/final/`. Gallery, blog index and a full post are captured at 1440/390. The logo is captured at 1440/1024/390 in both reduced and normal motion, including `logo-1440-no-reduced-motion.png`. Shane’s real art and the article hero render. Blocked-video/no-JavaScript/live-preference fallback checks passed.
 
-Prior real project captures used as sources: `shots/site-review/`, notably `lightgrey-wasp-945457.hostingersite.com.png`. No new capture of that external site was made in this run.
+Details and exact evidence: `/workspace/kr8tiv-io/MEDIA-FIX-20261108.md`. Original bad captures remain in `shots/before-fix-1531/`. Prior real project captures remain under `shots/site-review/`; no new external client-site capture was made during this follow-up.
 
 ## Files and owner decisions
 
@@ -82,7 +82,7 @@ Prior real project captures used as sources: `shots/site-review/`, notably `ligh
 - Fact-check ledger: `content-package/FACT-CHECK.md`.
 - Generated media visual overview: `content-package/media/hero-contact-sheet.jpg`.
 - Matt needed: final article/design approval, actual PrimeTime card selection, any corrections to business-card contact details, confirmation before adding a precise business location or founding date.
-- Parent needed: sanctioned browser QA/screenshots and technical security review.
+- Parent needed: technical security review; browser media QA/screenshots have now been completed.
 - Publication dates currently use the planned 8 November 2026 release. Update/rebuild if the actual release date differs. No ranking, indexing, assistant citation or business-result guarantees. Search Console verification is separate.
 
 No email sent, no public post, no push, no deploy and no Hostinger upload.

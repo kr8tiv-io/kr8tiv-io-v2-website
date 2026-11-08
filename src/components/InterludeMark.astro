@@ -1,0 +1,48 @@
+---
+// The still is a real image, independent of the video's loading/play state.
+const poster = '/kr8tiv-assets/posters/kr8tiv-chrome-transparent.webp';
+---
+<div class="interlude-frame">
+  <img src={poster} alt="KR8TIV chrome wordmark" width="960" height="236" loading="eager" decoding="async" />
+  <video data-interlude-video data-src="/kr8tiv-assets/kr8tiv-chrome-transparent.webm" muted loop playsinline preload="none" poster={poster} aria-hidden="true"></video>
+</div>
+<script>
+const video=document.querySelector<HTMLVideoElement>('[data-interlude-video]');
+const frame=video?.closest<HTMLElement>('.interlude-frame');
+if(video&&frame){
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const connection=(navigator as Navigator&{connection?:{saveData?:boolean}}).connection;
+  let visible=false;
+  let alphaUnsupported=!video.canPlayType('video/webm; codecs="vp9"');
+  const allowed=()=>!alphaUnsupported&&visible&&!reduced.matches&&!connection?.saveData&&!document.hidden&&!document.documentElement.classList.contains('motion-off');
+  const showPoster=()=>frame.classList.remove('is-playing');
+  const sync=()=>{
+    if(!allowed()){video.pause();showPoster();return;}
+    if(!video.getAttribute('src')&&video.dataset.src){video.src=video.dataset.src;video.load();}
+    video.muted=true;
+    video.play().catch(showPoster);
+  };
+  video.addEventListener('playing',()=>{
+    const reveal=()=>{
+      if(!allowed()||video.paused||video.readyState<2)return;
+      // A browser that decodes VP9 without alpha must keep the transparent
+      // still, never display the movie's black matte. Sample only a corner.
+      const canvas=document.createElement('canvas');canvas.width=canvas.height=1;
+      const context=canvas.getContext('2d',{willReadFrequently:true});
+      if(!context){alphaUnsupported=true;video.pause();showPoster();return;}
+      context.drawImage(video,0,0,1,1,0,0,1,1);
+      if(context.getImageData(0,0,1,1).data[3]>16){alphaUnsupported=true;video.pause();showPoster();return;}
+      frame.classList.add('is-playing');
+    };
+    // Do not hide the image until a decoded video frame is actually ready to paint.
+    if('requestVideoFrameCallback' in video)video.requestVideoFrameCallback(reveal);
+    else requestAnimationFrame(reveal);
+  });
+  ['waiting','error','emptied','pause'].forEach(event=>video.addEventListener(event,showPoster));
+  reduced.addEventListener('change',sync);
+  document.addEventListener('visibilitychange',sync);
+  new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  const observer=new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);sync();},{threshold:.1});
+  observer.observe(frame);
+}
+</script>
