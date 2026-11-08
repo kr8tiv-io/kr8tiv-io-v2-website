@@ -1,4 +1,5 @@
 ---
+import BlogHero from '@components/BlogHero.astro';
 import FormLayout from '@layouts/FormLayout.astro';
 import '@styles/services.css';
 import { posts, fmtDate } from '@lib/blog';
@@ -13,18 +14,24 @@ const { Content } = post;
   description={post.meta_description}
   canonical={`/blog/${post.slug}/`}
   pageType="Article"
+  ogImage={post.hero_poster}
+  ogImageAlt={post.hero_alt}
+  article={{publishedTime: post.publish_date, author: post.author, section: 'Field notes', tags: post.tags}}
+  faqs={post.faq?.map(f => ({q: f.question, a: f.answer}))}
   noIndex={post.draft}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Field notes', url: '/blog/' }, { name: post.title, url: `/blog/${post.slug}/` }]}
 >
-  <main class="svp" id="main">
+  <section class="svp" id="main">
+    <div class="fn-hero-wrap"><BlogHero poster={post.hero_poster} video={post.hero_video} alt={post.hero_alt} /></div>
     <article class="fn-article">
-      <p class="fn-meta" style="margin-top:110px">
+      <p class="fn-meta">
         <a href="/blog/" style="color:inherit">← Field notes</a> ·
         {post.draft ? <span class="fn-draft">Draft for Matt’s review — not yet published</span> : <>Published {fmtDate(post.publish_date)}</>}
         {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · {post.author}
       </p>
       <Content />
+      <aside class="fn-related"><h2>Keep planning</h2><ul>{posts.filter(p => p.slug !== post.slug).slice(0,3).map(p => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}</ul></aside>
       <p style="margin-top:8vh"><a class="svp-cta" href="/start/" style="color:var(--ink)">Talk to Matt about your project <span aria-hidden="true">→</span></a></p>
     </article>
-  </main>
+  </section>
 </FormLayout>

@@ -768,3 +768,17 @@ html.motion-off .flow-field { --flow-y: .5 !important; transition: none !importa
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+
+/* Interlude mark: the bleed goes OUTWARD (Nov 8 2026).
+   Before, an edge mask faded the mark itself, so the K and V dissolved
+   into a hard black slab. Now the mark is never masked, and the black
+   feathers outward from the plate into the section with layered
+   outer shadows in the same near-black as the video. */
+html:not([data-theme=light]) .interlude-frame{-webkit-mask-image:none!important;mask-image:none!important;background:#050204!important;box-shadow:0 0 28px 18px #050204,0 0 70px 46px rgba(5,2,4,.85),0 0 150px 90px rgba(5,2,4,.45),0 0 260px 140px rgba(5,2,4,.18)!important}
+html:not([data-theme=light]) .interlude-frame video{filter:contrast(1.06) saturate(1.05)}
+html:not([data-theme=light]) .interlude-pool{opacity:.55}
+@media(max-width:720px){html:not([data-theme=light]) .interlude-frame{box-shadow:0 0 16px 10px #050204,0 0 40px 26px rgba(5,2,4,.85),0 0 90px 54px rgba(5,2,4,.42),0 0 160px 90px rgba(5,2,4,.16)!important}}
+
+/* No overlay, mask or darkening filter may affect the interlude mark. */
+.interlude-frame,.interlude-frame video{mask-image:none!important;-webkit-mask-image:none!important}
+html:not([data-theme=light]) .interlude-frame video{filter:none!important}

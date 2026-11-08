@@ -4,6 +4,7 @@
 export interface Post {
   slug: string; title: string; seo_title?: string; meta_description: string; excerpt: string;
   publish_date: string; draft: boolean; status: string; author: string;
+  hero_alt: string; hero_poster: string; hero_video: string; tags: string[];
   faq?: { question: string; answer: string }[];
   Content: any;
 }

@@ -1,31 +1,36 @@
 ---
-title: "When does a custom website pay off for an Alberta business?"
-seo_title: "When a custom website pays off in Alberta | KR8TIV"
-meta_description: "Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions, local SEO, accessibility, and a safer launch plan."
-slug: "website-that-earns-its-keep-alberta"
-primary_phrase: "custom website Alberta"
-secondary_phrases: ["website design Edmonton", "small business website Alberta", "website redesign brief", "local business website SEO Canada"]
-target_geo: ["Edmonton", "Alberta", "Canada"]
-publish_date: "2026-11-06"
-timezone: "America/Edmonton"
-status: "DRAFT-READY-FOR-MATT"
-draft: true
-language: "en-CA"
-author: "KR8TIV Agency"
-reviewer: "Matt"
-review_status: "PENDING"
-canonical_url: "https://kr8tiv.io/blog/website-that-earns-its-keep-alberta"
-canonical_status: "PROPOSED-NOT-LIVE"
-excerpt: "A decision-and-brief worksheet for website economics, page planning, immersive design, accessibility, search, and migration."
-services: ["Website Design", "Branding + Identity", "Copywriting"]
-related_slugs: ["blog-that-ranks-and-brings-leads", "local-advertising-edmonton-alberta"]
-faq: [{"question": "Do I need a custom website to rank in Edmonton?", "answer": "No. A custom build is not a ranking requirement. Useful content, a clear technical setup, accurate business information, and a usable experience matter regardless of how the site is built."}, {"question": "Should I rebuild my website before buying ads?", "answer": "Repair broken forms and unclear offers first. You may need one focused landing page rather than a full rebuild. Spend on the part of the buying journey that is limiting useful enquiries."}, {"question": "Can a small Alberta business serve customers across Canada online?", "answer": "Yes, when its delivery model supports it. Explain real service coverage, shipping or travel limits, and remote delivery clearly. Do not invent local offices to target more cities."}, {"question": "What should I prepare before talking to a website designer?", "answer": "Bring your main service, ideal buyer, current site, common customer questions, approved assets, and the business problem you want solved. Include your budget and any launch constraints."}]
-faq_schema_enabled: false
-business_entity_ref: "https://kr8tiv.io/#business"
-schema: {"@context": "https://schema.org", "@type": "Article", "headline": "When does a custom website pay off for an Alberta business?", "description": "Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions, local SEO, accessibility, and a safer launch plan.", "inLanguage": "en-CA", "mainEntityOfPage": "https://kr8tiv.io/blog/website-that-earns-its-keep-alberta", "author": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "publisher": {"@type": "Organization", "name": "KR8TIV Agency", "url": "https://kr8tiv.io/"}, "about": ["Website Design", "Branding + Identity", "Copywriting"], "spatialCoverage": [{"@type": "Place", "name": "Edmonton, Alberta, Canada"}, {"@type": "Place", "name": "Alberta, Canada"}, {"@type": "Place", "name": "Canada"}]}
-source_urls: ["https://kr8tiv.io/", "https://kr8tiv.io/process", "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"]
-sources_checked_date: "2026-11-06"
-editorial_notes: ["Draft only. Do not publish without Matt's editorial approval.", "Publication date is requested draft metadata, not evidence of live publication. Set actual datePublished and dateModified at release.", "Current CAD website and sign-concept floors follow PRICING-LOCK-2026-11-06.md. Confirm taxes, exclusions and other service fees in the actual scope before release.", "Pricing locked 2026-11-06: full website design from $1,200; landing pages from $600 (CAD). Quote full-site floor as $1,200+; landing pages as from $600 when that scope applies."]
+slug: website-that-earns-its-keep-alberta
+title: When does a custom website pay off for an Alberta business?
+seo_title: When a custom website pays off in Alberta | KR8TIV
+meta_description: Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions,
+  local SEO, accessibility, and a safer launch plan.
+excerpt: Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions,
+  local SEO, accessibility, and a safer launch plan.
+publish_date: '2026-11-08'
+draft: false
+status: prepared-for-owner-review-not-published
+author: KR8TIV Agency
+category: Field notes
+tags:
+- Web design
+- Edmonton
+- Alberta
+hero_alt: Concept illustration of matching editorial website layouts on desktop and phone
+hero_poster: /kr8tiv-assets/blog/website-that-earns-its-keep-alberta-poster.webp
+hero_video: /kr8tiv-assets/blog/website-that-earns-its-keep-alberta-hero.mp4
+faq:
+- question: Do I need a custom website to rank in Edmonton?
+  answer: No. A custom build is not a ranking requirement. Useful content, a clear technical setup, accurate business
+    information, and a usable experience matter regardless of how the site is built.
+- question: Should I rebuild my website before buying ads?
+  answer: Repair broken forms and unclear offers first. You may need one focused landing page rather than a full
+    rebuild. Spend on the part of the buying journey that is limiting useful enquiries.
+- question: Can a small Alberta business serve customers across Canada online?
+  answer: Yes, when its delivery model supports it. Explain real service coverage, shipping or travel limits, and
+    remote delivery clearly. Do not invent local offices to target more cities.
+- question: What should I prepare before talking to a website designer?
+  answer: Bring your main service, ideal buyer, current site, common customer questions, approved assets, and the
+    business problem you want solved. Include your budget and any launch constraints.
 ---
 
 # When does a custom website pay off for an Alberta business?
@@ -42,11 +47,11 @@ Audit the enquiry path first. If the business offer is unclear or the form is br
 
 Open the site on a phone and ask someone unfamiliar with your business to find these answers:
 
-- What service can I buy?
-- Is it available where I am?
-- Is it suitable for my situation?
-- What do I need to know about the process or cost?
-- What happens when I contact you?
+* What service can I buy?
+* Is it available where I am?
+* Is it suitable for my situation?
+* What do I need to know about the process or cost?
+* What happens when I contact you?
 
 Watch without explaining. Record where the person hesitates. Test calls, forms, menus, and confirmation messages yourself. Submit a realistic test enquiry and verify that it reaches the right inbox without exposing customer data.
 
@@ -54,9 +59,9 @@ Separate content problems from technical problems. A slow gallery needs a differ
 
 ## How do you calculate whether custom work is worth it?
 
-Estimate the value of the problem you want to solve, then compare that value with the full cost of the project. Use contribution margin rather than treating all additional revenue as profit.
+Estimate the value of the problem you want to solve, then compare that value with the full cost of the project. Use [contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/)—revenue minus variable costs—rather than treating all additional revenue as profit.
 
-Here is a fictional planning example, not a KR8TIV result. An Alberta business receives 20 qualified website enquiries a month and wins five jobs. Suppose each job contributes CAD $600 after direct delivery costs, before overhead and profit.
+Here is a fictional planning example, not a KR8TIV result. An Alberta business receives 20 qualified website enquiries a month and wins five jobs. Suppose each job contributes CAD $600 after variable costs, before fixed costs and profit.
 
 If better information and follow-up helped it win one additional suitable job each month, that would add CAD $600 in monthly contribution. A hypothetical CAD $3,600 project would equal six months of that contribution, before ongoing costs and other changes.
 
@@ -108,7 +113,7 @@ A rebuild brief should require stable URLs, descriptive titles, appropriate cano
 
 Make services and business details clear in visible text. Structured data can describe genuine page and business information, but it does not replace that information or guarantee rankings. There is no special markup that guarantees inclusion in an AI answer.
 
-Read Google's [generative AI optimisation guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) rather than buying a promise to rank everywhere. Different assistants have different systems. A Google-ready site is not a verified guarantee of Siri visibility.
+Read Google’s [generative AI optimisation guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) rather than buying a promise to rank everywhere. Different assistants have different systems. A Google-ready site is not a verified guarantee of Siri visibility.
 
 ## What must happen when you replace an existing website?
 
@@ -124,11 +129,31 @@ After launch, inspect important URLs in Search Console and monitor errors and en
 
 The quote should identify what the designer builds, what you provide, what costs continue after launch, and who owns and maintains each part.
 
-Ask about copywriting, photography, design, development, forms, redirects, basic search setup, analytics, and training. Confirm which are included rather than assuming "website" means all of them.
+Ask about copywriting, photography, design, development, forms, redirects, basic search setup, analytics, and training. Confirm which are included rather than assuming “website” means all of them.
 
 Discuss domain access, hosting, software subscriptions, backups, updates, and support. Keep business-critical accounts under your control and grant appropriate access to the people doing the work. Agree on revision rounds and how additional requests affect cost.
 
-KR8TIV's [published process](https://kr8tiv.io/process) describes working directly with Matt and structured delivery. Use the project agreement to confirm the exact deliverables and support for your project. A public process page is context, not a substitute for scope.
+KR8TIV’s [published process](https://kr8tiv.io/process) describes working directly with Matt and structured delivery. Use the project agreement to confirm the exact deliverables and support for your project. A public process page is context, not a substitute for scope.
+
+## A practical acceptance test before you sign off
+
+Ask for a review copy with the actual service text and enquiry route, not only a polished homepage presentation. Then test a complete task from entry to confirmation.
+
+For a fictional Alberta contractor, the task could be: “Find out whether this company handles our commercial project and send enough information to request a discussion.” Review what happens when the visitor starts on a service page rather than the homepage.
+
+Check the following together:
+
+- The service description and real coverage are visible without an animation finishing.
+- The visitor can find the information needed to assess fit.
+- The primary action works on a phone and with a keyboard.
+- Form labels explain what to supply, and errors can be corrected.
+- A successful test reaches the intended recipient and shows a useful confirmation.
+- The owner knows which account receives enquiries and how to update the page.
+- Approved original content and assets remain backed up.
+
+Record a pass, a specific fault or a question requiring an owner decision. “Make it better” is not a test result. “The form accepts a submission but nobody receives it” identifies a release blocker.
+
+Use the same task after launch. If the final domain introduces a form or booking problem, a beautiful staging review does not cancel it. Ask about [existing-site improvements](https://kr8tiv.io/services/web-design-edmonton/) when a focused repair can solve the problem without a rebuild.
 
 ## Frequently asked questions
 

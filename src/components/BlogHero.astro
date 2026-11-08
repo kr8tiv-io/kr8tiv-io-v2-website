@@ -1,0 +1,25 @@
+---
+interface Props { poster: string; video: string; alt: string }
+const {poster,video,alt}=Astro.props;
+---
+<figure class="note-hero">
+  <div class="note-hero-frame">
+    <img src={poster} alt={alt} width="1024" height="576" fetchpriority="high" />
+    <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>
+  </div>
+  <figcaption>AI-generated concept illustration · not a completed client project</figcaption>
+</figure>
+<style>
+.note-hero{margin:0}.note-hero-frame{position:relative;aspect-ratio:16/9;border:1px solid #49464a;border-radius:8px;overflow:hidden;background:#111113}.note-hero img,.note-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}.note-hero video{opacity:0}.note-hero video.is-playing{opacity:1}.note-hero figcaption{font:10px/1.6 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--ink-muted);padding-top:10px}@media(prefers-reduced-motion:reduce){.note-hero video{display:none}}:global(html.motion-off) .note-hero video{display:none}
+</style>
+<script>
+const clips=document.querySelectorAll<HTMLVideoElement>('[data-note-video]');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const mobile=matchMedia('(max-width: 767px)');
+const connection=(navigator as Navigator & {connection?:{saveData?:boolean}}).connection;
+const visible=new Set<HTMLVideoElement>();
+const allowed=()=>!reduced.matches&&!mobile.matches&&!connection?.saveData&&!document.documentElement.classList.contains('motion-off')&&!document.hidden;
+function sync(){for(const v of clips){if(allowed()&&visible.has(v)){if(!v.src&&v.dataset.src){v.src=v.dataset.src;v.load()}v.play().then(()=>v.classList.add('is-playing')).catch(()=>v.classList.remove('is-playing'))}else{v.pause();v.classList.remove('is-playing')}}}
+const io=new IntersectionObserver(entries=>{for(const e of entries){const v=e.target as HTMLVideoElement;if(e.isIntersecting)visible.add(v);else visible.delete(v)}sync()},{threshold:.1});
+clips.forEach(v=>io.observe(v));reduced.addEventListener('change',sync);mobile.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+</script>

@@ -11,7 +11,7 @@ import { posts, fmtDate } from '@lib/blog';
   pageType="CollectionPage"
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Field notes', url: '/blog/' }]}
 >
-  <main class="svp" id="main">
+  <section class="svp" id="main">
     <header class="svp-hero">
       <AnimatedPlate src="/kr8tiv-assets/services/blog-hero.webp" video="/kr8tiv-assets/services/blog-hero.mp4" alt="Writing desk in a dark atelier lit by warm gold light" variant="hero" priority />
       <div class="svp-hero-copy">
@@ -24,6 +24,7 @@ import { posts, fmtDate } from '@lib/blog';
       <div class="fn-list">
         {posts.map((p) => (
           <a class="fn-card" href={`/blog/${p.slug}/`}>
+            <img class="fn-card-poster" src={p.hero_poster} alt={p.hero_alt} width="1024" height="576" loading="lazy" />
             <span class="fn-meta">
               {p.draft ? <span class="fn-draft">Draft · in review</span> : <>Published {fmtDate(p.publish_date)}</>}
             </span>
@@ -43,5 +44,5 @@ import { posts, fmtDate } from '@lib/blog';
       </div>
       <p style="text-align:center;margin-top:6vh"><a class="svp-cta" href="/start/">Start a project <span aria-hidden="true">→</span></a></p>
     </section>
-  </main>
+  </section>
 </FormLayout>

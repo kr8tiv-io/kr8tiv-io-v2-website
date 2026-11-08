@@ -1,0 +1,87 @@
+{
+  "checkedAt": "2026-11-08T21:27:31.938Z",
+  "results": [
+    {
+      "name": "2240 Speed Shop",
+      "url": "https://2240speedshop.com/",
+      "status": 200,
+      "finalUrl": "https://2240speedshop.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "Evolve Eco Blasting",
+      "url": "https://www.evolveecoblasting.com/",
+      "status": 200,
+      "finalUrl": "https://www.evolveecoblasting.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "Final Finish Epoxy",
+      "url": "https://lightgrey-wasp-945457.hostingersite.com/",
+      "status": 200,
+      "finalUrl": "https://lightgrey-wasp-945457.hostingersite.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "AntiHero",
+      "url": "https://antihero.community/",
+      "status": 200,
+      "finalUrl": "https://antihero.community/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "PrimeTime Contractors",
+      "url": "https://orange-wolverine-521574.hostingersite.com/",
+      "status": 200,
+      "finalUrl": "https://orange-wolverine-521574.hostingersite.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "Shane Dooley Roofing Guru",
+      "url": "https://shaneroofingguru.com/",
+      "status": 200,
+      "finalUrl": "https://shaneroofingguru.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "Aurora Ventures",
+      "url": "https://auroraventures.agency/",
+      "status": 200,
+      "finalUrl": "https://auroraventures.agency/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "Meet Your KIN",
+      "url": "https://meetyourkin.com/",
+      "status": 200,
+      "finalUrl": "https://meetyourkin.com/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "KR8TIV AI",
+      "url": "https://kr8tiv.ai/",
+      "status": 200,
+      "finalUrl": "https://kr8tiv.ai/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "KR8TIV",
+      "url": "https://kr8tiv.io/",
+      "status": 200,
+      "finalUrl": "https://kr8tiv.io/",
+      "check": "HTTP GET"
+    },
+    {
+      "name": "KR8TIV business cards",
+      "url": "/kr8tiv-assets/portfolio/03-foil-business-cards.webp",
+      "status": 200,
+      "check": "HTTP GET local preview + built asset"
+    },
+    {
+      "name": "Evolve Eco Blasting business cards",
+      "url": "/kr8tiv-assets/portfolio/evolve-business-cards.webp",
+      "status": 200,
+      "check": "HTTP GET local preview + built asset"
+    }
+  ]
+}

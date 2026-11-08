@@ -1,0 +1,19 @@
+---
+import cards from '../data/gallery.json';
+interface Props { teaser?: boolean }
+const {teaser=false}=Astro.props;
+const items=teaser?cards.slice(0,4):cards;
+---
+<div class="portfolio-grid">
+{items.map(p=>(
+<article class="portfolio-card" id={`sel-${p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`}>
+<a class="portfolio-image" href={teaser?'/work/':p.url} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined} aria-label={`${p.name} — ${p.category.includes('BUSINESS')?'view artwork':'visit website'}`}>
+<img src={p.poster} alt={p.alt} width="1600" height="1000" loading="lazy" decoding="async" />
+</a>
+<div class="portfolio-copy"><p class="portfolio-type">{p.category}</p><h3>{p.name}</h3><p>{p.description}</p><a class="portfolio-link" href={teaser?'/work/':p.url} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined}>{p.category.includes('STAGING')?'View staging':p.category.includes('BUSINESS')?'View design':'View project'} ↗</a></div>
+</article>
+))}
+</div>
+<style>
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.portfolio-card{min-width:0;overflow:hidden;background:#17171b!important;border:1px solid #59555e;border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,.22);mask-image:none!important;-webkit-mask-image:none!important;isolation:isolate}.portfolio-image{display:block;aspect-ratio:16/10;background:#111113;overflow:hidden;mask-image:none!important;-webkit-mask-image:none!important}.portfolio-image img{width:100%;height:100%;display:block;object-fit:contain;filter:none!important;opacity:1!important;mix-blend-mode:normal!important;mask-image:none!important;-webkit-mask-image:none!important}.portfolio-copy{padding:26px;background:#17171b;color:#f2f1ec}.portfolio-type{font:10px/1.5 'JetBrains Mono',monospace;letter-spacing:.16em;color:#ffcd85;margin:0 0 14px}.portfolio-copy h3{font:38px/1.1 'Instrument Serif',serif;margin:0 0 16px;color:#f2f1ec}.portfolio-copy>p:not(.portfolio-type){font:15px/1.65 'Inter Tight',sans-serif;color:#cfcbd0;margin:0 0 22px}.portfolio-link{font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.1em;color:#ffcd85;text-decoration:underline;text-underline-offset:5px}.portfolio-image:focus-visible,.portfolio-link:focus-visible{outline:3px solid #ffcd85;outline-offset:3px}@media(max-width:720px){.portfolio-grid{grid-template-columns:minmax(0,1fr);gap:24px}.portfolio-copy{padding:22px}.portfolio-copy h3{font-size:34px}}
+</style>
