@@ -7,7 +7,7 @@ Integrated into the public-source clone at `site/`, branch `content/nov8` (basel
 - Five new guides revised; five existing articles fact-checked and expanded with decision worksheets, comparison/acceptance tests and FAQs. All ten have draft false, production indexing intent, four visible FAQs each, Article + FAQPage JSON-LD, tailored metadata/OG images/canonicals/alt text and related links. No article is flagged unfinished editorially; Matt's final approval is still required.
 - All ten have newly generated silent six-second MP4 hero loops and optimized WebP posters. Video source is deferred on phones, reduced-motion, Save-Data, site motion-off and off-screen states; poster remains usable without JavaScript. Actual browser behavior and motion aesthetics still need browser QA. No temporary hero placeholders were needed.
 - Interlude mask removed; supplied outward-only shadow applied. Video darkening filter removed. CSS/build inspection passed; final 1440/390 visual confirmation is pending.
-- Gallery uses one component on home and work pages: opaque framed 16:10 images and consistent type. Ten websites plus two business-card displays; no duplicate URLs.
+- Gallery uses one component on home and work pages: opaque framed 16:10 images and consistent type. Ten websites plus three business-card displays; no duplicate URLs.
 - RSS contains ten posts. Sitemap contains ten post URLs and excludes preview/404. 404 is noindex,follow. Unconfirmed coordinates, priceRange and conflicting founding date are omitted; original values remain in history. llms.txt now uses the correct .io navigation links. Human-only authorship assertion removed. Existing crawler allow/block policies preserved.
 
 ## Articles
@@ -29,7 +29,7 @@ Word counts are rendered body whitespace counts, excluding YAML; they include so
 
 ## Gallery and link verification
 
-`npm run test:gallery` checked real HTTP GETs for all ten external websites and both local preview artwork URLs. All 12 returned 200. This checks HTTP reachability, not visual correctness or ownership.
+`npm run test:gallery` checked real HTTP GETs for all ten external websites and three local preview artwork URLs. All 13 returned 200. This checks HTTP reachability, not visual correctness or ownership.
 
 | Display | Destination | HTTP |
 |---|---|---:|
@@ -45,8 +45,9 @@ Word counts are rendered body whitespace counts, excluding YAML; they include so
 | KR8TIV | https://kr8tiv.io/ | 200 |
 | KR8TIV business cards | /kr8tiv-assets/portfolio/03-foil-business-cards.webp | 200 |
 | Evolve Eco Blasting business cards | /kr8tiv-assets/portfolio/evolve-business-cards.webp | 200 |
+| Shane Dooley business cards | /kr8tiv-assets/portfolio/shane-business-cards.webp | 200 |
 
-Both Final Finish and PrimeTime websites are clearly labelled staging. Final Finish uses the newest lightgrey staging URL and its real hero capture, from the earlier public-site review. Evolve and Shane use real homepage images instead of dimmed walkthrough frames. Aurora/KIN/KR8TIV ventures retain their current site destinations. Jarvis identity remains unresolved and Pinky + Brain's old destination returned 402: hidden from the current gallery, originals preserved in `review-archive` / existing source data.
+Both Final Finish and PrimeTime websites are clearly labelled staging. Final Finish uses the newest lightgrey staging URL and its real hero capture, from the earlier public-site review. Evolve and Shane use real homepage images instead of dimmed walkthrough frames. Evolve, Shane and Aurora retain their real supplied walkthroughs as deferred desktop-hover video; mobile/reduced-motion/Save-Data keep the poster, and videos pause offscreen. Shane’s paired original print faces remain one additional design-system display. Own-company attribution is explicit for Aurora, KIN and both KR8TIV sites. Aurora/KIN/KR8TIV ventures retain their current site destinations. Jarvis identity remains unresolved and Pinky + Brain's old destination returned 402: hidden from the current gallery, originals preserved in `review-archive` / existing source data.
 
 ## Business-card provenance and remaining PrimeTime dependency
 
@@ -60,7 +61,7 @@ Both Final Finish and PrimeTime websites are clearly labelled staging. Final Fin
 - Fresh `npm ci && npm run build`: exit 0, 22 static pages.
 - `npm run typecheck`: 0 errors, 0 warnings, 3 existing inline-script hints.
 - `npm run test:content`: ten articles, forty visible FAQ answers with semantic schema parity, indexing metadata, hero assets, RSS, sitemap and 404 checks passed.
-- `npm run test:gallery`: 12/12 HTTP 200.
+- `npm run test:gallery`: 13/13 HTTP 200.
 - ffprobe: all ten compressed loops have video-only streams, H264, faststart; about 6.04 seconds, 848×480. Posters are 1024×576.
 - Dependency compatibility: original npm ci failed (MDX 5.0.6 peer Astro ^6 vs installed Astro 5.18.2). Changed MDX to compatible ^4.3.14, regenerated lock, and clean installation/build passed. No force/legacy-peer-deps used.
 - SECURITY FOLLOW-UP: npm audit reports 13 vulnerabilities (1 critical, 10 high, 1 moderate, 1 low), including Astro's AVIF optimization advisory. Not represented as a security-clean stack. Framework-major upgrades are outside this content task. Astro preview was stopped; current review server is a loopback-only plain static file server. See `qa/npm-audit.json`.

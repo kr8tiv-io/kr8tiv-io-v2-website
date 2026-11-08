@@ -27,3 +27,10 @@ for f in dist.rglob('*.html'):
   s=json.loads(meta.string);assert 'geo' not in s;assert 'priceRange' not in s
  assert not doc.select('meta[name="ai-content-declaration"]')
 print('PASS 10 articles, 40 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
+
+work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==13
+for img in work.select('.portfolio-image img'):assert (dist/img['src'].lstrip('/')).is_file()
+walkthroughs=work.select('[data-gallery-video]');assert len(walkthroughs)==3
+for v in walkthroughs:assert not v.has_attr('src') and not v.has_attr('autoplay') and v.has_attr('muted') and v.has_attr('hidden') and v['preload']=='none'
+assert len([p for p in work.select('.portfolio-type') if 'OWN COMPANY / WEBSITE' in p.text])==4
+print('PASS 13 distinct gallery displays, 3 deferred real walkthroughs, own-company labels')

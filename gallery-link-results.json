@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08T21:27:31.938Z",
+  "checkedAt": "2026-11-08T21:30:05.710Z",
   "results": [
     {
       "name": "2240 Speed Shop",
@@ -80,6 +80,12 @@
     {
       "name": "Evolve Eco Blasting business cards",
       "url": "/kr8tiv-assets/portfolio/evolve-business-cards.webp",
+      "status": 200,
+      "check": "HTTP GET local preview + built asset"
+    },
+    {
+      "name": "Shane Dooley business cards",
+      "url": "/kr8tiv-assets/portfolio/shane-business-cards.webp",
       "status": 200,
       "check": "HTTP GET local preview + built asset"
     }
