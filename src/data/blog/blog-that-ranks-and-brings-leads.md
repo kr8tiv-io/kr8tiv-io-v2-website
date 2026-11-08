@@ -16,7 +16,7 @@ tags:
 - SEO
 - Edmonton
 - Alberta
-hero_alt: Concept still life of a blank notebook, laptop and glass prism on a dark desk
+hero_alt: Still life of a blank notebook, laptop and glass prism on a dark desk
 hero_poster: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-poster.webp
 hero_video: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-hero.mp4
 faq:

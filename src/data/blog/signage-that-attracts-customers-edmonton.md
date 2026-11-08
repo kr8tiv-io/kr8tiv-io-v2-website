@@ -16,7 +16,7 @@ tags:
 - Branding
 - Edmonton
 - Marketing
-hero_alt: Concept illustration of an illuminated storefront entrance at blue hour
+hero_alt: An illuminated storefront entrance at blue hour
 hero_poster: /kr8tiv-assets/blog/signage-that-attracts-customers-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/signage-that-attracts-customers-edmonton-hero.mp4
 faq:

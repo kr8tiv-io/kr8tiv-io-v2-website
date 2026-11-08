@@ -15,7 +15,7 @@ tags:
 - Advertising
 - Edmonton
 - Alberta
-hero_alt: Concept still life of a local campaign sign, blank mailer and phone
+hero_alt: Still life of a local campaign sign, blank mailer and phone
 hero_poster: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-poster.webp
 hero_video: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-hero.mp4
 faq:

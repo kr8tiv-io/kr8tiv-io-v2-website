@@ -17,7 +17,7 @@ tags:
 - Edmonton
 - Alberta
 - Creative technology
-hero_alt: Concept illustration of brushed-metal storefront signage and a reflective display panel
+hero_alt: Brushed-metal storefront signage and a reflective display panel
 hero_poster: /kr8tiv-assets/blog/ai-signage-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/ai-signage-design-edmonton-hero.mp4
 faq:

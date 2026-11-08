@@ -17,7 +17,7 @@ tags:
 - Edmonton
 - Signage
 - Branding
-hero_alt: Concept illustration of a stationary commercial van with a geometric charcoal and ivory wrap
+hero_alt: A stationary commercial van with a geometric charcoal and ivory wrap
 hero_poster: /kr8tiv-assets/blog/ai-vehicle-wrap-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/ai-vehicle-wrap-design-edmonton-hero.mp4
 faq:

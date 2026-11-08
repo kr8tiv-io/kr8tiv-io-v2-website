@@ -7,7 +7,6 @@ const {poster,video,alt}=Astro.props;
     <img src={poster} alt={alt} width="1280" height="720" fetchpriority="high" />
     <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>
   </div>
-  <figcaption>AI-generated concept illustration · not a completed client project</figcaption>
 </figure>
 <style>
 .note-hero{margin:0}.note-hero-frame{position:relative;aspect-ratio:16/9;border:1px solid #49464a;border-radius:8px;overflow:hidden;background:#111113}.note-hero img,.note-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}.note-hero video{opacity:0}.note-hero video.is-playing{opacity:1}.note-hero figcaption{font:10px/1.6 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--ink-muted);padding-top:10px}@media(prefers-reduced-motion:reduce){.note-hero video{display:none}}:global(html.motion-off) .note-hero video{display:none}

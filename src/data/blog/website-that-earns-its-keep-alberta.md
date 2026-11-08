@@ -15,7 +15,7 @@ tags:
 - Web design
 - Edmonton
 - Alberta
-hero_alt: Concept illustration of matching editorial website layouts on desktop and phone
+hero_alt: Matching editorial website layouts on desktop and phone
 hero_poster: /kr8tiv-assets/blog/website-that-earns-its-keep-alberta-poster.webp
 hero_video: /kr8tiv-assets/blog/website-that-earns-its-keep-alberta-hero.mp4
 faq:

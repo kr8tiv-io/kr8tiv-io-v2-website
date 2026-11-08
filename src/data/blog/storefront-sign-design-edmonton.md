@@ -16,7 +16,7 @@ tags:
 - Edmonton
 - Alberta
 - Storefront design
-hero_alt: Concept illustration of a dimensional metal sign on a brick storefront
+hero_alt: A dimensional metal sign on a brick storefront
 hero_poster: /kr8tiv-assets/blog/storefront-sign-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/storefront-sign-design-edmonton-hero.mp4
 faq:

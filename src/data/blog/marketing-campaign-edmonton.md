@@ -15,7 +15,7 @@ tags:
 - Marketing
 - Edmonton
 - Alberta
-hero_alt: Concept still life of coordinated geometric print and screen campaign artwork
+hero_alt: Still life of coordinated geometric print and screen campaign artwork
 hero_poster: /kr8tiv-assets/blog/marketing-campaign-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/marketing-campaign-edmonton-hero.mp4
 faq:

@@ -17,7 +17,7 @@ tags:
 - Canada
 - Edmonton
 - Product marketing
-hero_alt: Concept illustration of unprinted charcoal and ivory cartons with an iridescent cylindrical package
+hero_alt: Unprinted charcoal and ivory cartons with an iridescent cylindrical package
 hero_poster: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-poster.webp
 hero_video: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-hero.mp4
 faq:
