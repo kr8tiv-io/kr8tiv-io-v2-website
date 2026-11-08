@@ -11,7 +11,8 @@
     "astro": "astro",
     "typecheck": "astro check",
     "test:gallery": "node scripts/check-gallery.mjs",
-    "test:content": "python3 scripts/check-content.py"
+    "test:content": "python3 scripts/check-content.py",
+    "postbuild": "node scripts/sitemap-alias.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
