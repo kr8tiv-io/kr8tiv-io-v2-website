@@ -1,10 +1,20 @@
 ---
-// The still is a real image, independent of the video's loading/play state.
-const poster = '/kr8tiv-assets/posters/kr8tiv-chrome-transparent.webp';
+// Nov 9 2026: the interlude plays the ORIGINAL supplied loop (Design-29-2-1.mp4),
+// black ground and all. The Nov 8 keyed/alpha derivative
+// (kr8tiv-chrome-transparent.webm/.webp) stripped the near-black edges of the
+// chrome along with the backdrop, so the letters read chopped and weathered.
+// That derivative stays in the repo, unused. The black is now blended OUTWARD by
+// `.interlude-halo` (see blend.css): a pure-black core that covers the whole media
+// rectangle, then feathers into the page only OUTSIDE the animation's bounds.
+// Nothing masks, filters or overlays the animation itself.
+// The still is the original supplied poster, a real image independent of the
+// video's loading/play state.
+const poster = '/kr8tiv-assets/posters/Design-29-2-1.webp';
 ---
-<div class="interlude-frame">
+<div class="interlude-frame" data-interlude-black>
+  <span class="interlude-halo" aria-hidden="true"></span>
   <img src={poster} alt="KR8TIV chrome wordmark" width="960" height="236" loading="eager" decoding="async" />
-  <video data-interlude-video data-src="/kr8tiv-assets/kr8tiv-chrome-transparent.webm" muted loop playsinline preload="none" poster={poster} aria-hidden="true"></video>
+  <video data-interlude-video data-src="/kr8tiv-assets/Design-29-2-1.mp4?v=3" muted loop playsinline preload="none" poster={poster} aria-hidden="true"></video>
 </div>
 <script>
 const video=document.querySelector<HTMLVideoElement>('[data-interlude-video]');
@@ -13,8 +23,7 @@ if(video&&frame){
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const connection=(navigator as Navigator&{connection?:{saveData?:boolean}}).connection;
   let visible=false;
-  let alphaUnsupported=!video.canPlayType('video/webm; codecs="vp9"');
-  const allowed=()=>!alphaUnsupported&&visible&&!reduced.matches&&!connection?.saveData&&!document.hidden&&!document.documentElement.classList.contains('motion-off');
+  const allowed=()=>visible&&!reduced.matches&&!connection?.saveData&&!document.hidden&&!document.documentElement.classList.contains('motion-off');
   const showPoster=()=>frame.classList.remove('is-playing');
   const sync=()=>{
     if(!allowed()){video.pause();showPoster();return;}
@@ -25,13 +34,6 @@ if(video&&frame){
   video.addEventListener('playing',()=>{
     const reveal=()=>{
       if(!allowed()||video.paused||video.readyState<2)return;
-      // A browser that decodes VP9 without alpha must keep the transparent
-      // still, never display the movie's black matte. Sample only a corner.
-      const canvas=document.createElement('canvas');canvas.width=canvas.height=1;
-      const context=canvas.getContext('2d',{willReadFrequently:true});
-      if(!context){alphaUnsupported=true;video.pause();showPoster();return;}
-      context.drawImage(video,0,0,1,1,0,0,1,1);
-      if(context.getImageData(0,0,1,1).data[3]>16){alphaUnsupported=true;video.pause();showPoster();return;}
       frame.classList.add('is-playing');
     };
     // Do not hide the image until a decoded video frame is actually ready to paint.
