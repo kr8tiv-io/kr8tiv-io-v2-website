@@ -785,3 +785,29 @@ html[data-theme=light] .interlude-frame>img{filter:invert(1) hue-rotate(180deg);
 @media(prefers-reduced-motion:reduce){.interlude-frame>video{visibility:hidden!important}.interlude-frame>img{visibility:visible!important}}
 html.motion-off .interlude-frame>video{visibility:hidden!important}
 html.motion-off .interlude-frame>img{visibility:visible!important}
+
+/* Interlude, Nov 9 2026: original black-ground loop, black blended OUTWARD.
+   The media rectangle sits on a pure-black core (#000, the loop's own black),
+   so its edge is invisible; a soft halo then carries that black past the
+   rectangle and feathers it into the page. The halo lives behind the media,
+   never on it: no mask, filter, blend mode or overlay touches the chrome.
+   Sizes scale with the frame width (cqw) so wide screens and phones match. */
+.interlude-frame[data-interlude-black]{container-type:inline-size;z-index:1}
+.interlude-frame[data-interlude-black]>img,.interlude-frame[data-interlude-black]>video{position:relative;z-index:1;filter:none!important;mix-blend-mode:normal!important}
+.interlude-frame[data-interlude-black]>video{position:absolute}
+.interlude-halo{position:absolute;inset:0;z-index:0;pointer-events:none;background:#000;border-radius:10cqw;
+  box-shadow:0 0 12cqw 18cqw #000,0 0 44cqw 14cqw rgba(0,0,0,.35)}
+/* Spread (18cqw) is 3 sigma of the blur (12cqw = 2 sigma of 6cqw), so the black
+   is 99.9% opaque at the media edge (no seam, even brightened) and only thins outside it; the second,
+   wider layer gives the fade a long, gentle tail into the page. */
+.interlude-stage:has(.interlude-frame[data-interlude-black]) .interlude-pool{display:none}
+.interlude-inner:has(.interlude-frame[data-interlude-black]) .interlude-eye,
+.interlude-inner:has(.interlude-frame[data-interlude-black]) .interlude-caption{position:relative;z-index:2}
+/* Light theme keeps its printed-ink look by inverting the WHOLE plate, halo
+   included: the black ground and its outward feather become a white one that
+   melts into the paper, and the chrome reads as ink. (A multiply blend cannot
+   reach the page field from inside <main>'s stacking context, so it showed a
+   white box.) */
+html[data-theme=light] .interlude-frame[data-interlude-black]{background:transparent!important;filter:invert(1) hue-rotate(180deg)}
+html[data-theme=light] .interlude-frame[data-interlude-black]>img,
+html[data-theme=light] .interlude-frame[data-interlude-black]>video{filter:none!important;mix-blend-mode:normal!important}
