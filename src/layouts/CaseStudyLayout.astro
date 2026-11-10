@@ -10,6 +10,7 @@ import '@styles/build-notes.css';
 import '@styles/blend.css';        /* section blending — unified ground, feathered seams, drifting field */
 import '@styles/elevate.css';      /* premium interaction layer — selection, scrollbar, focus, footer */
 import Nav from '@components/Nav.astro';
+import Footer from '@components/Footer.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
 
@@ -83,6 +84,7 @@ const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toSt
       <slot />
     </article>
   </main>
+  <Footer />
   <WhiteLightOverlay />
   <script>
     import { initMotionToggle } from '@lib/motionToggle';
