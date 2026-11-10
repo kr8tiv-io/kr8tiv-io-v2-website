@@ -139,8 +139,12 @@ const orgSchema = {
   },
   areaServed: [
     { '@type': 'Place', name: 'Edmonton, Alberta' },
+    { '@type': 'Place', name: 'Sherwood Park, Alberta' },
+    { '@type': 'Place', name: 'St. Albert, Alberta' },
+    { '@type': 'Place', name: 'Spruce Grove, Alberta' },
     { '@type': 'Place', name: 'Leduc, Alberta' },
     { '@type': 'Place', name: 'Alberta, Canada' },
+    { '@type': 'Place', name: 'Canada' },
     { '@type': 'Place', name: 'Worldwide' }
   ],
   knowsAbout: [
@@ -163,17 +167,19 @@ const orgSchema = {
   sameAs: [
     'https://calendly.com/kr8tiv',
     'https://github.com/kr8tiv-io',
-    'https://www.linkedin.com/company/kr8tiv-agency'
+    'https://www.linkedin.com/company/kr8tiv-agency',
+    'https://g.page/r/Cf3IkEeasCMiEBM'
   ]
 };
 
 // ProfessionalService — declares us as a bookable service provider.
 const serviceSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
+  '@type': ['ProfessionalService', 'LocalBusiness'],
   '@id': siteUrl + '/#service',
-  name: 'KR8TIV Design Atelier',
-  description: 'Boutique creative studio building brands, websites, motion, video, and full AI solutions for forward-looking founders.',
+  name: 'KR8TIV',
+  alternateName: 'KR8TIV Design Atelier',
+  description: 'KR8TIV is an Edmonton creative studio for websites, branding, storefronts, graphic design, packaging, search engine optimization, AI search optimization and AI automation.',
   url: siteUrl,
   image: ogImageUrl,
   logo: siteUrl + '/kr8tiv-assets/kr8tiv-logo-filled.png',
@@ -185,15 +191,36 @@ const serviceSchema = {
     addressRegion: 'AB',
     addressCountry: 'CA'
   },
-  areaServed: ['Edmonton', 'Leduc', 'Alberta', 'Canada', 'Worldwide'],
+  areaServed: [
+    'Edmonton',
+    'Sherwood Park',
+    'St. Albert',
+    'Spruce Grove',
+    'Leduc',
+    'Alberta',
+    'Canada',
+    'Worldwide'
+  ],
+  sameAs: [
+    'https://calendly.com/kr8tiv',
+    'https://github.com/kr8tiv-io',
+    'https://www.linkedin.com/company/kr8tiv-agency',
+    'https://g.page/r/Cf3IkEeasCMiEBM'
+  ],
   serviceType: [
     'Brand Identity Design',
     'Website Design & Development',
+    'Storefront Design',
+    'Graphic Design',
+    'Packaging Design',
+    'Search Engine Optimization',
+    'AI Search Optimization',
     'Motion & 3D Design',
     'Video Production',
     'AI Marketing Automation',
     'AI Business Solutions',
-    'AI Agents & Internal Tools'
+    'AI Agents & Internal Tools',
+    'AI Automation'
   ],
   provider: { '@id': siteUrl + '/#organization' },
   hasOfferCatalog: {
