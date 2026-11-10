@@ -1,16 +1,21 @@
 from pathlib import Path
 from bs4 import BeautifulSoup
 import json,re,xml.etree.ElementTree as ET,yaml
-root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==10
+root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==11
 sitemap=ET.parse(dist/'sitemap-0.xml');urls={n.text for n in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
-rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==10
+rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==11
 for f in posts:
  _,front,body=f.read_text().split('---',2);m=yaml.safe_load(front);assert m['draft'] is False;assert not re.search(r'\bgonna\b|meku',body,re.I)
  p=dist/'blog'/m['slug']/'index.html';doc=BeautifulSoup(p.read_text(),'html.parser');assert len(doc.select('h1'))==1,p
  robots=doc.select_one('meta[name=robots]')['content'];assert 'noindex' not in robots,p
  canonical='https://kr8tiv.io/blog/'+m['slug']+'/';assert doc.select_one('link[rel=canonical]')['href']==canonical;assert canonical in urls
  assert doc.select_one('meta[property="og:type"]')['content']=='article';assert doc.select_one('meta[property="og:image:width"]')['content']=='1280';assert doc.select_one('meta[property="og:image:height"]')['content']=='720';assert '/blog/'+m['slug']+'-poster.webp' in doc.select_one('meta[property="og:image"]')['content']
- schemas=[json.loads(n.string) for n in doc.select('script[type="application/ld+json"]')];article=next(n for n in schemas if n.get('@type')=='Article');assert article['headline'] and article['image'] and article['publisher']
+ schemas=[json.loads(n.string) for n in doc.select('script[type="application/ld+json"]')]
+ typ=lambda n: n.get('@type')
+ article=next(n for n in schemas if typ(n)=='Article' or (isinstance(typ(n), list) and 'Article' in typ(n)))
+ if m['slug']=='evolve-eco-blasting-case-study':
+  assert isinstance(typ(article), list) and 'Article' in typ(article) and 'CaseStudy' in typ(article)
+ assert article['headline'] and article['image'] and article['publisher']
  faq=next(n for n in schemas if n.get('@type')=='FAQPage');assert len(faq['mainEntity'])==4
  norm=lambda t:t.replace('’',"'").replace('‘',"'").replace('“','\"').replace('”','\"')
  visible=norm(doc.get_text(' ',strip=True))
@@ -26,7 +31,7 @@ for f in dist.rglob('*.html'):
  for meta in doc.select('script[type="application/ld+json"]'):
   s=json.loads(meta.string);assert 'geo' not in s;assert 'priceRange' not in s
  assert not doc.select('meta[name="ai-content-declaration"]')
-print('PASS 10 articles, 40 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
+print('PASS 11 articles, 44 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
 
 work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==13
 for img in work.select('.portfolio-image img'):assert (dist/img['src'].lstrip('/')).is_file()
