@@ -32,7 +32,6 @@ faq:
     blasting Alberta.” We do not claim the same for “sandblasting Edmonton.”
 - question: Is this case study live on kr8tiv.io yet?
   answer: No. This is still a draft for review, so the page stays noindexed. Permission to publish is already in.
-    Search Console screenshots are being gathered separately and will be added before it goes live.
 - question: Can other Alberta trades get a site like this?
   answer: You can get a site and a search plan built around your actual services and service area. Evolve’s results
     are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts at $1,200 CAD, with scope
@@ -45,7 +44,7 @@ Evolve Eco Blasting is an Alberta mobile dustless-blasting company. KR8TIV gave 
 
 According to KR8TIV, the four months that followed brought CAD $1.4 million in enquiries and CAD $450,000 in sales. Todd, Evolve’s founder, went from almost no calls to nonstop calls. Matt knows because he was answering those phones himself, and Todd told him the same thing. Todd has given permission to publish this.
 
-This page is still a draft, only because Search Console screenshots are being gathered separately. The story, the numbers, and the permission are already in.
+This page is still a draft, pending a final review before it goes live. The story, the numbers, and the permission are already in.
 
 <figure>
 <img src="/kr8tiv-assets/portfolio/evolveecoblasting-com.webp" alt="The Evolve Eco Blasting homepage, with a dark industrial design and a clear path into the company’s services" width="1280" height="720" />
@@ -91,7 +90,7 @@ A new brand and a clear site do not print money on their own. They do make it mu
 
 Matt’s account is that Evolve ranked at the top of Google, and in AI answers, ahead of businesses that had been around for years. That claim is about the dustless blasting and eco blasting searches that describe what the company actually does. We are not claiming the same result for every related phrase, and we are not claiming it for “sandblasting Edmonton.”
 
-A separate research check on 9 November 2026, from a web research tool rather than a geotargeted Edmonton Google results page or Search Console, supports the same pattern on those core queries:
+A separate research check on 9 November 2026, from a web research tool rather than a geotargeted Edmonton Google results page, supports the same pattern on those core queries:
 
 | Query checked | What appeared in the research tool on 9 November 2026 |
 |---|---|
@@ -102,27 +101,12 @@ A separate research check on 9 November 2026, from a web research tool rather th
 | graffiti removal Edmonton | The Evolve graffiti article appeared, further down a mixed set of results |
 | sandblasting Edmonton | Evolve did not appear in the tool’s first five results |
 
-Top for dustless and eco blasting, including the Edmonton query that matters most for local hiring. Mixed, or weaker, on some job-specific phrases and on the more generic sandblasting search. Visibility is query-specific. That is why the Search Console record still belongs on this page.
+Top for dustless and eco blasting, including the Edmonton query that matters most for local hiring. Mixed, or weaker, on some job-specific phrases and on the more generic sandblasting search. Visibility is query-specific.
 
-## Search Console
-
-Screenshots from Google Search Console are being gathered separately. One or two of them will go here.
-
-<figure id="search-console-1">
-<!-- Add the first Search Console screenshot here, for example:
-<img src="/kr8tiv-assets/blog/evolve-eco-blasting-gsc-1.webp" alt="Google Search Console results for Evolve Eco Blasting" width="1280" height="720" />
--->
-</figure>
-
-<figure id="search-console-2">
-<!-- Add the second Search Console screenshot here, for example:
-<img src="/kr8tiv-assets/blog/evolve-eco-blasting-gsc-2.webp" alt="Google Search Console queries for Evolve Eco Blasting" width="1280" height="720" />
--->
-</figure>
 
 ## What other Alberta businesses should take from this
 
-Build the site around the different buyers you actually have. Say where you work. Write pages for the jobs people already search for, and keep those pages specific enough to help. Then watch the phone, and measure the queries in Search Console, instead of hoping a pretty homepage is doing the finding for you.
+Build the site around the different buyers you actually have. Say where you work. Write pages for the jobs people already search for, and keep those pages specific enough to help. Then watch the phone, instead of hoping a pretty homepage is doing the finding for you.
 
 KR8TIV’s [web design](/services/web-design-edmonton/) and [branding](/services/branding/) work follows that same order: the offer and the evidence, then the look. Evolve is one live example, with the numbers above according to KR8TIV.
 
@@ -138,7 +122,7 @@ For the dustless blasting and eco blasting searches that describe the work, yes,
 
 ### Is this case study live on kr8tiv.io yet?
 
-No. This is still a draft for review, so the page stays noindexed. Permission to publish is already in. Search Console screenshots are being gathered separately and will be added before it goes live.
+No. This is still a draft for review, so the page stays noindexed. Permission to publish is already in.
 
 ### Can other Alberta trades get a site like this?
 
