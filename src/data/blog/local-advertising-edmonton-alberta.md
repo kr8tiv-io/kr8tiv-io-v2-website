@@ -7,9 +7,10 @@ meta_description: Plan local ads for Edmonton and Alberta with honest budgets, b
 excerpt: Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead
   tracking. Build a test before spending more.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: prepared-for-owner-review-not-published
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Advertising
@@ -171,4 +172,4 @@ Only if you can serve that market and afford to test it. A remote service may ha
 
 ## Make the test useful before making it bigger
 
-Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV’s published Ads + Acquisition engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start).
+Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV’s published Ads + Acquisition engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start/).

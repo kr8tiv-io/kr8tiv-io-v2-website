@@ -1,15 +1,16 @@
 ---
 slug: packaging-design-that-stands-out-canada
-title: How to design packaging that stands out—and still works when it is printed
+title: How to design packaging that stands out, and still works when it is printed
 seo_title: Standout Packaging Design for Canadian Brands | KR8TIV
 meta_description: Build distinctive Canadian packaging with clear hierarchy, useful AI concepts, proper dielines,
   label checks, barcode verification and real production proofs.
 excerpt: 'A packaging design workflow for Edmonton and Canadian brands: earn attention without losing the product,
   the required information or the practical job of the pack.'
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: ready-for-approved-publication
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Packaging design
@@ -36,7 +37,7 @@ faq:
     distribution and a credible offer. Test recognition and understanding rather than inventing a sales-uplift percentage.
 ---
 
-# How to design packaging that stands out—and still works when it is printed
+# How to design packaging that stands out, and still works when it is printed
 
 Build packaging around a clear product identity, one distinctive visual idea and a structure that protects and presents the contents. Use AI to explore directions, not to invent claims, barcodes or mandatory copy. Then test the design on the real dieline, in its sales context and as a finished physical proof.
 

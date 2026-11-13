@@ -26,7 +26,7 @@ import { posts, fmtDate } from '@lib/blog';
           <a class="fn-card" href={`/blog/${p.slug}/`}>
             <img class="fn-card-poster" src={p.hero_poster} alt={p.hero_alt} width="1280" height="720" loading="lazy" />
             <span class="fn-meta">
-              {p.draft ? <span class="fn-draft">Draft · in review</span> : <>Published {fmtDate(p.publish_date)}</>}
+              {p.draft ? <span class="fn-draft">Draft · in review</span> : <>Published <time datetime={p.publish_date}>{fmtDate(p.publish_date)}</time></>}
             </span>
             <h2>{p.title}</h2>
             <p>{p.excerpt}</p>

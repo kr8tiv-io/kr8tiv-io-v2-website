@@ -7,9 +7,10 @@ meta_description: Decide what your Alberta business website needs before a rebui
 excerpt: Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions,
   local SEO, accessibility, and a safer launch plan.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: prepared-for-owner-review-not-published
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Web design
@@ -59,7 +60,7 @@ Separate content problems from technical problems. A slow gallery needs a differ
 
 ## How do you calculate whether custom work is worth it?
 
-Estimate the value of the problem you want to solve, then compare that value with the full cost of the project. Use [contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/)—revenue minus variable costs—rather than treating all additional revenue as profit.
+Estimate the value of the problem you want to solve, then compare that value with the full cost of the project. Use [contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) (revenue minus variable costs) rather than treating all additional revenue as profit.
 
 Here is a fictional planning example, not a KR8TIV result. An Alberta business receives 20 qualified website enquiries a month and wins five jobs. Suppose each job contributes CAD $600 after variable costs, before fixed costs and profit.
 
@@ -133,7 +134,7 @@ Ask about copywriting, photography, design, development, forms, redirects, basic
 
 Discuss domain access, hosting, software subscriptions, backups, updates, and support. Keep business-critical accounts under your control and grant appropriate access to the people doing the work. Agree on revision rounds and how additional requests affect cost.
 
-KR8TIV’s [published process](https://kr8tiv.io/process) describes working directly with Matt and structured delivery. Use the project agreement to confirm the exact deliverables and support for your project. A public process page is context, not a substitute for scope.
+KR8TIV’s [published process](https://kr8tiv.io/process/) describes working directly with Matt and structured delivery. Use the project agreement to confirm the exact deliverables and support for your project. A public process page is context, not a substitute for scope.
 
 ## A practical acceptance test before you sign off
 
@@ -175,4 +176,4 @@ Bring your main service, ideal buyer, current site, common customer questions, a
 
 ## Brief the outcome before the look
 
-Talk to Matt about the job your website needs to do, then the experience it should create. KR8TIV full website design starts at $1,200+; focused landing pages from $600 (CAD), with final scope agreed before work begins. [Start a website conversation](https://kr8tiv.io/start).
+Talk to Matt about the job your website needs to do, then the experience it should create. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,950 CAD and focused landing pages from $850 CAD, with final scope agreed before work begins. No GST charged. [Start a website conversation](https://kr8tiv.io/start/).

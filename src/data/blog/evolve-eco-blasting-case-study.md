@@ -7,9 +7,10 @@ meta_description: KR8TIV’s rebrand and search work for Evolve Eco Blasting, an
 excerpt: KR8TIV’s rebrand and search work for Evolve Eco Blasting, an Alberta dustless-blasting company.
   In four months, CAD $1.4 million in enquiries and CAD $450,000 in sales, according to KR8TIV.
 publish_date: '2026-11-09'
+updated: '2026-11-13'
 draft: false
 status: published
-author: KR8TIV Agency
+author: Matt Haynes
 category: Field notes
 tags:
 - Case study
@@ -34,8 +35,8 @@ faq:
   answer: Yes. This case study is published, with permission from Todd.
 - question: Can other Alberta trades get a site like this?
   answer: You can get a site and a search plan built around your actual services and service area. Evolve’s results
-    are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts at $1,200 CAD, with scope
-    agreed before the build.
+    are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts from $1,950 CAD, with scope
+    agreed before the build. No GST charged.
 ---
 
 # How we built Evolve Eco Blasting to get found in Alberta search
@@ -124,7 +125,7 @@ Yes. This case study is published, with permission from Todd.
 
 ### Can other Alberta trades get a site like this?
 
-You can get a site and a search plan built around your actual services and service area. Evolve’s results are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts at $1,200 CAD, with scope agreed before the build.
+You can get a site and a search plan built around your actual services and service area. Evolve’s results are Evolve’s, not a promised outcome for every project. [Website design at KR8TIV](/services/web-design-edmonton/) starts from $1,950 CAD, with scope agreed before the build. No GST charged.
 
 ## The site is live. The phones got loud.
 

@@ -4,12 +4,13 @@ title: How to attract customers with signage they can actually use
 seo_title: Signage That Attracts Customers in Edmonton | KR8TIV
 meta_description: Make your Edmonton business easier to recognise, understand and enter. A practical signage guide
   with readability tests, useful briefs and honest measurement.
-excerpt: Build a sign system around recognition, the offer and the entrance—then test it from the places customers
+excerpt: Build a sign system around recognition, the offer and the entrance, then test it from the places customers
   actually see it.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: ready-for-approved-publication
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Signage
@@ -40,7 +41,7 @@ Good signage helps a suitable customer recognise the business, understand the of
 
 A sign does not need to explain your entire business. It needs to do the part of the selling job that belongs at that location. The name above a shop, the information on its door and the message beside a product can work together without repeating the same crowded layout.
 
-For an Edmonton storefront, start outside. The best place to diagnose a weak sign is often the route a first-time visitor takes from the street or parking area—not the designer's monitor.
+For an Edmonton storefront, start outside. The best place to diagnose a weak sign is often the route a first-time visitor takes from the street or parking area, not the designer's monitor.
 
 ## Diagnose the problem before replacing the sign
 
@@ -78,7 +79,7 @@ Keep temporary promotions separate from permanent identification. It should be p
 
 Use the business name people actually know. Add a short service descriptor when the name alone leaves a reasonable visitor guessing. Avoid using a tagline as the only explanation of what is sold.
 
-For a fictional business called Northline, “Northline” could mean almost anything. “Northline — Commercial Electrical” gives a suitable buyer more context. This is an illustrative name, not a client or a recommendation to use that identity.
+For a fictional business called Northline, “Northline” could mean almost anything. “Northline: Commercial Electrical” gives a suitable buyer more context. This is an illustrative name, not a client or a recommendation to use that identity.
 
 Prioritise the information in order:
 
@@ -156,7 +157,7 @@ The City asks for project information such as dimensions, elevations, materials,
 
 Build the opening schedule around the actual approval and production sequence. Identify who owns the site measurements, landlord review, application, specialist design, production proof and installation arrangements. Confirm dependencies before promising an installation date.
 
-Businesses elsewhere in Alberta need their own municipality's guidance. A useful local article should explain when location changes the advice—not replace one city name with another and imply the rules are identical.
+Businesses elsewhere in Alberta need their own municipality's guidance. A useful local article should explain when location changes the advice, not replace one city name with another and imply the rules are identical.
 
 ## Measure the right outcome
 

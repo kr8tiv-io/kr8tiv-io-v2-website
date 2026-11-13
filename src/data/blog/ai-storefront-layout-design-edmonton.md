@@ -7,9 +7,10 @@ meta_description: Plan an AI-assisted storefront layout with measured plans, cus
 excerpt: Explore stronger retail layouts with AI while keeping dimensions, accessibility, stock handling and approvals
   grounded in the real premises.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: ready-for-approved-publication
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Storefront design
@@ -82,7 +83,7 @@ Do not upload drawings, security information or identifiable customer material t
 
 Create two lists: things that are fixed and things that can change. This prevents the model from solving a circulation problem by removing a column or moving the entrance.
 
-The fixed list may include the tenant boundary, existing structure and locations that cannot change within the budget. The flexible list may include movable displays, merchandising order, palette and non-structural visual treatments—subject to review of the actual scope.
+The fixed list may include the tenant boundary, existing structure and locations that cannot change within the budget. The flexible list may include movable displays, merchandising order, palette and non-structural visual treatments, subject to review of the actual scope.
 
 Add operational constraints. How many people need to work behind the counter? Where does an incoming delivery wait? Which equipment requires a service connection? Where does a customer put a bag while paying?
 
@@ -176,7 +177,7 @@ For a screen or projection, identify the owner of the content, the update proces
 
 Epson documents [projection applications for retail](https://epson.com/lightscene-lighting-digital-signage-art-applications). They can provide useful inspiration for a controlled interior feature. A vendor concept does not establish that the same effect will work with your ceiling, ambient light and operating routine. Ask for a test in the proposed conditions.
 
-Avoid adding facial analysis, tracking or other customer-data collection casually to a concept. If a feature involves collecting personal information, it deserves its own privacy and legal review—not a hidden line in the display supplier's quote.
+Avoid adding facial analysis, tracking or other customer-data collection casually to a concept. If a feature involves collecting personal information, it deserves its own privacy and legal review, not a hidden line in the display supplier's quote.
 
 ## Check Edmonton requirements before committing to construction
 

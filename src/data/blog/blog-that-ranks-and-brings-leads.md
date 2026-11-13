@@ -7,9 +7,10 @@ meta_description: Turn real customer questions into useful blog posts for Edmont
 excerpt: Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection, Google
   AI-search basics, cadence, and lead tracking.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: prepared-for-owner-review-not-published
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Content strategy
@@ -182,4 +183,4 @@ Only when there is genuinely distinct information to share. Swapping city names 
 
 ## Give useful content somewhere useful to live
 
-If your articles need a clearer website and enquiry path, talk to Matt about the pages around them. KR8TIV full website design starts at $1,200+; focused landing pages from $600 (CAD), subject to confirmed scope. [Start a website and content conversation](https://kr8tiv.io/start).
+If your articles need a clearer website and enquiry path, talk to Matt about the pages around them. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,950 CAD and focused landing pages from $850 CAD, subject to confirmed scope. No GST charged. [Start a website and content conversation](https://kr8tiv.io/start/).

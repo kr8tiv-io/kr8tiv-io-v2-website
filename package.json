@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "KR8TIV \u2014 cyber-renaissance design atelier. Astro + Vite build of the prism hero.",
+  "description": "KR8TIV — cyber-renaissance design atelier. Astro + Vite build of the prism hero.",
   "scripts": {
     "dev": "astro dev --host --port 4321",
     "build": "astro build",
@@ -12,7 +12,8 @@
     "typecheck": "astro check",
     "test:gallery": "node scripts/check-gallery.mjs",
     "test:content": "python3 scripts/check-content.py",
-    "postbuild": "node scripts/sitemap-alias.mjs"
+    "postbuild": "node scripts/sitemap-alias.mjs",
+    "prebuild": "node scripts/gen-rss.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",

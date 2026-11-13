@@ -1,15 +1,16 @@
 ---
 slug: ai-signage-design-edmonton
-title: How to design remarkable signage with AI—without building an expensive mistake
+title: How to design remarkable signage with AI, without building an expensive mistake
 seo_title: 'AI Signage Design: An Edmonton Guide | KR8TIV'
 meta_description: Compare AI design, e-paper and projection for Edmonton signage. Build a useful brief, check permits,
   and take the concept through a proper fabrication handoff.
 excerpt: A practical guide to AI-assisted sign design, current display technology, Edmonton permits and the decisions
   that turn a strong concept into a buildable sign.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: ready-for-approved-publication
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Signage
@@ -35,13 +36,13 @@ faq:
     handled by fabricators and builders. Confirm the exact scope and specialist responsibilities for your project.
 ---
 
-# How to design remarkable signage with AI—without building an expensive mistake
+# How to design remarkable signage with AI, without building an expensive mistake
 
 Use AI to explore the visual direction, then design the actual sign around its message, viewing conditions, fabrication and approvals. The strongest result may combine a beautifully made permanent identity with one carefully chosen digital element. More technology is not automatically more impact.
 
 For an Edmonton business, a sign has to do its work on an actual building, for actual people approaching from a particular direction. A dazzling concept that hides the entrance, cannot be read across the parking lot or cannot be approved is still a bad sign.
 
-This guide separates the creative possibilities from the production decisions. It also looks at documented developments from Samsung, LG and Epson—not speculative “future of retail” claims. Product details and official guidance were checked in November 2026. Availability and approval still need checking for your project.
+This guide separates the creative possibilities from the production decisions. It also looks at documented developments from Samsung, LG and Epson, not speculative “future of retail” claims. Product details and official guidance were checked in November 2026. Availability and approval still need checking for your project.
 
 ## Begin with the job, not the generator
 
@@ -101,7 +102,7 @@ Choose a technology for the information it needs to carry and the conditions it 
 
 A permanent sign is not old-fashioned because it stays still. A changing screen is not innovative if the business has no useful changing content.
 
-## What colour e-paper changes—and what it does not
+## What colour e-paper changes, and what it does not
 
 In January 2026, Samsung announced its [13-inch Color E-Paper EM13DX](https://news.samsung.com/global/samsung-debuts-13-inch-color-e-paper-a-world-first-display-built-with-bio-resin-derived-from-phytoplankton). The company describes a rechargeable embedded battery, USB Type-C support and content management through its E-Paper App and Samsung VXT. The display is intended for placements such as shelves, counters and doors.
 
@@ -200,7 +201,7 @@ No. Changing information can justify a display. A permanent message may be bette
 
 KR8TIV's [signage service](https://kr8tiv.io/services/print-signage-design/) describes design and project management, with physical fabrication and installation handled by fabricators and builders. Confirm the exact scope and specialist responsibilities for your project.
 
-## Bring the ambition—and the wall
+## Bring the ambition, and the wall
 
 The exciting part is not making a render look expensive. It is carrying a strong idea all the way into a place where people can recognise and use it.
 

@@ -1,16 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>KR8TIV Field Notes</title>
     <link>https://kr8tiv.io/blog/</link>
+    <atom:link href="https://kr8tiv.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>Practical design and marketing guides from KR8TIV in Edmonton, Alberta.</description>
     <language>en-ca</language>
+    <lastBuildDate>Fri, 13 Nov 2026 16:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Logo or brand? What an Alberta small business actually needs first</title>
+      <link>https://kr8tiv.io/blog/logo-vs-brand-small-business/</link>
+      <description>A logo is one file. A brand is how people recognise and remember you. What Edmonton and Alberta small businesses need now, and what can wait.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/logo-vs-brand-small-business/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Fri, 13 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Branding</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+      <category>Small business</category>
+    </item>
+    <item>
+      <title>Template or custom website? How Edmonton small businesses can decide</title>
+      <link>https://kr8tiv.io/blog/template-vs-custom-website/</link>
+      <description>A template gets you online. A custom site gets you remembered. How Edmonton and Alberta small businesses can pick the right one for right now.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/template-vs-custom-website/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Fri, 13 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Web design</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+      <category>Small business</category>
+    </item>
     <item>
       <title>How we built Evolve Eco Blasting to get found in Alberta search</title>
       <link>https://kr8tiv.io/blog/evolve-eco-blasting-case-study/</link>
       <description>KR8TIV’s rebrand and search work for Evolve Eco Blasting, an Alberta dustless-blasting company. In four months, CAD $1.4 million in enquiries and CAD $450,000 in sales, according to KR8TIV.</description>
-      <guid>https://kr8tiv.io/blog/evolve-eco-blasting-case-study/</guid>
-      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/evolve-eco-blasting-case-study/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Mon, 09 Nov 2026 16:00:00 GMT</pubDate>
       <category>Case study</category>
       <category>Web design</category>
       <category>SEO</category>
@@ -18,10 +45,12 @@
       <category>Alberta</category>
     </item>
     <item>
-      <title>How to design remarkable signage with AI—without building an expensive mistake</title>
+      <title>How to design remarkable signage with AI, without building an expensive mistake</title>
       <link>https://kr8tiv.io/blog/ai-signage-design-edmonton/</link>
-      <description>A practical guide to AI-assisted sign design, current display technology, Edmonton permits and the decisions that turn a strong concept into a buildable sign.</description>
-      <guid>https://kr8tiv.io/blog/ai-signage-design-edmonton/</guid>
+      <description>Compare AI design, e-paper and projection for Edmonton signage. Build a useful brief, check permits, and take the concept through a proper fabrication handoff.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/ai-signage-design-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Signage</category>
       <category>AI design</category>
       <category>Edmonton</category>
@@ -31,8 +60,10 @@
     <item>
       <title>How to use AI to design a storefront layout that works beyond the render</title>
       <link>https://kr8tiv.io/blog/ai-storefront-layout-design-edmonton/</link>
-      <description>Explore stronger retail layouts with AI while keeping dimensions, accessibility, stock handling and approvals grounded in the real premises.</description>
-      <guid>https://kr8tiv.io/blog/ai-storefront-layout-design-edmonton/</guid>
+      <description>Plan an AI-assisted storefront layout with measured plans, customer journeys, useful mockups and Edmonton permit checks. Keep the real space in control.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/ai-storefront-layout-design-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Storefront design</category>
       <category>AI design</category>
       <category>Edmonton</category>
@@ -42,8 +73,10 @@
     <item>
       <title>How to use AI for vehicle wraps that look good on the actual vehicle</title>
       <link>https://kr8tiv.io/blog/ai-vehicle-wrap-design-edmonton/</link>
-      <description>Turn a wrap concept into a readable mobile identity, with exact-vehicle checks, supplier-approved files and honest measurement instead of invented impression counts.</description>
-      <guid>https://kr8tiv.io/blog/ai-vehicle-wrap-design-edmonton/</guid>
+      <description>Plan an AI-assisted vehicle wrap for an Edmonton business. Compare coverage, control artwork, check the real vehicle and hand a clear brief to the installer.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/ai-vehicle-wrap-design-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Vehicle wraps</category>
       <category>AI design</category>
       <category>Edmonton</category>
@@ -54,7 +87,9 @@
       <title>How to create a business blog that earns search traffic and useful enquiries</title>
       <link>https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads/</link>
       <description>Turn real customer questions into useful blog posts for Edmonton and Alberta. Learn topic selection, Google AI-search basics, cadence, and lead tracking.</description>
-      <guid>https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads/</guid>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Content strategy</category>
       <category>SEO</category>
       <category>Edmonton</category>
@@ -64,7 +99,9 @@
       <title>How to run local advertising that brings better enquiries in Edmonton</title>
       <link>https://kr8tiv.io/blog/local-advertising-edmonton-alberta/</link>
       <description>Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead tracking. Build a test before spending more.</description>
-      <guid>https://kr8tiv.io/blog/local-advertising-edmonton-alberta/</guid>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/local-advertising-edmonton-alberta/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Advertising</category>
       <category>Edmonton</category>
       <category>Alberta</category>
@@ -73,16 +110,20 @@
       <title>How to build a marketing campaign that brings in customers in Edmonton</title>
       <link>https://kr8tiv.io/blog/marketing-campaign-edmonton/</link>
       <description>Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes a worked example and a first-month plan.</description>
-      <guid>https://kr8tiv.io/blog/marketing-campaign-edmonton/</guid>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/marketing-campaign-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Marketing</category>
       <category>Edmonton</category>
       <category>Alberta</category>
     </item>
     <item>
-      <title>How to design packaging that stands out—and still works when it is printed</title>
+      <title>How to design packaging that stands out, and still works when it is printed</title>
       <link>https://kr8tiv.io/blog/packaging-design-that-stands-out-canada/</link>
-      <description>A packaging design workflow for Edmonton and Canadian brands: earn attention without losing the product, the required information or the practical job of the pack.</description>
-      <guid>https://kr8tiv.io/blog/packaging-design-that-stands-out-canada/</guid>
+      <description>Build distinctive Canadian packaging with clear hierarchy, useful AI concepts, proper dielines, label checks, barcode verification and real production proofs.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/packaging-design-that-stands-out-canada/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Packaging design</category>
       <category>Branding</category>
       <category>Canada</category>
@@ -92,8 +133,10 @@
     <item>
       <title>How to attract customers with signage they can actually use</title>
       <link>https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/</link>
-      <description>Build a sign system around recognition, the offer and the entrance—then test it from the places customers actually see it.</description>
-      <guid>https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/</guid>
+      <description>Make your Edmonton business easier to recognise, understand and enter. A practical signage guide with readability tests, useful briefs and honest measurement.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Signage</category>
       <category>Branding</category>
       <category>Edmonton</category>
@@ -103,7 +146,9 @@
       <title>How to design an amazing storefront sign in Edmonton</title>
       <link>https://kr8tiv.io/blog/storefront-sign-design-edmonton/</link>
       <description>Plan your Edmonton sign and storefront: concept design, immersive store experiences and project management across Alberta and Canada. Pricing and scope explained.</description>
-      <guid>https://kr8tiv.io/blog/storefront-sign-design-edmonton/</guid>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/storefront-sign-design-edmonton/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Signage</category>
       <category>Edmonton</category>
       <category>Alberta</category>
@@ -113,7 +158,9 @@
       <title>When does a custom website pay off for an Alberta business?</title>
       <link>https://kr8tiv.io/blog/website-that-earns-its-keep-alberta/</link>
       <description>Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions, local SEO, accessibility, and a safer launch plan.</description>
-      <guid>https://kr8tiv.io/blog/website-that-earns-its-keep-alberta/</guid>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/website-that-earns-its-keep-alberta/</guid>
+      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Sun, 08 Nov 2026 16:00:00 GMT</pubDate>
       <category>Web design</category>
       <category>Edmonton</category>
       <category>Alberta</category>

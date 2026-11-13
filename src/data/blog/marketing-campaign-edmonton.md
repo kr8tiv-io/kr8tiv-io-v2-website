@@ -7,9 +7,10 @@ meta_description: Build an Edmonton marketing campaign around a clear offer, use
 excerpt: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes
   a worked example and a first-month plan.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: prepared-for-owner-review-not-published
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Marketing
@@ -51,7 +52,7 @@ Write this sentence first:
 
 Our example business offers commercial floor-coating assessments in Edmonton. It can serve nearby industrial properties, but long travel makes small jobs harder to justify. Its campaign therefore targets facility decision-makers inside its real operating area, rather than everyone in Alberta.
 
-KR8TIV’s [project process](https://kr8tiv.io/process) explains how creative work moves from the brief to delivery. For your own campaign, define a qualified enquiry before launch. For this example, it means a commercial property, a suitable floor, a workable location, and a person able to discuss the project. Someone requesting a service the business does not provide is an enquiry, but not a qualified one.
+KR8TIV’s [project process](https://kr8tiv.io/process/) explains how creative work moves from the brief to delivery. For your own campaign, define a qualified enquiry before launch. For this example, it means a commercial property, a suitable floor, a workable location, and a person able to discuss the project. Someone requesting a service the business does not provide is an enquiry, but not a qualified one.
 
 ## How do you choose an offer people actually want?
 
@@ -73,7 +74,7 @@ Turn the answers into a short brief:
 
 ## How much can you afford to acquire a customer?
 
-Work backwards from contribution margin, not revenue. [Contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) is sales revenue minus variable costs—the costs that change with the work delivered. It is not net profit: fixed costs still have to be covered.
+Work backwards from contribution margin, not revenue. [Contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) is sales revenue minus variable costs: the costs that change with the work delivered. It is not net profit: fixed costs still have to be covered.
 
 Suppose a fictional job brings in CAD $2,000 and costs CAD $1,200 to deliver. That leaves CAD $800 before overhead and profit. Spending CAD $700 to acquire that customer would leave little room for either.
 
@@ -156,7 +157,7 @@ Give the owner and the person answering enquiries the same short review sheet. A
 | Qualification | The agreed criteria, applied consistently |
 | Sales progress | Follow-up, quotes and won work without counting a quote as revenue |
 | Unknowns | Missing attribution, unresolved quotes and incomplete tracking |
-| Decision | Continue, change one thing, pause or stop—and why |
+| Decision | Continue, change one thing, pause or stop, and why |
 
 For the fictional floor-coating campaign, ten form submissions might include four unsuitable residential requests. Keep those four visible in the review. Hiding them makes the acquisition cost appear better and removes evidence that the message or targeting needs work.
 
@@ -184,4 +185,4 @@ Yes, when it answers a buying question. Show preparation, access, process, or a 
 
 ## Build the campaign around the job you want
 
-Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV’s live Ads + Acquisition engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start).
+Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV’s live Ads + Acquisition engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start/).

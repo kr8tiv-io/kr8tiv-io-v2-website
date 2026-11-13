@@ -7,9 +7,10 @@ meta_description: Plan an AI-assisted vehicle wrap for an Edmonton business. Com
 excerpt: Turn a wrap concept into a readable mobile identity, with exact-vehicle checks, supplier-approved files
   and honest measurement instead of invented impression counts.
 publish_date: '2026-11-08'
+updated: '2026-11-13'
 draft: false
-status: ready-for-approved-publication
-author: KR8TIV Agency
+status: published
+author: Matt Haynes
 category: Field notes
 tags:
 - Vehicle wraps
@@ -41,7 +42,7 @@ Use AI to explore a visual direction, then build the wrap around the exact vehic
 
 A vehicle is not a flat billboard. Doors open, handles interrupt artwork, body lines distort shapes and different trims can have different fittings. A dramatic render can hide all of that by quietly redesigning the van.
 
-For an Edmonton business, the useful question is not whether AI can make an impressive truck picture. It is whether the finished graphics help a suitable customer identify the business and take a sensible next step—while remaining practical to install, maintain and replace.
+For an Edmonton business, the useful question is not whether AI can make an impressive truck picture. It is whether the finished graphics help a suitable customer identify the business and take a sensible next step, while remaining practical to install, maintain and replace.
 
 ## Decide what the vehicle needs to communicate
 
@@ -91,7 +92,7 @@ Mark:
 
 A high-roof long-wheelbase van is not a stretched version of every other van. If the concept image changes the wheelbase or adds a window, it is no longer an honest preview of the vehicle being wrapped.
 
-## Use AI to find a direction—not to deliver the print file
+## Use AI to find a direction, not to deliver the print file
 
 Generate a few distinct ideas against the same message hierarchy. One might use restrained lettering and a large field of colour. Another could use a controlled illustration. A third might organise the composition around a deliberately placed partial wrap.
 
@@ -219,4 +220,4 @@ There is no honest universal lifespan. Film system, application, exposure, surfa
 
 A memorable vehicle graphic is clear enough to recognise and disciplined enough to build. AI can widen the exploration, but the finished result depends on the decisions made after the first attractive image.
 
-[Talk to Matt](https://kr8tiv.io/start/) about a vehicle-graphics direction connected to your [brand](https://kr8tiv.io/services/branding/), [signage](https://kr8tiv.io/services/print-signage-design/) and [website](https://kr8tiv.io/services/web-design-edmonton/). Bring the actual vehicle details so the concept starts with the right body—not an imaginary van.
+[Talk to Matt](https://kr8tiv.io/start/) about a vehicle-graphics direction connected to your [brand](https://kr8tiv.io/services/branding/), [signage](https://kr8tiv.io/services/print-signage-design/) and [website](https://kr8tiv.io/services/web-design-edmonton/). Bring the actual vehicle details so the concept starts with the right body, not an imaginary van.

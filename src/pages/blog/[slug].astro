@@ -2,12 +2,17 @@
 import BlogHero from '@components/BlogHero.astro';
 import FormLayout from '@layouts/FormLayout.astro';
 import '@styles/services.css';
-import { posts, fmtDate } from '@lib/blog';
+import { posts, fmtDate, relatedPosts, serviceLinksFor } from '@lib/blog';
 export function getStaticPaths() {
   return posts.map((p) => ({ params: { slug: p.slug }, props: { slug: p.slug } }));
 }
 const post = posts.find((p) => p.slug === Astro.props.slug)!;
 const { Content } = post;
+const related = relatedPosts(post);
+const services = serviceLinksFor(post);
+const raw = post.rawContent ? post.rawContent() : '';
+const wordCount = raw ? raw.replace(/[#>*_`\[\]()|-]/g, ' ').split(/\s+/).filter(Boolean).length : undefined;
+const bodyImages = [...raw.matchAll(/<img[^>]+src="([^"]+)"/g)].map((m) => m[1]);
 ---
 <FormLayout
   title={post.seo_title ?? `${post.title} | KR8TIV`}
@@ -16,7 +21,7 @@ const { Content } = post;
   pageType={post.tags?.includes("Case study") ? "CaseStudy" : "Article"}
   ogImage={post.hero_poster}
   ogImageAlt={post.hero_alt}
-  article={{publishedTime: post.publish_date, author: post.author, section: 'Field notes', tags: post.tags}}
+  article={{publishedTime: post.publish_date, modifiedTime: post.updated ?? post.publish_date, author: 'Matt Haynes', section: 'Field notes', tags: post.tags, wordCount, images: bodyImages}}
   faqs={post.faq?.map(f => ({q: f.question, a: f.answer}))}
   noIndex={post.draft}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Field notes', url: '/blog/' }, { name: post.title, url: `/blog/${post.slug}/` }]}
@@ -26,11 +31,12 @@ const { Content } = post;
     <article class="fn-article">
       <p class="fn-meta">
         <a href="/blog/" style="color:inherit">← Field notes</a> ·
-        {post.draft ? <span class="fn-draft">Draft for Matt’s review — not yet published</span> : <>Published {fmtDate(post.publish_date)}</>}
-        {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · {post.author}
+        {post.draft ? <span class="fn-draft">Draft for Matt’s review, not yet published</span> : <>Published <time datetime={post.publish_date}>{fmtDate(post.publish_date)}</time>{post.updated && post.updated !== post.publish_date && <> · Updated <time datetime={post.updated}>{fmtDate(post.updated)}</time></>}</>}
+        {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · By <a href="/#why" rel="author" style="color:inherit">Matt Haynes</a>, KR8TIV, Edmonton
       </p>
       <Content />
-      <aside class="fn-related"><h2>Keep planning</h2><ul>{posts.filter(p => p.slug !== post.slug).slice(0,3).map(p => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}</ul></aside>
+      <aside class="fn-related"><h2>Keep planning</h2><ul>{related.map(p => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}</ul>
+        <h2>Related services</h2><ul>{services.map(l => <li><a href={l.href}>{l.label}</a></li>)}<li><a href="/start/">Start a project with Matt</a></li></ul></aside>
       <p style="margin-top:8vh"><a class="svp-cta" href="/start/" style="color:var(--ink)">Talk to Matt about your project <span aria-hidden="true">→</span></a></p>
     </article>
   </section>

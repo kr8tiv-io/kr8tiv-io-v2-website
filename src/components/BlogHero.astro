@@ -1,11 +1,11 @@
 ---
-interface Props { poster: string; video: string; alt: string }
+interface Props { poster: string; video?: string; alt: string }
 const {poster,video,alt}=Astro.props;
 ---
 <figure class="note-hero">
   <div class="note-hero-frame">
     <img src={poster} alt={alt} width="1280" height="720" fetchpriority="high" />
-    <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>
+    {video && <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>}
   </div>
 </figure>
 <style>
