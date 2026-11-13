@@ -33,7 +33,7 @@ const midLinks = [
   { href: '/work/',           label: 'WORK',     key: 'work' },
   { href: '/process/',        label: 'PROCESS',  key: 'process' },
   { href: '/blog/',           label: 'NOTES',    key: 'blog' },
-  { href: '/start/',          label: 'START',    key: 'start' },
+  { href: '/start/',          label: 'START',    key: 'start', sr: 'a project with KR8TIV' },
   { href: '/terms/',          label: 'TERMS',    key: 'terms' }
 ];
 ---
@@ -48,7 +48,7 @@ const midLinks = [
 
   <div class="nav-mid" aria-label="Primary">
     {midLinks.map((l) => (
-      <a href={l.href} class:list={[{ active: current === l.key }]}>{l.label}</a>
+      <a href={l.href} class:list={[{ active: current === l.key }]}>{l.label}{l.sr && <span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"> {l.sr}</span>}</a>
     ))}
   </div>
 
