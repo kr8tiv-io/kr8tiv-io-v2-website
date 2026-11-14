@@ -85,6 +85,19 @@
   AddType model/gltf-binary .glb
 </IfModule>
 
+# --- Canonical host + HTTPS (301) -----------------------------------
+# www.kr8tiv.io -> https://kr8tiv.io and http -> https, keeping the path
+# and query string. Runs before the static routing below. The HTTPS
+# check also honours X-Forwarded-Proto so the CDN edge can't loop it.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.kr8tiv\.io$ [NC]
+  RewriteRule ^(.*)$ https://kr8tiv.io/$1 [R=301,L,NE]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^(.*)$ https://kr8tiv.io/$1 [R=301,L,NE]
+</IfModule>
+
 # --- Trailing-slash friendly static routing -------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On

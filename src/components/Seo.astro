@@ -181,29 +181,37 @@ const serviceSchema = {
   '@type': ['ProfessionalService', 'LocalBusiness'],
   '@id': siteUrl + '/#service',
   name: 'KR8TIV',
-  alternateName: 'KR8TIV Design Atelier',
-  description: 'KR8TIV is an Edmonton creative studio for websites, branding, storefronts, graphic design, packaging, search engine optimization, AI search optimization and AI automation.',
+  alternateName: ['Kr8tiv', 'KR8TIV Design Atelier'],
+  description: 'KR8TIV (Kr8tiv on Google) is an Edmonton marketing agency and creative studio: website design, graphic design, video production and internet marketing for businesses in Edmonton, Sherwood Park, St. Albert, Spruce Grove and across Canada.',
   url: siteUrl,
   image: ogImageUrl,
   logo: { '@id': siteUrl + '/#logo' },
   telephone: '+1-780-915-5471',
-  hasMap: 'https://www.google.com/maps?cid=2460003998146545917',
+  hasMap: 'https://g.page/r/Cf3IkEeasCMiEBM',
   email: 'matt@kr8tiv.io',
+  /* Service-area business: no public street address, matching the
+     Google Business Profile. City/region only. */
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Edmonton',
     addressRegion: 'AB',
     addressCountry: 'CA'
   },
+  /* Hours as published on the Google Business Profile (and shown in the footer). */
+  openingHoursSpecification: [{
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '09:00',
+    closes: '18:00'
+  }],
+  /* Google Business Profile categories: primary first. */
+  knowsAbout: ['Marketing agency', 'Graphic designer', 'Website designer', 'Video production service', 'Internet marketing service'],
   areaServed: [
-    'Edmonton',
-    'Sherwood Park',
-    'St. Albert',
-    'Spruce Grove',
-    'Leduc',
-    'Alberta',
-    'Canada',
-    'Worldwide'
+    { '@type': 'City', name: 'Edmonton', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
+    { '@type': 'City', name: 'Sherwood Park', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
+    { '@type': 'City', name: 'St. Albert', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
+    { '@type': 'City', name: 'Spruce Grove', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
+    { '@type': 'Country', name: 'Canada' }
   ],
   sameAs: [
     'https://calendly.com/kr8tiv',
