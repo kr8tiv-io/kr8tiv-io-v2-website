@@ -32,7 +32,7 @@ const bodyImages = [...raw.matchAll(/<img[^>]+src="([^"]+)"/g)].map((m) => m[1])
       <p class="fn-meta">
         <a href="/blog/" style="color:inherit">← Field notes</a> ·
         {post.draft ? <span class="fn-draft">Draft for Matt’s review, not yet published</span> : <>Published <time datetime={post.publish_date}>{fmtDate(post.publish_date)}</time>{post.updated && post.updated !== post.publish_date && <> · Updated <time datetime={post.updated}>{fmtDate(post.updated)}</time></>}</>}
-        {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · By <a href="/#why" rel="author" style="color:inherit">Matt Haynes</a>, KR8TIV, Edmonton
+        {post.draft && <> · drafted {fmtDate(post.publish_date)}</>} · By <a href="/about/" rel="author" style="color:inherit">Matt Haynes</a>, KR8TIV, Edmonton
       </p>
       <Content />
       <aside class="fn-related"><h2>Keep planning</h2><ul>{related.map(p => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}</ul>

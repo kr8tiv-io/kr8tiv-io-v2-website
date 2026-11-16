@@ -33,6 +33,34 @@ const description =
   'Build notes from KR8TIV: WebGL, motion, Astro architecture, and the craft behind the Prism site.';
 const canonicalPath = Astro.props.canonical || frontmatter.canonical || Astro.url.pathname;
 const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toString();
+const siteUrl = 'https://kr8tiv.io';
+const ogImage = siteUrl + '/kr8tiv-assets/og-card-v2.png';
+// Structured data for editorial pages (added Nov 2026): the page as a
+// TechArticle by Matt Haynes (#matt, /about/), plus breadcrumbs. Same
+// @ids as the main Seo.astro graph so engines merge the entities.
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    '@id': canonical + '#article',
+    headline: title.replace(/ \| KR8TIV$/, ''),
+    description,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    image: ogImage,
+    inLanguage: 'en-CA',
+    author: { '@type': 'Person', '@id': siteUrl + '/#matt', name: 'Matt Haynes', url: siteUrl + '/about/' },
+    publisher: { '@type': 'Organization', '@id': siteUrl + '/#organization', name: 'KR8TIV', url: siteUrl, logo: { '@type': 'ImageObject', url: siteUrl + '/kr8tiv-assets/kr8tiv-logo-schema.png' } }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+      { '@type': 'ListItem', position: 2, name: title.replace(/ \| KR8TIV$/, ''), item: canonical }
+    ]
+  }
+];
 ---
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" data-variant="editorial">
@@ -48,6 +76,14 @@ const canonical = new URL(canonicalPath, Astro.site ?? 'https://kr8tiv.io').toSt
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="author" content="Matt Haynes" />
+  <meta property="og:site_name" content="KR8TIV" />
+  <meta property="og:locale" content="en_CA" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:alt" content="KR8TIV, creative studio in Edmonton, Alberta" />
+  <meta name="twitter:image" content={ogImage} />
+  {ld.map((node) => <script type="application/ld+json" is:inline set:html={JSON.stringify(node)} />)}
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />

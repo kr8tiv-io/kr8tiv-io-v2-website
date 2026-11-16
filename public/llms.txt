@@ -1,8 +1,8 @@
 # KR8TIV
 
-> KR8TIV (shown on Google as "Kr8tiv") is a founder-led creative studio in Edmonton, Alberta, Canada. We design websites, landing pages, brand identities, storefront signs, packaging, motion and video, and run search, social and local marketing for businesses across Edmonton, Alberta and Canada, with remote work worldwide. Founder and creative director: Matt Haynes.
+> KR8TIV (shown on Google as "Kr8tiv") is a founder-led creative studio in Edmonton, Alberta, Canada. We design websites, landing pages, brand identities, storefront signs, packaging, motion and video, and run search, social and local marketing for businesses across Edmonton, Alberta and Canada, with remote work worldwide. Founded in Edmonton in 2020. Founder and creative director: Matt Haynes ([about Matt](https://kr8tiv.io/about/)).
 
-Last updated: 13 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
+Last updated: 16 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
 
 This file is a plain-language guide for AI assistants and search tools. It is not a ranking control. The linked pages are the source of truth.
 
@@ -26,6 +26,8 @@ Service-area business with no public street address and no walk-in studio; meeti
 
 ## Services and starting prices (CAD)
 
+- [All eleven services](https://kr8tiv.io/services/)
+
 Websites
 - [Web design in Edmonton](https://kr8tiv.io/services/web-design-edmonton/)
 - Landing page: from $850
@@ -33,6 +35,7 @@ Websites
 - Full website (up to 6 pages, SEO on every page, blog ready): from $1,950
 - Immersive site (3D, WebGL, scroll-driven motion): from $3,450
 - Website refresh: from $650. Ecommerce store setup: from $1,500. Website Care: $75 / month
+- [Ecommerce setups](https://kr8tiv.io/services/ecommerce-website-edmonton/)
 
 Branding and print
 - [Branding and identity](https://kr8tiv.io/services/branding/)
@@ -41,15 +44,18 @@ Branding and print
 Storefronts, signage and packaging
 - [Storefront, sign and print design](https://kr8tiv.io/services/print-signage-design/)
 - Sign concept (design only): from about $500. Packaging and mockups: from $800
+- [Packaging design](https://kr8tiv.io/services/packaging-design-edmonton/)
+- [Studio, A/V and print production](https://kr8tiv.io/services/studio-av-production-edmonton/): from $1,500
 - Signage project management (fabricator sourcing, manufacturing coordination, installation liaison): variable rates. Fabricators and installers do the physical production and installation; those costs are quoted separately.
 
 Motion, video and product design
 - Promo or feature video: from $400. Motion and 3D: from $750
 - App product design (ground-up design for a new app): from $3,500
 - UX/UI: from $1,500
+- [Video editing](https://kr8tiv.io/services/video-editing-edmonton/) · [Motion and 3D](https://kr8tiv.io/services/motion-3d-edmonton/) · [App product design](https://kr8tiv.io/services/app-design-edmonton/) · [UX/UI design](https://kr8tiv.io/services/ux-ui-design-edmonton/)
 
 Search, social and ads
-- Ads and acquisition setup and creative: from $900 (ad spend paid directly by the client)
+- Ads and acquisition setup and creative: from $900 (ad spend paid directly by the client). [Ads and acquisition](https://kr8tiv.io/services/ads-acquisition-edmonton/)
 - Reviews Care: $295 / month. Search Engine plan: $495 / month. Search Dominance: $895 / month
 - Social plans: from $500 / month. Fractional CMO: $1,950 / month
 
@@ -64,6 +70,7 @@ AI automation, company brains and business apps are offered by the sister compan
 ## Studio pages
 
 - [Home](https://kr8tiv.io/)
+- [About Matt Haynes, founder](https://kr8tiv.io/about/)
 - [Selected work](https://kr8tiv.io/work/)
 - [Process](https://kr8tiv.io/process/)
 - [Start a project](https://kr8tiv.io/start/)

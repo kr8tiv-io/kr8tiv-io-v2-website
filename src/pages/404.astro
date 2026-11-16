@@ -91,6 +91,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     margin: 0 0 48px;
   }
   .four04-links { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  /* reset the global header `nav` rule (position: fixed) for this link list */
+  nav.four04-links { position: static; height: auto; padding: 0; z-index: auto; grid-template-columns: none; border-bottom: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .four04-primary {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;

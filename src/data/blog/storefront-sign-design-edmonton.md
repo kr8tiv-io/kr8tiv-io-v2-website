@@ -17,6 +17,10 @@ tags:
 - Edmonton
 - Alberta
 - Storefront design
+related_slugs:
+- signage-that-attracts-customers-edmonton
+- ai-signage-design-edmonton
+- ai-storefront-layout-design-edmonton
 hero_alt: A dimensional metal sign on a brick storefront
 hero_poster: /kr8tiv-assets/blog/storefront-sign-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/storefront-sign-design-edmonton-hero.mp4

@@ -1,0 +1,30 @@
+---
+/** /services/ux-ui-design-edmonton/ : generated from the shared ServicePage pattern.
+ *  Price floor mirrors FLOOR in src/lib/content.ts. No em dashes in copy. */
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [{"q": "How much does UX/UI design cost?", "a": "KR8TIV UX/UI design starts from $1,500 CAD. Larger products and full design systems are quoted to scope in writing before work starts. No GST charged."}, {"q": "Do you design for blockchain and Web3 products?", "a": "Yes. UX/UI covers on-chain products, including wallet, mint and transaction flows."}, {"q": "Can you work on an existing product?", "a": "Yes. UX/UI work often starts with screens and flows that already exist."}, {"q": "Do you build design systems?", "a": "Interface systems with components and design tokens can be scoped so your product stays consistent."}, {"q": "How does a project start?", "a": "Every project starts with a free 30-minute call with Matt. Scope, deliverables and price are agreed in writing, then payment is split 40% at kickoff, 40% at draft delivery and 20% at final delivery. No GST charged."}];
+---
+<FormLayout
+  title="UX/UI Design in Edmonton | KR8TIV"
+  description="UX/UI design from an Edmonton studio: product UX, interface systems, design tokens and Web3 flows for apps and on-chain products. From $1,500 CAD."
+  canonical="/services/ux-ui-design-edmonton/"
+  ogImage="/kr8tiv-assets/services/ux-ui-design-edmonton-og.jpg"
+  service={{"name": "UX/UI design in Edmonton", "serviceType": "UX and UI design", "description": "UX/UI design from an Edmonton studio: product UX, interface systems, design tokens and Web3 flows for apps and on-chain products. From $1,500 CAD.", "priceFrom": 1500, "priceCurrency": "CAD"}}
+  breadcrumbs={[{"name": "Home", "url": "/"}, {"name": "Services", "url": "/services/"}, {"name": "UX/UI + blockchain", "url": "/services/ux-ui-design-edmonton/"}]}
+  faqs={faqs}
+  keywords={["UX design Edmonton", "UI design Edmonton", "product design Alberta", "Web3 UX design", "design system Canada"]}
+>
+  <ServicePage
+    eyebrow="Edmonton · UX/UI + blockchain"
+    h1="UX/UI design in Edmonton. <em>Experiences people love.</em>"
+    intro="KR8TIV designs user experiences and interfaces for web apps, mobile apps and on-chain products for clients in Edmonton, across Alberta and Canada. UX/UI design starts from $1,500 CAD, covering product UX, interface systems, design tokens and Web3 flows, with Matt Haynes on every round."
+    price="UX/UI from $1,500 CAD · App product design from $3,500 CAD · No GST charged"
+    cta={{"label": "Show Matt the screens that need help", "href": "/start/"}}
+    hero={{"src": "/kr8tiv-assets/services/ux-ui-design-edmonton-hero.webp", "video": "/kr8tiv-assets/services/ux-ui-design-edmonton-hero.mp4", "alt": "Smooth wireframe mountain range glowing white on black"}}
+    sections={[{"num": "01 · What you get", "title": "Interfaces that <em>get out of the way</em>.", "body": ["Most interface problems are clarity problems: too many choices, unclear labels or a flow that hides the next step. We find where people get stuck and redesign the screens and system around the task.", "For blockchain and on-chain products, the same rule applies. Wallet steps, confirmations and fees should be explained in plain language before anyone signs anything."], "cards": [{"k": "From $1,500 CAD", "t": "Product UX", "d": "Flow and screen redesign for an agreed set of journeys."}, {"k": "Quoted to scope", "t": "Interface systems", "d": "Components and design tokens so the product stays consistent as it grows."}, {"k": "Quoted to scope", "t": "Web3 flows", "d": "Wallet, mint and transaction flows written for real people."}]}, {"num": "02 · How it runs", "title": "From friction to <em>flow</em>.", "steps": [{"t": "Call", "d": "A free 30-minute call about the product and where users struggle."}, {"t": "Review", "d": "A walkthrough of current screens, analytics or user feedback you have."}, {"t": "Redesign", "d": "New flows and screens, reviewed in structured rounds."}, {"t": "System", "d": "Components and tokens documented for your developers."}, {"t": "Handoff", "d": "Design files and notes. You own the final files."}]}, {"num": "03 · Who does what", "title": "Design and <em>handoff</em>, built for your developers.", "body": ["KR8TIV designs the experience and the interface system; your developers implement it. For a new product from scratch, see <a href=\"/services/app-design-edmonton/\">app product design</a>. For a marketing site, see <a href=\"/services/web-design-edmonton/\">web design in Edmonton</a>."]}]}
+    faqs={faqs}
+    finalTitle="Less friction. <em>More people finishing the job.</em>"
+    related={[{"label": "App product design", "href": "/services/app-design-edmonton/"}, {"label": "Web design Edmonton", "href": "/services/web-design-edmonton/"}, {"label": "Motion + 3D", "href": "/services/motion-3d-edmonton/"}, {"label": "All services", "href": "/services/"}]}
+  />
+</FormLayout>

@@ -1,0 +1,30 @@
+---
+/** /services/motion-3d-edmonton/ : generated from the shared ServicePage pattern.
+ *  Price floor mirrors FLOOR in src/lib/content.ts. No em dashes in copy. */
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [{"q": "How much does motion graphics or 3D animation cost?", "a": "KR8TIV motion and 3D work starts from $750 CAD. Longer or more complex sequences are quoted to scope in writing before work starts. No GST charged."}, {"q": "Can you animate our existing logo?", "a": "Yes. Logo animations can be built from your existing brand files."}, {"q": "Will animation slow down our website?", "a": "Web motion is designed to stay light. Loops are compressed, phones get lighter versions, and heavy 3D effects can be switched off on mobile."}, {"q": "What formats do you deliver?", "a": "Formats and sizes are agreed in the scope, for example website loops, social posts or presentation screens."}, {"q": "How does a project start?", "a": "Every project starts with a free 30-minute call with Matt. Scope, deliverables and price are agreed in writing, then payment is split 40% at kickoff, 40% at draft delivery and 20% at final delivery. No GST charged."}];
+---
+<FormLayout
+  title="Motion Graphics & 3D Animation in Edmonton | KR8TIV"
+  description="Motion graphics, 3D animation and cinematic sequences from an Edmonton studio for brands across Alberta and Canada. Projects from $750 CAD."
+  canonical="/services/motion-3d-edmonton/"
+  ogImage="/kr8tiv-assets/services/motion-3d-edmonton-og.jpg"
+  service={{"name": "Motion graphics and 3D in Edmonton", "serviceType": "Motion graphics and 3D animation", "description": "Motion graphics, 3D animation and cinematic sequences from an Edmonton studio for brands across Alberta and Canada. Projects from $750 CAD.", "priceFrom": 750, "priceCurrency": "CAD"}}
+  breadcrumbs={[{"name": "Home", "url": "/"}, {"name": "Services", "url": "/services/"}, {"name": "Motion + 3D", "url": "/services/motion-3d-edmonton/"}]}
+  faqs={faqs}
+  keywords={["motion graphics Edmonton", "3D animation Edmonton", "logo animation Alberta", "3D product animation Canada"]}
+>
+  <ServicePage
+    eyebrow="Edmonton · Motion + 3D"
+    h1="Motion and 3D in Edmonton. <em>Delivered with intent.</em>"
+    intro="KR8TIV creates motion graphics, 3D animation and cinematic sequences for brands in Edmonton, across Alberta and Canada. Motion and 3D work starts from $750 CAD, made directly with Matt Haynes for websites, launches, social posts and screens."
+    price="Motion and 3D from $750 CAD · Video editing from $400 CAD · No GST charged"
+    cta={{"label": "Describe the moment to Matt", "href": "/start/"}}
+    hero={{"src": "/kr8tiv-assets/services/motion-3d-edmonton-hero.webp", "video": "/kr8tiv-assets/services/motion-3d-edmonton-hero.mp4", "alt": "A tall obelisk spike rising from glowing wireframe hills"}}
+    sections={[{"num": "01 · What you get", "title": "Movement that <em>means something</em>.", "body": ["Motion should explain, reveal or set a mood, not just spin. We design logo moments, animated titles, product reveals, looping website backgrounds and 3D sequences around one clear idea.", "The landscapes moving across this site are examples of the kind of atmosphere we build for brands that want to feel cinematic."], "cards": [{"k": "From $750 CAD", "t": "Motion graphics", "d": "Animated logos, titles and explainer moments with agreed length and formats."}, {"k": "Quoted to scope", "t": "3D sequences", "d": "3D scenes, product reveals and cinematic loops."}, {"k": "Quoted to scope", "t": "Web motion", "d": "Lightweight loops and scroll moments designed to load fast on phones."}]}, {"num": "02 · How it runs", "title": "From storyboard to <em>render</em>.", "steps": [{"t": "Call", "d": "A free 30-minute call about the idea, the audience and where it will play."}, {"t": "Collect", "d": "Brand files, references, product models or photos, and copy."}, {"t": "Three directions", "d": "Three distinct looks or storyboards instead of one."}, {"t": "Animate", "d": "Animation in structured rounds, from blocking to final render."}, {"t": "Deliver", "d": "Final renders in the agreed formats and sizes. You own the final files."}]}, {"num": "03 · Who does what", "title": "One studio, <em>one direction</em>.", "body": ["Matt leads the concept and the review. Motion pieces can sit inside a <a href=\"/services/video-editing-edmonton/\">video edit</a>, on your <a href=\"/services/web-design-edmonton/\">website</a> or in a <a href=\"/services/print-signage-design/\">3D store concept</a>, so the whole brand moves the same way."]}]}
+    faqs={faqs}
+    finalTitle="Make the brand <em>move</em>."
+    related={[{"label": "Video editing", "href": "/services/video-editing-edmonton/"}, {"label": "Web design Edmonton", "href": "/services/web-design-edmonton/"}, {"label": "Branding", "href": "/services/branding/"}, {"label": "All services", "href": "/services/"}]}
+  />
+</FormLayout>

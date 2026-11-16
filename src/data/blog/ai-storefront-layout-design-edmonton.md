@@ -18,6 +18,10 @@ tags:
 - Edmonton
 - Retail
 - Branding
+related_slugs:
+- storefront-sign-design-edmonton
+- ai-signage-design-edmonton
+- signage-that-attracts-customers-edmonton
 hero_alt: A retail interior with low display islands and open circulation
 hero_poster: /kr8tiv-assets/blog/ai-storefront-layout-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/ai-storefront-layout-design-edmonton-hero.mp4

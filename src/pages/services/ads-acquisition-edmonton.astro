@@ -1,0 +1,30 @@
+---
+/** /services/ads-acquisition-edmonton/ : generated from the shared ServicePage pattern.
+ *  Price floor mirrors FLOOR in src/lib/content.ts. No em dashes in copy. */
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [{"q": "How much do paid ads cost with KR8TIV?", "a": "Ads and acquisition setup and creative start from $900 CAD. Ad spend is separate and paid directly by you to the ad platform. Final scope is agreed in writing first. No GST charged."}, {"q": "Which platforms do you run ads on?", "a": "Paid social, display, video and creator campaigns. The platforms are chosen around where your customers actually are."}, {"q": "Can you guarantee leads or sales?", "a": "No. No one can honestly promise results from ads. The plan sets out what will be measured and how campaigns are improved."}, {"q": "Do you make the ad videos too?", "a": "Yes. Video and creator-style ads can be scoped alongside the campaign setup."}, {"q": "How does a project start?", "a": "Every project starts with a free 30-minute call with Matt. Scope, deliverables and price are agreed in writing, then payment is split 40% at kickoff, 40% at draft delivery and 20% at final delivery. No GST charged."}];
+---
+<FormLayout
+  title="Paid Ads & Campaign Creative in Edmonton | KR8TIV"
+  description="Paid social, display, video and creator campaigns from an Edmonton studio for Alberta businesses. Setup and creative from $900 CAD; ad spend paid by you."
+  canonical="/services/ads-acquisition-edmonton/"
+  ogImage="/kr8tiv-assets/services/ads-acquisition-edmonton-og.jpg"
+  service={{"name": "Ads and acquisition in Edmonton", "serviceType": "Paid advertising campaigns and creative", "description": "Paid social, display, video and creator campaigns from an Edmonton studio for Alberta businesses. Setup and creative from $900 CAD; ad spend paid by you.", "priceFrom": 900, "priceCurrency": "CAD"}}
+  breadcrumbs={[{"name": "Home", "url": "/"}, {"name": "Services", "url": "/services/"}, {"name": "Ads + acquisition", "url": "/services/ads-acquisition-edmonton/"}]}
+  faqs={faqs}
+  keywords={["paid ads Edmonton", "social media ads Alberta", "Google Ads Edmonton", "ad creative Canada", "local advertising Edmonton"]}
+>
+  <ServicePage
+    eyebrow="Edmonton · Ads + acquisition"
+    h1="Ads in Edmonton. <em>Built for performance, written for humans.</em>"
+    intro="KR8TIV sets up and designs paid social, display, video and creator campaigns for businesses in Edmonton, across Alberta and Canada. Ads and acquisition setup and creative start from $900 CAD, with ad spend paid directly by you, and Matt Haynes involved in every campaign."
+    price="Ads setup and creative from $900 CAD · Ad spend paid directly by the client · No GST charged"
+    cta={{"label": "Tell Matt who you need to reach", "href": "/start/"}}
+    hero={{"src": "/kr8tiv-assets/services/ads-acquisition-edmonton-hero.webp", "video": "/kr8tiv-assets/services/ads-acquisition-edmonton-hero.mp4", "alt": "Wireframe valley with glowing trees and a pale moon"}}
+    sections={[{"num": "01 · What you get", "title": "Creative that <em>earns the click</em>.", "body": ["A campaign works when the offer, the audience and the landing page agree with each other. We set up the campaign structure, write and design the creative, and make sure the page people land on answers the question the ad raised.", "Ad spend goes straight from you to the platform. No one can honestly promise a set number of leads, so the plan names what will be measured and how the next round improves."], "cards": [{"k": "From $900 CAD", "t": "Setup + creative", "d": "Campaign setup with an agreed set of ads across your chosen platforms."}, {"k": "Quoted to scope", "t": "Video + creator ads", "d": "Short-form video and creator-style ads, edited for each placement."}, {"k": "From $495 / month", "t": "Search plans", "d": "Ongoing search and local visibility plans for steady enquiries."}]}, {"num": "02 · How it runs", "title": "From offer to <em>live campaign</em>.", "steps": [{"t": "Call", "d": "A free 30-minute call about the offer, the customer and the budget."}, {"t": "Plan", "d": "Platforms, audiences, budget split and the landing page are agreed."}, {"t": "Create", "d": "Ad copy, images and video designed and reviewed in structured rounds."}, {"t": "Launch", "d": "Campaigns go live with tracking checked."}, {"t": "Review", "d": "Results are read honestly and the next round is adjusted."}]}, {"num": "03 · Read first", "title": "Plan the campaign <em>before</em> you spend.", "body": ["Two free guides cover the thinking behind this service: <a href=\"/blog/local-advertising-edmonton-alberta/\">local advertising in Edmonton</a> and <a href=\"/blog/marketing-campaign-edmonton/\">building a marketing campaign that brings in customers</a>. Ads perform better with a clear <a href=\"/services/web-design-edmonton/\">landing page</a> and strong <a href=\"/services/video-editing-edmonton/\">video</a>."]}]}
+    faqs={faqs}
+    finalTitle="Reach the right people. <em>Say something worth clicking.</em>"
+    related={[{"label": "Video editing", "href": "/services/video-editing-edmonton/"}, {"label": "Web design Edmonton", "href": "/services/web-design-edmonton/"}, {"label": "Local advertising guide", "href": "/blog/local-advertising-edmonton-alberta/"}, {"label": "Campaign guide", "href": "/blog/marketing-campaign-edmonton/"}]}
+  />
+</FormLayout>

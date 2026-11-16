@@ -388,6 +388,15 @@ html.svp-plates-static .svp-plate-glow { opacity: .16; }
 .svp-final { text-align: center; padding: 16vh 6vw; border-top: 1px solid var(--edge); }
 .svp-final h2 { margin: 0 auto; max-width: 18ch; }
 .svp-related { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+/* The global `nav { position: fixed; ... }` rule in core.css is meant for the
+   site header only; without this reset the related-links <nav> was pinned to
+   the top of the viewport (hidden behind the header on desktop, overlapping
+   the hero on phones) instead of sitting in the closing section. */
+nav.svp-related {
+  position: static; height: auto; padding: 0; z-index: auto;
+  grid-template-columns: none; border-bottom: 0; background: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none; transition: none;
+}
 .svp-related a {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;

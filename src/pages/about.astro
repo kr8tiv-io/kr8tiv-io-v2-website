@@ -1,0 +1,133 @@
+---
+/**
+ * /about/ : founder page for Matt Haynes.
+ * Every statement here is taken from existing site copy (founder letter on
+ * /process/, the Why manifesto and Doctrine on the homepage, llms.txt and
+ * the homepage FAQ). Do not add facts that are not published elsewhere.
+ * Person schema (#matt) and blog author links point here.
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import AnimatedPlate from '@components/AnimatedPlate.astro';
+import '@styles/services.css';
+
+const faqs = [
+  { q: 'Who founded KR8TIV?', a: 'KR8TIV was founded by Matt Haynes, its founder and creative director. Matt works directly on every project; there are no account managers.' },
+  { q: 'Where is KR8TIV based?', a: 'KR8TIV is based in Edmonton, Alberta, Canada. It serves Edmonton, Sherwood Park, St. Albert and Spruce Grove, with clients across Alberta and Canada and remote projects further afield. Meetings are by call or by appointment.' },
+  { q: 'When was KR8TIV founded?', a: 'KR8TIV was founded in Edmonton in 2020 by Matt Haynes.' },
+  { q: 'Will I work with Matt directly?', a: 'Yes. The person who shows you the work is the person who made it. KR8TIV works with about ten clients a year so the founder stays in every room and on every draft.' },
+  { q: 'Is KR8TIV the same as KR8TIV AI?', a: 'KR8TIV (kr8tiv.io) is the Edmonton creative studio. AI automation, company brains and business apps are offered by the sister company KR8TIV AI at kr8tiv.ai.' }
+];
+const services = [
+  ['Web design', '/services/web-design-edmonton/'], ['Branding + identity', '/services/branding/'],
+  ['Video editing', '/services/video-editing-edmonton/'], ['Ecommerce setups', '/services/ecommerce-website-edmonton/'],
+  ['UX/UI + blockchain', '/services/ux-ui-design-edmonton/'], ['Storefront + sign design', '/services/print-signage-design/'],
+  ['Packaging + mockups', '/services/packaging-design-edmonton/'], ['Studio + A/V print', '/services/studio-av-production-edmonton/'],
+  ['Ads + acquisition', '/services/ads-acquisition-edmonton/'], ['App product design', '/services/app-design-edmonton/'],
+  ['Motion + 3D', '/services/motion-3d-edmonton/']
+];
+---
+<FormLayout
+  title="About Matt Haynes, Founder of KR8TIV Edmonton | KR8TIV"
+  description="Matt Haynes founded KR8TIV in Edmonton, Alberta in 2020. A founder-led creative studio for brands, websites, video, signage and packaging."
+  canonical="/about/"
+  pageType="AboutPage"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'About Matt Haynes', url: '/about/' }]}
+  faqs={faqs}
+  keywords={['Matt Haynes', 'KR8TIV founder', 'Edmonton creative studio', 'KR8TIV Edmonton', 'Kr8tiv']}
+>
+  <main class="svp" id="main">
+    <header class="svp-hero">
+      <AnimatedPlate src="/kr8tiv-assets/posters/contactheader-1.webp" video="/kr8tiv-assets/contactheader-1.mp4?v=2" alt="Wireframe hills with drifting particle trees under a beam of light" variant="hero" priority />
+      <div class="svp-hero-copy">
+        <div class="svp-eyebrow">Edmonton · About</div>
+        <h1>Matt Haynes. <em>Founder of KR8TIV.</em></h1>
+        <p class="svp-intro">Matt Haynes is the founder and creative director of KR8TIV, a founder-led creative studio he started in Edmonton, Alberta in 2020. He works directly on every project: brands, websites, motion, video, signage and packaging for businesses across Edmonton, Alberta and Canada.</p>
+        <p class="svp-price">Based in Edmonton · Founded 2020 · About ten clients a year</p>
+        <a class="svp-cta" href="/start/">Talk to Matt <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+
+    <section class="svp-sec">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">01 · In his words</div><h2>Small, senior <em>and honest</em>.</h2></div>
+        <div class="svp-body">
+          <p>“I love building ideas. I’ve raised millions. I’ve built businesses. I’ll continue to. This is my personal marketing arm, and it can be yours too.”</p>
+          <p>“We started KR8TIV because design got boring. Every startup site started looking like every other startup site. So we built the opposite: small, senior, and honest. You get the founder. You get the work. You get the truth about what’s worth building and what isn’t.”</p>
+          <p>“The tech evolves. The craft doesn’t. We use the latest tools for maximum effect, and we stay on top of what’s new so you don’t have to.”</p>
+          <p>Read the full letter on the <a href="/process/">process page</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="svp-sec">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">02 · How the studio runs</div><h2>The founder is <em>in every room</em>.</h2></div>
+        <div class="svp-body">
+          <p>No account managers. No creative directors three layers removed from the work. You talk to the person making the thing, every time and every round.</p>
+        </div>
+      </div>
+      <div class="svp-cards">
+        <div class="svp-card"><span class="k">Who does the work</span><h3>The maker shows the work</h3><p>The person who shows you the work is the person who made it. No handoff to a junior, nobody learning on your budget.</p></div>
+        <div class="svp-card"><span class="k">What we turn down</span><h3>Ten clients a year</h3><p>The number is the product. It is the only way the founder stays in every room and on every draft.</p></div>
+        <div class="svp-card"><span class="k">When we say no</span><h3>Honest answers</h3><p>Plenty of calls end with “you don’t need us for this.” Even if we aren’t the right fit, we’ll tell you straight and point you somewhere good.</p></div>
+      </div>
+    </section>
+
+    <section class="svp-sec">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">03 · Four rules</div><h2>Rules we <em>don’t break</em>.</h2></div>
+        <div class="svp-body">
+          <ol class="svp-steps">
+            <li><div><strong>Long game</strong>Your project might be a twenty-dollar business card today and a twenty-thousand-dollar rebrand next year.</div></li>
+            <li><div><strong>Founder honest</strong>We’ve been the client. We know the pain of agencies that ghost you after the kickoff, so we built the partner we always wished we had.</div></li>
+            <li><div><strong>No lane</strong>Comfortable at both ends: hospitality brands that need restraint, and launches that need to look like they know something you don’t.</div></li>
+            <li><div><strong>Real goal</strong>Not the biggest studio. The one founders quietly recommend when they’re telling the truth.</div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="svp-sec">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">04 · Studio facts</div><h2>KR8TIV <em>at a glance</em>.</h2></div>
+        <div class="svp-body">
+          <ul>
+            <li><strong>Founder and creative director:</strong> Matt Haynes</li>
+            <li><strong>Based in:</strong> Edmonton, Alberta, Canada. Founded in Edmonton in 2020.</li>
+            <li><strong>Service area:</strong> Edmonton, Sherwood Park, St. Albert and Spruce Grove, clients across Alberta and Canada, remote projects worldwide. No walk-in studio; meetings by call or appointment.</li>
+            <li><strong>Hours:</strong> Monday to Saturday, 9:00 AM to 6:00 PM Mountain Time.</li>
+            <li><strong>Contact:</strong> <a href="tel:+17809155471">(780) 915-5471</a> · <a href="mailto:kr8tiv@kr8tiv.io">kr8tiv@kr8tiv.io</a> · <a href="https://calendly.com/kr8tiv" rel="noopener">Book a call</a></li>
+            <li><strong>Profiles:</strong> <a href="https://www.linkedin.com/in/matthaynes88/" rel="noopener me">Matt on LinkedIn</a> · <a href="https://www.linkedin.com/company/kr8tiv-agency" rel="noopener">KR8TIV on LinkedIn</a> · <a href="https://g.page/r/Cf3IkEeasCMiEBM" rel="noopener">Google Business Profile</a></li>
+            <li><strong>How projects work:</strong> free 30-minute call, three design directions, payment split 40/40/20, and clients own their final files.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svp-sec" aria-labelledby="what">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">05 · What KR8TIV does</div><h2 id="what">Eleven <em>disciplines</em>.</h2></div>
+        <div class="svp-body">
+          <p>See the <a href="/services/">full services list with starting prices</a>, the <a href="/work/">selected work</a>, or the <a href="/blog/evolve-eco-blasting-case-study/">Evolve Eco Blasting case study</a>.</p>
+          <ul>{services.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svp-sec svp-faq" id="faq">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">Questions</div><h2>Straight <em>answers</em>.</h2></div>
+        <div>{faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</div>
+      </div>
+    </section>
+
+    <section class="svp-final">
+      <div class="svp-num">Edmonton · Alberta · Canada</div>
+      <h2>Book a call. <em>Let’s just talk.</em></h2>
+      <a class="svp-cta" href="/start/">Talk to Matt <span aria-hidden="true">→</span></a>
+      <nav class="svp-related" aria-label="Related">
+        <a href="/process/">Process</a><a href="/work/">Work</a><a href="/services/">Services</a><a href="/blog/">Field notes</a>
+      </nav>
+    </section>
+  </main>
+</FormLayout>

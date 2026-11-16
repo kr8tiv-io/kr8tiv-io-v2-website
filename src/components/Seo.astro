@@ -137,7 +137,7 @@ const orgSchema = {
     '@id': siteUrl + '/#matt',
     name: 'Matt Haynes',
     jobTitle: 'Founder & Creative Director',
-    url: siteUrl + '/#why'
+    url: siteUrl + '/about/'
   },
   address: {
     '@type': 'PostalAddress',
@@ -249,15 +249,15 @@ const serviceSchema = {
     itemListElement: ([
       ['Website Design', 1950, '/services/web-design-edmonton/'],
       ['Branding + Identity', 500, '/services/branding/'],
-      ['Video Editing', 400, null],
-      ['Ecommerce Setups', 1500, null],
-      ['UX/UI + Blockchain', 1500, null],
+      ['Video Editing', 400, '/services/video-editing-edmonton/'],
+      ['Ecommerce Setups', 1500, '/services/ecommerce-website-edmonton/'],
+      ['UX/UI + Blockchain', 1500, '/services/ux-ui-design-edmonton/'],
       ['Signage + Print', 500, '/services/print-signage-design/'],
-      ['Packaging + Mockups', 800, null],
-      ['Studio + A/V Print', 1500, null],
-      ['Ads + Acquisition', 900, null],
-      ['App Product Design', 3500, null],
-      ['Motion + 3D', 750, null]
+      ['Packaging + Mockups', 800, '/services/packaging-design-edmonton/'],
+      ['Studio + A/V Print', 1500, '/services/studio-av-production-edmonton/'],
+      ['Ads + Acquisition', 900, '/services/ads-acquisition-edmonton/'],
+      ['App Product Design', 3500, '/services/app-design-edmonton/'],
+      ['Motion + 3D', 750, '/services/motion-3d-edmonton/']
     ] as [string, number, string | null][]).map(([name, price, path]) => ({
       '@type': 'Offer',
       priceSpecification: { '@type': 'PriceSpecification', minPrice: price, priceCurrency: 'CAD' },
@@ -308,7 +308,7 @@ const pageSchema = isArticle ? {
     '@type': 'Person',
     '@id': siteUrl + '/#matt',
     name: 'Matt Haynes',
-    url: siteUrl + '/#why',
+    url: siteUrl + '/about/',
     jobTitle: 'Founder & Creative Director',
     sameAs: ['https://www.linkedin.com/in/matthaynes88/']
   },
@@ -333,6 +333,7 @@ const pageSchema = isArticle ? {
   description,
   isPartOf: { '@id': siteUrl + '/#website' },
   about: { '@id': siteUrl + '/#organization' },
+  ...(pageSchemaType === 'AboutPage' && { mainEntity: { '@id': siteUrl + '/#matt' } }),
   inLanguage: 'en-CA',
   primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl }
 };
@@ -415,7 +416,7 @@ const personSchema = {
   '@type': 'Person',
   '@id': siteUrl + '/#matt',
   name: 'Matt Haynes',
-  url: siteUrl + '/#why',
+  url: siteUrl + '/about/',
   jobTitle: 'Founder & Creative Director',
   worksFor: { '@id': siteUrl + '/#organization' },
   sameAs: [

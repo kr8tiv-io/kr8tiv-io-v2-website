@@ -18,6 +18,10 @@ tags:
 - Edmonton
 - Alberta
 - Creative technology
+related_slugs:
+- storefront-sign-design-edmonton
+- signage-that-attracts-customers-edmonton
+- ai-storefront-layout-design-edmonton
 hero_alt: Brushed-metal storefront signage and a reflective display panel
 hero_poster: /kr8tiv-assets/blog/ai-signage-design-edmonton-poster.webp
 hero_video: /kr8tiv-assets/blog/ai-signage-design-edmonton-hero.mp4

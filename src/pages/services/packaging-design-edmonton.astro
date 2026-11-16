@@ -1,0 +1,30 @@
+---
+/** /services/packaging-design-edmonton/ : generated from the shared ServicePage pattern.
+ *  Price floor mirrors FLOOR in src/lib/content.ts. No em dashes in copy. */
+import FormLayout from '@layouts/FormLayout.astro';
+import ServicePage from '@components/ServicePage.astro';
+const faqs = [{"q": "How much does packaging design cost?", "a": "KR8TIV packaging design and mockups start from $800 CAD. Printing and manufacturing are quoted separately by your supplier. Final scope is agreed in writing first. No GST charged."}, {"q": "Do you print the packaging?", "a": "No. KR8TIV designs the artwork and mockups and can coordinate printers or manufacturers as scoped. The supplier produces and quotes the physical packaging."}, {"q": "What do I need to bring?", "a": "The supplier dieline or dimensions, print requirements, brand files and approved product copy, including any required labelling."}, {"q": "Can you make mockups for my website and launch?", "a": "Yes. Mockups can be scoped for approvals, product pages and social posts."}, {"q": "How does a project start?", "a": "Every project starts with a free 30-minute call with Matt. Scope, deliverables and price are agreed in writing, then payment is split 40% at kickoff, 40% at draft delivery and 20% at final delivery. No GST charged."}];
+---
+<FormLayout
+  title="Packaging Design in Edmonton | KR8TIV"
+  description="Packaging design and mockups from an Edmonton studio: labels, boxes and print-ready artwork for Alberta and Canadian brands. Projects from $800 CAD."
+  canonical="/services/packaging-design-edmonton/"
+  ogImage="/kr8tiv-assets/services/packaging-design-edmonton-og.jpg"
+  service={{"name": "Packaging design in Edmonton", "serviceType": "Packaging design", "description": "Packaging design and mockups from an Edmonton studio: labels, boxes and print-ready artwork for Alberta and Canadian brands. Projects from $800 CAD.", "priceFrom": 800, "priceCurrency": "CAD"}}
+  breadcrumbs={[{"name": "Home", "url": "/"}, {"name": "Services", "url": "/services/"}, {"name": "Packaging design", "url": "/services/packaging-design-edmonton/"}]}
+  faqs={faqs}
+  keywords={["packaging design Edmonton", "label design Alberta", "product packaging design Canada", "packaging mockups Edmonton"]}
+>
+  <ServicePage
+    eyebrow="Edmonton · Packaging design"
+    h1="Packaging design in Edmonton. <em>Unboxing is a ritual.</em>"
+    intro="KR8TIV designs packaging, labels and product mockups for brands in Edmonton, across Alberta and Canada. Packaging design starts from $800 CAD. Matt Haynes works with you directly on artwork built around your supplier’s dieline, so the design still works when it is printed."
+    price="Packaging and mockups from $800 CAD · Production quoted by your manufacturer · No GST charged"
+    cta={{"label": "Tell Matt about your product", "href": "/start/"}}
+    hero={{"src": "/kr8tiv-assets/services/packaging-design-edmonton-hero.webp", "video": "/kr8tiv-assets/services/packaging-design-edmonton-hero.mp4", "alt": "Glowing wireframe ridge with a sharp central peak on black"}}
+    sections={[{"num": "01 · What you get", "title": "Packaging that <em>belongs</em> to your brand.", "body": ["A package has a job before anyone opens it: say what the product is, keep important information readable, and be recognisable the next time someone sees it on a shelf or a doorstep.", "Bring the supplier dieline, dimensions and print requirements. We design artwork and mockups around them. Manufacturers confirm materials and production, and you stay responsible for approved claims and required labelling."], "cards": [{"k": "From $800 CAD", "t": "Packaging artwork", "d": "Artwork for an agreed set of packs or labels, built on your supplier’s dieline."}, {"k": "Included in scope", "t": "Mockups", "d": "Realistic product mockups for approvals, your website and launch posts."}, {"k": "Variable rate", "t": "Managed journey", "d": "Printer or manufacturer sourcing and artwork handoff, as scoped."}]}, {"num": "02 · How it runs", "title": "From dieline to <em>print-ready</em>.", "steps": [{"t": "Call", "d": "A free 30-minute call about the product, the shelf and the customer."}, {"t": "Collect", "d": "Dielines, dimensions, brand files, required copy and supplier specs."}, {"t": "Three directions", "d": "Three distinct concepts instead of one safe option."}, {"t": "Refine", "d": "Structured feedback rounds on the chosen direction and the mockups."}, {"t": "Handoff", "d": "Print-ready files to your supplier’s spec. You own the final files."}]}, {"num": "03 · Who does what", "title": "We design. <em>Manufacturers produce.</em>", "body": ["KR8TIV designs artwork and mockups and can coordinate the packaging journey as scoped. Printing, materials and manufacturing are carried out and quoted by your supplier.", "Packaging works best as part of a whole brand, so it can share a direction with your <a href=\"/services/branding/\">identity</a>, your <a href=\"/services/ecommerce-website-edmonton/\">online store</a> and your <a href=\"/services/print-signage-design/\">storefront and print</a>. Read the <a href=\"/blog/packaging-design-that-stands-out-canada/\">packaging design guide</a> for what to prepare."]}]}
+    faqs={faqs}
+    finalTitle="A package people <em>remember</em> opening."
+    related={[{"label": "Branding", "href": "/services/branding/"}, {"label": "Ecommerce setups", "href": "/services/ecommerce-website-edmonton/"}, {"label": "Storefront + sign design", "href": "/services/print-signage-design/"}, {"label": "Packaging guide", "href": "/blog/packaging-design-that-stands-out-canada/"}]}
+  />
+</FormLayout>

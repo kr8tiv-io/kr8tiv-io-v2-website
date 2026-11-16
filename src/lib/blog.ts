@@ -26,7 +26,11 @@ export function relatedPosts(post: Post, n = 3): Post[] {
 const SERVICE_LINKS: { match: RegExp; href: string; label: string }[] = [
   { match: /web|seo|blog|small business|case study/i, href: '/services/web-design-edmonton/', label: 'Web design in Edmonton' },
   { match: /brand|packag|vehicle|small business/i, href: '/services/branding/', label: 'Branding and identity' },
-  { match: /sign|storefront|retail|packag|vehicle/i, href: '/services/print-signage-design/', label: 'Storefront, sign and print design' }
+  { match: /sign|storefront|retail|packag|vehicle/i, href: '/services/print-signage-design/', label: 'Storefront, sign and print design' },
+  { match: /packag/i, href: '/services/packaging-design-edmonton/', label: 'Packaging design' },
+  { match: /advertis|ads\b|campaign|marketing/i, href: '/services/ads-acquisition-edmonton/', label: 'Ads and acquisition' },
+  { match: /video|motion/i, href: '/services/video-editing-edmonton/', label: 'Video editing' },
+  { match: /ecommerce|online store/i, href: '/services/ecommerce-website-edmonton/', label: 'Ecommerce setups' }
 ];
 export function serviceLinksFor(post: Post) {
   const tags = post.tags.join(' ');
