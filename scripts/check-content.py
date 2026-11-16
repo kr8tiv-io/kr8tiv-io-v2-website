@@ -1,9 +1,9 @@
 from pathlib import Path
 from bs4 import BeautifulSoup
 import json,re,xml.etree.ElementTree as ET,yaml
-root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==11
+root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==14
 sitemap=ET.parse(dist/'sitemap-0.xml');urls={n.text for n in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
-rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==11
+rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==14
 for f in posts:
  _,front,body=f.read_text().split('---',2);m=yaml.safe_load(front);assert m['draft'] is False;assert not re.search(r'\bgonna\b|meku',body,re.I)
  p=dist/'blog'/m['slug']/'index.html';doc=BeautifulSoup(p.read_text(),'html.parser');assert len(doc.select('h1'))==1,p
@@ -12,18 +12,23 @@ for f in posts:
  assert doc.select_one('meta[property="og:type"]')['content']=='article';assert doc.select_one('meta[property="og:image:width"]')['content']=='1280';assert doc.select_one('meta[property="og:image:height"]')['content']=='720';assert '/blog/'+m['slug']+'-poster.webp' in doc.select_one('meta[property="og:image"]')['content']
  schemas=[json.loads(n.string) for n in doc.select('script[type="application/ld+json"]')]
  typ=lambda n: n.get('@type')
- article=next(n for n in schemas if typ(n)=='Article' or (isinstance(typ(n), list) and 'Article' in typ(n)))
+ article=next(n for n in schemas if typ(n) in ('Article','BlogPosting') or (isinstance(typ(n), list) and ('Article' in typ(n) or 'BlogPosting' in typ(n))))
  if m['slug']=='evolve-eco-blasting-case-study':
-  assert isinstance(typ(article), list) and 'Article' in typ(article) and 'CaseStudy' in typ(article)
+  assert typ(article)=='BlogPosting' or (isinstance(typ(article), list) and 'BlogPosting' in typ(article))
  assert article['headline'] and article['image'] and article['publisher']
  faq=next(n for n in schemas if n.get('@type')=='FAQPage');assert len(faq['mainEntity'])==4
  norm=lambda t:t.replace('’',"'").replace('‘',"'").replace('“','\"').replace('”','\"')
  visible=norm(doc.get_text(' ',strip=True))
  for q in faq['mainEntity']:assert norm(q['name']) in visible;assert norm(q['acceptedAnswer']['text']) in visible
- video=doc.select_one('[data-note-video]');assert video and not video.has_attr('src') and not video.has_attr('autoplay') and video.has_attr('muted')
- for attr in ['hero_poster','hero_video']:assert (dist/m[attr].lstrip('/')).is_file()
+ video=doc.select_one('[data-note-video]')
+ if m.get('hero_video'):
+  assert video and not video.has_attr('src') and not video.has_attr('autoplay') and video.has_attr('muted')
+  assert (dist/m['hero_video'].lstrip('/')).is_file()
+ else:
+  assert video is None
+ assert (dist/m['hero_poster'].lstrip('/')).is_file()
  assert '/start' in body[-1200:],f
- assert len(doc.select('.fn-related li'))==3
+ lists=doc.select('.fn-related ul');assert lists and len(lists[0].select('li'))==3
  print('PASS',m['slug'])
 err=BeautifulSoup((dist/'404.html').read_text(),'html.parser');assert 'noindex' in err.select_one('meta[name=robots]')['content'];assert not any('/404' in u or '/menu-lab' in u for u in urls)
 for f in dist.rglob('*.html'):
@@ -31,7 +36,7 @@ for f in dist.rglob('*.html'):
  for meta in doc.select('script[type="application/ld+json"]'):
   s=json.loads(meta.string);assert 'geo' not in s;assert 'priceRange' not in s
  assert not doc.select('meta[name="ai-content-declaration"]')
-print('PASS 11 articles, 44 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
+print('PASS 14 articles, 56 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
 
 work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==14
 for img in work.select('.portfolio-image img'):assert (dist/img['src'].lstrip('/')).is_file()
