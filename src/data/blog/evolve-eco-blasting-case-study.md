@@ -7,7 +7,7 @@ meta_description: How KR8TIV rebranded and built search for Evolve Eco Blasting 
 excerpt: KR8TIV’s rebrand and search work for Evolve Eco Blasting, an Alberta dustless-blasting company.
   In four months, CAD $1.4 million in enquiries and CAD $450,000 in sales, according to KR8TIV.
 publish_date: '2026-11-09'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -45,7 +45,7 @@ faq:
 
 # How we built Evolve Eco Blasting to get found in Alberta search
 
-Evolve Eco Blasting is an Alberta mobile dustless-blasting company. KR8TIV gave it a brand-new rebrand, built the live website at [evolveecoblasting.com](https://www.evolveecoblasting.com/), and did the search work so the right jobs in Edmonton and across the province could actually find it.
+Evolve Eco Blasting is an Alberta mobile dustless-blasting company. KR8TIV gave it a brand-new rebrand, built the live website at [evolveecoblasting.com](https://www.evolveecoblasting.com/), and did the search work so the right jobs in Edmonton and across the province could actually find it. The same search discipline can serve trades elsewhere in Canada, when the real service area is described honestly.
 
 According to KR8TIV, the four months that followed brought CAD $1.4 million in enquiries and CAD $450,000 in sales. Todd, Evolve’s founder, went from almost no calls to nonstop calls. Matt knows because he was answering those phones himself, and Todd told him the same thing. Todd has given permission to publish this.
 

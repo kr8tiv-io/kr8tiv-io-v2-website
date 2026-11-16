@@ -96,6 +96,23 @@ const canonicalUrl = canonical
   : siteUrl + Astro.url.pathname;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
 
+/* Service area: Edmonton-anchored, Alberta-wide and Canada-wide.
+   City / State / Country types match Google Business Profile plus the
+   published metro and provincial reach. Worldwide is studio-only (remote
+   projects), not attached to individual articles or service nodes. */
+const AREA_SERVED_CORE = [
+  { '@type': 'City', name: 'Edmonton', containedInPlace: { '@type': 'State', name: 'Alberta', containedInPlace: { '@type': 'Country', name: 'Canada' } } },
+  { '@type': 'City', name: 'Sherwood Park', containedInPlace: { '@type': 'State', name: 'Alberta' } },
+  { '@type': 'City', name: 'St. Albert', containedInPlace: { '@type': 'State', name: 'Alberta' } },
+  { '@type': 'City', name: 'Spruce Grove', containedInPlace: { '@type': 'State', name: 'Alberta' } },
+  { '@type': 'State', name: 'Alberta', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+  { '@type': 'Country', name: 'Canada' }
+];
+const AREA_SERVED_STUDIO = [
+  ...AREA_SERVED_CORE,
+  { '@type': 'Place', name: 'Worldwide' }
+];
+
 /* ------------------- BUILD STAMP -------------------
    Deploy verification has to answer "is the origin serving the build I
    just pushed?", and matching on copy strings only ever gives a guess —
@@ -120,6 +137,7 @@ const orgSchema = {
   name: 'KR8TIV',
   alternateName: ['KR8TIV Atelier', 'Kr8tiv', 'KR8TiV'],
   url: siteUrl,
+  telephone: '+1-780-915-5471',
   logo: {
     '@type': 'ImageObject',
     '@id': siteUrl + '/#logo',
@@ -145,15 +163,7 @@ const orgSchema = {
     addressRegion: 'AB',
     addressCountry: 'CA'
   },
-  areaServed: [
-    { '@type': 'Place', name: 'Edmonton, Alberta' },
-    { '@type': 'Place', name: 'Sherwood Park, Alberta' },
-    { '@type': 'Place', name: 'St. Albert, Alberta' },
-    { '@type': 'Place', name: 'Spruce Grove, Alberta' },
-    { '@type': 'Place', name: 'Alberta, Canada' },
-    { '@type': 'Place', name: 'Canada' },
-    { '@type': 'Place', name: 'Worldwide' }
-  ],
+  areaServed: AREA_SERVED_STUDIO,
   knowsAbout: [
     'Brand Design', 'Web Design', 'Motion Design', 'Video Editing',
     'AI Automation', 'AI Marketing', 'AI Business Solutions',
@@ -210,13 +220,7 @@ const serviceSchema = {
   }],
   /* Google Business Profile categories: primary first. */
   knowsAbout: ['Marketing agency', 'Graphic designer', 'Website designer', 'Video production service', 'Internet marketing service'],
-  areaServed: [
-    { '@type': 'City', name: 'Edmonton', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
-    { '@type': 'City', name: 'Sherwood Park', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
-    { '@type': 'City', name: 'St. Albert', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
-    { '@type': 'City', name: 'Spruce Grove', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
-    { '@type': 'Country', name: 'Canada' }
-  ],
+  areaServed: AREA_SERVED_STUDIO,
   sameAs: [
     'https://calendly.com/kr8tiv',
     'https://github.com/kr8tiv-io',
@@ -323,7 +327,8 @@ const pageSchema = isArticle ? {
   ...(article?.tags?.length && { keywords: article.tags.join(', ') }),
   ...(article?.wordCount && { wordCount: article.wordCount }),
   about: { '@id': siteUrl + '/#service' },
-  spatialCoverage: { '@type': 'Place', name: 'Edmonton, Alberta, Canada' }
+  spatialCoverage: { '@type': 'Place', name: 'Edmonton, Alberta, Canada' },
+  areaServed: AREA_SERVED_CORE
 } : {
   '@context': 'https://schema.org',
   '@type': pageSchemaType,
@@ -397,11 +402,7 @@ const serviceNodeSchema = service ? {
   url: canonicalUrl,
   provider: { '@id': siteUrl + '/#service' },
   brand: { '@id': siteUrl + '/#organization' },
-  areaServed: [
-    { '@type': 'City', name: 'Edmonton', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
-    { '@type': 'AdministrativeArea', name: 'Alberta' },
-    { '@type': 'Country', name: 'Canada' }
-  ],
+  areaServed: AREA_SERVED_CORE,
   ...(service.priceFrom && {
     offers: {
       '@type': 'Offer',

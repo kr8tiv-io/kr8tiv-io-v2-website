@@ -7,7 +7,7 @@ meta_description: 'Plan your Edmonton sign and storefront: concept design, immer
 excerpt: 'Plan your Edmonton sign and storefront: concept design, immersive store experiences and project management
   across Alberta and Canada. Pricing and scope explained.'
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -42,7 +42,7 @@ faq:
 
 # How to design an amazing storefront sign in Edmonton
 
-An amazing sign helps the right person recognise your business, understand what you do, and find the entrance. Choose the message and viewing conditions first. Then choose the materials, illumination, and fabrication method that make that message work in the real location.
+An amazing sign helps the right person recognise your business, understand what you do, and find the entrance. Choose the message and viewing conditions first. Then choose the materials, illumination, and fabrication method that make that message work in the real location. The same planning applies across Alberta and Canada.
 
 A sign can be beautiful up close and unreadable across the parking lot. The design job is to make it work at both distances, by day and after dark, without asking one surface to explain the whole business.
 
@@ -191,4 +191,4 @@ A shared brand system can guide all three. Each surface needs adapted artwork, p
 
 ## Start with the wall, the buyer, and the message
 
-Bring Matt a location photograph, rough dimensions, your business name, and the sign’s main job. A beautiful KR8TIV sign concept starts from about $500 CAD. Full project management is available at variable rates, from supplier sourcing through manufacturing coordination and installation liaison. Storefront design, full store design, 3D immersive store experiences, packaging, menus and cards can be connected in the same scope. Physical fabrication and installation are performed by fabricators/builders; those costs are not included in the concept floor. Call Matt at 780-915-5471 or [start a sign-design conversation](https://kr8tiv.io/start/). See the full scope on the [storefront and sign design page](https://kr8tiv.io/services/print-signage-design/).
+Bring Matt a location photograph, rough dimensions, your business name, and the sign’s main job. A beautiful KR8TIV sign concept starts from about $500 CAD. Full project management is available at variable rates, from supplier sourcing through manufacturing coordination and installation liaison. Storefront design, full store design, 3D immersive store experiences, packaging, menus and cards can be connected in the same scope. Physical fabrication and installation are performed by fabricators/builders; those costs are not included in the concept floor. Call Matt at (780) 915-5471 or [start a sign-design conversation](https://kr8tiv.io/start/). See the full scope on the [storefront and sign design page](https://kr8tiv.io/services/print-signage-design/).

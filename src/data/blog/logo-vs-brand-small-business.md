@@ -5,7 +5,7 @@ seo_title: "Logo vs brand: what your small business needs | KR8TIV"
 meta_description: A logo is one file. A brand is how people recognise and remember you. What Edmonton and Alberta small businesses need now, and what can wait.
 excerpt: A logo is one file. A brand is how people recognise and remember you. What Edmonton and Alberta small businesses need now, what a brand identity includes, and what can wait.
 publish_date: '2026-11-13'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -136,4 +136,4 @@ Logo and identity work starts from $500 CAD, a Brand Kit is $1,050 CAD and a Ful
 
 ## Ready for a brand that still looks like you with the logo covered?
 
-KR8TIV builds brand identities for businesses in Edmonton, across Alberta and beyond. [Start a project or book a free 30-minute call](/start/), or ring Matt at 780-915-5471. A logo gets you recognised. A brand gets you remembered.
+KR8TIV builds brand identities for businesses in Edmonton, across Alberta and Canada, and beyond. [Start a project or book a free 30-minute call](/start/), or ring Matt at (780) 915-5471. A logo gets you recognised. A brand gets you remembered.

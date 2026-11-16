@@ -7,7 +7,7 @@ meta_description: Plan local ads for Edmonton and Alberta with honest budgets, b
 excerpt: Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead
   tracking. Build a test before spending more.
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -38,7 +38,7 @@ faq:
 
 Local advertising works best when the targeting, message, landing page, and follow-up all describe the same service. Choose a specific buying situation, reach the people you can genuinely serve, and judge results by qualified enquiries and sales rather than cheap clicks.
 
-A small Edmonton business does not need a national media plan to start. It needs a test that answers a useful question: can this channel bring suitable opportunities at a cost the business can support?
+A small Edmonton business does not need a national media plan to start. It needs a test that answers a useful question: can this channel bring suitable opportunities at a cost the business can support? The same test works for a service area across Alberta or, where you truly deliver, elsewhere in Canada.
 
 KR8TIV · kr8tiv.io connects creative work with that question. The studio designs visual experiences and helps businesses find customers through clearer brands, websites, and campaigns. This guide shows how to plan a local advertising test without treating a budget as a guarantee.
 
@@ -172,4 +172,4 @@ Only if you can serve that market and afford to test it. A remote service may ha
 
 ## Make the test useful before making it bigger
 
-Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV’s published Ads + Acquisition engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start/).
+Talk to Matt about the offer, the creative, and how you will recognise a qualified enquiry. KR8TIV’s published [Ads and acquisition](https://kr8tiv.io/services/ads-acquisition-edmonton/) engagement floor starts at $900+. Confirm scope and ongoing fees separately from media spend. [Start an advertising conversation](https://kr8tiv.io/start/).

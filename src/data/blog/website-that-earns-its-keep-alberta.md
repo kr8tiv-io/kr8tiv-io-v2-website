@@ -7,7 +7,7 @@ meta_description: Decide what your Alberta business website needs before a rebui
 excerpt: Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions,
   local SEO, accessibility, and a safer launch plan.
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -40,7 +40,7 @@ A custom website pays off when it solves a specific business problem better than
 
 Start with that problem, not a platform or an animation reference. A beautiful website can still make it difficult to hire you. An effective website makes the business easier to understand while giving people a memorable experience.
 
-KR8TIV · kr8tiv.io designs immersive visual experiences, including websites and brand identities. The useful question is how that creative work helps a visitor understand, trust, and contact your business. This guide gives Edmonton and Alberta founders a brief they can use before commissioning a rebuild.
+KR8TIV · kr8tiv.io designs immersive visual experiences, including websites and brand identities. The useful question is how that creative work helps a visitor understand, trust, and contact your business. This guide gives Edmonton and Alberta founders a brief they can use before commissioning a rebuild. The same brief applies for Canadian businesses that serve a wider market.
 
 ## How do you know whether you need a rebuild?
 

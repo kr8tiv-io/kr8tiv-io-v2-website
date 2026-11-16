@@ -1,13 +1,13 @@
 ---
 slug: ai-signage-design-edmonton
 title: How to design remarkable signage with AI, without building an expensive mistake
-seo_title: 'AI Signage Design: An Edmonton Guide | KR8TIV'
-meta_description: Compare AI design, e-paper and projection for Edmonton signage. Build a useful brief, check permits,
-  and take the concept through a proper fabrication handoff.
+seo_title: 'AI Signage Design in Edmonton, Alberta | KR8TIV'
+meta_description: Compare AI design, e-paper and projection for Edmonton and Alberta signage. Build a useful brief,
+  check permits, and take it through a fabrication handoff.
 excerpt: A practical guide to AI-assisted sign design, current display technology, Edmonton permits and the decisions
   that turn a strong concept into a buildable sign.
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -43,6 +43,8 @@ faq:
 # How to design remarkable signage with AI, without building an expensive mistake
 
 Use AI to explore the visual direction, then design the actual sign around its message, viewing conditions, fabrication and approvals. The strongest result may combine a beautifully made permanent identity with one carefully chosen digital element. More technology is not automatically more impact.
+
+This guide is written for Edmonton storefronts, and the same production checks apply for businesses across Alberta and Canada.
 
 For an Edmonton business, a sign has to do its work on an actual building, for actual people approaching from a particular direction. A dazzling concept that hides the entrance, cannot be read across the parking lot or cannot be approved is still a bad sign.
 

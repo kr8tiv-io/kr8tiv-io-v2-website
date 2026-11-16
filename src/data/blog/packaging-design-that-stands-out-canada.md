@@ -7,7 +7,7 @@ meta_description: Build distinctive Canadian packaging with clear hierarchy, use
 excerpt: 'A packaging design workflow for Edmonton and Canadian brands: earn attention without losing the product,
   the required information or the practical job of the pack.'
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -18,6 +18,7 @@ tags:
 - Canada
 - Edmonton
 - Product marketing
+- Alberta
 hero_alt: Unprinted charcoal and ivory cartons with an iridescent cylindrical package
 hero_poster: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-poster.webp
 hero_video: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-hero.mp4
@@ -44,6 +45,8 @@ faq:
 # How to design packaging that stands out, and still works when it is printed
 
 Build packaging around a clear product identity, one distinctive visual idea and a structure that protects and presents the contents. Use AI to explore directions, not to invent claims, barcodes or mandatory copy. Then test the design on the real dieline, in its sales context and as a finished physical proof.
+
+This is written for Canadian brands, including businesses based in Edmonton and across Alberta.
 
 Standing out does not mean covering every panel with an effect. The buyer still needs to know what the product is, which version they are holding and what they receive. Your printer needs files that can be produced. Your business needs packaging it can fill, ship and reorder without losing control of the artwork.
 
@@ -218,4 +221,4 @@ Design can help communicate and distinguish it, but it cannot guarantee demand o
 
 The strongest packaging is distinctive and easy to use. It carries the identity without losing the product, and it still makes sense after the render becomes a stack of printed boxes.
 
-[Talk to Matt at KR8TIV](https://kr8tiv.io/start/) about a packaging direction connected to your [brand identity](https://kr8tiv.io/services/branding/) and [print system](https://kr8tiv.io/services/print-signage-design/#packaging). Bring the real product, sales channels and supplier information so the creative work starts with something solid.
+[Talk to Matt at KR8TIV](https://kr8tiv.io/start/) about a packaging direction connected to your [brand identity](https://kr8tiv.io/services/branding/), [packaging design](https://kr8tiv.io/services/packaging-design-edmonton/) and [print system](https://kr8tiv.io/services/print-signage-design/#packaging). Bring the real product, sales channels and supplier information so the creative work starts with something solid.
