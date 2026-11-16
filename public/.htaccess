@@ -77,6 +77,12 @@
     application/xml image/svg+xml application/manifest+json
 </IfModule>
 
+# --- Charset in the HTTP header (pages already carry <meta charset>, but
+# some crawlers and AI fetchers trust only the header, which was bare
+# `text/html`) -------------------------------------------------------
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .txt .xml .webmanifest
+
 # --- Correct types so caching and decoding behave -------------------
 <IfModule mod_mime.c>
   AddType video/webm .webm

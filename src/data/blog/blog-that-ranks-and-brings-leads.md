@@ -20,6 +20,10 @@ tags:
 hero_alt: Still life of a blank notebook, laptop and glass prism on a dark desk
 hero_poster: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-poster.webp
 hero_video: /kr8tiv-assets/blog/blog-that-ranks-and-brings-leads-hero.mp4
+related_slugs:
+- marketing-campaign-edmonton
+- local-advertising-edmonton-alberta
+- website-that-earns-its-keep-alberta
 faq:
 - question: Can a new business blog rank in Edmonton?
   answer: It can compete for relevant queries, but ranking is not guaranteed. Start with specific customer questions,

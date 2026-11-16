@@ -21,6 +21,10 @@ tags:
 hero_alt: Unprinted charcoal and ivory cartons with an iridescent cylindrical package
 hero_poster: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-poster.webp
 hero_video: /kr8tiv-assets/blog/packaging-design-that-stands-out-canada-hero.mp4
+related_slugs:
+- logo-vs-brand-small-business
+- marketing-campaign-edmonton
+- storefront-sign-design-edmonton
 faq:
 - question: Can AI design my packaging?
   answer: It can help explore artwork and visual directions. The final package still needs correct structure, controlled

@@ -2,8 +2,8 @@
 slug: evolve-eco-blasting-case-study
 title: How we built Evolve Eco Blasting to get found in Alberta search
 seo_title: Evolve Eco Blasting website and SEO case study | KR8TIV
-meta_description: KR8TIV’s rebrand and search work for Evolve Eco Blasting, an Alberta dustless-blasting company.
-  In four months, CAD $1.4 million in enquiries and CAD $450,000 in sales, according to KR8TIV.
+meta_description: How KR8TIV rebranded and built search for Evolve Eco Blasting in Alberta. Four months, CAD $1.4M
+  in enquiries and CAD $450K in sales, per KR8TIV.
 excerpt: KR8TIV’s rebrand and search work for Evolve Eco Blasting, an Alberta dustless-blasting company.
   In four months, CAD $1.4 million in enquiries and CAD $450,000 in sales, according to KR8TIV.
 publish_date: '2026-11-09'
@@ -21,6 +21,10 @@ tags:
 hero_alt: A steel plate with rust meeting a clean water-sheened surface beside a laptop in a workshop
 hero_poster: /kr8tiv-assets/blog/evolve-eco-blasting-case-study-poster.webp
 hero_video: /kr8tiv-assets/blog/evolve-eco-blasting-case-study-hero.mp4
+related_slugs:
+- blog-that-ranks-and-brings-leads
+- local-advertising-edmonton-alberta
+- marketing-campaign-edmonton
 faq:
 - question: Who built the Evolve Eco Blasting website?
   answer: KR8TIV gave Evolve a brand-new rebrand and built the live site at evolveecoblasting.com, including the

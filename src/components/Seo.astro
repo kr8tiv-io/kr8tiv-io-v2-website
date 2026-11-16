@@ -60,6 +60,10 @@ export interface Props {
   howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
   noIndex?: boolean;
   keywords?: string[];              // optional — low SEO value but some AI crawlers still parse
+  /* Service pages: emits a schema.org Service node tied to the studio
+     (@id /#service) so each buying page states what is sold, where,
+     by whom and from what price. Must match the visible page copy. */
+  service?: { name: string; serviceType: string; description?: string; priceFrom?: number; priceCurrency?: string };
 }
 
 const {
@@ -81,7 +85,8 @@ const {
   faqs,
   howTo,
   noIndex = false,
-  keywords
+  keywords,
+  service
 } = Astro.props;
 
 // Resolve everything to an absolute URL against the configured `site`.
@@ -145,7 +150,6 @@ const orgSchema = {
     { '@type': 'Place', name: 'Sherwood Park, Alberta' },
     { '@type': 'Place', name: 'St. Albert, Alberta' },
     { '@type': 'Place', name: 'Spruce Grove, Alberta' },
-    { '@type': 'Place', name: 'Leduc, Alberta' },
     { '@type': 'Place', name: 'Alberta, Canada' },
     { '@type': 'Place', name: 'Canada' },
     { '@type': 'Place', name: 'Worldwide' }
@@ -235,16 +239,35 @@ const serviceSchema = {
     'AI Automation'
   ],
   provider: { '@id': siteUrl + '/#organization' },
+  /* The eleven disciplines exactly as listed on the homepage, with the
+     published engagement floors (CAD, "from" prices, no GST). Keep in
+     sync with the homepage services section and /services/. */
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'KR8TIV services',
-    itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Brand Identity' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Website Design & Build' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Motion & 3D' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Marketing Automation' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Business Solutions' } }
-    ]
+    url: siteUrl + '/services/',
+    itemListElement: ([
+      ['Website Design', 1950, '/services/web-design-edmonton/'],
+      ['Branding + Identity', 500, '/services/branding/'],
+      ['Video Editing', 400, null],
+      ['Ecommerce Setups', 1500, null],
+      ['UX/UI + Blockchain', 1500, null],
+      ['Signage + Print', 500, '/services/print-signage-design/'],
+      ['Packaging + Mockups', 800, null],
+      ['Studio + A/V Print', 1500, null],
+      ['Ads + Acquisition', 900, null],
+      ['App Product Design', 3500, null],
+      ['Motion + 3D', 750, null]
+    ] as [string, number, string | null][]).map(([name, price, path]) => ({
+      '@type': 'Offer',
+      priceSpecification: { '@type': 'PriceSpecification', minPrice: price, priceCurrency: 'CAD' },
+      itemOffered: {
+        '@type': 'Service',
+        name,
+        provider: { '@id': siteUrl + '/#service' },
+        ...(path && { url: siteUrl + path })
+      }
+    }))
   }
 };
 
@@ -363,6 +386,30 @@ const howToSchema = howTo ? {
   }))
 } : null;
 
+const serviceNodeSchema = service ? {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': canonicalUrl + '#service',
+  name: service.name,
+  serviceType: service.serviceType,
+  description: service.description ?? description,
+  url: canonicalUrl,
+  provider: { '@id': siteUrl + '/#service' },
+  brand: { '@id': siteUrl + '/#organization' },
+  areaServed: [
+    { '@type': 'City', name: 'Edmonton', containedInPlace: { '@type': 'AdministrativeArea', name: 'Alberta' } },
+    { '@type': 'AdministrativeArea', name: 'Alberta' },
+    { '@type': 'Country', name: 'Canada' }
+  ],
+  ...(service.priceFrom && {
+    offers: {
+      '@type': 'Offer',
+      url: canonicalUrl,
+      priceSpecification: { '@type': 'PriceSpecification', minPrice: service.priceFrom, priceCurrency: service.priceCurrency ?? 'CAD' }
+    }
+  })
+} : null;
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -455,6 +502,9 @@ const robots = noIndex
 <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)}></script>
 {faqSchema && (
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)}></script>
+)}
+{serviceNodeSchema && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceNodeSchema)}></script>
 )}
 {howToSchema && (
   <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)}></script>

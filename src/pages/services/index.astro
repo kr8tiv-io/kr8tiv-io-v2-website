@@ -1,0 +1,80 @@
+---
+/**
+ * /services/ — hub for the eleven disciplines.
+ * Before this page existed, /services/ returned 403 (bare directory) even
+ * though every service page's breadcrumb implies a Services level.
+ * Copy and engagement floors mirror the homepage services section; keep
+ * them in sync (and in sync with hasOfferCatalog in Seo.astro).
+ * Deliberately does NOT import Services.astro (the homepage scroller is
+ * being reworked on its own branch).
+ */
+import FormLayout from '@layouts/FormLayout.astro';
+import '@styles/services.css';
+
+const disciplines = [
+  { n: '001', t: 'Website Design', d: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', from: '$1,950+', href: '/services/web-design-edmonton/' },
+  { n: '002', t: 'Branding + Identity', d: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', from: '$500+', href: '/services/branding/' },
+  { n: '003', t: 'Video Editing', d: 'Video editing, promotional features and 3D animation. Video that stops the scroll and actually gets watched.', from: '$400+' },
+  { n: '004', t: 'Ecommerce Setups', d: 'A customized ecom stack to help you sell anything online, from dropship stores to full brands.', from: '$1,500+' },
+  { n: '005', t: 'UX/UI + Blockchain', d: 'Product UX, interface systems and design tokens for web apps, mobile apps, and on-chain products.', from: '$1,500+' },
+  { n: '006', t: 'Signage + Print', d: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', from: '~$500', href: '/services/print-signage-design/' },
+  { n: '007', t: 'Packaging + Mockups', d: 'Packaging design and mockups. Unboxing is a ritual, not a logistics problem.', from: '$800+' },
+  { n: '008', t: 'Studio + A/V Print', d: 'Full studio production: web, audio/video and print, all under one roof.', from: '$1,500+' },
+  { n: '009', t: 'Ads + Acquisition', d: 'Paid social, display, video and creator campaigns. Creative built for performance, written for humans.', from: '$900+' },
+  { n: '010', t: 'App Product Design', d: 'Native and web app product design: IA, UX, UI, prototypes and handoff.', from: '$3,500+' },
+  { n: '011', t: 'Motion + 3D', d: '3D, motion graphics and cinematic sequences, delivered with intent.', from: '$750+' }
+];
+const faqs = [
+  { q: 'What services does KR8TIV offer?', a: 'KR8TIV is a founder-led creative studio in Edmonton, Alberta offering eleven disciplines: website design, branding and identity, video editing, ecommerce setups, UX/UI and blockchain product design, signage and print, packaging, studio and A/V production, ads and acquisition creative, app product design, and motion and 3D.' },
+  { q: 'How much do KR8TIV services cost?', a: 'Prices on this page are engagement floors in Canadian dollars, not menu prices. Full websites start from $1,950 CAD, branding from $500 CAD and app product design from $3,500 CAD. Final scope is agreed in writing before work begins. No GST charged.' },
+  { q: 'Where does KR8TIV work?', a: 'KR8TIV is based in Edmonton and serves Edmonton, Sherwood Park, St. Albert and Spruce Grove, with clients across Alberta and Canada and remote projects further afield. Meetings are by call or by appointment.' }
+];
+---
+<FormLayout
+  title="Design, Web & Video Services in Edmonton | KR8TIV"
+  description="Eleven disciplines from one founder-led Edmonton studio: websites, branding, video, ecommerce, signage, packaging, ads, apps, motion and 3D. Prices in CAD."
+  canonical="/services/"
+  pageType="CollectionPage"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }]}
+  faqs={faqs}
+>
+  <main class="svp" id="main">
+    <header class="svp-hero">
+      <div class="svp-hero-copy">
+        <div class="svp-eyebrow">Edmonton · Services</div>
+        <h1>Eleven disciplines. <em>One founder-led studio.</em></h1>
+        <p class="svp-intro">KR8TIV is a creative studio in Edmonton, Alberta. Matt Haynes and the studio design websites, brands, video, signage, packaging and campaigns for businesses across Alberta and Canada. Figures below are engagement floors in CAD, where a real project starts, with scope agreed in writing first.</p>
+        <a class="svp-cta" href="/start/">Start a project <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+
+    <section class="svp-sec" aria-labelledby="disciplines">
+      <h2 id="disciplines" class="svp-num">The eleven disciplines</h2>
+      <div class="svp-cards">
+        {disciplines.map((s) => (
+          <div class="svp-card">
+            <span class="k">/ {s.n} · From {s.from} CAD</span>
+            <h3>{s.href ? <a href={s.href}>{s.t}</a> : s.t}</h3>
+            <p>{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="svp-sec svp-faq" id="faq">
+      <div class="svp-sec-grid">
+        <div><div class="svp-num">Questions</div><h2>Straight <em>answers</em>.</h2></div>
+        <div>{faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</div>
+      </div>
+    </section>
+
+    <section class="svp-final">
+      <div class="svp-num">Edmonton · Alberta · Canada</div>
+      <h2>Not sure which one you need? <em>Ask Matt.</em></h2>
+      <a class="svp-cta" href="/start/">Start a project <span aria-hidden="true">→</span></a>
+      <nav class="svp-related" aria-label="Related">
+        <a href="/work/">Work</a><a href="/process/">Process</a><a href="/blog/">Field notes</a>
+      </nav>
+    </section>
+  </main>
+</FormLayout>

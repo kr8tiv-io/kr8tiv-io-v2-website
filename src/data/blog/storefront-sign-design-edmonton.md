@@ -3,7 +3,7 @@ slug: storefront-sign-design-edmonton
 title: How to design an amazing storefront sign in Edmonton
 seo_title: 'Storefront & sign design in Edmonton: a buyer guide | KR8TIV'
 meta_description: 'Plan your Edmonton sign and storefront: concept design, immersive store experiences and project
-  management across Alberta and Canada. Pricing and scope explained.'
+  management across Alberta. Pricing and scope explained.'
 excerpt: 'Plan your Edmonton sign and storefront: concept design, immersive store experiences and project management
   across Alberta and Canada. Pricing and scope explained.'
 publish_date: '2026-11-08'
