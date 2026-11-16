@@ -4,17 +4,17 @@
  * Route: FormSubmit's documented AJAX endpoint
  *   POST https://formsubmit.co/ajax/<alias-or-email>  ->  JSON {success:"true"|"false", message}
  *
- * Primary inbox: matt@kr8tiv.io. CC: Matt's personal Gmail.
+ * Primary inbox: kr8tiv@kr8tiv.io. CC: Matt's personal Gmail.
  * Neither address is hard-coded here. Set them at build time:
  *   PUBLIC_INTAKE_FORMSUBMIT_ID  the random alias FormSubmit emails after activation
- *                                (falls back to the already-public matt@kr8tiv.io)
+ *                                (falls back to the already-public kr8tiv@kr8tiv.io)
  *   PUBLIC_INTAKE_CC             optional comma list for FormSubmit `_cc`. Leave it empty
- *                                and forward matt@kr8tiv.io -> his Gmail in
+ *                                and forward kr8tiv@kr8tiv.io -> his Gmail in
  *                                Hostinger Mail instead, so the Gmail address never ships.
  * FormSubmit's AJAX route does not accept file uploads, so files are never posted.
  */
 const env = (import.meta as unknown as { env?: Record<string, string | undefined> }).env ?? {};
-const FORM_ID = (env.PUBLIC_INTAKE_FORMSUBMIT_ID || 'matt@kr8tiv.io').trim();
+const FORM_ID = (env.PUBLIC_INTAKE_FORMSUBMIT_ID || 'kr8tiv@kr8tiv.io').trim();
 const CC = (env.PUBLIC_INTAKE_CC || '').trim();
 export const INTAKE_ENDPOINT = `https://formsubmit.co/ajax/${FORM_ID}`;
 
