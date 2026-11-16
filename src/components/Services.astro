@@ -3,7 +3,7 @@
  * Services — 12 panels rendered server-side from SERVICES data.
  * Horizontal GSAP pin attaches client-side.
  */
-import { SERVICES, vv, videoPoster } from '@lib/content';
+import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
 ---
 <section class="services" id="services">
   <div class="services-intro">
@@ -48,11 +48,21 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
               <div class="price">ENGAGEMENTS FROM<span class="p">{s.price}</span></div>
               {s.href && <a class="svc-more" href={s.href}>Explore {s.t.toLowerCase()} <span aria-hidden="true">→</span></a>}
             </div>
-            <div class="svc-frame" data-cursor="media">
+            <div class={s.obj ? "svc-frame svc-frame--obj" : "svc-frame"} data-cursor="media">
               <span class="svc-frame-bloom" aria-hidden="true"></span>
-              <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
-                <source src={`/${vv(s.v)}`} type="video/mp4" />
-              </video>
+              {s.obj ? (
+                /* 3D object loop: lazy-autoplays in view (lazyVideo.ts),
+                   parks on its poster for prefers-reduced-motion. */
+                <video class="svc-obj" muted loop playsinline preload="none" data-rm-poster
+                  width="640" height="640" poster={disciplineLoop(s.obj).poster} aria-hidden="true">
+                  <source src={disciplineLoop(s.obj).webm} type="video/webm" />
+                  <source src={disciplineLoop(s.obj).mp4} type="video/mp4" />
+                </video>
+              ) : (
+                <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
+                  <source src={`/${vv(s.v)}`} type="video/mp4" />
+                </video>
+              )}
             </div>
           </div>
         </div>

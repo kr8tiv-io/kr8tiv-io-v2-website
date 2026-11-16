@@ -777,6 +777,48 @@ html.motion-off .marquee-inner span:hover { transform: none; }
   transform: scaleY(calc(.85 + var(--active, 0) * .15));
 }
 
+/* === 3D object loops (Nov 2026) ===
+   Each discipline's circle now carries a Blender-rendered object
+   (obsidian / glass / gold) on pure #000. Two tweaks keep it melting
+   into the circle instead of reading as a disc with a picture in it:
+   1. a longer feather, so the black ground dissolves into the bloom
+      instead of stopping at a ring (objects sit inside ~64% radius);
+   2. the prism band is re-toned to the brand's red / magenta / gold
+      so the objects aren't washed green and yellow by the spectrum.
+   `closest-side` matters: the shared `.svc-frame video` mask uses the
+   default `farthest-corner` size, so its fade lands outside the
+   inscribed circle and border-radius cuts a hard rim. Sizing to the
+   closest side puts the feather inside the circle where it can be seen.
+   Cursor tracking (--px / --py / --active) is unchanged. */
+.svc-frame--obj video {
+  background: #000;
+  -webkit-mask-image: radial-gradient(circle closest-side at center,
+    rgba(0,0,0,1)   0%,
+    rgba(0,0,0,1)   64%,
+    rgba(0,0,0,.82) 78%,
+    rgba(0,0,0,.42) 90%,
+    rgba(0,0,0,.12) 96%,
+    transparent    100%);
+          mask-image: radial-gradient(circle closest-side at center,
+    rgba(0,0,0,1)   0%,
+    rgba(0,0,0,1)   64%,
+    rgba(0,0,0,.82) 78%,
+    rgba(0,0,0,.42) 90%,
+    rgba(0,0,0,.12) 96%,
+    transparent    100%);
+}
+.svc-frame--obj::before {
+  background: linear-gradient(90deg,
+    rgba(255, 45, 74, .20) 0%,
+    rgba(255, 79, 200, .16) 50%,
+    rgba(232, 176, 74, .18) 100%);
+  opacity: calc(.35 + var(--active, 0) * .45);
+  -webkit-mask-image: radial-gradient(circle closest-side at center,
+    transparent 30%, rgba(0,0,0,.5) 70%, transparent 100%);
+          mask-image: radial-gradient(circle closest-side at center,
+    transparent 30%, rgba(0,0,0,.5) 70%, transparent 100%);
+}
+
 /* Atmospheric bloom — sits OUTSIDE the circle, intensifies on hover. */
 .svc-frame-bloom {
   content: '';
