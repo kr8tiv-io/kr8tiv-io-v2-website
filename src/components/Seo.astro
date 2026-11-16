@@ -150,6 +150,8 @@ const orgSchema = {
   image: siteUrl + '/kr8tiv-assets/kr8tiv-logo-schema.png',
   description: 'KR8TIV is an Edmonton, Alberta creative studio building brands, websites, signage, packaging, motion and marketing for businesses that want to be memorable, not generic.',
   slogan: 'Built for founders who\'d rather start a cult than a brand.',
+  foundingDate: '2023',
+  foundingLocation: { '@type': 'Place', name: 'Edmonton, Alberta, Canada' },
   founder: {
     '@type': 'Person',
     '@id': siteUrl + '/#matt',
@@ -251,7 +253,7 @@ const serviceSchema = {
     name: 'KR8TIV services',
     url: siteUrl + '/services/',
     itemListElement: ([
-      ['Website Design', 1950, '/services/web-design-edmonton/'],
+      ['Website Design', 1200, '/services/web-design-edmonton/'],
       ['Branding + Identity', 500, '/services/branding/'],
       ['Video Editing', 400, '/services/video-editing-edmonton/'],
       ['Ecommerce Setups', 1500, '/services/ecommerce-website-edmonton/'],

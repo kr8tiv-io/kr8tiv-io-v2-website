@@ -187,4 +187,4 @@ Only when there is genuinely distinct information to share. Swapping city names 
 
 ## Give useful content somewhere useful to live
 
-If your articles need a clearer website and enquiry path, talk to Matt about the pages around them. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,950 CAD and focused landing pages from $850 CAD, subject to confirmed scope. No GST charged. [Start a website and content conversation](https://kr8tiv.io/start/).
+If your articles need a clearer website and enquiry path, talk to Matt about the pages around them. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,200 CAD and focused landing pages from $850 CAD, subject to confirmed scope. No GST charged. [Start a website and content conversation](https://kr8tiv.io/start/).
