@@ -20,7 +20,25 @@ export const videoPoster = (src: string): string =>
 
 export interface Service {
   v: string; t: string; em: string; desc: string; tag: string; price: string; href?: string;
+  /** 3D object loop for the scroller circle (slug under
+   *  /kr8tiv-assets/disciplines/). When set it replaces `v` in the
+   *  circle: <slug>.webm + <slug>.mp4 + <slug>.jpg poster. */
+  obj?: string;
 }
+
+/** Sources for a discipline's 3D object loop. Rendered in Blender
+ *  (obsidian / glass / gold, KR8TIV red + magenta + gold rim light)
+ *  on pure #000 so it melts into the circle mask. Bump `v=` on re-render. */
+export const disciplineLoop = (slug: string) => ({
+  /* v2 (Nov 16): whimsical pass with site motifs (moons, ringed peaks,
+     ridge lines). v1 encodes stay one folder up for comparison.
+     Phones get a 400px encode via <source media>. */
+  webmM: `/kr8tiv-assets/disciplines/v2/${slug}-m.webm?v=2`,
+  mp4M: `/kr8tiv-assets/disciplines/v2/${slug}-m.mp4?v=2`,
+  webm: `/kr8tiv-assets/disciplines/v2/${slug}.webm?v=2`,
+  mp4: `/kr8tiv-assets/disciplines/v2/${slug}.mp4?v=2`,
+  poster: `/kr8tiv-assets/disciplines/v2/${slug}.jpg?v=2`
+});
 
 /* ============================================================
  * PRICING FLOORS  ·  edit these numbers here, nowhere else
@@ -59,17 +77,17 @@ const FLOOR = {
    video (3-4) for Packaging, and routed forrestbackground/8-1 to
    ads + app product instead of UX/UI's 8-1. Restored to original. */
 export const SERVICES: Service[] = [
-  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
-  { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
-  { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
-  { v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
-  { v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
-  { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006 — Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
-  { v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           tag: '/ 007 — Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
-  { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
-  { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
-  { v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
-  { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
+  { obj: 'laptop', v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
+  { obj: 'signet', v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
+  { obj: 'mobius', v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   href: '/services/video-editing-edmonton/', tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
+  { obj: 'bag', v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                href: '/services/ecommerce-website-edmonton/', tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
+  { obj: 'chain', v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    href: '/services/ux-ui-design-edmonton/', tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
+  { obj: 'sign', v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006 — Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
+  { obj: 'box', v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           href: '/services/packaging-design-edmonton/', tag: '/ 007 — Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
+  { obj: 'lens', v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   href: '/services/studio-av-production-edmonton/', tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
+  { obj: 'target', v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       href: '/services/ads-acquisition-edmonton/', tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
+  { obj: 'phone', v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     href: '/services/app-design-edmonton/', tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
+  { obj: 'gyro', v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 href: '/services/motion-3d-edmonton/', tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
   /* AI Partnership panel removed at user request — the Design-34 loop
      (with on-video "Life, the universe, everything?" lettering) lived
      on the original kr8tiv.io as a manifesto piece, not a service. AI

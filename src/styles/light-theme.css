@@ -985,3 +985,19 @@ html[data-theme="light"] .build-notes code {
    fallback backdrops). They'll read as intentional dark-card moments
    on an otherwise cream page.
    ===================================================================== */
+
+/* 3D object loops in light mode: the screen-blend trick above dissolves
+   black to cream, which would erase the obsidian bodies and leave only
+   highlights floating on paper. Object frames instead stay a dark lens
+   set into the page: the circle itself goes black, the video plays
+   unblended, and its feathered mask fades into that black (never into
+   cream, so no grey ring). */
+html[data-theme="light"] .svc-frame--obj {
+  background: #000;
+}
+html[data-theme="light"] .svc-frame--obj video,
+html[data-theme="light"] .svc-frame--obj:hover video {
+  mix-blend-mode: normal;
+  filter: none;
+  background: #000;
+}

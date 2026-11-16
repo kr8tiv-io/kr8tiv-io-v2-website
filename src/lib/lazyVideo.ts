@@ -22,6 +22,15 @@
  */
 import { motionEffectsDisabled } from '@lib/devicePolicy';
 
+/* Opt-in reduced-motion respect: videos marked `data-rm-poster` (the
+   scroller's 3D object loops) stay on their poster frame when the OS
+   asks for reduced motion, on top of the site-wide motion toggle. */
+const rmQuery = typeof window !== 'undefined' && window.matchMedia
+  ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+function holdOnPoster(v: HTMLVideoElement): boolean {
+  return motionEffectsDisabled() || (!!rmQuery?.matches && v.hasAttribute('data-rm-poster'));
+}
+
 /** Park a video on its poster without discarding buffered data. */
 function park(v: HTMLVideoElement): void {
   if (!v.paused) v.pause();
@@ -46,7 +55,7 @@ function bindGestureRetry(): void {
   gestureBound = true;
   const retry = (): void => {
     blocked.forEach((v) => {
-      if (motionEffectsDisabled()) return;
+      if (holdOnPoster(v)) return;
       v.play().then(() => blocked.delete(v)).catch(() => {});
     });
   };
@@ -68,9 +77,7 @@ export function initLazyVideos(): void {
   const videos = document.querySelectorAll<HTMLVideoElement>('video[preload="none"]:not([data-interlude-video])');
   if (!videos.length || !('IntersectionObserver' in window)) {
     // Fallback: just play them all (unless motion is off).
-    if (!motionEffectsDisabled()) {
-      videos.forEach((v) => safePlay(v));
-    }
+    videos.forEach((v) => { if (!holdOnPoster(v)) safePlay(v); });
     return;
   }
   // Data-saver users get posters only — the video still loads (and
@@ -93,7 +100,7 @@ export function initLazyVideos(): void {
       const v = entry.target as HTMLVideoElement;
       if (entry.isIntersecting) {
         onScreen.add(v);
-        if (motionEffectsDisabled()) { park(v); return; }
+        if (holdOnPoster(v)) { park(v); return; }
         safePlay(v);
       } else {
         onScreen.delete(v);
@@ -123,7 +130,7 @@ export function initLazyVideos(): void {
       videos.forEach(park);
     } else {
       onScreen.forEach((v) => {
-        safePlay(v);
+        if (!holdOnPoster(v)) safePlay(v);
       });
     }
   }).observe(html, { attributes: true, attributeFilter: ['class'] });
