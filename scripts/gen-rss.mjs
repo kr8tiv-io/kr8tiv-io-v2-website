@@ -20,14 +20,14 @@ const xml = `<?xml version='1.0' encoding='UTF-8'?>
     <title>KR8TIV Field Notes</title>
     <link>${site}/blog/</link>
     <atom:link href="${site}/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Practical design and marketing guides from KR8TIV in Edmonton, Alberta.</description>
+    <description>Practical design and marketing guides from KR8TIV in Edmonton, Alberta, Canada.</description>
     <language>en-ca</language>
 ${last ? `    <lastBuildDate>${new Date(last + 'T16:00:00Z').toUTCString()}</lastBuildDate>\n` : ''}${items.map((p) => `    <item>
       <title>${esc(p.title)}</title>
       <link>${site}/blog/${p.slug}/</link>
       <description>${esc(p.desc)}</description>
       <guid isPermaLink="true">${site}/blog/${p.slug}/</guid>
-      <author>matt@kr8tiv.io (Matt Haynes)</author>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
       <pubDate>${new Date(p.date + 'T16:00:00Z').toUTCString()}</pubDate>
 ${p.tags.map((t) => `      <category>${esc(t)}</category>`).join('\n')}
     </item>`).join('\n')}

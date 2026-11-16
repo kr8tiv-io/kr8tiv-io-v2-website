@@ -1,13 +1,13 @@
 ---
 slug: marketing-campaign-edmonton
 title: How to build a marketing campaign that brings in customers in Edmonton
-seo_title: How to build a marketing campaign in Edmonton | KR8TIV
-meta_description: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries.
-  Includes a worked example and a first-month plan.
+seo_title: Marketing campaigns in Edmonton, Alberta | KR8TIV
+meta_description: Build an Edmonton and Alberta marketing campaign around a clear offer, useful creative and
+  qualified enquiries. Includes a worked example and first-month plan.
 excerpt: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes
   a worked example and a first-month plan.
 publish_date: '2026-11-08'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -37,6 +37,8 @@ faq:
 # How to build a marketing campaign that brings in customers in Edmonton
 
 A useful marketing campaign connects one customer problem to one clear offer, then measures whether the resulting enquiries become profitable work. Start with the job you want to sell, build a page that answers the buyer’s questions, and choose a channel that reaches people who need that job done.
+
+That discipline is the same for a campaign aimed at Edmonton, a wider Alberta region or customers across Canada.
 
 At KR8TIV · kr8tiv.io, the creative brief starts with the business outcome. The studio designs immersive visual experiences and helps businesses set up their brands and find clients. A sharp video matters. So does a memorable website. But neither can decide which customers you can serve profitably. Make that decision before you commission the creative.
 
@@ -185,4 +187,4 @@ Yes, when it answers a buying question. Show preparation, access, process, or a 
 
 ## Build the campaign around the job you want
 
-Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV’s live Ads + Acquisition engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start/).
+Bring Matt your offer, service area, and the question customers ask before they buy. KR8TIV’s live [Ads and acquisition](https://kr8tiv.io/services/ads-acquisition-edmonton/) engagement floor starts at $900+, with scope confirmed separately from media spend. [Start a campaign conversation](https://kr8tiv.io/start/).

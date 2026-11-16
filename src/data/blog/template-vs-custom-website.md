@@ -5,7 +5,7 @@ seo_title: Template vs custom website for small business | KR8TIV
 meta_description: A template gets you online. A custom site gets you remembered. How Edmonton and Alberta small businesses can pick the right one for right now.
 excerpt: A template gets you online. A custom site gets you remembered. How Edmonton and Alberta small businesses can pick the right one for right now, and when to switch.
 publish_date: '2026-11-13'
-updated: '2026-11-13'
+updated: '2026-11-16'
 draft: false
 status: published
 author: Matt Haynes
@@ -128,4 +128,4 @@ Yes. Keep your domain, your Google Business Profile and your page addresses stab
 
 ## Ready to see three directions for your site?
 
-KR8TIV designs websites for businesses in Edmonton, across Alberta and further afield. See what is included on the [Edmonton web design page](/services/web-design-edmonton/), then [start a project in about eight minutes](/start/) or call Matt at 780-915-5471. Death to generic.
+KR8TIV designs websites for businesses in Edmonton, across Alberta and Canada, and further afield. See what is included on the [Edmonton web design page](/services/web-design-edmonton/), then [start a project in about eight minutes](/start/) or call Matt at (780) 915-5471. Death to generic.
