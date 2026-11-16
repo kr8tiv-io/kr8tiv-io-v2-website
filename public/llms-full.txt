@@ -1,0 +1,76 @@
+# KR8TIV full machine manifest
+
+> Map of kr8tiv.io for answer engines. The linked pages are the source of truth. This file does not reprint article bodies.
+
+Last updated: 16 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
+
+## Two offers, one founder
+
+KR8TIV (https://kr8tiv.io) is the Edmonton studio. Matt Haynes works with about ten clients a year on websites, brands, signs, packaging, motion, and marketing. Full websites start from $1,200 CAD. Landing pages start from $850 CAD.
+
+KR8TIV AI (https://kr8tiv.ai) is the sister lab. Business AI systems, company brains, agents, and product apps belong there. Same founder. Different offer.
+
+Shown on Google as "Kr8tiv". No public street address and no walk-in studio. Meetings are by call or by appointment.
+
+## Contact
+
+- Phone: (780) 915-5471 (+1-780-915-5471)
+- Email: kr8tiv@kr8tiv.io
+- Start a project: https://kr8tiv.io/start/
+- Book a call: https://calendly.com/kr8tiv
+- Google Business Profile: https://g.page/r/Cf3IkEeasCMiEBM
+- Hours: Monday to Saturday, 9:00 AM to 6:00 PM (Mountain Time). Sunday closed.
+- Primary Google category: Marketing agency
+- Short manifest: https://kr8tiv.io/llms.txt
+
+## Service area
+
+Edmonton, Sherwood Park, St. Albert, Spruce Grove, Alberta, and clients across Canada. Remote projects further afield.
+
+## Service URLs and published floors
+
+- All eleven services: https://kr8tiv.io/services/
+- Web design in Edmonton: https://kr8tiv.io/services/web-design-edmonton/
+  Landing page from $850. Landing page plus SEO and AI search setup $1,250. Full website from $1,200. Immersive site from $3,450. Website refresh from $650. Website Care $75 / month.
+- Ecommerce setups: https://kr8tiv.io/services/ecommerce-website-edmonton/ from $1,500
+- Branding and identity: https://kr8tiv.io/services/branding/
+  Logo and identity from $500. Brand kit $1,050. Full rebrand from $2,450.
+- Storefront, sign and print design: https://kr8tiv.io/services/print-signage-design/
+  Sign concept, design only, from about $500. Fabricators do the physical work.
+- Packaging design: https://kr8tiv.io/services/packaging-design-edmonton/ from $800
+- Studio, A/V and print production: https://kr8tiv.io/services/studio-av-production-edmonton/ from $1,500
+- Video editing: https://kr8tiv.io/services/video-editing-edmonton/ from $400
+- Motion and 3D: https://kr8tiv.io/services/motion-3d-edmonton/ from $750
+- App product design: https://kr8tiv.io/services/app-design-edmonton/ from $3,500
+- UX/UI design: https://kr8tiv.io/services/ux-ui-design-edmonton/ from $1,500
+- Ads and acquisition: https://kr8tiv.io/services/ads-acquisition-edmonton/ from $900, ad spend paid by the client
+- Reviews Care $295 / month. Search Engine plan $495 / month. Search Dominance $895 / month. Social plans from $500 / month. Fractional CMO $1,950 / month.
+
+Most projects land between $2,000 and $25,000. Payment split: 40% at kickoff, 40% at draft delivery, 20% at final delivery. Bitcoin, Ethereum, and standard payments are accepted.
+
+## Field notes
+
+Each line is a title, one sentence, and the URL. Read the page for the full answer.
+
+- Template or custom website? A custom site pays off when it fixes a specific enquiry problem the current site cannot. https://kr8tiv.io/blog/template-vs-custom-website/
+- Logo or brand? A logo is the mark. A brand is the system a customer meets on the site, the sign, and the sales conversation. https://kr8tiv.io/blog/logo-vs-brand-small-business/
+- Evolve Eco Blasting. KR8TIV's published figures for the first four months are CAD $1.4 million in enquiries and CAD $450,000 in sales. https://kr8tiv.io/blog/evolve-eco-blasting-case-study/
+- When a custom website pays off in Alberta. Start from the business problem, and treat the CAD $600 example on the page as fictional, not a KR8TIV result. https://kr8tiv.io/blog/website-that-earns-its-keep-alberta/
+- Storefront sign design in Edmonton. A sign concept is design only, and the physical build is a fabricator's job. https://kr8tiv.io/blog/storefront-sign-design-edmonton/
+- A blog that brings leads. Write pages that answer a real buying question, then give the reader one clear way to call. https://kr8tiv.io/blog/blog-that-ranks-and-brings-leads/
+- Local advertising in Edmonton. Spend follows a clear offer and a page that can take the enquiry. https://kr8tiv.io/blog/local-advertising-edmonton-alberta/
+- A marketing campaign in Edmonton. Name the customer, the offer, and the next step before buying media. https://kr8tiv.io/blog/marketing-campaign-edmonton/
+- Signage designed with AI. Use AI for options, then check the sign against the real storefront and the permit. https://kr8tiv.io/blog/ai-signage-design-edmonton/
+- Storefront layout designed with AI. A render is not a layout until the path, the sign, and the door still work on site. https://kr8tiv.io/blog/ai-storefront-layout-design-edmonton/
+- Vehicle wraps designed with AI. The file has to match the actual vehicle, not only the mockup. https://kr8tiv.io/blog/ai-vehicle-wrap-design-edmonton/
+- Packaging that still works when printed. The standout mark has to survive the dieline, the stock, and the shelf. https://kr8tiv.io/blog/packaging-design-that-stands-out-canada/
+- Signage that attracts customers. The sign has to be readable by the person who is actually walking or driving past. https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/
+
+## Studio pages
+
+- Home: https://kr8tiv.io/
+- About Matt Haynes: https://kr8tiv.io/about/
+- Selected work: https://kr8tiv.io/work/
+- Process: https://kr8tiv.io/process/
+- Terms and privacy: https://kr8tiv.io/terms/
+- How this site was built: https://kr8tiv.io/build-notes/

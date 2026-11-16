@@ -1,113 +1,25 @@
 # ============================================================
 # robots.txt · kr8tiv.io
-# We WANT traditional search engines AND AI crawlers to find us.
-# Existing crawler permissions are preserved. Allowing a crawler does not
-# guarantee indexing, model use, citations or assistant recommendations.
+# Search and answer indexers may crawl the public site.
+# Training collectors and bulk scrapers are opted out.
+# A named bot does not inherit the User-agent: * group, so a
+# one-line Allow group is not used here. Bots we want to treat
+# normally fall through to the catch-all, which keeps /admin/
+# and /api/ closed.
+# Google-Extended does not control Google Search.
 # ============================================================
 
-# ---------- Traditional search engines ----------
-User-agent: Googlebot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Googlebot-Video
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-# ---------- AI / LLM crawlers (explicit ALLOW) ----------
-# OpenAI / ChatGPT
+# Training and bulk collectors. Opt out.
 User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-# Google AI / Gemini
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Googlebot-News
-Allow: /
-
-# Anthropic / Claude
 User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-# Perplexity
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-# Common Crawl (trains many models)
-User-agent: CCBot
-Allow: /
-
-# Apple Intelligence
-User-agent: Applebot
-Allow: /
-
+User-agent: Google-Extended
 User-agent: Applebot-Extended
-Allow: /
-
-# Meta AI
-User-agent: FacebookBot
-Allow: /
-
-User-agent: meta-externalagent
-Allow: /
-
-# Microsoft Copilot
-User-agent: CopilotBot
-Allow: /
-
-# Cohere, Mistral, Amazon, etc.
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Diffbot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
+User-agent: CCBot
 User-agent: Bytespider
-Allow: /
+User-agent: Amazonbot
+Disallow: /
 
-User-agent: YouBot
-Allow: /
-
-# ---------- Existing optional crawler restrictions (preserved) ----------
+# SEO crawlers already refused on the previous file.
 User-agent: SemrushBot
 Disallow: /
 
@@ -117,15 +29,13 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-# ---------- Catch-all ----------
+# Search and answer indexers fall through to here:
+# Googlebot, Bingbot, OAI-SearchBot, PerplexityBot,
+# Claude-SearchBot, ChatGPT-User, and the rest.
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# ---------- Sitemaps ----------
 Sitemap: https://kr8tiv.io/sitemap-index.xml
 Sitemap: https://kr8tiv.io/sitemap-0.xml
-
-# Host canonicalization hint (legacy but Yandex still reads)
-Host: https://kr8tiv.io

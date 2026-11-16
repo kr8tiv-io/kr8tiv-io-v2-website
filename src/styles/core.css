@@ -503,6 +503,27 @@ pre.astro-code .line {
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
 @media (max-width: 720px) { .wrap { padding: 0 24px; } }
 
+/* Citeable studio sentence. Sits in normal flow under the hero so
+   crawlers and readers both see it. The hero overlay starts at
+   opacity 0, so this line does not live inside .hero-ui. */
+.entity-line {
+  max-width: 46rem;
+  margin: 28px auto 8px;
+  padding: 0 28px;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.1vw, 26px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink, #f2f1ec);
+  text-align: center;
+}
+.entity-line a {
+  color: var(--accent-1, #ff6ad5);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
 /* === Marquee ===
    Speed bumped 30% (52s → 40s per cycle). Individual words respond to
    hover with a 25% scale-up, bolder weight, and a slow soft prism

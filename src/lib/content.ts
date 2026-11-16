@@ -88,13 +88,9 @@ export const SERVICES: Service[] = [
   { obj: 'target', v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       href: '/services/ads-acquisition-edmonton/', tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
   { obj: 'phone', v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     href: '/services/app-design-edmonton/', tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
   { obj: 'gyro', v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 href: '/services/motion-3d-edmonton/', tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
-  /* AI Partnership panel removed at user request — the Design-34 loop
-     (with on-video "Life, the universe, everything?" lettering) lived
-     on the original kr8tiv.io as a manifesto piece, not a service. AI
-     services are still surfaced on the homepage via the loud InlineCTA
-     "We also build full AI systems for business" + the dedicated
-     /process/ page section, so the discipline is still represented
-     just not as a 12th scroller panel. */
+  /* Do not add a 12th homepage service card. Productized AI
+     (agents, company brains, business apps) belongs to the sister
+     lab at kr8tiv.ai, not to this studio catalog. */
 ];
 
 export interface Work {

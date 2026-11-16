@@ -39,6 +39,7 @@ const {
 } = Astro.props;
 
 const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+const secondaryExt = secondaryHref?.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
 <aside class="inline-cta" data-variant={variant} id={id} aria-label="Book a call with KR8TIV">
   {variant === 'whisper' ? (
@@ -59,7 +60,7 @@ const extAttrs = primaryHref.startsWith('http') ? { target: '_blank', rel: 'noop
           {primaryLabel}
         </a>
         {secondaryHref && secondaryLabel && (
-          <a href={secondaryHref} class="cta-ghost">
+          <a href={secondaryHref} {...secondaryExt} class="cta-ghost">
             {secondaryLabel}
           </a>
         )}

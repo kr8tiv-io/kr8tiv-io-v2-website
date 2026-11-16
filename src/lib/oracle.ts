@@ -42,7 +42,7 @@ export function initOracle(): void {
     { id: 'process', title: 'Our process',       subtitle: '9 steps · KONTACT → KARE',         icon: '◊', keywords: ['process','method','playbook','steps','how we work'], action: () => go('/process/') },
     { id: 'start',   title: 'Start a project',   subtitle: '10-section intake · ~8 min',       icon: '✎', keywords: ['start','intake','brief','form','request'], action: () => go('/start/') },
     { id: 'book',    title: 'Book a call',       subtitle: 'Calendly · free 30 min · no obligation', icon: '☏', keywords: ['book','calendly','call','meet','talk','chat','consult'], action: () => openExt('https://calendly.com/kr8tiv') },
-    { id: 'ai',      title: 'AI systems for business', subtitle: 'Marketing · agents · internal tools', icon: '❁', keywords: ['ai','automation','marketing','agent','gpt','llm','copilot'], action: () => go('/process/#ai') },
+    { id: 'ai',      title: 'KR8TIV AI', subtitle: 'Sister lab · company brains · agents', icon: '❁', keywords: ['ai','automation','agent','gpt','llm','lab','kr8tiv.ai'], action: () => openExt('https://kr8tiv.ai/') },
     { id: 'email',   title: 'Email Matt',        subtitle: 'kr8tiv@kr8tiv.io',                   icon: '✉', keywords: ['email','matt','contact','say hi','hello'], action: () => (location.href = 'mailto:kr8tiv@kr8tiv.io') },
     { id: 'work',    title: 'Work + case studies', subtitle: 'Selected output',                icon: '▤', keywords: ['work','portfolio','projects','case','studies'], action: () => go('/#work') },
     { id: 'why',     title: 'Why KR8TIV',        subtitle: 'Founder · ethos · proof',          icon: '✸', keywords: ['why','about','founder','ethos','matt','manifesto'], action: () => go('/#why') },

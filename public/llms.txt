@@ -4,7 +4,9 @@
 
 Last updated: 16 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
 
-This file is a plain-language guide for AI assistants and search tools. It is not a ranking control. The linked pages are the source of truth.
+This file is a plain-language guide for AI assistants and search tools. It is not a ranking control. The linked pages are the source of truth. The longer map is https://kr8tiv.io/llms-full.txt.
+
+Business AI systems, company brains, and product apps belong to the sister lab, KR8TIV AI (https://kr8tiv.ai). This domain is the Edmonton studio.
 
 ## Contact
 

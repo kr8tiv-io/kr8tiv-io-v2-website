@@ -485,7 +485,7 @@ html.motion-off .hero.hero-reveal .hero-call svg { animation: none; }
     rgba(5,5,7,0)   100%);
 }
 
-.hero.hero-reveal + .marquee-wrap { border-top: none; background: #000; }
+.hero.hero-reveal + .entity-line + .marquee-wrap { border-top: none; background: #000; }
 
 /* === Doctrine obelisk video === */
 .doctrine { position: relative; overflow: visible; background: #000; padding-bottom: clamp(140px, 14vh, 220px); }

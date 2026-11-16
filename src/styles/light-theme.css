@@ -896,7 +896,7 @@ html[data-theme="light"] .reveal-sticky { background: var(--bg); }
 /* Marquee strip immediately under the splash — was `background: #000`
    creating a black band in light mode. Flip to cream paper, keep the
    running text + dots on top in ink. */
-html[data-theme="light"] .hero.hero-reveal + .marquee-wrap {
+html[data-theme="light"] .hero.hero-reveal + .entity-line + .marquee-wrap {
   background: var(--bg);
   border-top: 1px solid var(--edge);
   border-bottom: 1px solid var(--edge);

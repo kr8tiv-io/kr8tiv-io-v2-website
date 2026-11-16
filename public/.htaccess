@@ -97,6 +97,8 @@ AddCharset UTF-8 .html .txt .xml .webmanifest
 # check also honours X-Forwarded-Proto so the CDN edge can't loop it.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # The privacy policy lives on /terms/. /privacy/ is not a page.
+  RewriteRule ^privacy/?$ https://kr8tiv.io/terms/ [R=301,L]
   RewriteCond %{HTTP_HOST} ^www\.kr8tiv\.io$ [NC]
   RewriteRule ^(.*)$ https://kr8tiv.io/$1 [R=301,L,NE]
   RewriteCond %{HTTPS} !=on

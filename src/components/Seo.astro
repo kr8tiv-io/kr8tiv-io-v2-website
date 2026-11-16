@@ -168,9 +168,9 @@ const orgSchema = {
   areaServed: AREA_SERVED_STUDIO,
   knowsAbout: [
     'Brand Design', 'Web Design', 'Motion Design', 'Video Editing',
-    'AI Automation', 'AI Marketing', 'AI Business Solutions',
     'Creative Direction', 'User Experience', 'Art Direction',
-    'Ecommerce Design', 'Packaging Design', '3D Design', 'Product Design'
+    'Ecommerce Design', 'Packaging Design', '3D Design', 'Product Design',
+    'Sign Design', 'Local Marketing'
   ],
   contactPoint: [{
     '@type': 'ContactPoint',
@@ -181,10 +181,10 @@ const orgSchema = {
     availableLanguage: ['en']
   }],
   /* Removed instagram + x.com per user request — those accounts
-     don't currently link to live profiles. LinkedIn (company) +
-     calendly + GitHub stay as the canonical external presence. */
+     don't currently link to live profiles. Calendly stays on the
+     contact point above. sameAs is only for profiles that are this
+     organization, not a booking link. */
   sameAs: [
-    'https://calendly.com/kr8tiv',
     'https://github.com/kr8tiv-io',
     'https://www.linkedin.com/company/kr8tiv-agency',
     'https://g.page/r/Cf3IkEeasCMiEBM'
@@ -224,7 +224,6 @@ const serviceSchema = {
   knowsAbout: ['Marketing agency', 'Graphic designer', 'Website designer', 'Video production service', 'Internet marketing service'],
   areaServed: AREA_SERVED_STUDIO,
   sameAs: [
-    'https://calendly.com/kr8tiv',
     'https://github.com/kr8tiv-io',
     'https://www.linkedin.com/company/kr8tiv-agency',
     'https://g.page/r/Cf3IkEeasCMiEBM'
@@ -238,21 +237,19 @@ const serviceSchema = {
     'Search Engine Optimization',
     'AI Search Optimization',
     'Motion & 3D Design',
-    'Video Production',
-    'AI Marketing Automation',
-    'AI Business Solutions',
-    'AI Agents & Internal Tools',
-    'AI Automation'
+    'Video Production'
   ],
   provider: { '@id': siteUrl + '/#organization' },
-  /* The eleven disciplines exactly as listed on the homepage, with the
-     published engagement floors (CAD, "from" prices, no GST). Keep in
+  /* Homepage disciplines, plus the landing-page floor. Published
+     engagement floors (CAD, "from" prices, no GST). The landing page
+     is an offer on the web page, not a 12th homepage card. Keep in
      sync with the homepage services section and /services/. */
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'KR8TIV services',
     url: siteUrl + '/services/',
     itemListElement: ([
+      ['Landing page', 850, '/services/web-design-edmonton/'],
       ['Website Design', 1200, '/services/web-design-edmonton/'],
       ['Branding + Identity', 500, '/services/branding/'],
       ['Video Editing', 400, '/services/video-editing-edmonton/'],
@@ -421,11 +418,29 @@ const personSchema = {
   name: 'Matt Haynes',
   url: siteUrl + '/about/',
   jobTitle: 'Founder & Creative Director',
-  worksFor: { '@id': siteUrl + '/#organization' },
+  worksFor: [
+    { '@id': siteUrl + '/#organization' },
+    { '@id': 'https://kr8tiv.ai/#organization' }
+  ],
   sameAs: [
-    'https://calendly.com/kr8tiv',
     'https://www.linkedin.com/in/matthaynes88/',
     'https://github.com/Matt-Aurora-Ventures'
+  ]
+};
+
+/* Sister lab. Kept off the studio node so answer engines do not
+   merge business AI systems into the Edmonton service offer. */
+const labSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ResearchOrganization',
+  '@id': 'https://kr8tiv.ai/#organization',
+  name: 'KR8TIV AI',
+  url: 'https://kr8tiv.ai/',
+  description: 'Sister lab to the KR8TIV studio. Business AI systems, company brains, agents, and product apps. Same founder. Different offer.',
+  founder: { '@id': siteUrl + '/#matt' },
+  sameAs: [
+    'https://kr8tiv.ai/',
+    'https://github.com/kr8tiv-ai'
   ]
 };
 
@@ -501,6 +516,7 @@ const robots = noIndex
 <!-- ============ JSON-LD structured data ============ -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(orgSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)}></script>
+<script type="application/ld+json" is:inline set:html={JSON.stringify(labSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)}></script>
 <script type="application/ld+json" is:inline set:html={JSON.stringify(pageSchema)}></script>
