@@ -1,10 +1,15 @@
 ---
 interface Props { poster: string; video?: string; alt: string }
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 const {poster,video,alt}=Astro.props;
+// Phone-width poster (added Nov 2026) so mobile LCP does not wait on the 1280px file.
+const small=poster.replace(/\.webp$/,'-768.webp');
+const srcset=small!==poster&&existsSync(join(process.cwd(),'public',small))?`${small} 768w, ${poster} 1280w`:undefined;
 ---
 <figure class="note-hero">
   <div class="note-hero-frame">
-    <img src={poster} alt={alt} width="1280" height="720" fetchpriority="high" />
+    <img src={poster} srcset={srcset} sizes={srcset ? "(max-width: 760px) 100vw, 900px" : undefined} alt={alt} width="1280" height="720" fetchpriority="high" decoding="async" />
     {video && <video muted loop playsinline preload="none" poster={poster} data-note-video data-src={video} aria-hidden="true"></video>}
   </div>
 </figure>

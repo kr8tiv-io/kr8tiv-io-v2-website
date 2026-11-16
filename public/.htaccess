@@ -26,7 +26,7 @@
 #                   The name changes when the bytes change, so a
 #                   one-year immutable cache is free and correct.
 #   · fonts       — self-hosted woff2, versioned by filename.
-#   · media       — long-lived but NOT immutable, so a changed file is
+#   · media       — 30 days, NOT immutable, so a changed file is
 #                   picked up on the next revalidation even if someone
 #                   forgets to bump the ?v= param. Big videos still get
 #                   the bandwidth win.
@@ -54,7 +54,7 @@
 
   # --- Media: long, but revalidatable -------------------------------
   <FilesMatch "\.(mp4|webm|mp3|jpg|jpeg|png|webp|avif|gif|svg|ico)$">
-    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
   </FilesMatch>
 
   # --- Live data + crawler files: always fresh -----------------------

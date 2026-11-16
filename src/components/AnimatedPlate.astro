@@ -4,6 +4,8 @@
  * Never carries SEO text. Video pauses off-screen / reduced-motion /
  * site motion-off; poster remains the visible fallback.
  */
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 export interface Props {
   src: string; // path without extension or with .webp
   alt: string;
@@ -25,6 +27,13 @@ const {
 const webp = src.endsWith('.webp') ? src : `${src}.webp`;
 const stem = webp.replace(/\.webp$/, '');
 const avif = `${stem}.avif`;
+// Build-time checks: only emit an AVIF source when the file exists (a
+// missing AVIF would otherwise win the <picture> and show a broken image),
+// and add a lighter phone-width encode when a "-mobile.mp4" sibling exists.
+const inPublic = (url: string) => existsSync(join(process.cwd(), 'public', url.split('?')[0]));
+const hasAvif = inPublic(avif);
+const mobileVideo = video ? video.replace(/\.mp4(\?.*)?$/, '-mobile.mp4$1') : undefined;
+const hasMobileVideo = !!(mobileVideo && mobileVideo !== video && inPublic(mobileVideo));
 const imgClass = variant === 'hero' ? 'svp-hero-img' : 'svp-plate-img';
 const vidClass = variant === 'hero' ? 'svp-hero-vid' : 'svp-plate-vid';
 ---
@@ -37,7 +46,7 @@ const vidClass = variant === 'hero' ? 'svp-hero-vid' : 'svp-plate-vid';
   data-svp-plate
 >
   <picture>
-    <source type="image/avif" srcset={avif} width={width} height={height} />
+    {hasAvif && <source type="image/avif" srcset={avif} width={width} height={height} />}
     <img
       class={imgClass}
       src={webp}
@@ -61,6 +70,7 @@ const vidClass = variant === 'hero' ? 'svp-hero-vid' : 'svp-plate-vid';
       aria-hidden="true"
       data-svp-plate-video
     >
+      {hasMobileVideo && <source src={mobileVideo} type="video/mp4" media="(max-width: 900px)" />}
       <source src={video} type="video/mp4" />
     </video>
   )}

@@ -8,9 +8,15 @@
  */
 export function isPhoneClassTouch(): boolean {
   if (typeof window === 'undefined' || !window.matchMedia) return false;
+  // Phones and small tablets: coarse pointer up to 900px wide, OR any
+  // viewport at phone width (720px and under), OR a visitor who asked
+  // the browser to save data. All of these skip the WebGL/3D layers.
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   return (
-    window.matchMedia('(pointer: coarse)').matches &&
-    window.matchMedia('(max-width: 900px)').matches
+    (window.matchMedia('(pointer: coarse)').matches &&
+      window.matchMedia('(max-width: 900px)').matches) ||
+    window.matchMedia('(max-width: 720px)').matches ||
+    conn?.saveData === true
   );
 }
 
