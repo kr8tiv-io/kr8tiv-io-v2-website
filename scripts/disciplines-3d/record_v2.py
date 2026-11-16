@@ -37,7 +37,7 @@ async def main():
             await pg.evaluate(f"scrollTo(0,{y})")
             await pg.wait_for_timeout(60)
             await pg.evaluate(SEEK, i/FPS)
-            await pg.screenshot(path=f'{tmp}/{i:05d}.jpg',type='jpeg',quality=92)
+            await pg.screenshot(path=f'{tmp}/{i:05d}.jpg',type='jpeg',quality=92,timeout=120000)
         await b.close()
     out=f'/workspace/kr8tiv-3d/rec/disciplines-scroll-{kind}-v2.mp4'
     subprocess.run(['ffmpeg','-y','-loglevel','error','-framerate',str(FPS),'-i',f'{tmp}/%05d.jpg','-vf','scale=trunc(iw/2)*2:trunc(ih/2)*2,format=yuv420p',
