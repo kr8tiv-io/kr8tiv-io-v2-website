@@ -30,12 +30,14 @@ export interface Service {
  *  (obsidian / glass / gold, KR8TIV red + magenta + gold rim light)
  *  on pure #000 so it melts into the circle mask. Bump `v=` on re-render. */
 export const disciplineLoop = (slug: string) => ({
-  /* phones get a 400px encode (~150-250 KB) via <source media> */
-  webmM: `/kr8tiv-assets/disciplines/${slug}-m.webm?v=1`,
-  mp4M: `/kr8tiv-assets/disciplines/${slug}-m.mp4?v=1`,
-  webm: `/kr8tiv-assets/disciplines/${slug}.webm?v=1`,
-  mp4: `/kr8tiv-assets/disciplines/${slug}.mp4?v=1`,
-  poster: `/kr8tiv-assets/disciplines/${slug}.jpg?v=1`
+  /* v2 (Nov 16): whimsical pass with site motifs (moons, ringed peaks,
+     ridge lines). v1 encodes stay one folder up for comparison.
+     Phones get a 400px encode via <source media>. */
+  webmM: `/kr8tiv-assets/disciplines/v2/${slug}-m.webm?v=2`,
+  mp4M: `/kr8tiv-assets/disciplines/v2/${slug}-m.mp4?v=2`,
+  webm: `/kr8tiv-assets/disciplines/v2/${slug}.webm?v=2`,
+  mp4: `/kr8tiv-assets/disciplines/v2/${slug}.mp4?v=2`,
+  poster: `/kr8tiv-assets/disciplines/v2/${slug}.jpg?v=2`
 });
 
 /* ============================================================

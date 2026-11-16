@@ -592,6 +592,12 @@
     aspect-ratio: 1 / 1;
   }
   .svc-rec { display: none; }
-  .svc-counter { top: 76px; right: 20px; font-size: 9px; letter-spacing: .2em; }
-  .svc-counter .n { font-size: 40px; margin-bottom: 4px; }
+  /* Counter stays pinned while the copy slides under it, so on phones it
+     gets a smaller footprint, a soft dark halo for legibility mid-slide,
+     and the tag + title reserve its column so long titles (Packaging +
+     Mockups) never sit underneath it at rest. */
+  .svc-counter { top: 74px; right: 16px; font-size: 8.5px; letter-spacing: .18em;
+    text-shadow: 0 0 10px rgba(5, 5, 7, .95), 0 0 3px rgba(5, 5, 7, .9); }
+  .svc-counter .n { font-size: 34px; margin-bottom: 3px; }
+  .svc-copy .meta, .svc-copy h3 { padding-right: 62px; }
 }
