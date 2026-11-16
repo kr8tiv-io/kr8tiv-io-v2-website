@@ -1,0 +1,290 @@
+---
+import FormLayout from '@layouts/FormLayout.astro';
+
+const title = 'PrimeTime Contractors business card | KR8TIV';
+const description = "Ramzi Adam's PrimeTime Contractors card: a wrapped scaffold front, silver foil inset on rich black, rounded corners and 32 pt soft-touch stock. By KR8TIV, Edmonton.";
+const canonical = '/work/primetime-contractors-card/';
+const ogImage = '/kr8tiv-assets/portfolio/primetime-cards/og-1280x720.webp';
+const ogImageAlt = 'PrimeTime Contractors business card for Ramzi Adam, front and reverse, designed by KR8TIV in Edmonton';
+const poster = '/kr8tiv-assets/portfolio/primetime-cards/flip-poster.webp';
+const posterSmall = '/kr8tiv-assets/portfolio/primetime-cards/flip-poster-480.webp';
+const faqs = [
+  {
+    q: 'Who designed the PrimeTime Contractors business card?',
+    a: 'KR8TIV designed the card for Ramzi Adam, CEO of PrimeTime Contractors, as part of the company\'s brand system. The studio is based in Edmonton.'
+  },
+  {
+    q: 'What is printed on the card?',
+    a: 'The front is a wrapped scaffold in fog grey with the official PrimeTime wordmark. The back is rich black, with Ramzi Adam\'s name, title, contacts and a QR code in a silver foil inset, and the logo inlaid in silver.'
+  },
+  {
+    q: 'Where does the QR code on the card go?',
+    a: 'The QR code opens primetime.contractors, so the card hands off to the website in one scan.'
+  }
+];
+---
+<FormLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  pageType="CaseStudy"
+  currentNav="work"
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+  keywords={['business card design Edmonton', 'print design', 'PrimeTime Contractors', 'Ramzi Adam', 'silver foil', 'brand identity', 'Alberta']}
+  article={{
+    publishedTime: '2026-11-16',
+    modifiedTime: '2026-11-16',
+    author: 'Matt Haynes',
+    section: 'Selected work',
+    tags: ['Case study', 'Business cards', 'Print design', 'Edmonton', 'Branding'],
+    images: [
+      '/kr8tiv-assets/portfolio/primetime-cards/flip-poster.webp',
+      '/kr8tiv-assets/portfolio/primetime-cards/mockup-hero.webp',
+      '/kr8tiv-assets/portfolio/primetime-cards/front-and-back.webp'
+    ]
+  }}
+  faqs={faqs}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Work', url: '/work/' },
+    { name: 'PrimeTime Contractors business card', url: canonical }
+  ]}
+>
+<section class="pcard-page" id="main">
+  <div class="pcard-hero">
+    <header class="pcard-head">
+      <p class="pcard-eye"><a href="/work/">← Selected work</a> · CLIENT WORK / BUSINESS CARDS</p>
+      <h1>PrimeTime Contractors<br/><em>business card.</em></h1>
+      <p class="pcard-dek">Designed for Ramzi Adam, CEO of PrimeTime Contractors. A wrapped scaffold on the front, a silver foil inset on rich black on the back, and a card that is built to be held.</p>
+    </header>
+    <figure class="pcard-video">
+      <div class="pcard-video-frame">
+        <img
+          src={poster}
+          srcset={`${posterSmall} 480w, ${poster} 720w`}
+          sizes="(max-width: 720px) 86vw, 520px"
+          alt="The front of Ramzi Adam's PrimeTime Contractors card, a wrapped scaffold in fog grey with the PrimeTime wordmark, floating on a dark ground"
+          width="720"
+          height="900"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <video
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster={poster}
+          data-case-video
+          aria-hidden="true"
+        >
+          <source src="/kr8tiv-assets/portfolio/primetime-cards/flip-720x900.webm" type="video/webm" media="(min-width: 768px)" />
+          <source src="/kr8tiv-assets/portfolio/primetime-cards/flip-720x900.mp4" type="video/mp4" media="(min-width: 768px)" />
+          <source src="/kr8tiv-assets/portfolio/primetime-cards/flip-480x600.webm" type="video/webm" />
+          <source src="/kr8tiv-assets/portfolio/primetime-cards/flip-480x600.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <figcaption>The card turns from the wrapped scaffold front to the silver foil reverse. The QR code opens primetime.contractors.</figcaption>
+    </figure>
+
+    <div class="pcard-copy">
+      <p>PrimeTime builds scaffolding systems, so the card starts on site. The front is a wrapped scaffold in fog grey, with the official PrimeTime wordmark. It tells you what the company does before you read a word.</p>
+      <p>The back is rich black, with Ramzi Adam's name, title, contacts and a QR code in a silver foil inset, and the logo inlaid in silver so it catches the light. The black makes the metal read. The metal makes the black feel considered.</p>
+      <p>Type has a job. Instrument Serif for the name, Inter for the title, JetBrains Mono for the contact lines. Three faces, three roles.</p>
+      <p>The format is 3.5 x 2 in, with rounded corners, 32 pt or heavier stock, and a soft-touch finish on both sides. The corners stay clean in a wallet, and the weight registers in the hand. The QR code opens <a href="https://primetime.contractors" target="_blank" rel="noopener noreferrer">primetime.contractors</a>, so the card hands off to the website in one scan.</p>
+      <p>A business card is still the most physical piece of a brand, and it is worth doing properly.</p>
+      <p class="pcard-links">
+        <a href="https://primetime.contractors" target="_blank" rel="noopener noreferrer">Visit primetime.contractors ↗</a>
+        <a href="/start/">Start a project →</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="pcard-stills" aria-label="Card photography">
+    <figure class="pcard-still pcard-still-wide">
+      <img
+        src="/kr8tiv-assets/portfolio/primetime-card.webp"
+        srcset="/kr8tiv-assets/portfolio/primetime-card-768.webp 768w, /kr8tiv-assets/portfolio/primetime-card.webp 1600w"
+        sizes="(max-width: 720px) 100vw, 1100px"
+        alt="Front and reverse of Ramzi Adam's PrimeTime Contractors business card, photographed together on a dark ground"
+        width="1600"
+        height="1000"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Front and reverse, photographed together. The wrap on the front, the foil on the back.</figcaption>
+    </figure>
+    <div class="pcard-still-grid">
+      <figure class="pcard-still">
+        <img
+          src="/kr8tiv-assets/portfolio/primetime-cards/mockup-foil.webp"
+          srcset="/kr8tiv-assets/portfolio/primetime-cards/mockup-foil-768.webp 768w, /kr8tiv-assets/portfolio/primetime-cards/mockup-foil.webp 960w"
+          sizes="(max-width: 720px) 100vw, 480px"
+          alt="Close view of the silver foil inset on the rich black reverse, showing Ramzi Adam, CEO, and the PrimeTime wordmark"
+          width="960"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>The silver foil inset on rich black, set so the metal catches the light.</figcaption>
+      </figure>
+      <figure class="pcard-still">
+        <img
+          src="/kr8tiv-assets/portfolio/primetime-cards/mockup-stack.webp"
+          srcset="/kr8tiv-assets/portfolio/primetime-cards/mockup-stack-768.webp 768w, /kr8tiv-assets/portfolio/primetime-cards/mockup-stack.webp 960w"
+          sizes="(max-width: 720px) 100vw, 480px"
+          alt="A short stack of PrimeTime Contractors cards, with the wrapped scaffold front on top and Ramzi Adam's reverse in front"
+          width="960"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>32 pt or heavier stock with a soft-touch finish you notice in the hand.</figcaption>
+      </figure>
+    </div>
+    <figure class="pcard-still pcard-still-wide pcard-still-flats">
+      <img
+        src="/kr8tiv-assets/portfolio/primetime-cards/front-and-back.webp"
+        srcset="/kr8tiv-assets/portfolio/primetime-cards/front-and-back-768.webp 768w, /kr8tiv-assets/portfolio/primetime-cards/front-and-back.webp 1600w"
+        sizes="(max-width: 720px) 100vw, 1100px"
+        alt="Flat artwork for the PrimeTime Contractors card: wrapped scaffold front on the left, rich black reverse with Ramzi Adam's details and QR code on the right"
+        width="1600"
+        height="1000"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>The front and reverse at the print size of 3.5 x 2 in, with rounded corners specified for the finished card.</figcaption>
+    </figure>
+  </section>
+
+  <section class="pcard-specs" aria-label="Design system">
+    <h2>The system behind it</h2>
+    <ul>
+      <li><span>Front</span><span>Wrapped scaffold in fog grey, official PrimeTime wordmark</span></li>
+      <li><span>Back</span><span>Rich black, silver foil inset, logo inlaid in silver</span></li>
+      <li><span>Type</span><span>Instrument Serif, Inter, JetBrains Mono</span></li>
+      <li><span>Format</span><span>3.5 x 2 in, rounded corners, 32 pt or heavier, soft-touch both sides</span></li>
+      <li><span>QR</span><span>Opens <a href="https://primetime.contractors" target="_blank" rel="noopener noreferrer">primetime.contractors</a></span></li>
+    </ul>
+  </section>
+
+  <section class="pcard-faq" aria-labelledby="pcard-faq-title">
+    <h2 id="pcard-faq-title">Questions</h2>
+    {faqs.map((f) => (
+      <div class="pcard-qa">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+  </section>
+
+  <footer class="pcard-foot">
+    <h2>Have something in mind?</h2>
+    <p>Cards, a logo, or the whole brand system. Tell Matt what you are building.</p>
+    <p class="pcard-links">
+      <a href="/start/">Start a project →</a>
+      <a href="/work/">Back to selected work</a>
+      <a href="/services/print-signage-design/">Storefront, sign and print design</a>
+    </p>
+  </footer>
+</section>
+</FormLayout>
+
+<style>
+.pcard-page{max-width:1280px;margin:auto;padding:120px 32px 100px;color:var(--ink)}
+.pcard-head{max-width:none;margin:0}
+.pcard-eye{font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--accent-4);text-transform:uppercase}
+.pcard-eye a{color:inherit;text-decoration:underline;text-underline-offset:4px}
+.pcard-head h1{font:clamp(48px,6vw,88px)/.98 'Instrument Serif',serif;letter-spacing:-.025em;margin:20px 0 24px}
+.pcard-head h1 em{font-weight:400;color:var(--accent-1)}
+.pcard-dek{max-width:48ch;font:18px/1.7 'Inter Tight',sans-serif;color:var(--ink-muted);margin:0}
+.pcard-hero{display:grid;grid-template-columns:minmax(240px,460px) minmax(0,1fr);grid-template-areas:"video head" "video copy";gap:28px 64px;align-items:start;margin:0 0 88px}
+.pcard-head{grid-area:head}
+.pcard-video{grid-area:video}
+.pcard-copy{grid-area:copy;padding-top:8px}
+.pcard-video{margin:0}
+.pcard-video-frame{position:relative;aspect-ratio:4/5;border:1px solid #59555e;border-radius:8px;overflow:hidden;background:#111113}
+.pcard-video-frame img,.pcard-video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pcard-video-frame video{opacity:0;transition:opacity .45s ease}
+.pcard-video-frame video.is-playing{opacity:1}
+.pcard-video figcaption,.pcard-still figcaption{font:10px/1.6 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--ink-muted);padding-top:12px}
+.pcard-copy p{font:17px/1.7 'Inter Tight',sans-serif;color:var(--ink-muted);margin:0 0 20px}
+.pcard-copy a,.pcard-specs a,.pcard-foot a,.pcard-links a{color:var(--accent-4);text-decoration:underline;text-underline-offset:4px}
+.pcard-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:28px}
+.pcard-stills{margin:0 0 88px}
+.pcard-still{margin:0 0 28px;background:#17171b;border:1px solid #59555e;border-radius:8px;overflow:hidden;padding:0}
+.pcard-still img{display:block;width:100%;height:auto;background:#111113}
+.pcard-still figcaption{padding:14px 18px 16px}
+.pcard-still-wide{max-width:1100px;margin-left:auto;margin-right:auto}
+.pcard-still-wide img{aspect-ratio:16/10;object-fit:cover;background:#111113}
+.pcard-still-flats img{object-fit:contain}
+.pcard-still-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin:0 0 28px}
+.pcard-still-grid .pcard-still{margin:0}
+.pcard-specs{max-width:800px;margin:0 0 72px}
+.pcard-specs h2,.pcard-faq h2,.pcard-foot h2{font:clamp(36px,5vw,52px)/1.1 'Instrument Serif',serif;margin:0 0 28px}
+.pcard-specs ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--edge)}
+.pcard-specs li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--edge);font:16px/1.6 'Inter Tight',sans-serif;color:var(--ink-muted)}
+.pcard-specs li>span:first-child{font:10px/1.6 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--accent-4);text-transform:uppercase;padding-top:4px}.pcard-specs li>span:last-child{font:16px/1.6 'Inter Tight',sans-serif;color:var(--ink-muted);letter-spacing:0;text-transform:none;padding-top:0}
+.pcard-faq{max-width:800px;margin:0 0 88px}
+.pcard-qa{padding:22px 0;border-top:1px solid var(--edge)}
+.pcard-qa:last-child{border-bottom:1px solid var(--edge)}
+.pcard-qa h3{font:22px/1.3 'Instrument Serif',serif;margin:0 0 10px}
+.pcard-qa p{margin:0;font:16px/1.7 'Inter Tight',sans-serif;color:var(--ink-muted)}
+.pcard-foot{margin:0;text-align:center;padding:48px 16px 0;border-top:1px solid var(--edge)}
+.pcard-foot p{margin:0 0 12px}
+.pcard-foot .pcard-links{justify-content:center}
+.pcard-video-frame:focus-visible,.pcard-copy a:focus-visible,.pcard-links a:focus-visible,.pcard-eye a:focus-visible{outline:3px solid #ffcd85;outline-offset:3px}
+@media(max-width:860px){
+  .pcard-hero{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "video" "copy";gap:28px}
+  .pcard-video-frame{max-width:420px;margin:0 auto}
+  .pcard-copy{padding-top:0}
+}
+@media(max-width:720px){
+  .pcard-page{padding:110px 18px 70px}
+  .pcard-head{margin-bottom:40px}
+  .pcard-head h1{font-size:58px}
+  .pcard-still-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .pcard-specs li{grid-template-columns:minmax(0,1fr);gap:6px}
+  .pcard-hero{margin-bottom:56px}
+  .pcard-stills,.pcard-faq{margin-bottom:56px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pcard-video-frame video{display:none}
+}
+:global(html.motion-off) .pcard-video-frame video{display:none}
+</style>
+
+<script>
+const clip = document.querySelector<HTMLVideoElement>('[data-case-video]');
+if (clip) {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  const allowed = () =>
+    !reduced.matches &&
+    !connection?.saveData &&
+    !document.documentElement.classList.contains('motion-off') &&
+    !document.hidden;
+  let visible = false;
+  let kicked = false;
+  const sync = () => {
+    if (allowed() && visible) {
+      if (!kicked) { kicked = true; clip.load(); }
+      clip.muted = true;
+      clip.play().then(() => clip.classList.add('is-playing')).catch(() => clip.classList.remove('is-playing'));
+    } else {
+      clip.pause();
+      try { clip.currentTime = 0; } catch { /* not seekable yet */ }
+      clip.classList.remove('is-playing');
+    }
+  };
+  const io = new IntersectionObserver((entries) => {
+    visible = entries.some((e) => e.isIntersecting);
+    sync();
+  }, { threshold: 0.25, rootMargin: '200px 0px' });
+  io.observe(clip);
+  reduced.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync);
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+}
+</script>
