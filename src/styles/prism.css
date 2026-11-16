@@ -552,7 +552,7 @@ html.motion-off .hero.hero-reveal .hero-call svg { animation: none; }
 .white-light-btn {
   display: inline-block; margin-left: 24px;
   font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .32em; text-transform: uppercase;
-  color: rgba(242, 241, 236, .38); background: transparent; border: none; padding: 4px 2px; cursor: pointer;
+  color: rgba(242, 241, 236, .62); /* was .38: 3.18:1, below WCAG AA 4.5:1 */ background: transparent; border: none; padding: 4px 2px; cursor: pointer;
   transition: color .8s cubic-bezier(.22,.62,.34,1), letter-spacing .8s cubic-bezier(.22,.62,.34,1), text-shadow .8s cubic-bezier(.22,.62,.34,1);
 }
 .white-light-btn:hover, .white-light-btn:focus-visible {

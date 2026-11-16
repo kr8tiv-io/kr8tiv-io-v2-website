@@ -433,7 +433,7 @@ html.svp-plates-static .svp-plate-glow { opacity: .16; }
 .fn-article { max-width: 760px; margin: 0 auto; padding: 8vh 6vw 12vh; }
 .fn-article h2 { font-size: clamp(30px, 3.2vw, 46px); margin: 2.2em 0 .6em; max-width: none; }
 .fn-article h3 { margin-top: 1.8em; }
-.fn-article a { color: var(--accent-1, #ff6ad5); }
+.fn-article a { color: var(--accent-1, #ff6ad5); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; } /* WCAG 1.4.1: links in body text must not rely on colour alone (Lighthouse link-in-text-block) */
 .fn-article table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 15px; }
 .fn-article th, .fn-article td {
   border-bottom: 1px solid var(--edge);
