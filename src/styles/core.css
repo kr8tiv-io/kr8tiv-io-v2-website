@@ -660,6 +660,7 @@ html.motion-off .marquee-inner span:hover { transform: none; }
 /* Frame: 2× bigger (max-width 720 was 360). Circular aspect-ratio
    preserved so all 12 videos stay visually identical in weight. */
 .svc-frame {
+  display: block; /* also rendered as <a> linking to the service page */
   position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;

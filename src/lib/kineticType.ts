@@ -33,7 +33,12 @@ export function initKineticType(): void {
     SplitText.create(el, {
       type: 'words',
       wordsClass: 'st-word',
-      aria: 'auto',
+      // `aria: 'auto'` moves the text into an aria-label on the host and
+      // hides the word spans. That is fine on headings, but aria-label is
+      // prohibited on a plain <p> (axe `aria-prohibited-attr`, flagged on
+      // the services intro in the Nov 16 audit). Word spans read
+      // naturally, so paragraphs keep their real text and no label.
+      aria: el.tagName === 'P' ? 'none' : 'auto',
       autoSplit: true
     });
   });
