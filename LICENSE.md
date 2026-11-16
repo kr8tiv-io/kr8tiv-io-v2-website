@@ -26,4 +26,4 @@ This license is **not** an open-source license. It is a deliberate, narrow grant
 © 2026 KR8TIV. All rights reserved.
 
 For licensing questions, takedowns, partnerships, or commercial reuse:
-**hello@kr8tiv.io** · *responses are by appointment.*
+**kr8tiv@kr8tiv.io** · *responses are by appointment.*

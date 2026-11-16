@@ -351,7 +351,7 @@ export function initIntake(): void {
     if (res.ok) {
       try { localStorage.removeItem(STORAGE_KEY); } catch {}
       if (title) title.textContent = 'Intake sent.';
-      if (lead) lead.textContent = 'Matt has your brief and replies within 24h on weekdays. A copy of what you sent is below. Attachments: reply to his email or send them to matt@kr8tiv.io with your name in the subject.';
+      if (lead) lead.textContent = 'Matt has your brief and replies within 24h on weekdays. A copy of what you sent is below. Attachments: reply to his email or send them to kr8tiv@kr8tiv.io with your name in the subject.';
       if (openBtn) openBtn.hidden = true;
       if (submitBtn) submitBtn.textContent = '✓ Sent';
       if (statusEl) statusEl.textContent = 'Sent. Matt replies within 24h on weekdays.';
@@ -364,7 +364,7 @@ export function initIntake(): void {
       if (openBtn) {
         openBtn.hidden = false; openBtn.textContent = 'Email it to Matt ↳';
         const subject = encodeURIComponent(`KR8TIV intake · ${data['name'] ?? ''} · ${data['company'] ?? ''}`);
-        openBtn.onclick = () => { window.location.href = `mailto:matt@kr8tiv.io?subject=${subject}&body=${encodeURIComponent(summary)}`; };
+        openBtn.onclick = () => { window.location.href = `mailto:kr8tiv@kr8tiv.io?subject=${subject}&body=${encodeURIComponent(summary)}`; };
       }
     }
     if (summaryEl) { summaryEl.classList.add('show'); summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
@@ -409,7 +409,7 @@ export function initIntake(): void {
       files.forEach((f) => {
         out += `  · ${f.name} (${(f.size / 1024).toFixed(0)} KB)\n`;
       });
-      out += '\n  → Please email these files to matt@kr8tiv.io with the subject above.\n';
+      out += '\n  → Please email these files to kr8tiv@kr8tiv.io with the subject above.\n';
     }
     return out;
   }

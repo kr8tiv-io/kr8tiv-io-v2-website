@@ -59,7 +59,7 @@ const TREE: Record<string, Step> = {
   'process-price': { msg: 'Pricing + split is on the process page.', options: [{ label: 'Go to /process/', goto: 'nav-process' }] },
   work: { msg: 'Routing you to the work section…', options: [{ label: 'Go to /#work', goto: 'nav-work' }] },
   call: { msg: 'Opening Calendly for a no-obligation call…', options: [{ label: 'Open calendly.com/kr8tiv', goto: 'nav-calendly' }] },
-  email: { msg: 'Opening your mail client to matt@kr8tiv.io…', options: [{ label: 'Compose email', goto: 'nav-email' }] }
+  email: { msg: 'Opening your mail client to kr8tiv@kr8tiv.io…', options: [{ label: 'Compose email', goto: 'nav-email' }] }
 };
 
 const KEYWORDS: Record<string, string> = {
@@ -89,7 +89,7 @@ export function initRemi(selector = '.ml-remi'): void {
     if (id === 'nav-process-ai') return void (location.href = '/process/#ai');
     if (id === 'nav-work') return void (location.href = '/#work');
     if (id === 'nav-calendly') return void window.open('https://calendly.com/kr8tiv', '_blank', 'noopener');
-    if (id === 'nav-email') return void (location.href = 'mailto:matt@kr8tiv.io');
+    if (id === 'nav-email') return void (location.href = 'mailto:kr8tiv@kr8tiv.io');
 
     const step = TREE[id];
     if (!step) return;
