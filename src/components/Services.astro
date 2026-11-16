@@ -110,7 +110,19 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
         // changes (rotation) still refresh.
         ScrollTrigger.config({ ignoreMobileResize: true });
       }
-      const getSlideDistance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+      // On phones the track's scrollWidth also counts a few px of paint
+      // overflow (the last circle's bloom), so the pan ran ~6px long and
+      // each panel drifted a little further left of centre (panel 11 sat
+      // 6px off). Measuring to the last panel's own right edge makes the
+      // travel exactly (panels - 1) x 100vw, so every circle lands on the
+      // viewport's centre line. Desktop keeps the scrollWidth measure.
+      const lastPanel = panels[panels.length - 1] as HTMLElement | undefined;
+      const getSlideDistance = () => {
+        if (isTouch && lastPanel) {
+          return Math.max(0, lastPanel.offsetLeft + lastPanel.offsetWidth - window.innerWidth);
+        }
+        return Math.max(0, track.scrollWidth - window.innerWidth);
+      };
       ScrollTrigger.create({
         trigger: pin,
         start: 'top top',
@@ -118,6 +130,18 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
         pin: true,
         anticipatePin: 1,
         scrub: isTouch ? 0.5 : 0.8,
+        // Phones and touch tablets: when the finger lets go, settle on the
+        // nearest discipline so its object, halo and platform rest on the
+        // viewport's centre line instead of wherever the flick stopped.
+        // Each panel is exactly 100vw there, so panel k sits dead centre
+        // at progress k / (panels - 1). Desktop keeps free scrubbing.
+        snap: isTouch && panels.length > 1 ? {
+          snapTo: 1 / (panels.length - 1),
+          duration: { min: 0.18, max: 0.5 },
+          delay: 0.06,
+          ease: 'power2.out',
+          inertia: false
+        } : undefined,
         onUpdate: (self) => {
           const slide = getSlideDistance();
           track.style.transform = `translateX(${-self.progress * slide}px)`;

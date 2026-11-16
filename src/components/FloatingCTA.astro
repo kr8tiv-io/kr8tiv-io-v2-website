@@ -362,7 +362,12 @@
     // rootMargin shrinks the observer root to that bottom band, so
     // threshold 0 means "overlaps the pill's zone" regardless of how
     // tall the section is.
-    const ctaSections = document.querySelectorAll('.inline-cta, .big-cta, .process-cta, .contact-bridge');
+    // On phones the pinned disciplines scroller is added too: the round
+    // pill sits bottom-right exactly where each discipline's 3D object
+    // and its platform rest, and every panel already has its own
+    // "Explore" link, so the pill steps aside while that section is up.
+    const phoneSel = window.matchMedia('(max-width: 720px)').matches ? ', .services-pin' : '';
+    const ctaSections = document.querySelectorAll('.inline-cta, .big-cta, .process-cta, .contact-bridge' + phoneSel);
     if (ctaSections.length) {
       const active = new Set<Element>();
       let suppressor: IntersectionObserver | null = null;
