@@ -9,7 +9,7 @@ const field = (src, k) => {
 };
 const tags = (src) => { const m = src.match(/^tags:\n((?:- .*\n)+)/m); return m ? m[1].trim().split('\n').map((l) => l.slice(2).trim()) : []; };
 const items = readdirSync(dir).filter((f) => f.endsWith('.md')).map((f) => {
-  const src = readFileSync(`${dir}/${f}`, 'utf8').split(/^---$/m)[1];
+  const src = readFileSync(`${dir}/${f}`, 'utf8').replace(/\r\n/g, '\n').split(/^---$/m)[1];
   return { slug: field(src, 'slug'), title: field(src, 'title'), desc: field(src, 'meta_description'), date: field(src, 'publish_date'), draft: /^draft:\s*true/m.test(src), tags: tags(src) };
 }).filter((p) => !p.draft && p.slug).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
 const site = 'https://kr8tiv.io';
