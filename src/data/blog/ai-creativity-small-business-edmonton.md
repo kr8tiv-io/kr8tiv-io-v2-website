@@ -23,7 +23,7 @@ related_slugs:
 - marketing-campaign-edmonton
 hero_alt: A dark studio desk at night, with a glass prism, a sketchbook, and a small shop model beside a laptop
 hero_poster: /kr8tiv-assets/blog/ai-creativity-small-business-edmonton-poster.webp
-hero_video: /kr8tiv-assets/blog/ai-creativity-small-business-edmonton-hero.mp4
+hero_video: /kr8tiv-assets/blog/ai-creativity-small-business-edmonton-hero-v2.mp4
 faq:
 - question: Can AI design a logo for my Edmonton business?
   answer: It can sketch directions, and it cannot hand you a finished logo. A usable logo still needs a real name, letters that are drawn on purpose, files a printer and a website can use, and a person who will say no to the tenth maple leaf.
