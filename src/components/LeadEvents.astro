@@ -1,0 +1,22 @@
+---
+/**
+ * Records a lead click or, via intakeForm.ts, a successful intake.
+ * No names, emails, or form fields. This does not affect rankings.
+ */
+---
+<script is:inline>
+(function () {
+  document.addEventListener('click', function (event) {
+    var node = event.target;
+    if (!node || !node.closest) return;
+    var link = node.closest('a');
+    if (!link || typeof gtag !== 'function') return;
+    var href = link.getAttribute('href') || '';
+    var method = '';
+    if (href.indexOf('tel:+17809155471') === 0) method = 'phone_call';
+    else if (href.indexOf('https://calendly.com/kr8tiv') === 0) method = 'calendly_click';
+    if (!method) return;
+    gtag('event', 'generate_lead', { method: method, page_location: location.pathname });
+  });
+})();
+</script>

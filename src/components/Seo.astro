@@ -22,7 +22,7 @@
  *   · Canonical link + robots meta + theme-color + author
  *   · JSON-LD structured data:
  *       - Organization (sitewide brand)
- *       - WebSite (with SearchAction for Google sitelinks search box)
+ *       - WebSite (no SearchAction: the site has no query URL)
  *       - ProfessionalService (our offering)
  *       - WebPage / ContactPage / AboutPage (per-page override)
  *       - BreadcrumbList (if provided)
@@ -32,7 +32,8 @@
  *
  * Why each matters:
  *   · Organization + Logo → unlocks rich brand panels in SERP
- *   · WebSite + SearchAction → Google sitelinks search box on brand search
+ *   · WebSite → names the site. SearchAction is omitted on purpose:
+ *     there is no /search?q= route, and a fake target is invalid markup.
  *   · HowTo → eligible for rich results + cited heavily by AI engines
  *     (ChatGPT / Perplexity / Gemini / Claude) when explaining process
  *   · FAQPage → still used by AI engines as canonical Q&A source even
@@ -191,6 +192,21 @@ const orgSchema = {
   ]
 };
 
+const pagePath = (() => {
+  try {
+    const p = new URL(canonicalUrl).pathname;
+    return p.endsWith('/') ? p : `${p}/`;
+  } catch {
+    return '/';
+  }
+})();
+/* The 12-offer catalog belongs on pages that are actually selling.
+   Field Notes stay BlogPosting-primary. Terms and build notes too. */
+const showOfferCatalog = pagePath === '/'
+  || pagePath.startsWith('/services/')
+  || pagePath === '/process/'
+  || pagePath === '/start/';
+
 // ProfessionalService — declares us as a bookable service provider.
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -244,7 +260,7 @@ const serviceSchema = {
      engagement floors (CAD, "from" prices, no GST). The landing page
      is an offer on the web page, not a 12th homepage card. Keep in
      sync with the homepage services section and /services/. */
-  hasOfferCatalog: {
+  ...(showOfferCatalog ? { hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'KR8TIV services',
     url: siteUrl + '/services/',
@@ -271,11 +287,10 @@ const serviceSchema = {
         ...(path && { url: siteUrl + path })
       }
     }))
-  }
+  } } : {})
 };
 
-// WebSite + SearchAction — unlocks the Google sitelinks search box
-// on brand queries (`KR8TIV …`).
+// WebSite names the property. No SearchAction: there is no search URL.
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -511,7 +526,7 @@ const robots = noIndex
 <meta name="DC.title" content={title} />
 <meta name="DC.creator" content="Matt Haynes" />
 <meta name="DC.publisher" content="KR8TIV" />
-<meta name="DC.language" content="en" />
+<meta name="DC.language" content="en-CA" />
 
 <!-- ============ JSON-LD structured data ============ -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(orgSchema)}></script>
@@ -534,3 +549,4 @@ const robots = noIndex
 <!-- Sitemap + RSS autodiscovery (sitemap emitted by @astrojs/sitemap) -->
 <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title="KR8TIV Field Notes" href="/rss.xml" />
+<link rel="describedby" href="https://kr8tiv.io/llms.txt" />

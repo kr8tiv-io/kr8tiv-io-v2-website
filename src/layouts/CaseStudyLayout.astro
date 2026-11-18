@@ -11,6 +11,7 @@ import '@styles/blend.css';        /* section blending — unified ground, feath
 import '@styles/elevate.css';      /* premium interaction layer — selection, scrollbar, focus, footer */
 import Nav from '@components/Nav.astro';
 import Footer from '@components/Footer.astro';
+import LeadEvents from '@components/LeadEvents.astro';
 import LogoSymbol from '@components/LogoSymbol.astro';
 import WhiteLightOverlay from '@components/WhiteLightOverlay.astro';
 
@@ -63,7 +64,7 @@ const ld = [
 ];
 ---
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-variant="editorial">
+<html lang="en-CA" data-theme="dark" data-variant="editorial">
 <head>
   <!-- Theme bootstrap: runs before first paint so there is no flash.
        Dark is ALWAYS the first-visit default, whatever the OS setting.
@@ -77,6 +78,7 @@ const ld = [
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <link rel="describedby" href="https://kr8tiv.io/llms.txt" />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="author" content="Matt Haynes" />
   <meta property="og:site_name" content="KR8TIV" />
@@ -122,6 +124,7 @@ const ld = [
     </article>
   </main>
   <Footer />
+  <LeadEvents />
   <WhiteLightOverlay />
   <script>
     import { initMotionToggle } from '@lib/motionToggle';

@@ -18,7 +18,7 @@
  *   · current — active page key. One of: 'home' | 'process' | 'start' | 'other'
  */
 export interface Props {
-  current?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'other';
+  current?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'services' | 'other';
 }
 const { current = 'home' } = Astro.props;
 const base = current === 'home' ? '' : '/';
@@ -34,7 +34,7 @@ const midLinks = [
   { href: '/process/',        label: 'PROCESS',  key: 'process' },
   { href: '/blog/',           label: 'NOTES',    key: 'blog' },
   { href: '/start/',          label: 'START',    key: 'start', sr: 'a project with KR8TIV' },
-  { href: '/terms/',          label: 'TERMS',    key: 'terms' }
+  { href: '/services/',       label: 'SERVICES', key: 'services' }
 ];
 ---
 <nav data-nav-state="hero">

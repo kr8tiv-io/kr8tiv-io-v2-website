@@ -22,6 +22,7 @@ import Seo from '@components/Seo.astro';
 import OracleOverlay from '@components/OracleOverlay.astro';
 import KintsugiOverlay from '@components/KintsugiOverlay.astro';
 import Footer from '@components/Footer.astro';
+import LeadEvents from '@components/LeadEvents.astro';
 import type { FaqItem, HowToStep, Crumb } from '@components/Seo.astro';
 
 export interface Props {
@@ -65,7 +66,7 @@ const {
 } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-variant={variant}>
+<html lang="en-CA" data-theme="dark" data-variant={variant}>
 <head>
   <!-- Theme bootstrap: runs before first paint so there is no flash.
        Dark is ALWAYS the first-visit default, whatever the OS setting.
@@ -159,6 +160,7 @@ const {
   </main>
 
   <Footer />
+  <LeadEvents />
 
   <VariantBar active={activeVariant} />
   <WhiteLightOverlay />

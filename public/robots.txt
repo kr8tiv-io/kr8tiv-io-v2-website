@@ -1,37 +1,17 @@
 # ============================================================
 # robots.txt · kr8tiv.io
-# Search and answer indexers may crawl the public site.
-# Training collectors and bulk scrapers are opted out.
-# A named bot does not inherit the User-agent: * group, so a
-# one-line Allow group is not used here. Bots we want to treat
-# normally fall through to the catch-all, which keeps /admin/
-# and /api/ closed.
-# Google-Extended does not control Google Search.
+# Search engines, answer engines, training crawlers, and SEO
+# tools may read the public site. Private paths stay closed
+# for every bot.
+#
+# A named User-agent group does not inherit User-agent: *.
+# Bots are not listed one by one, so they fall through to the
+# catch-all below and still cannot enter /admin/ or /api/.
+#
+# Google-Extended does not control Google Search or AI Overviews.
+# It covers Gemini Apps grounding and training. It is allowed.
 # ============================================================
 
-# Training and bulk collectors. Opt out.
-User-agent: GPTBot
-User-agent: ClaudeBot
-User-agent: Google-Extended
-User-agent: Applebot-Extended
-User-agent: CCBot
-User-agent: Bytespider
-User-agent: Amazonbot
-Disallow: /
-
-# SEO crawlers already refused on the previous file.
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-# Search and answer indexers fall through to here:
-# Googlebot, Bingbot, OAI-SearchBot, PerplexityBot,
-# Claude-SearchBot, ChatGPT-User, and the rest.
 User-agent: *
 Allow: /
 Disallow: /admin/

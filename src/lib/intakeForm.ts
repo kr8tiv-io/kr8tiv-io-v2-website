@@ -350,6 +350,8 @@ export function initIntake(): void {
 
     if (res.ok) {
       try { localStorage.removeItem(STORAGE_KEY); } catch {}
+      const track = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+      track?.('event', 'generate_lead', { method: 'intake_submit', page_location: location.pathname });
       if (title) title.textContent = 'Intake sent.';
       if (lead) lead.textContent = 'Matt has your brief and replies within 24h on weekdays. A copy of what you sent is below. Attachments: reply to his email or send them to kr8tiv@kr8tiv.io with your name in the subject.';
       if (openBtn) openBtn.hidden = true;

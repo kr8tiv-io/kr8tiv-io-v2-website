@@ -24,6 +24,17 @@ const disciplines = [
   { n: '010', t: 'App Product Design', d: 'Native and web app product design: IA, UX, UI, prototypes and handoff.', from: '$3,500+', href: '/services/app-design-edmonton/' },
   { n: '011', t: 'Motion + 3D', d: '3D, motion graphics and cinematic sequences, delivered with intent.', from: '$750+', href: '/services/motion-3d-edmonton/' }
 ];
+const floors = [
+  { offer: 'Landing page', floor: 'from $850 CAD', href: '/services/web-design-edmonton/' },
+  { offer: 'Landing page + search setup', floor: '$1,250 CAD', href: '/services/web-design-edmonton/' },
+  ...disciplines.map((s) => ({ offer: s.t, floor: `${s.from} CAD`, href: s.href })),
+  { offer: 'Website Care', floor: '$75 / month', href: '/services/ecommerce-website-edmonton/' },
+  { offer: 'Reviews Care', floor: '$295 / month', href: '/services/ads-acquisition-edmonton/' },
+  { offer: 'Search Engine plan', floor: '$495 / month', href: '/services/ads-acquisition-edmonton/' },
+  { offer: 'Search Dominance', floor: '$895 / month', href: '/services/ads-acquisition-edmonton/' },
+  { offer: 'Social plans', floor: 'from $500 / month', href: '/services/ads-acquisition-edmonton/' },
+  { offer: 'Fractional CMO', floor: '$1,950 / month', href: '/services/ads-acquisition-edmonton/' }
+];
 const faqs = [
   { q: 'What services does KR8TIV offer?', a: 'KR8TIV is a founder-led creative studio in Edmonton, Alberta offering eleven disciplines: website design, branding and identity, video editing, ecommerce setups, UX/UI and blockchain product design, signage and print, packaging, studio and A/V production, ads and acquisition creative, app product design, and motion and 3D.' },
   { q: 'How much do KR8TIV services cost?', a: 'Prices on this page are engagement floors in Canadian dollars, not menu prices. Full websites start from $1,950 CAD, branding from $500 CAD and app product design from $3,500 CAD. Final scope is agreed in writing before work begins. No GST charged.' },
@@ -58,6 +69,28 @@ const faqs = [
             <p>{s.d}</p>
           </div>
         ))}
+      </div>
+    </section>
+
+    <section class="svp-sec" aria-labelledby="floors">
+      <h2 id="floors">Floors, <em>not a menu</em>.</h2>
+      <p>Canadian dollars. Starting points only. Scope is agreed in writing before work starts. No GST charged. Ad spend, fabrication and printing are quoted outside these floors.</p>
+      <div class="svp-table-wrap">
+        <table class="svp-floors">
+          <caption>KR8TIV engagement floors in CAD</caption>
+          <thead>
+            <tr><th scope="col">Offer</th><th scope="col">Starts</th><th scope="col">Page</th></tr>
+          </thead>
+          <tbody>
+            {floors.map((row) => (
+              <tr>
+                <th scope="row">{row.offer}</th>
+                <td>{row.floor}</td>
+                <td><a href={row.href}>Open</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
 

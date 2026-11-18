@@ -7,12 +7,19 @@ import { readdirSync, readFileSync } from 'node:fs';
 // Real per-post dates for <lastmod>. A single build timestamp on every URL
 // (what the sitemap used to emit) tells Google nothing, and Google ignores
 // lastmod from sites where it is not consistently accurate.
+// Windows checkouts save Field Notes as CRLF. A slug regex that stops
+// at \n but not \r stores "slug\r", then lastmod and the draft filter
+// both miss. Normalize before matching. GitHub Actions is LF, which is
+// why production can look fine while a local Windows build drops dates.
+const readBlog = (f) => readFileSync('./src/data/blog/' + f, 'utf8').replace(/\r\n/g, '\n');
+const blogSlug = (src) => (src.match(/^slug:\s*["']?([^"'\r\n]+)["']?/m) || [])[1]?.trim();
+
 const blogLastmod = Object.fromEntries(
   readdirSync('./src/data/blog')
     .filter((f) => f.endsWith('.md'))
-    .map((f) => readFileSync('./src/data/blog/' + f, 'utf8'))
+    .map((f) => readBlog(f))
     .map((src) => [
-      (src.match(/^slug:\s*"?([^"\n]+)"?/m) || [])[1],
+      blogSlug(src),
       (src.match(/^updated:\s*'?([0-9-]{10})/m) || src.match(/^publish_date:\s*'?([0-9-]{10})/m) || [])[1]
     ])
     .filter(([slug, d]) => slug && d)
@@ -23,9 +30,9 @@ const latestBlogDate = Object.values(blogLastmod).sort().pop();
 // until Matt releases them (frontmatter `draft: false`).
 const draftBlogSlugs = readdirSync('./src/data/blog')
   .filter((f) => f.endsWith('.md'))
-  .map((f) => readFileSync('./src/data/blog/' + f, 'utf8'))
+  .map((f) => readBlog(f))
   .filter((src) => /^draft:\s*true/m.test(src))
-  .map((src) => (src.match(/^slug:\s*"?([^"\n]+)"?/m) || [])[1])
+  .map((src) => blogSlug(src))
   .filter(Boolean);
 
 // Astro 5 ships view-transitions as a built-in integration and uses
@@ -54,6 +61,9 @@ export default defineConfig({
         if (item.url.includes('/process/')) return { ...item, priority: 0.9 };
         if (item.url.includes('/start/')) return { ...item, priority: 0.9 };
         if (item.url.includes('/services/')) return { ...item, priority: 0.9 };
+        // Google ignores <priority>. This only keeps the file honest:
+        // terms is a legal page, not a buying page.
+        if (item.url.includes('/terms/')) return { ...item, priority: 0.3 };
         return item;
       }
     })

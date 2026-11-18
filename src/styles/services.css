@@ -309,6 +309,40 @@ html.svp-plates-static .svp-plate-glow { opacity: .16; }
   color: var(--ink-soft, rgba(242,241,236,.8));
 }
 .svp-body p { max-width: 62ch; margin: 0 0 1.1em; }
+.svp-table-wrap { overflow-x: auto; margin-top: 36px; }
+.svp-floors { width: 100%; border-collapse: collapse; }
+.svp-floors caption {
+  caption-side: bottom;
+  text-align: left;
+  padding-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-muted, rgba(242,241,236,.55));
+}
+.svp-floors th, .svp-floors td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--edge);
+  vertical-align: baseline;
+}
+.svp-floors thead th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-muted, rgba(242,241,236,.55));
+}
+.svp-floors tbody th { font-weight: 500; color: var(--ink); }
+.svp-floors td:nth-child(2) {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.svp-floors a { text-decoration: underline; text-underline-offset: 3px; }
 .svp-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

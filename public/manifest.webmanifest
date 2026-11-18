@@ -1,14 +1,14 @@
 {
   "name": "KR8TIV — Cyber-renaissance design atelier",
   "short_name": "KR8TIV",
-  "description": "Brand, web, motion, video, and full AI solutions for business. Book a no-obligation call.",
+  "description": "Founder-led design studio in Edmonton. Websites, brands, signs, packaging, motion and marketing.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "orientation": "any",
-  "lang": "en-US",
+  "lang": "en-CA",
   "dir": "ltr",
   "categories": ["business", "design", "productivity"],
   "icons": [

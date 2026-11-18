@@ -100,7 +100,7 @@ nav .brand-mark {
   shape-rendering: geometricPrecision;
 }
 nav .nav-mid {
-  justify-self: center; display: flex; gap: 36px;
+  justify-self: center; display: flex; gap: 28px;
   opacity: 0; transform: translateY(-4px);
   pointer-events: none;
   transition: opacity .5s cubic-bezier(.22, 1, .36, 1), transform .5s cubic-bezier(.22, 1, .36, 1);
