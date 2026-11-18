@@ -87,7 +87,7 @@ Give it the facts it cannot know, or do not bother:
 
 Then delete half. The page that gets the call is usually the one that answers a specific fear. For a lot of Alberta businesses that fear is "will this look cheap, take six months, or lock me into a template I cannot change." That question has its own note: [when a custom website pays off](/blog/website-that-earns-its-keep-alberta/).
 
-A full KR8TIV website starts from $1,200 CAD, with the same rule as the logo. Floor, written scope, no GST. AI does not replace the build. It shortens the part where we stare at a blank homepage and pretend the first sentence is precious.
+A full KR8TIV website starts from $1,950 CAD, with the same rule as the logo. Floor, written scope, no GST. AI does not replace the build. It shortens the part where we stare at a blank homepage and pretend the first sentence is precious.
 
 ## Will AI replace a designer or a marketing agency?
 

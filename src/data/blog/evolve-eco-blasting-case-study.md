@@ -39,7 +39,7 @@ faq:
   answer: Yes. This case study is published, with permission from Todd.
 - question: Can other Alberta trades get a site like this?
   answer: You can get a site and a search plan built around your actual services and service area. Evolve’s results
-    are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts from $1,200 CAD, with scope
+    are Evolve’s, not a promised outcome for every project. Website design at KR8TIV starts from $1,950 CAD, with scope
     agreed before the build. No GST charged.
 ---
 
@@ -129,7 +129,7 @@ Yes. This case study is published, with permission from Todd.
 
 ### Can other Alberta trades get a site like this?
 
-You can get a site and a search plan built around your actual services and service area. Evolve’s results are Evolve’s, not a promised outcome for every project. [Website design at KR8TIV](/services/web-design-edmonton/) starts from $1,200 CAD, with scope agreed before the build. No GST charged.
+You can get a site and a search plan built around your actual services and service area. Evolve’s results are Evolve’s, not a promised outcome for every project. [Website design at KR8TIV](/services/web-design-edmonton/) starts from $1,950 CAD, with scope agreed before the build. No GST charged.
 
 ## The site is live. The phones got loud.
 

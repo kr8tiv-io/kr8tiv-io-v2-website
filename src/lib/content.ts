@@ -55,7 +55,7 @@ export const disciplineLoop = (slug: string) => ({
  * the services intro copy, not as the price of the house.
  * ============================================================ */
 const FLOOR = {
-  starterWeb:  '$1,200+',
+  starterWeb:  '$1,950+',
   identity:    '$500+',
   video:       '$400+',
   ecom:        '$1,500+',

@@ -176,4 +176,4 @@ Bring your main service, ideal buyer, current site, common customer questions, a
 
 ## Brief the outcome before the look
 
-Talk to Matt about the job your website needs to do, then the experience it should create. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,200 CAD and focused landing pages from $850 CAD, with final scope agreed before work begins. No GST charged. [Start a website conversation](https://kr8tiv.io/start/).
+Talk to Matt about the job your website needs to do, then the experience it should create. KR8TIV [full website design](https://kr8tiv.io/services/web-design-edmonton/) starts from $1,950 CAD and focused landing pages from $850 CAD, with final scope agreed before work begins. No GST charged. [Start a website conversation](https://kr8tiv.io/start/).
