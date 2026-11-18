@@ -110,12 +110,23 @@ html.prism-gl-active .prism-caustic { opacity: calc(var(--caustic-op, 0) * 0.85)
 html.motion-off .prism-webgl { display: none; }
 @keyframes sweep { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
 
-/* === Splash reveal — hero takes 100vh, reveal-sticky pins the stage.
-   overflow:hidden on the hero itself so the 22x-scaled cover mask can
-   never leak beyond the section's bounds, even mid-scrub on slow
-   browsers where fill-opacity takes a frame or two to settle. */
-.hero.hero-reveal { height: 100vh; min-height: unset; padding: 0; overflow: hidden; display: block; position: relative; }
-.reveal-sticky { position: relative; height: 100vh; overflow: hidden; background: #050507; cursor: none; }
+/* === Splash reveal — hero matches the visible viewport.
+   100vh first, then 100svh where the browser knows it, so the pinned
+   stage is never taller than the screen (a taller hero would hide the
+   call pill below the fold for the whole pin). reveal-sticky fills the
+   hero (height: 100%) so the two boxes cannot disagree.
+   overflow:hidden stays on both so the 22x-scaled cover mask can never
+   leak past the section, even mid-scrub while fill-opacity settles. */
+.hero.hero-reveal {
+  height: 100vh;
+  height: 100svh;
+  min-height: unset;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+.reveal-sticky { position: relative; height: 100%; overflow: hidden; background: #050507; cursor: none; }
 .reveal-sticky > .hero-bg, .reveal-sticky > .hero-fx { position: absolute; inset: 0; z-index: 0; transform-origin: center center; will-change: transform; }
 .reveal-sticky > .hero-fx { z-index: 1; }
 .reveal-sticky > .hero-shade { display: none; }
@@ -329,7 +340,7 @@ html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
 .hero.hero-reveal .hero-ui {
   position: absolute; inset: 0; z-index: 5;
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: 120px 44px 32px;
+  padding: 120px 44px max(32px, env(safe-area-inset-bottom, 0px));
   gap: 28px;
   opacity: 0; pointer-events: none; will-change: opacity;
 }

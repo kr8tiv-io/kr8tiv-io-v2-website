@@ -614,3 +614,31 @@
   .svc-counter .n { font-size: 34px; margin-bottom: 3px; }
   .svc-copy .meta, .svc-copy h3 { padding-right: 62px; }
 }
+
+/* =====================================================================
+   Short laptop heights (Chrome with tabs + bookmarks). The splash is
+   pinned at the visible viewport with overflow hidden, so the title,
+   call pill, caption, and KEEP SCROLLING cue have to fit inside 100svh.
+   Clamps below are the desktop values once the stage is ~800px tall
+   (120px pad, 28px gap, 0.67em title margin, 26px call margin, full
+   7.4vw title). Shorter than that, spacing gives way first and the
+   title steps down only when three lines would still push the pill
+   past the hero edge. Bottom clearance stays ~75px so the pill sits
+   above the fixed 01-10 rail (bottom: 24px, ~45px tall) and the cue
+   stays fully inside the hero. Phones keep the rules above.
+   ===================================================================== */
+@media (max-height: 830px) and (min-width: 901px) {
+  .hero.hero-reveal .hero-ui {
+    --hero-gap: clamp(16px, calc(100svh - 634px), 28px);
+    padding-top: clamp(92px, calc(100svh - 620px), 120px);
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 0px), calc(60px - var(--hero-gap)));
+    gap: var(--hero-gap);
+  }
+  .hero.hero-reveal .hero-title {
+    font-size: clamp(64px, min(7.4vw, 12.5vh), 96px) !important;
+    margin-bottom: clamp(0px, calc(100svh - 736px), 0.67em);
+  }
+  .hero.hero-reveal .hero-call-row {
+    margin-top: clamp(8px, calc(100svh - 660px), 26px);
+  }
+}
