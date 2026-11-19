@@ -777,6 +777,92 @@ html.motion-off .marquee-inner span:hover { transform: none; }
   transform: scaleY(calc(.85 + var(--active, 0) * .15));
 }
 
+/* === 3D model panels (Website Design, Video Editing, Motion + 3D) ===
+   Same column box as the circle — including the ≤720px rules in
+   responsive.css, which key off .svc-frame — but none of the circle.
+   No mask, no prism pseudos, no paper fill. The mesh is drawn by the
+   shared canvas (.svc-webgl-layer, a sibling behind the track) into
+   the empty .svc-model rect. The bloom is a soft radial only; while
+   WebGL is running, services3d parks that element behind the canvas
+   so it cannot fog the mesh. */
+.svc-frame--model {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  cursor: none;
+}
+.svc-frame--model::before,
+.svc-frame--model::after {
+  content: none;
+  display: none;
+}
+.svc-frame--model:hover {
+  transform: none;
+  filter: none;
+}
+.svc-model {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.svc-model-bloom {
+  position: absolute;
+  inset: -28%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 52%,
+    rgba(255, 106, 213, .38) 0%,
+    rgba(142, 0, 255, .22) 34%,
+    rgba(255, 209, 102, .06) 56%,
+    transparent 76%);
+  filter: blur(48px);
+  pointer-events: none;
+  z-index: 0;
+}
+.svc-model-still {
+  display: none;
+  position: absolute;
+  inset: 8%;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+.svc-frame--model.is-still .svc-model-still { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .svc-frame--model .svc-model-still { display: block; }
+}
+html.motion-off .svc-frame--model .svc-model-still { display: block; }
+
+/* One canvas for every model, stretched over the pin. z-index 0 sits
+   above the pin background and below the track (the track is a
+   transform stacking context later in the tree, so copy stays sharp
+   and unfiltered). pointer-events none so the scroller still scrolls. */
+.svc-webgl-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.svc-webgl-layer .svc-model-bloom {
+  /* Containing block is the pin, not the frame — JS sets the box
+     to the slot plus the same 28% pad the inset used to provide. */
+  inset: auto;
+  z-index: 0;
+}
+.svc-webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
 /* Atmospheric bloom — sits OUTSIDE the circle, intensifies on hover. */
 .svc-frame-bloom {
   content: '';

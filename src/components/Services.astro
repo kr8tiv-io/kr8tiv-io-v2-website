@@ -48,12 +48,25 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
               <div class="price">ENGAGEMENTS FROM<span class="p">{s.price}</span></div>
               {s.href && <a class="svc-more" href={s.href}>Explore {s.t.toLowerCase()} <span aria-hidden="true">→</span></a>}
             </div>
-            <div class="svc-frame" data-cursor="media">
-              <span class="svc-frame-bloom" aria-hidden="true"></span>
-              <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
-                <source src={`/${vv(s.v)}`} type="video/mp4" />
-              </video>
-            </div>
+            {s.model ? (
+              /* Model panels: no video, no circle, no prism. The empty
+                 .svc-model is the scissor target for the shared canvas
+                 in services3d.ts. The still is the no-WebGL fallback. */
+              <div class="svc-frame svc-frame--model">
+                <span class="svc-model-bloom" aria-hidden="true"></span>
+                <div class="svc-model" data-model={s.model} data-poster={s.poster ?? ''}></div>
+                {s.poster && (
+                  <img class="svc-model-still" src={s.poster} alt="" width="800" height="800" decoding="async" loading="lazy" draggable="false" />
+                )}
+              </div>
+            ) : (
+              <div class="svc-frame" data-cursor="media">
+                <span class="svc-frame-bloom" aria-hidden="true"></span>
+                <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
+                  <source src={`/${vv(s.v)}`} type="video/mp4" />
+                </video>
+              </div>
+            )}
           </div>
         </div>
       ))}
@@ -65,6 +78,7 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
 
 <script>
   import { isPhoneClassTouch } from '@lib/devicePolicy';
+  import { mountServices3D } from '@lib/services3d';
 
   const track = document.getElementById('svc-track');
   const pin = document.getElementById('svc-pin');
@@ -133,7 +147,7 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
   // as CSS custom properties, which the ::before (spectrum band) and
   // ::after (caustic line) pseudo-elements consume to tilt + brighten.
   // Lerped for smoothness — matches the hero's 0.12 factor.
-  document.querySelectorAll<HTMLElement>('.svc-frame').forEach((frame) => {
+  document.querySelectorAll<HTMLElement>('.svc-frame:not(.svc-frame--model)').forEach((frame) => {
     const state = { tx: 0.5, ty: 0.5, ta: 0, cx: 0.5, cy: 0.5, ca: 0 };
     let raf = 0;
     const tick = () => {
@@ -163,4 +177,13 @@ import { SERVICES, vv, videoPoster } from '@lib/content';
       kick();
     });
   });
+
+  // Three model panels (Website Design, Video Editing, Motion + 3D)
+  // share one canvas. The import of three itself stays inside
+  // services3d and only runs once #services is within a viewport.
+  const servicesRoot = document.getElementById('services');
+  if (servicesRoot) {
+    try { mountServices3D(servicesRoot); }
+    catch (err) { console.error('[KR8·services3d] mount failed:', err); }
+  }
 </script>

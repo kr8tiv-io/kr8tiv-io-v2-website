@@ -236,6 +236,22 @@ html[data-theme="light"] .svc-frame::before {
 html[data-theme="light"] .svc-frame-bloom {
   display: none;
 }
+/* Model panels are not paper circles. The mesh (or its still) floats
+   on the page the same way it does in the dark theme. The magenta
+   bloom stays, quieter, so it doesn't stain the cream ground. */
+html[data-theme="light"] .svc-frame.svc-frame--model {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+html[data-theme="light"] .svc-frame.svc-frame--model::before,
+html[data-theme="light"] .svc-frame.svc-frame--model::after {
+  content: none;
+  display: none;
+}
+html[data-theme="light"] .svc-model-bloom {
+  opacity: .55;
+}
 
 /* Mobile light-mode exception: the user noted "on light mode for
    mobile, the prism effect on these videos disappears". Desktop

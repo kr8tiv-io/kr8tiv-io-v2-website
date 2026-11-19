@@ -48,6 +48,17 @@ export default defineConfig({
     service: { entrypoint: 'astro/assets/services/sharp' }
   },
   vite: {
+    optimizeDeps: {
+      // esbuild 0.28 (pinned above Vite's nested copy for the dev-server
+      // advisory) tries to downlevel destructuring for Vite's default
+      // browser list and then errors, because it has no such transform.
+      // three's core and GSAP's SplitText both use it, so the first
+      // import('three') fails the whole dep optimize and every later
+      // import hangs. Destructuring is fine in those browsers.
+      esbuildOptions: {
+        supported: { destructuring: true },
+      },
+    },
     build: {
       // Split Three.js + GSAP into their own chunks so the tiny pages
       // (contact, foot) don't pull a 200kB WebGL bundle they don't need.

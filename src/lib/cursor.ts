@@ -103,7 +103,8 @@ export function initCursor(): CursorController | null {
   // to opt into a state without code changes.
   document.querySelectorAll<HTMLElement>('nav .nav-mid a').forEach((a) => registerZone(a, 'link', a.textContent?.trim().toLowerCase() ?? ''));
   document.querySelectorAll<HTMLElement>('#music-btn, #theme-btn, #motion-toggle, .white-light-btn').forEach((el) => registerZone(el, 'magnetic'));
-  document.querySelectorAll<HTMLElement>('.work-card, .svc-frame').forEach((el) => registerZone(el, 'media', 'play'));
+  /* Model panels are not videos — the "play" cursor would be a lie. */
+  document.querySelectorAll<HTMLElement>('.work-card, .svc-frame:not(.svc-frame--model)').forEach((el) => registerZone(el, 'media', 'play'));
   document.querySelectorAll<HTMLElement>('.variant-bar a').forEach((el) => registerZone(el, 'link', el.getAttribute('title')?.split('—')[1]?.trim().toLowerCase() ?? ''));
   document.querySelectorAll<HTMLElement>('[data-cursor]').forEach((el) => {
     const s = el.dataset.cursor as CursorState | undefined;

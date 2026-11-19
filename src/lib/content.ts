@@ -20,6 +20,12 @@ export const videoPoster = (src: string): string =>
 
 export interface Service {
   v: string; t: string; em: string; desc: string; tag: string; price: string; href?: string;
+  /** GLB under /public. When set, the panel renders this model beside
+   *  the copy instead of the circular video. `v` stays so a video
+   *  source is still declared if the model cannot run. */
+  model?: string;
+  /** Still image for reduced motion, weak devices, and WebGL failure. */
+  poster?: string;
 }
 
 /* ============================================================
@@ -59,9 +65,9 @@ const FLOOR = {
    video (3-4) for Packaging, and routed forrestbackground/8-1 to
    ads + app product instead of UX/UI's 8-1. Restored to original. */
 export const SERVICES: Service[] = [
-  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
+  { v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb, model: '/kr8tiv-assets/3d/001-laptop.glb',      poster: '/kr8tiv-assets/3d/001-laptop.webp' },
   { v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
-  { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
+  { v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video,      model: '/kr8tiv-assets/3d/003-mobius-film.glb', poster: '/kr8tiv-assets/3d/003-mobius-film.webp' },
   { v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
   { v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
   { v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006 — Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
@@ -69,7 +75,7 @@ export const SERVICES: Service[] = [
   { v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
   { v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
   { v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
-  { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
+  { v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion,     model: '/kr8tiv-assets/3d/011-gyro-rings.glb',  poster: '/kr8tiv-assets/3d/011-gyro-rings.webp' }
   /* AI Partnership panel removed at user request — the Design-34 loop
      (with on-video "Life, the universe, everything?" lettering) lived
      on the original kr8tiv.io as a manifesto piece, not a service. AI
