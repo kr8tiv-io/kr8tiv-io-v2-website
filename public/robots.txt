@@ -19,3 +19,8 @@ Disallow: /api/
 
 Sitemap: https://kr8tiv.io/sitemap-index.xml
 Sitemap: https://kr8tiv.io/sitemap-0.xml
+
+# Machine-readable layer, same facts as the HTML pages:
+# https://kr8tiv.io/llms.txt
+# https://kr8tiv.io/llms-full.txt
+# Markdown mirrors use a .md suffix, for example /index.md and /services.md.

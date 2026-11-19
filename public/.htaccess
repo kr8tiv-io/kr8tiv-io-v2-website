@@ -121,3 +121,18 @@ AddCharset UTF-8 .html .txt .xml .webmanifest
 # makes Apache serve its own error about the error, which is worse than
 # the default it was meant to replace.
 ErrorDocument 404 /404.html
+
+# --- Markdown mirrors for AI crawlers and answer engines (additive) ---
+# Hand-written .md files in public/. Same facts as the HTML pages.
+<IfModule mod_headers.c>
+  <FilesMatch "\.md$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/markdown
+</IfModule>
+AddCharset UTF-8 .md
+<IfModule mod_mime.c>
+  AddType text/markdown .md
+</IfModule>

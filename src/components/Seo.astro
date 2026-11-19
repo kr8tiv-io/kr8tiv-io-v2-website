@@ -97,6 +97,34 @@ const canonicalUrl = canonical
   : siteUrl + Astro.url.pathname;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
 
+/* Additive markdown mirrors for key pages (public/*.md). Blog posts, terms,
+   404 and lab pages have no mirror, so they get no alternate link. */
+const MARKDOWN_MIRRORS = new Set([
+  '/',
+  '/about/',
+  '/services/',
+  '/services/web-design-edmonton/',
+  '/services/branding/',
+  '/services/print-signage-design/',
+  '/services/app-design-edmonton/',
+  '/services/ecommerce-website-edmonton/',
+  '/services/ads-acquisition-edmonton/',
+  '/services/motion-3d-edmonton/',
+  '/services/packaging-design-edmonton/',
+  '/services/studio-av-production-edmonton/',
+  '/services/ux-ui-design-edmonton/',
+  '/services/video-editing-edmonton/',
+  '/start/',
+  '/process/',
+  '/work/',
+  '/blog/'
+]);
+const canonicalPath = new URL(canonicalUrl).pathname;
+const markdownAlternate = MARKDOWN_MIRRORS.has(canonicalPath)
+  ? (canonicalPath === '/' ? siteUrl + '/index.md' : siteUrl + canonicalPath.replace(/\/$/, '') + '.md')
+  : undefined;
+
+
 /* Service area: Edmonton-anchored, Alberta-wide and Canada-wide.
    City / State / Country types match Google Business Profile plus the
    published metro and provincial reach. Worldwide is studio-only (remote
@@ -276,7 +304,16 @@ const serviceSchema = {
       ['Studio + A/V Print', 1500, '/services/studio-av-production-edmonton/'],
       ['Ads + Acquisition', 900, '/services/ads-acquisition-edmonton/'],
       ['App Product Design', 3500, '/services/app-design-edmonton/'],
-      ['Motion + 3D', 750, '/services/motion-3d-edmonton/']
+      ['Motion + 3D', 750, '/services/motion-3d-edmonton/'],
+      ['Landing page + search setup', 1250, '/services/web-design-edmonton/'],
+      ['Website Care', 75, '/services/ecommerce-website-edmonton/'],
+      ['Reviews Care', 295, '/services/ads-acquisition-edmonton/'],
+      ['Search Engine plan', 495, '/services/ads-acquisition-edmonton/'],
+      ['Search Dominance', 895, '/services/ads-acquisition-edmonton/'],
+      ['Social plans', 500, '/services/ads-acquisition-edmonton/'],
+      ['Fractional CMO', 1950, '/services/ads-acquisition-edmonton/'],
+      ['Brand Kit', 1050, '/services/branding/'],
+      ['Full Rebrand', 2450, '/services/branding/']
     ] as [string, number, string | null][]).map(([name, price, path]) => ({
       '@type': 'Offer',
       priceSpecification: { '@type': 'PriceSpecification', minPrice: price, priceCurrency: 'CAD' },
@@ -550,3 +587,7 @@ const robots = noIndex
 <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title="KR8TIV Field Notes" href="/rss.xml" />
 <link rel="describedby" href="https://kr8tiv.io/llms.txt" />
+<link rel="describedby" href="https://kr8tiv.io/llms-full.txt" />
+{markdownAlternate && (
+  <link rel="alternate" type="text/markdown" title="Plain-text version of this page" href={markdownAlternate} />
+)}

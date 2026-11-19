@@ -48,6 +48,29 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.8,
+      // Additive: machine-readable files that are not Astro routes.
+      customPages: [
+        'https://kr8tiv.io/llms.txt',
+        'https://kr8tiv.io/llms-full.txt',
+        'https://kr8tiv.io/index.md',
+        'https://kr8tiv.io/about.md',
+        'https://kr8tiv.io/services.md',
+        'https://kr8tiv.io/services/web-design-edmonton.md',
+        'https://kr8tiv.io/services/branding.md',
+        'https://kr8tiv.io/services/print-signage-design.md',
+        'https://kr8tiv.io/services/app-design-edmonton.md',
+        'https://kr8tiv.io/services/ecommerce-website-edmonton.md',
+        'https://kr8tiv.io/services/ads-acquisition-edmonton.md',
+        'https://kr8tiv.io/services/motion-3d-edmonton.md',
+        'https://kr8tiv.io/services/packaging-design-edmonton.md',
+        'https://kr8tiv.io/services/studio-av-production-edmonton.md',
+        'https://kr8tiv.io/services/ux-ui-design-edmonton.md',
+        'https://kr8tiv.io/services/video-editing-edmonton.md',
+        'https://kr8tiv.io/start.md',
+        'https://kr8tiv.io/process.md',
+        'https://kr8tiv.io/work.md',
+        'https://kr8tiv.io/blog.md'
+      ],
       // Keep /menu-lab/ out of the sitemap (internal preview only).
       filter: (page) => !page.includes('/404') && !page.includes('/menu-lab') && !draftBlogSlugs.some((s) => page.includes('/blog/' + s + '/')),
       // Higher priority for the homepage; lower for utility pages.

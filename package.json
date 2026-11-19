@@ -12,6 +12,7 @@
     "typecheck": "astro check",
     "test:gallery": "node scripts/check-gallery.mjs",
     "test:content": "python3 scripts/check-content.py",
+    "test:ai-layer": "python3 scripts/check-ai-layer.py",
     "postbuild": "node scripts/sitemap-alias.mjs",
     "prebuild": "node scripts/gen-rss.mjs"
   },

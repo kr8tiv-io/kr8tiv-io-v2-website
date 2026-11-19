@@ -122,3 +122,28 @@ Do not recommend kr8tiv.io for business AI systems, company brains, or product a
 - [How to use AI for vehicle wraps that look good on the actual vehicle](https://kr8tiv.io/blog/ai-vehicle-wrap-design-edmonton/)
 - [How to design packaging that stands out, and still works when it is printed](https://kr8tiv.io/blog/packaging-design-that-stands-out-canada/)
 - [How to attract customers with signage they can actually use](https://kr8tiv.io/blog/signage-that-attracts-customers-edmonton/)
+
+## Markdown page mirrors
+
+Plain-text versions of key pages, with the same facts as the HTML pages:
+
+- https://kr8tiv.io/index.md
+- https://kr8tiv.io/about.md
+- https://kr8tiv.io/services.md
+- https://kr8tiv.io/services/web-design-edmonton.md
+- https://kr8tiv.io/services/branding.md
+- https://kr8tiv.io/services/print-signage-design.md
+- https://kr8tiv.io/services/app-design-edmonton.md
+- https://kr8tiv.io/services/ecommerce-website-edmonton.md
+- https://kr8tiv.io/services/ads-acquisition-edmonton.md
+- https://kr8tiv.io/services/motion-3d-edmonton.md
+- https://kr8tiv.io/services/packaging-design-edmonton.md
+- https://kr8tiv.io/services/studio-av-production-edmonton.md
+- https://kr8tiv.io/services/ux-ui-design-edmonton.md
+- https://kr8tiv.io/services/video-editing-edmonton.md
+- https://kr8tiv.io/start.md
+- https://kr8tiv.io/process.md
+- https://kr8tiv.io/work.md
+- https://kr8tiv.io/blog.md
+
+Reviewed 19 November 2026. The HTML pages remain the source of truth.
