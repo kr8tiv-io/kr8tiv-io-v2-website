@@ -38,6 +38,17 @@ for f in dist.rglob('*.html'):
  assert not doc.select('meta[name="ai-content-declaration"]')
 print('PASS 15 articles, 60 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
 
+home=BeautifulSoup((dist/'index.html').read_text(),'html.parser')
+schemas=[json.loads(n.string) for n in home.select('script[type="application/ld+json"]')]
+home_faq=next(n for n in schemas if n.get('@type')=='FAQPage')
+home_visible=norm(home.get_text(' ',strip=True))
+assert len(home_faq['mainEntity'])==6
+assert home.select_one('#faq'), 'homepage FAQ section missing'
+for q in home_faq['mainEntity']:
+    assert norm(q['name']) in home_visible, q['name']
+    assert norm(q['acceptedAnswer']['text']) in home_visible, q['name']
+print('PASS homepage FAQ schema matches visible answers')
+
 work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==14
 for img in work.select('.portfolio-image img'):assert (dist/img['src'].lstrip('/')).is_file()
 walkthroughs=work.select('[data-gallery-video]');assert len(walkthroughs)==4
@@ -46,8 +57,9 @@ assert len([p for p in work.select('.portfolio-type') if 'OWN COMPANY / WEBSITE'
 print('PASS 14 distinct gallery displays, 4 deferred real walkthroughs, own-company labels')
 
 home=BeautifulSoup((dist/'index.html').read_text(),'html.parser');mark=home.select_one('.interlude-frame');poster=mark.find('img');video=mark.find('video')
-assert poster and poster['loading']=='eager' and 'transparent.webp' in poster['src'] and (dist/poster['src'].lstrip('/')).is_file()
-assert video and not video.has_attr('src') and not video.find('source') and not video.has_attr('autoplay') and (dist/video['data-src'].lstrip('/')).is_file()
+assert poster and poster['loading']=='eager' and 'Design-29-2-1.webp' in poster['src'] and (dist/poster['src'].lstrip('/')).is_file()
+video_src=(video['data-src'].lstrip('/').split('?')[0] if video and video.has_attr('data-src') else '')
+assert video and not video.has_attr('src') and not video.find('source') and not video.has_attr('autoplay') and (dist/video_src).is_file()
 for card in work.select('.portfolio-card'):
  if 'BUSINESS CARDS' in card.get_text():assert card.find('img')['loading']=='eager'
-print('PASS independent transparent logo fallback, deferred alpha video and eager business-card art')
+print('PASS independent interlude poster, deferred interlude video and eager business-card art')

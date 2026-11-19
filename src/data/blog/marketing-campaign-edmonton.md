@@ -7,7 +7,7 @@ meta_description: Build an Edmonton and Alberta marketing campaign around a clea
 excerpt: Build an Edmonton marketing campaign around a clear offer, useful creative, and qualified enquiries. Includes
   a worked example and a first-month plan.
 publish_date: '2026-11-08'
-updated: '2026-11-16'
+updated: '2026-11-19'
 draft: false
 status: published
 author: Matt Haynes
@@ -78,7 +78,7 @@ Turn the answers into a short brief:
 
 Work backwards from contribution margin, not revenue. [Contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) is sales revenue minus variable costs: the costs that change with the work delivered. It is not net profit: fixed costs still have to be covered.
 
-Suppose a fictional job brings in CAD $2,000 and costs CAD $1,200 to deliver. That leaves CAD $800 before overhead and profit. Spending CAD $700 to acquire that customer would leave little room for either.
+Suppose a fictional client job invoices CAD $2,000, and the variable cost of delivering that work (the service business's own materials and labour, not a KR8TIV studio fee or service price) uses 60% of the invoice. That leaves CAD $800 before the business's overhead and profit. Spending CAD $700 to acquire that customer would leave little room for either.
 
 For an initial planning exercise, suppose the owner sets a maximum acquisition cost of CAD $200 after considering those needs. If one in four qualified enquiries becomes a customer, the implied maximum cost per qualified enquiry is CAD $50:
 

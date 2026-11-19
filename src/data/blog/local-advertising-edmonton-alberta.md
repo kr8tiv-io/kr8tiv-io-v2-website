@@ -7,7 +7,7 @@ meta_description: Plan local ads for Edmonton and Alberta with honest budgets, b
 excerpt: Plan local ads for Edmonton and Alberta with honest budgets, better targeting, useful video, and qualified-lead
   tracking. Build a test before spending more.
 publish_date: '2026-11-08'
-updated: '2026-11-16'
+updated: '2026-11-19'
 draft: false
 status: published
 author: Matt Haynes
@@ -20,9 +20,10 @@ hero_alt: Still life of a local campaign sign, blank mailer and phone
 hero_poster: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-poster.webp
 hero_video: /kr8tiv-assets/blog/local-advertising-edmonton-alberta-hero.mp4
 faq:
-- question: Is CAD $500 enough to test local advertising?
-  answer: It may support a narrow media test, but the answer depends on click costs, service value, and the evidence
-    you need. It is not a reliable universal monthly budget, and creative or setup costs are separate.
+- question: Is CAD $500 in media spend enough to test local advertising?
+  answer: It may support a narrow media test paid to the advertising platform, but the answer depends on click
+    costs, service value, and the evidence you need. It is not a KR8TIV service price or a reliable universal
+    monthly budget, and creative or setup costs are separate.
 - question: Can ads guarantee customers in Edmonton?
   answer: No. Ads can buy distribution, not guaranteed sales. Offer quality, competition, targeting, website experience,
     response, and delivery capacity all affect results.
@@ -56,7 +57,7 @@ Start with one channel if the budget cannot support a meaningful test on both. C
 
 Set a test budget from the question you need answered, the likely cost of reaching buyers, and the loss you can tolerate. Separate media spend from creative production, setup, management, and landing-page work.
 
-Here is an illustrative search scenario, not a market benchmark. At an assumed CAD $5 per click, CAD $600 in media buys about 120 clicks. At an assumed 5% click-to-enquiry rate, that produces six enquiries. If half qualify, you have three qualified opportunities before considering sales.
+Here is an illustrative paid-search media scenario, not a KR8TIV fee and not a market benchmark. Media spend is what you pay the advertising platform, and it is separate from KR8TIV's published Ads and acquisition engagement floor of $900+. At an assumed CAD $5 per click, a CAD $600 media budget paid to the platform buys about 120 clicks. At an assumed 5% click-to-enquiry rate, that produces six enquiries. If half qualify, you have three qualified opportunities before considering sales.
 
 Every assumption can be wrong. Actual click costs and enquiry rates vary by service, competition, timing, and account setup. Three opportunities are also too few to establish a reliable long-term average.
 
@@ -154,9 +155,9 @@ Keep the distinction in the report: delivery, enquiry quality, follow-up and sal
 
 ## Frequently asked questions
 
-### Is CAD $500 enough to test local advertising?
+### Is CAD $500 in media spend enough to test local advertising?
 
-It may support a narrow media test, but the answer depends on click costs, service value, and the evidence you need. It is not a reliable universal monthly budget, and creative or setup costs are separate.
+It may support a narrow media test paid to the advertising platform, but the answer depends on click costs, service value, and the evidence you need. It is not a KR8TIV service price or a reliable universal monthly budget, and creative or setup costs are separate.
 
 ### Can ads guarantee customers in Edmonton?
 

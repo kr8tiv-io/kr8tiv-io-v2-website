@@ -7,7 +7,7 @@ meta_description: Decide what your Alberta business website needs before a rebui
 excerpt: Decide what your Alberta business website needs before a rebuild. Work through costs, buyer questions,
   local SEO, accessibility, and a safer launch plan.
 publish_date: '2026-11-08'
-updated: '2026-11-16'
+updated: '2026-11-19'
 draft: false
 status: published
 author: Matt Haynes
@@ -62,9 +62,9 @@ Separate content problems from technical problems. A slow gallery needs a differ
 
 Estimate the value of the problem you want to solve, then compare that value with the full cost of the project. Use [contribution margin](https://quickbooks.intuit.com/ca/resources/midsize-business/contribution-margin/) (revenue minus variable costs) rather than treating all additional revenue as profit.
 
-Here is a fictional planning example, not a KR8TIV result. An Alberta business receives 20 qualified website enquiries a month and wins five jobs. Suppose each job contributes CAD $600 after variable costs, before fixed costs and profit.
+Here is a fictional planning example for the client's own jobs, not a KR8TIV price or a promised result. An Alberta business receives 20 qualified website enquiries a month and wins five of those jobs. Suppose each won job contributes a few hundred dollars after that job's variable costs, before the business's fixed costs and profit.
 
-If better information and follow-up helped it win one additional suitable job each month, that would add CAD $600 in monthly contribution. A hypothetical CAD $3,600 project would equal six months of that contribution, before ongoing costs and other changes.
+If better information and follow-up helped it win one additional suitable job each month, that contribution would repeat each month. Compare that monthly figure with the published project cost. KR8TIV full website design starts from $1,950 CAD, and focused landing pages start from $850 CAD. How many months the project takes to earn back depends on the actual contribution of the extra work, and on ongoing costs and other changes.
 
 That calculation does not predict an improvement. The extra job is an assumption to test. The purpose is to make the investment conversation specific enough to challenge.
 

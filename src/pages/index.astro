@@ -12,6 +12,7 @@ import Contact from '@components/Contact.astro';
 import InlineCTA from '@components/InlineCTA.astro';
 import BigCTA from '@components/BigCTA.astro';
 import FloatingCTA from '@components/FloatingCTA.astro';
+import HomeFaq from '@components/HomeFaq.astro';
 import InterludeMark from '@components/InterludeMark.astro';
 
 // Homepage FAQ — eligible for FAQ rich results + cited heavily by AI
@@ -155,6 +156,8 @@ const homepageFaqs = [
 
   <Reel />
   <Contact />
+
+  <HomeFaq faqs={homepageFaqs} />
 
   {/* ── End-of-page big CTA — the landing ── */}
   <BigCTA />

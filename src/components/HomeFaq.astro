@@ -1,0 +1,65 @@
+---
+import type { FaqItem } from '@components/Seo.astro';
+
+interface Props {
+  faqs: FaqItem[];
+}
+
+const { faqs } = Astro.props;
+---
+<section class="home-faq" id="faq" aria-labelledby="home-faq-title">
+  <div class="wrap">
+    <div class="chapter-label mono"><span class="b"></span>QUESTIONS</div>
+    <h2 id="home-faq-title" class="chapter-title serif">Straight <em>answers</em>.</h2>
+    <div class="home-faq-list">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-faq {
+    padding: 160px 0;
+    background: #000;
+    isolation: isolate;
+  }
+  .home-faq .chapter-title {
+    margin: 0 0 56px;
+  }
+  .home-faq details {
+    border-bottom: 1px solid var(--edge);
+    padding: 22px 0;
+  }
+  .home-faq summary {
+    cursor: pointer;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(21px, 1.8vw, 28px);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--ink);
+  }
+  .home-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .home-faq summary::after {
+    content: '+';
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-1, #ff6ad5);
+    flex: none;
+  }
+  .home-faq details[open] summary::after {
+    content: '-';
+  }
+  .home-faq p {
+    margin: 14px 0 0;
+    max-width: 70ch;
+    color: var(--ink);
+  }
+</style>

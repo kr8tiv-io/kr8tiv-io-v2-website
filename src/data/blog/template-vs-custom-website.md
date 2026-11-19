@@ -5,7 +5,7 @@ seo_title: Template vs custom website for small business | KR8TIV
 meta_description: A template gets you online. A custom site gets you remembered. How Edmonton and Alberta small businesses can pick the right one for right now.
 excerpt: A template gets you online. A custom site gets you remembered. How Edmonton and Alberta small businesses can pick the right one for right now, and when to switch.
 publish_date: '2026-11-13'
-updated: '2026-11-16'
+updated: '2026-11-19'
 draft: false
 status: published
 author: Matt Haynes
@@ -116,7 +116,7 @@ Often, yes. If you are testing an idea, need your hours and phone number findabl
 
 ### When is a custom website worth it?
 
-When you compete on trust, are launching or relaunching, sell something people buy because of who you are, or spend more time fighting the template than using it.
+When you compete on trust, are launching or relaunching, sell something people buy because of who you are, or spend more time fighting the template than using it. In those cases the site has a job a generic layout struggles to do.
 
 ### How much does a custom website cost at KR8TIV?
 
