@@ -30,7 +30,8 @@ const SERVICE_LINKS: { match: RegExp; href: string; label: string }[] = [
   { match: /packag/i, href: '/services/packaging-design-edmonton/', label: 'Packaging design' },
   { match: /advertis|ads\b|campaign|marketing/i, href: '/services/ads-acquisition-edmonton/', label: 'Ads and acquisition' },
   { match: /video|motion/i, href: '/services/video-editing-edmonton/', label: 'Video editing' },
-  { match: /ecommerce|online store/i, href: '/services/ecommerce-website-edmonton/', label: 'Ecommerce setups' }
+  { match: /ecommerce|online store/i, href: '/services/ecommerce-website-edmonton/', label: 'Ecommerce setups' },
+  { match: /app design|ux design/i, href: '/services/app-design-edmonton/', label: 'App product design' }
 ];
 export function serviceLinksFor(post: Post) {
   const tags = post.tags.join(' ');

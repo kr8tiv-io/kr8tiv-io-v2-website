@@ -65,6 +65,16 @@ Do not invent a client quote. Do not turn a point-in-time ranking check into a p
 
 Each line is a title, one sentence, and the URL. Read the page for the full answer.
 
+- Edmonton sign permits in 2026. Most signs need a City permit; fascia $195, freestanding or projecting $415, digital $960 per panel, plus exemptions and processing times. https://kr8tiv.io/blog/edmonton-sign-permits/
+- Website cost in Edmonton. Studios that publish prices start around $500 to $1,200 for a small site; compare running costs and GST, not only the build. https://kr8tiv.io/blog/website-cost-edmonton/
+- Google Business Profile not showing. Work out whether it is unverified, suspended, duplicated or simply outranked, then use the fix Google allows for that case. https://kr8tiv.io/blog/google-business-profile-not-showing/
+- Starting a business in Edmonton. Check the name, register with the Province, then apply for the City licence; 2026 Tier 3 one-year licence is $271. https://kr8tiv.io/blog/starting-a-business-edmonton/
+- Google reviews in Canada. Ask every customer the same way, with no incentive and no gating; treat emailed or texted requests as CASL messages. https://kr8tiv.io/blog/google-reviews-canada-rules/
+- Alberta website grants in 2026. No open program pays directly for a small business website; CDAP ended in March 2025 and Digital Traction closed in May 2026. https://kr8tiv.io/blog/alberta-website-grants/
+- Contractor websites in Alberta. Build the site to answer the Province's homeowner checklist: WCB, insurance, licences, written estimates and a real address. https://kr8tiv.io/blog/contractor-website-alberta/
+- SEO cost in Edmonton. Published local agency prices run from about $500 to $3,500 a month; nobody can guarantee a number one ranking. https://kr8tiv.io/blog/seo-cost-edmonton/
+- Alberta business website law. PIPA notices on forms, CASL consent for email, all-in advertised prices, and accessibility; information, not legal advice. https://kr8tiv.io/blog/alberta-business-website-law/
+- App design and build cost in Canada. Published build budgets run from about $13,500 for a prototype to $250,000 and up; design is a smaller separate step. https://kr8tiv.io/blog/app-design-cost-canada/
 - Which AI marketing tools are worth paying for in 2026. One $20 assistant does the daily pile. Specialist tools come after you can name the job they fail. https://kr8tiv.io/blog/ai-marketing-tools-2026/
 - How AI can make a small business more creative. Use it for a pile of options, then score the options against the real shop, the real offer, and a phone in the dark. https://kr8tiv.io/blog/ai-creativity-small-business-edmonton/
 

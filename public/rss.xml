@@ -6,7 +6,133 @@
     <atom:link href="https://kr8tiv.io/rss.xml" rel="self" type="application/rss+xml" />
     <description>Practical design and marketing guides from KR8TIV in Edmonton, Alberta, Canada.</description>
     <language>en-ca</language>
-    <lastBuildDate>Tue, 17 Nov 2026 16:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 16:00:00 GMT</lastBuildDate>
+    <item>
+      <title>What the law expects from an Alberta small business website in 2026</title>
+      <link>https://kr8tiv.io/blog/alberta-business-website-law/</link>
+      <description>The Alberta and federal rules that apply to a small business website, from PIPA privacy notices and CASL consent to advertised prices and accessibility. Plain-language, not legal advice.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/alberta-business-website-law/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Web design</category>
+      <category>Small business</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+    </item>
+    <item>
+      <title>Are there grants for a small business website in Alberta? An honest 2026 check</title>
+      <link>https://kr8tiv.io/blog/alberta-website-grants/</link>
+      <description>Which grants for websites and digital work are open to Alberta small businesses in November 2026, which have closed, and the programs that can still cover part of the cost.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/alberta-website-grants/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Web design</category>
+      <category>Small business</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+    </item>
+    <item>
+      <title>How much does it cost to design and build an app in Canada in 2026?</title>
+      <link>https://kr8tiv.io/blog/app-design-cost-canada/</link>
+      <description>Published app budgets from Canadian studios, the separate cost of design, Apple and Google store fees, and how to keep the first version small enough to ship.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/app-design-cost-canada/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>App design</category>
+      <category>UX design</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+    </item>
+    <item>
+      <title>What an Alberta contractor's website needs to win the job in 2026</title>
+      <link>https://kr8tiv.io/blog/contractor-website-alberta/</link>
+      <description>The pages, proof and Alberta-specific details a contractor website needs, built around the checklist the Province tells homeowners to use before they hire.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/contractor-website-alberta/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Web design</category>
+      <category>Local SEO</category>
+      <category>Trades</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+    </item>
+    <item>
+      <title>Do you need a sign permit in Edmonton? Fees, exemptions and timelines for 2026</title>
+      <link>https://kr8tiv.io/blog/edmonton-sign-permits/</link>
+      <description>Which Edmonton signs need a permit, which are exempt, what the City charges in 2026, how long approval takes, and the storefront grants that can pay for half.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/edmonton-sign-permits/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Signage</category>
+      <category>Storefront design</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+      <category>Small business</category>
+    </item>
+    <item>
+      <title>Why is my Google Business Profile not showing? A fix-it guide for Edmonton businesses</title>
+      <link>https://kr8tiv.io/blog/google-business-profile-not-showing/</link>
+      <description>Why a Google Business Profile does not show on Maps or Search, how to tell which problem you have, and the exact fixes Google allows, with Edmonton examples.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/google-business-profile-not-showing/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Local SEO</category>
+      <category>Google Business Profile</category>
+      <category>Marketing</category>
+      <category>Edmonton</category>
+      <category>Small business</category>
+    </item>
+    <item>
+      <title>How to get more Google reviews in Canada without breaking the rules</title>
+      <link>https://kr8tiv.io/blog/google-reviews-canada-rules/</link>
+      <description>What Google allows when you ask for reviews, what the Competition Bureau says about staff reviews, and how CASL applies to review request emails and texts. Scripts included.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/google-reviews-canada-rules/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Local SEO</category>
+      <category>Google Business Profile</category>
+      <category>Marketing</category>
+      <category>Edmonton</category>
+      <category>Small business</category>
+    </item>
+    <item>
+      <title>How much does SEO cost in Edmonton? Real 2026 prices and what you get</title>
+      <link>https://kr8tiv.io/blog/seo-cost-edmonton/</link>
+      <description>Published monthly SEO prices from Edmonton agencies, what a survey of 439 SEOs found, what the money should buy, and the questions Google says to ask before you hire.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/seo-cost-edmonton/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>SEO</category>
+      <category>Local SEO</category>
+      <category>Marketing</category>
+      <category>Edmonton</category>
+      <category>Small business</category>
+    </item>
+    <item>
+      <title>Starting a business in Edmonton in 2026, step by step, with real fees</title>
+      <link>https://kr8tiv.io/blog/starting-a-business-edmonton/</link>
+      <description>The order to do things in when starting a business in Edmonton, with 2026 licence fees, home-based permit costs, City processing times, and the name checks most people skip.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/starting-a-business-edmonton/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Small business</category>
+      <category>Branding</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+    </item>
+    <item>
+      <title>How much does a website cost in Edmonton in 2026?</title>
+      <link>https://kr8tiv.io/blog/website-cost-edmonton/</link>
+      <description>Real 2026 website prices from Edmonton studios and the big builders, the running costs nobody quotes up front, and how to tell a fair quote from a padded one.</description>
+      <guid isPermaLink="true">https://kr8tiv.io/blog/website-cost-edmonton/</guid>
+      <author>kr8tiv@kr8tiv.io (Matt Haynes)</author>
+      <pubDate>Thu, 19 Nov 2026 16:00:00 GMT</pubDate>
+      <category>Web design</category>
+      <category>Ecommerce</category>
+      <category>Edmonton</category>
+      <category>Alberta</category>
+      <category>Small business</category>
+    </item>
     <item>
       <title>Which AI marketing tools are worth paying for in 2026</title>
       <link>https://kr8tiv.io/blog/ai-marketing-tools-2026/</link>
