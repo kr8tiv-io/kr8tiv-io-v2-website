@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/packaging-design-edmonton/. The HTML page is the source of truth.
 
-Packaging design and mockups for labels, boxes and print-ready artwork. Projects from $800 CAD. No GST charged.
+Packaging design and mockups for labels, boxes and print-ready artwork. Projects from $800 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

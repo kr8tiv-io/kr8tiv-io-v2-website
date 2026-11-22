@@ -144,7 +144,7 @@ Not mandatory fixed fees. The Competition Bureau says advertising a price that c
 
 ## A site that is built right the first time
 
-I build these things into every KR8TIV site: the form notices, the privacy page structure, the consent box and accessible design. Your lawyer still signs off on the wording if you need it. A full website starts from $1,950 CAD and a landing page from $850. Website Care is $75 a month. The scope is agreed in writing, and no GST is charged.
+I build these things into every KR8TIV site: the form notices, the privacy page structure, the consent box and accessible design. Your lawyer still signs off on the wording if you need it. A full website starts from $1,950 CAD and a landing page from $850. Website Care is $75 a month. The scope is agreed in writing, and KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

@@ -285,7 +285,7 @@ const serviceSchema = {
   ],
   provider: { '@id': siteUrl + '/#organization' },
   /* Homepage disciplines, plus the landing-page floor. Published
-     engagement floors (CAD, "from" prices, no GST). The landing page
+     engagement floors (CAD, "from" prices, KR8TIV is not GST registered, so no GST is added). The landing page
      is an offer on the web page, not a 12th homepage card. Keep in
      sync with the homepage services section and /services/. */
   ...(showOfferCatalog ? { hasOfferCatalog: {

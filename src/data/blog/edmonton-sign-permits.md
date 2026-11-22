@@ -164,7 +164,7 @@ Sometimes. The Storefront Refresh and Signage Grant reimburses half of eligible 
 
 ## Need the sign designed to pass the first time?
 
-I design storefront and sign packages for Edmonton businesses, with measured elevations your fabricator and the City can both read. Sign and storefront design starts from about $500 CAD, with the scope agreed in writing. No GST charged.
+I design storefront and sign packages for Edmonton businesses, with measured elevations your fabricator and the City can both read. Sign and storefront design starts from about $500 CAD, with the scope agreed in writing. KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471 and tell me what is on the wall now and what you want there.
 

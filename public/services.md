@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/. The HTML page is the source of truth.
 
-KR8TIV is a creative studio in Edmonton, Alberta. Matt Haynes and the studio design websites, brands, video, signage, packaging and campaigns for businesses across Alberta and Canada. Figures below are engagement floors in CAD, where a real project starts, with scope agreed in writing first. No GST charged. Ad spend, fabrication and printing are quoted outside these floors.
+KR8TIV is a creative studio in Edmonton, Alberta. Matt Haynes and the studio design websites, brands, video, signage, packaging and campaigns for businesses across Alberta and Canada. Figures below are engagement floors in CAD, where a real project starts, with scope agreed in writing first. KR8TIV is not GST registered, so no GST is added. Ad spend, fabrication and printing are quoted outside these floors.
 
 ## The eleven disciplines
 

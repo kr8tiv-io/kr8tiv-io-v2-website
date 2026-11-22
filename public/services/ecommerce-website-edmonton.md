@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/ecommerce-website-edmonton/. The HTML page is the source of truth.
 
-Ecommerce store setup from $1,500 CAD. Website Care $75 / month. Platform subscriptions, apps and payment fees are paid directly to those providers. No GST charged.
+Ecommerce store setup from $1,500 CAD. Website Care $75 / month. Platform subscriptions, apps and payment fees are paid directly to those providers. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

@@ -33,7 +33,7 @@ faq:
     struggles to do.
 - question: How much does a custom website cost at KR8TIV?
   answer: Full website design starts from $1,950 CAD and focused landing pages from $850 CAD. Those are starting
-    points, with the final scope agreed in writing before the build. No GST charged.
+    points, with the final scope agreed in writing before the build. KR8TIV is not GST registered, so no GST is added.
 - question: Can I start with a template and go custom later?
   answer: Yes. Keep your domain, your Google Business Profile and your page addresses stable, and save your best
     copy and photos. That makes the later move much smoother for visitors and for search engines.
@@ -120,7 +120,7 @@ When you compete on trust, are launching or relaunching, sell something people b
 
 ### How much does a custom website cost at KR8TIV?
 
-Full website design starts from $1,950 CAD and focused landing pages from $850 CAD. Those are starting points, with the final scope agreed in writing before the build. No GST charged.
+Full website design starts from $1,950 CAD and focused landing pages from $850 CAD. Those are starting points, with the final scope agreed in writing before the build. KR8TIV is not GST registered, so no GST is added.
 
 ### Can I start with a template and go custom later?
 

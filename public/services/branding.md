@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/branding/. The HTML page is the source of truth.
 
-Logo and identity from $500 CAD. Scope agreed before work starts. No GST charged.
+Logo and identity from $500 CAD. Scope agreed before work starts. KR8TIV is not GST registered, so no GST is added.
 
 A Brand Kit is $1,050 CAD and a Full Rebrand starts from $2,450 CAD, as published in https://kr8tiv.io/blog/logo-vs-brand-small-business/. Those two package prices are not yet repeated on the branding service HTML page.
 

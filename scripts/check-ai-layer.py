@@ -40,12 +40,22 @@ for floor in required_floors:
     assert floor in services_md, floor
 
 # Stale full-website price must not be presented as a KR8TIV service floor
-# in the hand-built layer. Fictional blog examples stay on their HTML pages.
+# in the hand-built layer. Market ranges in blog citations may mention $1,200.
 for rel in ["public/llms.txt", "public/llms-full.txt", "public/services.md", "public/index.md"]:
     text = (root / rel).read_text(encoding="utf-8")
     # The draft/layer files should not sell a $1,200 website.
     if re.search(r"websites? (are |start |from |floor )?\$\s*1,200", text, re.I):
         raise SystemExit(f"stale website floor in {rel}")
+    if "from $3,450" in text or "Immersive site from $3,450" in text:
+        raise SystemExit(f"stale immersive $3,450 floor in {rel}")
+    if "Website refresh: from $650" in text or "Website refresh from $650" in text:
+        raise SystemExit(f"stale $650 refresh floor in {rel}")
+    if "up to 6 pages" in text:
+        raise SystemExit(f"stale 'up to 6 pages' line in {rel}")
+    if "No GST charged" in text:
+        raise SystemExit(f"old GST wording still in {rel}")
+    if "KR8TIV is not GST registered, so no GST is added" not in text and rel in ["public/llms.txt", "public/llms-full.txt", "public/services.md", "public/index.md"]:
+        raise SystemExit(f"new GST wording missing from {rel}")
 
 for rel in mirrors:
     src = root / "public" / rel

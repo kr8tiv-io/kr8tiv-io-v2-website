@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/app-design-edmonton/. The HTML page is the source of truth.
 
-Native and web app product design: IA, UX, UI, prototypes and developer handoff. Ground-up app design from $3,500 CAD. UX/UI work is also offered from $1,500 CAD. No GST charged.
+Native and web app product design: IA, UX, UI, prototypes and developer handoff. Ground-up app design from $3,500 CAD. UX/UI work is also offered from $1,500 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

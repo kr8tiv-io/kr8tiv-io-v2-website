@@ -69,7 +69,7 @@ Adobe's [Text to Vector Graphic in Illustrator](https://www.adobe.com/products/i
 
 If you want the longer version of what a logo is and is not, read [logo or brand](/blog/logo-vs-brand-small-business/). Short version: a logo is one file. A brand is what people recognise when the logo is covered. AI is decent at the file-shaped part of the exploration. It is hopeless at the recognition part, because recognition is built from your real customers, not from the average of every logo on the internet.
 
-KR8TIV's logo and identity work starts from $500 CAD. That is a floor, not a quote, and the scope is agreed in writing before anyone starts. No GST charged. A model does not change that number into free. It changes how many directions I can put on the table in the first week.
+KR8TIV's logo and identity work starts from $500 CAD. That is a floor, not a quote, and the scope is agreed in writing before anyone starts. KR8TIV is not GST registered, so no GST is added. A model does not change that number into free. It changes how many directions I can put on the table in the first week.
 
 ## Can AI write my website?
 
@@ -87,7 +87,7 @@ Give it the facts it cannot know, or do not bother:
 
 Then delete half. The page that gets the call is usually the one that answers a specific fear. For a lot of Alberta businesses that fear is "will this look cheap, take six months, or lock me into a template I cannot change." That question has its own note: [when a custom website pays off](/blog/website-that-earns-its-keep-alberta/).
 
-A full KR8TIV website starts from $1,950 CAD, with the same rule as the logo. Floor, written scope, no GST. AI does not replace the build. It shortens the part where we stare at a blank homepage and pretend the first sentence is precious.
+A full KR8TIV website starts from $1,950 CAD, with the same rule as the logo. Floor, written scope, and KR8TIV is not GST registered, so no GST is added. AI does not replace the build. It shortens the part where we stare at a blank homepage and pretend the first sentence is precious.
 
 ## Will AI replace a designer or a marketing agency?
 

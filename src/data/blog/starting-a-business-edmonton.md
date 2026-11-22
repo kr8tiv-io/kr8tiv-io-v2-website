@@ -156,7 +156,7 @@ Not until your taxable sales pass $30,000 in a single calendar quarter or over f
 
 ## When it is time to look like a real business
 
-Once the paperwork is moving, I help Edmonton founders with the parts customers see: the name check, the identity, the sign and the website. Branding starts from $500 CAD, a landing page from $850, and a full website from $1,950. The scope is agreed in writing, and no GST is charged.
+Once the paperwork is moving, I help Edmonton founders with the parts customers see: the name check, the identity, the sign and the website. Branding starts from $500 CAD, a landing page from $850, and a full website from $1,950. The scope is agreed in writing, and KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

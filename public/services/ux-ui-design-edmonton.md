@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/ux-ui-design-edmonton/. The HTML page is the source of truth.
 
-Product UX, interface systems, design tokens and Web3 flows for apps and on-chain products. From $1,500 CAD. App product design is also offered from $3,500 CAD. No GST charged.
+Product UX, interface systems, design tokens and Web3 flows for apps and on-chain products. From $1,500 CAD. App product design is also offered from $3,500 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

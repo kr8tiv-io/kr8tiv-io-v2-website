@@ -131,7 +131,7 @@ The City of Edmonton's Storefront Refresh and Signage Grant covers half of eligi
 
 ## If you are paying for it yourself
 
-I would rather tell you the truth about grants than sell you on a phantom one. KR8TIV builds landing pages from $850 CAD, landing pages with search set-up for $1,250, and full websites from $1,950. Scope is agreed in writing before any work starts, and no GST is charged.
+I would rather tell you the truth about grants than sell you on a phantom one. KR8TIV builds landing pages from $850 CAD, landing pages with search set-up for $1,250, and full websites from $1,950. Scope is agreed in writing before any work starts, and KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

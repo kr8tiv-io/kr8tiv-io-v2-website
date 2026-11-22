@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/studio-av-production-edmonton/. The HTML page is the source of truth.
 
-Full studio production: web, audio/video and print under one founder-led roof. Projects from $1,500 CAD. No GST charged.
+Full studio production: web, audio/video and print under one founder-led roof. Projects from $1,500 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

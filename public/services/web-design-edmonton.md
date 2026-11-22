@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/web-design-edmonton/. The HTML page is the source of truth.
 
-Founder-led web design in Edmonton for Alberta and Canadian businesses. Full websites from $1,950 CAD. Landing pages from $850 CAD. No GST charged. Scope agreed before the build.
+Founder-led web design in Edmonton for Alberta and Canadian businesses. Full websites from $1,950 CAD. Landing pages from $850 CAD. KR8TIV is not GST registered, so no GST is added. Scope agreed before the build.
 
 The landing page + search setup floor of $1,250 CAD is published on the services index at https://kr8tiv.io/services/.
 

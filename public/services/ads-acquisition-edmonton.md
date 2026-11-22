@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/ads-acquisition-edmonton/. The HTML page is the source of truth.
 
-Paid social, display, video and creator campaigns. Setup and creative from $900 CAD. Ad spend is paid by the client. No GST charged on KR8TIV fees.
+Paid social, display, video and creator campaigns. Setup and creative from $900 CAD. Ad spend is paid by the client. KR8TIV is not GST registered, so no GST is added on KR8TIV fees.
 
 Related monthly floors, published on https://kr8tiv.io/services/: Reviews Care $295 / month, Search Engine plan $495 / month, Search Dominance $895 / month, social plans from $500 / month, Fractional CMO $1,950 / month.
 

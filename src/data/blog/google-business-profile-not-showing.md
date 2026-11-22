@@ -148,7 +148,7 @@ No. Google tells owners not to create a new profile while appealing. Gather proo
 
 ## Want someone to sort it out?
 
-I set up and repair Google Business Profiles for Edmonton businesses as part of search work, and I build websites that back them up. The Reviews Care plan is $295 a month, the Search Engine plan is $495 a month, and Search Dominance is $895 a month. What each one covers for your business is agreed in writing before we start. No GST charged.
+I set up and repair Google Business Profiles for Edmonton businesses as part of search work, and I build websites that back them up. The Reviews Care plan is $295 a month, the Search Engine plan is $495 a month, and Search Dominance is $895 a month. What each one covers for your business is agreed in writing before we start. KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471 with your business name and your Business Profile status in front of you.
 

@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/print-signage-design/. The HTML page is the source of truth.
 
-Sign concepts from about $500 CAD (design only, not an installed-sign quote). Full project management at variable rates. Fabricators and installers do the physical production and installation; those costs are quoted separately. No GST charged on KR8TIV design fees.
+Sign concepts from about $500 CAD (design only, not an installed-sign quote). Full project management at variable rates. Fabricators and installers do the physical production and installation; those costs are quoted separately. KR8TIV is not GST registered, so no GST is added on KR8TIV design fees.
 
 ## Contact
 

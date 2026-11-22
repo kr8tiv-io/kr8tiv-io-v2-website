@@ -196,7 +196,7 @@ It can research, draft, and prepare on a schedule, including after you close the
 
 Most businesses in Edmonton, and across Alberta, do not need another subscription. They need a brand, a website, and a system that makes the next customer obvious, and someone who will say so when the idea is wrong.
 
-KR8TIV is a founder-led studio in Edmonton. I take about ten clients a year, on websites, identity, packaging, motion, and the marketing that brings people in. Logo and identity work starts from $500 CAD. A full website starts from $1,950 CAD. Landing pages start from $850 CAD. Those are floors, agreed in writing, and no GST is charged. A free 30-minute call is the start, and a lot of those calls end smaller than the plan you walked in with.
+KR8TIV is a founder-led studio in Edmonton. I take about ten clients a year, on websites, identity, packaging, motion, and the marketing that brings people in. Logo and identity work starts from $500 CAD. A full website starts from $1,950 CAD. Landing pages start from $850 CAD. Those are floors, agreed in writing, and KR8TIV is not GST registered, so no GST is added. A free 30-minute call is the start, and a lot of those calls end smaller than the plan you walked in with.
 
 [Start a project or book the call](/start/), or ring (780) 915-5471. No phone tree. If it is not a fit, you will hear that quickly.
 

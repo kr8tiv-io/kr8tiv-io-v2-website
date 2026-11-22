@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/video-editing-edmonton/. The HTML page is the source of truth.
 
-Promo videos, feature edits, social cuts and 3D animation. Projects from $400 CAD. Motion and 3D is also offered from $750 CAD. No GST charged.
+Promo videos, feature edits, social cuts and 3D animation. Projects from $400 CAD. Motion and 3D is also offered from $750 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

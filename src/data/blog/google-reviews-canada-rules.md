@@ -151,7 +151,7 @@ Treat a review request as a commercial electronic message and make sure you have
 
 ## If you want the reviews handled properly
 
-Reviews are easy to get wrong, and the damage from a restriction lasts longer than the boost from a shortcut. KR8TIV's Reviews Care plan is $295 a month. What it includes for your business, from the request flow to replies, is agreed in writing before we start. No GST charged.
+Reviews are easy to get wrong, and the damage from a restriction lasts longer than the boost from a shortcut. KR8TIV's Reviews Care plan is $295 a month. What it includes for your business, from the request flow to replies, is agreed in writing before we start. KR8TIV is not GST registered, so no GST is added.
 
 Read [why a Google Business Profile might not show](/blog/google-business-profile-not-showing/) if the reviews are fine but the profile is not appearing.
 

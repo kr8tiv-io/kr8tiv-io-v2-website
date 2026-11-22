@@ -31,7 +31,7 @@ faq:
 - question: Should a contractor put prices on their website?
   answer: Starting prices or typical ranges help, because they filter out people who cannot afford the job. Alberta also warns homeowners against contractors who quote a price without seeing the job, so make it clear that a firm price follows a site visit and a written estimate.
 - question: How much does a contractor website cost in Edmonton?
-  answer: Edmonton studios that publish prices start between about $500 and $1,200 for a small site. A contractor site with several service pages, a project gallery and a quote form usually costs more. KR8TIV's full websites start from $1,950 CAD with no GST charged.
+  answer: Edmonton studios that publish prices start between about $500 and $1,200 for a small site. A contractor site with several service pages, a project gallery and a quote form usually costs more. KR8TIV's full websites start from $1,950 CAD. KR8TIV is not GST registered, so no GST is added.
 ---
 
 # What an Alberta contractor's website needs to win the job in 2026
@@ -148,11 +148,11 @@ Starting prices or typical ranges help, because they filter out people who canno
 
 ### How much does a contractor website cost in Edmonton?
 
-Edmonton studios that publish prices start between about $500 and $1,200 for a small site. A contractor site with several service pages, a project gallery and a quote form usually costs more. KR8TIV's full websites start from $1,950 CAD with no GST charged.
+Edmonton studios that publish prices start between about $500 and $1,200 for a small site. A contractor site with several service pages, a project gallery and a quote form usually costs more. KR8TIV's full websites start from $1,950 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Want a site that answers the homeowner's checklist?
 
-I build websites for Alberta trades around the work you actually want, with the proof homeowners are told to look for. Full websites start from $1,950 CAD, landing pages from $850, and the Search Engine plan is $495 a month. The scope is agreed in writing before we start, and no GST is charged.
+I build websites for Alberta trades around the work you actually want, with the proof homeowners are told to look for. Full websites start from $1,950 CAD, landing pages from $850, and the Search Engine plan is $495 a month. The scope is agreed in writing before we start, and KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

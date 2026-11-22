@@ -83,7 +83,7 @@ Design is the stage before code. It answers: who is this for, what do they need 
 * **A clickable prototype.** Something you can put in a real person's hand and watch them use.
 * **Handoff.** Organised design files, components and notes for the developers.
 
-At KR8TIV, ground-up [app product design](/services/app-design-edmonton/) starts from $3,500 CAD, and focused [UX and UI work](/services/ux-ui-design-edmonton/) starts from $1,500 CAD for an agreed set of screens or jobs. Scope is agreed in writing, and no GST is charged. A product with many user types and dozens of screens costs more.
+At KR8TIV, ground-up [app product design](/services/app-design-edmonton/) starts from $3,500 CAD, and focused [UX and UI work](/services/ux-ui-design-edmonton/) starts from $1,500 CAD for an agreed set of screens or jobs. Scope is agreed in writing, and KR8TIV is not GST registered, so no GST is added. A product with many user types and dozens of screens costs more.
 
 Doing design as its own step pays for itself. Developers can quote against a finished design instead of a description, so the quotes are tighter and easier to compare. Changing a screen in a design file takes minutes; changing it in code takes days. And a prototype shows whether people understand the idea before you spend the big money.
 
@@ -135,7 +135,7 @@ Usually, yes. A tested prototype lets developers quote against something specifi
 
 ## If you want the app designed properly first
 
-I design apps for founders and businesses across Canada from Edmonton: flows, screens, prototypes and a clean handoff your developers can build from. App product design starts from $3,500 CAD, and UX and UI work from $1,500 CAD. The scope is agreed in writing before we start, and no GST is charged.
+I design apps for founders and businesses across Canada from Edmonton: flows, screens, prototypes and a clean handoff your developers can build from. App product design starts from $3,500 CAD, and UX and UI work from $1,500 CAD. The scope is agreed in writing before we start, and KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

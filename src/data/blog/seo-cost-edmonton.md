@@ -136,7 +136,7 @@ Usually. In Ahrefs' survey of 439 SEO professionals, local SEO averaged $1,557 U
 
 ## What KR8TIV charges
 
-The Search Engine plan is $495 a month, Search Dominance is $895 a month, and Reviews Care is $295 a month. What each plan includes for your business is agreed in writing before we start. No GST is charged.
+The Search Engine plan is $495 a month, Search Dominance is $895 a month, and Reviews Care is $295 a month. What each plan includes for your business is agreed in writing before we start. KR8TIV is not GST registered, so no GST is added.
 
 [Start a project](/start/), or call (780) 915-5471.
 

@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/motion-3d-edmonton/. The HTML page is the source of truth.
 
-Motion graphics, 3D animation and cinematic sequences. Projects from $750 CAD. Promo or feature video is also offered from $400 CAD. No GST charged.
+Motion graphics, 3D animation and cinematic sequences. Projects from $750 CAD. Promo or feature video is also offered from $400 CAD. KR8TIV is not GST registered, so no GST is added.
 
 ## Contact
 

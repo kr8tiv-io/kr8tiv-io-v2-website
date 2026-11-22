@@ -34,7 +34,7 @@ faq:
     well-built logo with the right file formats is a sensible first step. Build it so it can grow into a full identity.
 - question: How much does branding cost at KR8TIV?
   answer: Logo and identity work starts from $500 CAD, a Brand Kit is $1,050 CAD and a Full Rebrand starts from
-    $2,450 CAD. Final scope is agreed before work begins. No GST charged.
+    $2,450 CAD. Final scope is agreed before work begins. KR8TIV is not GST registered, so no GST is added.
 ---
 
 # Logo or brand? What an Alberta small business actually needs first
@@ -132,7 +132,7 @@ Often, for now. If you are testing an idea, need something usable this week or h
 
 ### How much does branding cost at KR8TIV?
 
-Logo and identity work starts from $500 CAD, a Brand Kit is $1,050 CAD and a Full Rebrand starts from $2,450 CAD. Final scope is agreed before work begins. No GST charged.
+Logo and identity work starts from $500 CAD, a Brand Kit is $1,050 CAD and a Full Rebrand starts from $2,450 CAD. Final scope is agreed before work begins. KR8TIV is not GST registered, so no GST is added.
 
 ## Ready for a brand that still looks like you with the logo covered?
 

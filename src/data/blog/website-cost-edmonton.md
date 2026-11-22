@@ -50,7 +50,7 @@ Most agencies do not publish prices. Some do, and those numbers are the most hon
 | [BitForward](https://bitforward.ca/web-design-edmonton/) | From $499 CAD | Up to five pages |
 | [Ambrite](https://www.ambrite.ca/web-design-edmonton.php) | Starter $500. Standard $1,500. E-commerce $3,500. | Maintenance from $49 a month |
 | [Dopamine Designs](https://dopaminedesigns.ca/pricing) | Landing page $700. Standard site from $1,200. Growth or e-commerce from $4,500. | Care plans at $99 and $249 a month |
-| [KR8TIV](https://kr8tiv.io/services/) | Landing page from $850. Landing page with search setup $1,250. Full website from $1,950. | No GST charged. Website Care $75 a month. |
+| [KR8TIV](https://kr8tiv.io/services/) | Landing page from $850. Landing page with search setup $1,250. Full website from $1,950. | KR8TIV is not GST registered, so no GST is added. Website Care $75 a month. |
 
 The pattern is clear. A small brochure site with a handful of pages starts around $500 to $1,200. An online store starts around $2,000 to $4,500. Studios that do not list prices usually quote after a conversation, and their numbers can run well above these. That is not automatically a bad sign. Bigger teams, longer discovery and more custom work all cost money.
 
@@ -153,7 +153,7 @@ Most do. A business must register for GST once its taxable sales pass $30,000 ov
 
 ## What KR8TIV charges
 
-A full website starts from $1,950 CAD. A landing page starts from $850, or $1,250 with search set-up. Website Care is $75 a month. These are starting prices, the scope is agreed in writing before any work, and no GST is charged.
+A full website starts from $1,950 CAD. A landing page starts from $850, or $1,250 with search set-up. Website Care is $75 a month. These are starting prices, the scope is agreed in writing before any work, and KR8TIV is not GST registered, so no GST is added.
 
 I take a small number of clients each year, and I will tell you if a template would serve you better.
 
