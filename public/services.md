@@ -22,6 +22,8 @@ KR8TIV is a creative studio in Edmonton, Alberta. Matt Haynes and the studio des
 
 - Landing page: from $850 CAD. https://kr8tiv.io/services/web-design-edmonton/
 - Landing page + search setup: $1,250 CAD. https://kr8tiv.io/services/web-design-edmonton/
+- Brand Kit: $1,050 CAD. https://kr8tiv.io/services/branding/
+- Full Rebrand: from $2,450 CAD. https://kr8tiv.io/services/branding/
 - Website Care: $75 / month. https://kr8tiv.io/services/ecommerce-website-edmonton/
 - Reviews Care: $295 / month. https://kr8tiv.io/services/ads-acquisition-edmonton/
 - Search Engine plan: $495 / month. https://kr8tiv.io/services/ads-acquisition-edmonton/

@@ -221,7 +221,7 @@ At minimum, vector master files such as SVG, AI or PDF, every version of the log
 
 [Logo and identity work](/services/branding/) starts from $500 CAD. A Brand Kit is $1,050 CAD, and a Full Rebrand starts from $2,450 CAD. Sign and storefront design starts from about $500, and packaging artwork from $800. If the brand needs a home, a full website starts from $1,950 and a landing page from $850, or $1,250 with search set-up.
 
-Those are starting points, not a menu. The scope is agreed in writing before any work starts, brand work and website work are priced as themselves even when they travel together, and KR8TIV is not GST registered, so no GST is added.
+Those are starting points, not a menu. The scope is agreed in writing before any work starts, brand work and website work are priced as themselves even when they travel together, and no GST is charged.
 
 If you are not sure which of those you need, tell me what you already have: a name, an old logo, a sign deadline, a truck that is about to be wrapped. That is usually enough to work out the right size of job, and sometimes the answer is smaller than you expected.
 
