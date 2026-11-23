@@ -27,7 +27,13 @@ const disciplines = [
 const floors = [
   { offer: 'Landing page', floor: 'from $850 CAD', href: '/services/web-design-edmonton/' },
   { offer: 'Landing page + search setup', floor: '$1,250 CAD', href: '/services/web-design-edmonton/' },
-  ...disciplines.map((s) => ({ offer: s.t, floor: `${s.from} CAD`, href: s.href })),
+  ...disciplines.flatMap((s) => [
+    { offer: s.t, floor: `${s.from} CAD`, href: s.href },
+    ...(s.href === '/services/branding/' ? [
+      { offer: 'Brand Kit', floor: '$1,050 CAD', href: '/services/branding/' },
+      { offer: 'Full Rebrand', floor: 'from $2,450 CAD', href: '/services/branding/' }
+    ] : [])
+  ]),
   { offer: 'Website Care', floor: '$75 / month', href: '/services/ecommerce-website-edmonton/' },
   { offer: 'Reviews Care', floor: '$295 / month', href: '/services/ads-acquisition-edmonton/' },
   { offer: 'Search Engine plan', floor: '$495 / month', href: '/services/ads-acquisition-edmonton/' },
