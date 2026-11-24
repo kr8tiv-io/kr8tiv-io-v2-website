@@ -31,6 +31,16 @@
   },
   {
     "order": 4,
+    "name": "EVOLVE Apparel",
+    "url": "https://evolveapparel.shop/",
+    "category": "OWN COMPANY / WEBSITE",
+    "description": "Apparel for people who would rather be on a logging road than in a lookbook. Made-to-order hoodies, tees and caps, plus a Journal of researched Canadian trip guides. A KR8TIV company, and the shop arm of Evolve Eco Blasting.",
+    "poster": "/kr8tiv-assets/portfolio/evolveapparel-shop.webp",
+    "alt": "EVOLVE Apparel lockup over a foggy western-Canadian forest, taken from the evolveapparel.shop hero film",
+    "video": null
+  },
+  {
+    "order": 5,
     "name": "Final Finish Epoxy",
     "url": "https://www.finalfinishepoxy.ca/",
     "category": "WEBSITE",
@@ -40,7 +50,7 @@
     "video": null
   },
   {
-    "order": 5,
+    "order": 6,
     "name": "AntiHero",
     "url": "https://antihero.community/",
     "category": "WEBSITE",
@@ -50,7 +60,7 @@
     "video": null
   },
   {
-    "order": 6,
+    "order": 7,
     "name": "PrimeTime Contractors",
     "url": "https://primetime.contractors/",
     "category": "WEBSITE",
@@ -60,7 +70,7 @@
     "video": null
   },
   {
-    "order": 7,
+    "order": 8,
     "name": "Shane Dooley Roofing Guru",
     "url": "https://shaneroofingguru.com/",
     "category": "WEBSITE",
@@ -70,7 +80,7 @@
     "video": "/kr8tiv-assets/portfolio/kr8tiv 7 - shane dooley roofing guru compressed.mp4"
   },
   {
-    "order": 8,
+    "order": 9,
     "name": "Aurora Ventures",
     "url": "https://auroraventures.agency/",
     "category": "OWN COMPANY / WEBSITE",
@@ -80,7 +90,7 @@
     "video": "/kr8tiv-assets/portfolio/kr8tiv 1 - aurora ventures.mp4"
   },
   {
-    "order": 9,
+    "order": 10,
     "name": "Meet Your KIN",
     "url": "https://meetyourkin.com/",
     "category": "OWN COMPANY / WEBSITE",
@@ -90,7 +100,7 @@
     "video": null
   },
   {
-    "order": 10,
+    "order": 11,
     "name": "KR8TIV AI",
     "url": "https://kr8tiv.ai/",
     "category": "OWN COMPANY / WEBSITE",
@@ -100,7 +110,7 @@
     "video": null
   },
   {
-    "order": 11,
+    "order": 12,
     "name": "KR8TIV",
     "url": "https://kr8tiv.io/",
     "category": "OWN COMPANY / WEBSITE",
@@ -110,7 +120,7 @@
     "video": null
   },
   {
-    "order": 12,
+    "order": 13,
     "name": "KR8TIV business cards",
     "url": "/kr8tiv-assets/portfolio/03-foil-business-cards.webp",
     "category": "OWN COMPANY / BUSINESS CARDS",
@@ -120,7 +130,7 @@
     "video": null
   },
   {
-    "order": 13,
+    "order": 14,
     "name": "Evolve Eco Blasting business cards",
     "url": "/kr8tiv-assets/portfolio/evolve-business-cards.webp",
     "category": "CLIENT WORK / BUSINESS CARDS",
@@ -130,7 +140,7 @@
     "video": null
   },
   {
-    "order": 14,
+    "order": 15,
     "name": "Shane Dooley business cards",
     "url": "/kr8tiv-assets/portfolio/shane-business-cards.webp",
     "category": "CLIENT WORK / BUSINESS CARDS",
