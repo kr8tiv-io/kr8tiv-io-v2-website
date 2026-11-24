@@ -10,14 +10,14 @@
  * users. Invisible visually (.sr-only pattern), read by AT.
  */
 const SCENES: Array<{ selector: string; label: string }> = [
-  { selector: '.hero-reveal',    label: 'Hero — splash reveal' },
-  { selector: '.doctrine',        label: 'Doctrine — four statements we live by' },
-  { selector: '.services',        label: 'Services — eleven disciplines' },
-  { selector: '.why',             label: 'Why — the founder manifesto' },
-  { selector: '.process',         label: 'Process — four phases' },
-  { selector: '.work',            label: 'Work — selected case studies' },
-  { selector: '.reel',            label: 'Reel — death to generic' },
-  { selector: '.contact',         label: 'Contact — start a project' }
+  { selector: '.hero-reveal',    label: 'Hero: splash reveal' },
+  { selector: '.doctrine',        label: 'Doctrine: four statements we live by' },
+  { selector: '.services',        label: 'Services: eleven disciplines' },
+  { selector: '.why',             label: 'Why: the founder manifesto' },
+  { selector: '.process',         label: 'Process: four phases' },
+  { selector: '.work',            label: 'Work: selected case studies' },
+  { selector: '.reel',            label: 'Reel: death to generic' },
+  { selector: '.contact',         label: 'Contact: start a project' }
 ];
 
 let region: HTMLDivElement | null = null;

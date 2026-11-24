@@ -10,7 +10,7 @@ window.KR8 = (function(){
     { v: 'kr8tiv-assets/12_3.mp4',                     t: 'Branding + Identity',  em:'Branding',  desc: 'Build a logo and company brand that captures and holds attention.',                                       tag: 'Logos, Branding Guides, Assets, Style, Story',                     price: '$50+'  },
     { v: 'kr8tiv-assets/12_2.mp4',                     t: 'Video Editing',        em:'Video',     desc: 'Video that stops the scroll and actually gets watched.',                                                  tag: 'Video Editing, Promotional Features + 3D Animation',               price: '$50+'  },
     { v: 'kr8tiv-assets/9-1.mp4',                      t: 'Signage + Displays',   em:'Signage',   desc: 'The physical stuff that makes you look like you have your act together.',                                  tag: 'Signage, Displays, Reports, Pitch Decks, Slides + Merch',          price: '$100+' },
-    { v: 'kr8tiv-assets/8-1.mp4',                      t: 'UX/UI + Blockchain',   em:'UX/UI',     desc: 'We design user experiences people love — for web applications, mobile apps.',                              tag: "Blockchain + Cryptocurrency D'APP + NFT Design",                   price: '$500+' },
+    { v: 'kr8tiv-assets/8-1.mp4',                      t: 'UX/UI + Blockchain',   em:'UX/UI',     desc: 'We design user experiences people love, for web applications and mobile apps.',                              tag: "Blockchain + Cryptocurrency D'APP + NFT Design",                   price: '$500+' },
     { v: 'kr8tiv-assets/7-1.mp4',                      t: 'Industry Design',      em:'Industry',  desc: 'Specialized design for print and digital in luxury real estate, music.',                                  tag: 'Design for Print, Magazines, Music, Real Estate, Travel + Hospitality', price: '$100+' },
     { v: 'kr8tiv-assets/1-1.mp4',                      t: 'Content + Strategy',   em:'Content',   desc: 'From one time single use assets to your content calendar, designed and delivered.',                        tag: 'Content Strategy Planning, Execution + Social Media Assets',       price: '$250+' },
     { v: 'kr8tiv-assets/3-2.mp4',                      t: 'Packaging + Mockups',  em:'Packaging', desc: 'Unboxing is a ritual, not a logistics problem.',                                                          tag: 'Ritual-Level Packaging Design',                                    price: '$300+' },
@@ -123,7 +123,7 @@ window.KR8 = (function(){
         panel.innerHTML = `
           <div class="svc-inner">
             <div class="svc-left">
-              <div class="svc-num"><span class="b"></span>/ ${String(i+1).padStart(3,'0')} — ${s.tag}</div>
+              <div class="svc-num"><span class="b"></span>/ ${String(i+1).padStart(3,'0')}: ${s.tag}</div>
               <h3 class="serif">${s.t.replace('+', '<em>+</em>')}</h3>
               <p>${s.desc}</p>
               <div class="price serif">${s.price}</div>

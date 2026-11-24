@@ -24,7 +24,7 @@ const { sections = HOMEPAGE_SECTIONS } = Astro.props;
       href={`#${s.id}`}
       data-section-id={s.id}
       class:list={[{ active: i === 0 }]}
-      title={`${s.num} — ${s.name}`}
+      title={`${s.num}: ${s.name}`}
       aria-label={`Jump to ${s.name}`}
     >
       {s.num}

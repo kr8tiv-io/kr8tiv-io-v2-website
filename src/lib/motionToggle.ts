@@ -24,7 +24,7 @@ export function initMotionToggle(): void {
     btn.classList.toggle('off', off);
     btn.classList.toggle('on', !off);
     btn.setAttribute('aria-pressed', String(!off));
-    btn.setAttribute('title', off ? 'Motion off — click to enable' : 'Motion on — click to reduce');
+    btn.setAttribute('title', off ? 'Motion off: click to enable' : 'Motion on: click to reduce');
   };
 
   // Clean up the legacy storage key so any old 'off' value can't

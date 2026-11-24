@@ -17,7 +17,7 @@ export function initPickState(): void {
   const sync = (): void => {
     buttons.forEach((b) => b.classList.toggle('picked', b.dataset.concept === current));
     if (header) header.textContent = current ? current : 'none yet';
-    if (footState) footState.innerHTML = current ? `Current pick: <em>${current}</em>` : 'No pick yet — browse below';
+    if (footState) footState.innerHTML = current ? `Current pick: <em>${current}</em>` : 'No pick yet. Browse below';
   };
 
   buttons.forEach((b) => {

@@ -1,5 +1,5 @@
 {
-  "name": "KR8TIV — Cyber-renaissance design atelier",
+  "name": "KR8TIV: cyber-renaissance design atelier",
   "short_name": "KR8TIV",
   "description": "Founder-led design studio in Edmonton. Websites, brands, signs, packaging, motion and marketing.",
   "start_url": "/",
@@ -43,7 +43,7 @@
     {
       "name": "Our process",
       "short_name": "Process",
-      "description": "How we work — nine steps",
+      "description": "How we work: nine steps",
       "url": "/process/",
       "icons": [{ "src": "/kr8tiv-assets/cropped-Design-24-32x32.png", "sizes": "32x32", "type": "image/png" }]
     }

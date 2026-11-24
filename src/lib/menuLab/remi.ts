@@ -14,11 +14,11 @@ interface Step {
 
 const TREE: Record<string, Step> = {
   start: {
-    msg: `Hi — I'm <em>Remi</em>, KR8TIV's AI concierge. What brings you here?`,
+    msg: `Hi, I'm <em>Remi</em>, KR8TIV's AI concierge. What brings you here?`,
     options: [
       { label: 'I need a brand or website', goto: 'brand' },
       { label: 'I want to add AI to my business', goto: 'ai' },
-      { label: 'Just curious — give me the tour', goto: 'tour' },
+      { label: 'Just curious: give me the tour', goto: 'tour' },
       { label: 'I want to talk to a human', goto: 'human' }
     ]
   },
@@ -35,7 +35,7 @@ const TREE: Record<string, Step> = {
     options: [
       { label: 'We want AI-driven marketing / content', goto: 'process-ai' },
       { label: 'Internal tools or customer agents', goto: 'process-ai' },
-      { label: 'Not sure — just exploring', goto: 'call' }
+      { label: 'Not sure, just exploring', goto: 'call' }
     ]
   },
   tour: {
@@ -47,7 +47,7 @@ const TREE: Record<string, Step> = {
     ]
   },
   human: {
-    msg: `Easiest thing is a 30-min call — <em>no pitch, no obligation</em>. Which works?`,
+    msg: `Easiest thing is a 30-min call. <em>No pitch, no obligation</em>. Which works?`,
     options: [
       { label: 'Book a Calendly slot', goto: 'call' },
       { label: 'Email Matt directly', goto: 'email' }
@@ -110,7 +110,7 @@ export function initRemi(selector = '.ml-remi'): void {
     const hit = Object.keys(KEYWORDS).find((kw) => lowered.includes(kw));
     if (hit) go(KEYWORDS[hit]!);
     else {
-      if (bubble) bubble.innerHTML = `Hmm — I don't quite follow. Try <em>book a call</em>, <em>our process</em>, or <em>AI solutions</em>.`;
+      if (bubble) bubble.innerHTML = `Hmm. I don't quite follow. Try <em>book a call</em>, <em>our process</em>, or <em>AI solutions</em>.`;
     }
   }
 

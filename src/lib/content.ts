@@ -77,17 +77,17 @@ const FLOOR = {
    video (3-4) for Packaging, and routed forrestbackground/8-1 to
    ads + app product instead of UX/UI's 8-1. Restored to original. */
 export const SERVICES: Service[] = [
-  { obj: 'laptop', v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001 — Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
-  { obj: 'signet', v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002 — Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
-  { obj: 'mobius', v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   href: '/services/video-editing-edmonton/', tag: '/ 003 — Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
-  { obj: 'bag', v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                href: '/services/ecommerce-website-edmonton/', tag: '/ 004 — Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
-  { obj: 'chain', v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love — web apps, mobile apps, and on-chain products.',                    href: '/services/ux-ui-design-edmonton/', tag: '/ 005 — Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
-  { obj: 'sign', v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006 — Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
-  { obj: 'box', v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           href: '/services/packaging-design-edmonton/', tag: '/ 007 — Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
-  { obj: 'lens', v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   href: '/services/studio-av-production-edmonton/', tag: '/ 008 — Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
-  { obj: 'target', v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       href: '/services/ads-acquisition-edmonton/', tag: '/ 009 — Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
-  { obj: 'phone', v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     href: '/services/app-design-edmonton/', tag: '/ 010 — Native + Web App Product Design',                                             price: FLOOR.appProduct },
-  { obj: 'gyro', v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics — delivered with intent.',                                                 href: '/services/motion-3d-edmonton/', tag: '/ 011 — Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
+  { obj: 'laptop', v: 'kr8tiv-assets/2-4.mp4',                          t: 'Website Design',     em: 'web',        desc: 'Websites that look sharp, explain your offer, and make it clear how to call. Built in Edmonton for businesses across Alberta and Canada.', href: '/services/web-design-edmonton/',                                   tag: '/ 001: Web Design, Infrastructure Management + Copywriting',                         price: FLOOR.starterWeb },
+  { obj: 'signet', v: 'kr8tiv-assets/12_3.mp4',                         t: 'Branding + Identity',em: 'brand',      desc: 'Your logo, your voice, and a visual system for your website, storefront, packaging, and business cards.', href: '/services/branding/',                                      tag: '/ 002: Logos, Branding Guides, Assets, Style, Story',                                price: FLOOR.identity   },
+  { obj: 'mobius', v: 'kr8tiv-assets/12_2.mp4',                         t: 'Video Editing',      em: 'video',      desc: 'Video that stops the scroll and actually gets watched.',                                                   href: '/services/video-editing-edmonton/', tag: '/ 003: Video Editing, Promotional Features + 3D Animation',                          price: FLOOR.video      },
+  { obj: 'bag', v: 'kr8tiv-assets/2-1.mp4',                          t: 'Ecommerce Setups',   em: 'Ecom',       desc: 'A customized ecom stack to help you sell anything online.',                                                href: '/services/ecommerce-website-edmonton/', tag: '/ 004: Dropships, Brands & Everything in Between',                                   price: FLOOR.ecom       },
+  { obj: 'chain', v: 'kr8tiv-assets/8-1.mp4',                          t: 'UX/UI + Blockchain', em: 'uxui',       desc: 'User experiences people actually love: web apps, mobile apps, and on-chain products.',                    href: '/services/ux-ui-design-edmonton/', tag: '/ 005: Product UX, Interface Systems, Design Tokens + Web3 Flows',                   price: FLOOR.uxui       },
+  { obj: 'sign', v: 'kr8tiv-assets/7-1.mp4',                          t: 'Signage + Print',    em: 'Signage',    desc: 'Storefronts, signs and immersive store experiences. Start with a concept, or have KR8TIV manage supplier sourcing, production coordination and installation liaison.', tag: '/ 006: Storefronts, Signs, 3D Store Experiences, Print, Menus + Hospitality', price: FLOOR.signConcept, href: '/services/print-signage-design/' },
+  { obj: 'box', v: 'kr8tiv-assets/3-2.mp4',                          t: 'Packaging + Mockups',em: 'package',    desc: 'Unboxing is a ritual, not a logistics problem.',                                                           href: '/services/packaging-design-edmonton/', tag: '/ 007: Ritual-level Packaging Design',                                               price: FLOOR.packaging  },
+  { obj: 'lens', v: 'kr8tiv-assets/forrestbackground.mp4',            t: 'Studio + A/V Print', em: 'studio',     desc: 'Full studio production: web + audio/video + print, all under one roof.',                                   href: '/services/studio-av-production-edmonton/', tag: '/ 008: Web + A/V + Print Studio',                                                    price: FLOOR.studio     },
+  { obj: 'target', v: 'kr8tiv-assets/6-1.mp4',                          t: 'Ads + Acquisition',  em: 'ads',        desc: 'Creative that converts. Built for performance, written for humans.',                                       href: '/services/ads-acquisition-edmonton/', tag: '/ 009: Paid Social, Display, Video + Creator Campaigns',                             price: FLOOR.ads        },
+  { obj: 'phone', v: 'kr8tiv-assets/1-1.mp4',                          t: 'App Product Design', em: 'app',        desc: 'The full app stack: IA, UX, UI, prototypes, handoff.',                                                     href: '/services/app-design-edmonton/', tag: '/ 010: Native + Web App Product Design',                                             price: FLOOR.appProduct },
+  { obj: 'gyro', v: 'kr8tiv-assets/9-1.mp4',                          t: 'Motion + 3D',        em: 'motion',     desc: '3D, motion graphics, cinematics, delivered with intent.',                                                 href: '/services/motion-3d-edmonton/', tag: '/ 011: Motion, 3D, Cinematic Sequences',                                             price: FLOOR.motion     }
   /* Do not add a 12th homepage service card. Productized AI
      (agents, company brains, business apps) belongs to the sister
      lab at kr8tiv.ai, not to this studio catalog. */
@@ -151,7 +151,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
     title: 'Evolve Eco Blasting',
     tag: 'CLIENT WORK',
     subTag: 'TOTAL REBRAND · BRAND + WEB + PRINT · 2026',
-    desc: 'Full rebrand for an Alberta-based mobile dustless blasting outfit — naming, logo, brand bible, website, business cards, and ongoing socials. Bridges heavy industrial spec (rust + bitumen removal, structural steel prep) with residential-friendly delivery (95% less airborne dust, zero silica).',
+    desc: 'Full rebrand for an Alberta-based mobile dustless blasting outfit: naming, logo, brand bible, website, business cards, and ongoing socials. Bridges heavy industrial spec (rust + bitumen removal, structural steel prep) with residential-friendly delivery (95% less airborne dust, zero silica).',
     bullets: [
       'Naming + new identity from scratch',
       'Live brand bible page hosted on the site',
@@ -167,7 +167,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
     title: 'Shane Dooley Roofing Guru',
     tag: 'CLIENT WORK',
     subTag: 'FULL REBRAND · ROOFING SERVICES · LIVE URL PENDING',
-    desc: 'Full rebrand for a friend-owned roofing services company in Newfoundland — cinematic site direction, sharper brand voice, and business-card collateral that proves service websites do not have to look generic or overpriced.',
+    desc: 'Full rebrand for a friend-owned roofing services company in Newfoundland: cinematic site direction, sharper brand voice, and business-card collateral that proves service websites do not have to look generic or overpriced.',
     bullets: [
       'Brand direction tuned for a premium-but-accessible service market',
       'Hero-style project walkthrough video integrated into portfolio',
@@ -197,7 +197,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
     title: 'KR8TIV AI',
     tag: 'OWN COMPANY',
     subTag: 'AI + DEFI INFRASTRUCTURE · OUR AI ATELIER',
-    desc: '"Surfing the singularity" — our sister company building decentralized AI for the masses. Open-source AI companions, DeFi infrastructure, and the Pinky and the Brain ecosystem on Bags.fm. 17 public repos, mission-control dashboards, runtime-truth contracts.',
+    desc: '"Surfing the singularity": our sister company building decentralized AI for the masses. Open-source AI companions, DeFi infrastructure, and the Pinky and the Brain ecosystem on Bags.fm. 17 public repos, mission-control dashboards, runtime-truth contracts.',
     bullets: [
       'AI agent governance + multi-agent orchestration',
       'Schema-first runtime contracts for KIN',
@@ -213,7 +213,7 @@ export const PORTFOLIO_SELECTED: PortfolioPiece[] = [
     title: 'kr8tiv.io',
     tag: 'OWN COMPANY',
     subTag: 'THE ATELIER · YOU ARE HERE',
-    desc: 'This site. A cyber-renaissance design atelier — brand, web, motion, AI. Built with Astro 5, GSAP, Three.js, custom WebGL prism shaders, a kintsugi shatter menu, an oracle command palette, and a katana cursor trail on the Reel section. <em>Death to generic.</em>',
+    desc: 'This site. A cyber-renaissance design atelier: brand, web, motion, AI. Built with Astro 5, GSAP, Three.js, custom WebGL prism shaders, a kintsugi shatter menu, an oracle command palette, and a katana cursor trail on the Reel section. <em>Death to generic.</em>',
     bullets: [
       'Astro 5 + Vite + strict TypeScript',
       'Three.js WebGL prism · katana trail · refractive lake',
@@ -250,7 +250,7 @@ export const PORTFOLIO_STUDIO_LAB: PortfolioPiece[] = [
     title: 'Aurora Ventures',
     tag: 'OWN COMPANY',
     subTag: 'BLOCKCHAIN VENTURE ARM',
-    desc: 'The blockchain venture arm of KR8TIV. Quiet-infrastructure thesis — DAOs (aurabnb, Aura-H2o, Aura-Farms), token launchpad with configurable taxes, protocol tooling. Less ICO theatre, more boring rails.',
+    desc: 'The blockchain venture arm of KR8TIV. Quiet-infrastructure thesis: DAOs (aurabnb, Aura-H2o, Aura-Farms), token launchpad with configurable taxes, protocol tooling. Less ICO theatre, more boring rails.',
     href: 'https://www.auroraventures.agency',
     repoHref: 'https://github.com/kr8tiv-io/Aurora-Ventures-Website',
     video: '/kr8tiv-assets/portfolio/kr8tiv 1 - aurora ventures.mp4'
@@ -280,7 +280,7 @@ export const PORTFOLIO_STUDIO_LAB: PortfolioPiece[] = [
     title: 'Savage Fit',
     tag: 'CLIENT WORK',
     subTag: 'FITNESS · IFBB PRO · LIVE · REFRESH PLANNED',
-    desc: 'Online fitness coaching for IFBB Pro Xenia Busigin — full digital presence (site, socials, email campaigns, app-driven training library). Live and earning; slated for a refresh round.',
+    desc: 'Online fitness coaching for IFBB Pro Xenia Busigin: full digital presence (site, socials, email campaigns, app-driven training library). Live and earning; slated for a refresh round.',
     href: 'https://www.wethesavage.com',
     repoHref: 'https://github.com/kr8tiv-io/savage-fit-website',
     video: '/kr8tiv-assets/portfolio/kr8tiv 5 - body by xenia.mp4'
@@ -313,17 +313,17 @@ export const PORTFOLIO_CODE_VAULT: CodeVaultOrg[] = [
     pinned: [
       { name: 'Evolve-Rebrand', desc: 'Total commercial surface-restoration rebrand', lang: 'HTML' },
       { name: 'Kinbykr8tiv-website', desc: 'KIN AI companion landing with 3D creatures', lang: 'HTML' },
-      { name: 'kr8tiv-ai-website', desc: 'AI atelier site — autonomous content creation', lang: 'TypeScript' }
+      { name: 'kr8tiv-ai-website', desc: 'AI atelier site: autonomous content creation', lang: 'TypeScript' }
     ]
   },
   {
     name: 'kr8tiv-ai',
     href: 'https://github.com/kr8tiv-io',
-    bio: 'Decentralized AI for the masses — open-source companions, DeFi infrastructure, the Pinky and the Brain ecosystem.',
+    bio: 'Decentralized AI for the masses: open-source companions, DeFi infrastructure, the Pinky and the Brain ecosystem.',
     repoCount: 17,
     kind: 'OWN COMPANY · AI + DEFI',
     pinned: [
-      { name: 'Kin', desc: 'AI companion platform — Solana NFT bloodlines', lang: 'TypeScript' },
+      { name: 'Kin', desc: 'AI companion platform: Solana NFT bloodlines', lang: 'TypeScript' },
       { name: 'kr8tiv-mission-control', desc: 'AI agent governance + multi-agent orchestration', lang: 'TypeScript' },
       { name: 'kr8tiv-runtime-truth-contracts', desc: 'Schema-first runtime contracts for KIN', lang: 'TypeScript' }
     ]

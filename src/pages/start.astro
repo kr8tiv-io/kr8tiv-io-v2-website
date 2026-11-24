@@ -6,11 +6,11 @@ import FormLayout from '@layouts/FormLayout.astro';
 const startFaqs = [
   {
     q: 'What should I include when contacting KR8TIV?',
-    a: 'Only four things are required: who you are, what you\'re building, a short description, and a rough budget range — about two minutes. The form has ten sections in total, but everything past section four is optional depth (goals, audience, competitors, tech, taste). Attachments like pitch decks, brand guides, and references help but aren\'t required. It auto-saves as you go.'
+    a: 'Only four things are required: who you are, what you\'re building, a short description, and a rough budget range, about two minutes. The form has ten sections in total, but everything past section four is optional depth (goals, audience, competitors, tech, taste). Attachments like pitch decks, brand guides, and references help but aren\'t required. It auto-saves as you go.'
   },
   {
     q: 'Do I have to fill out the whole form, or can I just talk?',
-    a: 'You can just talk. Book a free 30-minute call at calendly.com/kr8tiv — no form required, no obligation. If we need more detail after the call, we\'ll send you the form then. The form is there for people who think better in writing than on a video call.'
+    a: 'You can just talk. Book a free 30-minute call at calendly.com/kr8tiv. No form required, no obligation. If we need more detail after the call, we\'ll send you the form then. The form is there for people who think better in writing than on a video call.'
   },
   {
     q: 'How quickly will I hear back?',
@@ -55,12 +55,12 @@ const startFaqs = [
       <header class="intake-head">
         <div class="label"><span class="b"></span>INTAKE · PROJECT REQUEST</div>
         <h1>Let's make <em>something</em><br />worth remembering.</h1>
-        <p><strong style="font-weight:500;">Four short sections is enough to send this.</strong> Only the fields marked <span style="color:var(--accent-1)">✦</span> are required — who you are, what you&rsquo;re making, and a rough budget. Everything after that is optional depth for people who think better in writing; fill in as much or as little as you like. We auto-save as you go, so you can close the tab and come back tomorrow. Your answers stay in this browser until you hit submit.</p>
+        <p><strong style="font-weight:500;">Four short sections is enough to send this.</strong> Only the fields marked <span style="color:var(--accent-1)">✦</span> are required: who you are, what you&rsquo;re making, and a rough budget. Everything after that is optional depth for people who think better in writing; fill in as much or as little as you like. We auto-save as you go, so you can close the tab and come back tomorrow. Your answers stay in this browser until you hit submit.</p>
 
         <aside class="intake-shortcut" aria-label="Prefer to just talk?" style="margin-top:32px; padding:28px 32px; border:1px solid var(--edge); border-left:3px solid var(--accent-1); border-radius:4px; background:rgba(255,106,213,.04); max-width:720px;">
           <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--accent-1); margin-bottom:10px;">Prefer to just talk?</div>
           <p style="font-family:'Instrument Serif',serif; font-size:22px; line-height:1.35; letter-spacing:-.008em; margin:0 0 18px;">
-            Book a <em style="color:var(--accent-1); font-style:italic;">free 30-minute call</em>. <strong style="font-weight:500;">No obligation, no pitch</strong> — we just talk, see if we're a fit. If we aren't, we'll point you somewhere that is.
+            Book a <em style="color:var(--accent-1); font-style:italic;">free 30-minute call</em>. <strong style="font-weight:500;">No obligation, no pitch.</strong> We just talk, see if we're a fit. If we aren't, we'll point you somewhere that is.
           </p>
           <p style="font-family:'Inter Tight',sans-serif; font-size:14px; line-height:1.6; color:var(--ink); opacity:.82; margin:0 0 18px; max-width:58ch;">
             Business AI systems, company brains, and product apps are built with the sister lab, <a href="https://kr8tiv.ai/">KR8TIV AI</a>. The studio designs the brand, the website, the signs, and the marketing.
@@ -157,7 +157,7 @@ const startFaqs = [
           <span class="n">02</span>
           <div class="section-label">SECTION 02 · PROJECT BASICS</div>
           <h2>What are <em>we making</em>?</h2>
-          <p>Pick the disciplines — you can choose more than one. We'll confirm scope on the call.</p>
+          <p>Pick the disciplines. You can choose more than one. We'll confirm scope on the call.</p>
 
           <div class="field">
             <label>Discipline(s) <span class="req">✦</span></label>
@@ -236,7 +236,7 @@ const startFaqs = [
               — and both FAQ answers on /process/ — say $10–$500. The
               page contradicted itself within one screen. $500 is the
               real floor, per the form's own tier. */}
-          <p>Transparency saves both of us time. Small budgets welcome — we take $10–$500 microjobs too.</p>
+          <p>Transparency saves both of us time. Small budgets welcome. We take $10–$500 microjobs too.</p>
 
           <div class="field">
             <label>Budget tier <span class="req">✦</span></label>
@@ -267,7 +267,7 @@ const startFaqs = [
           <span class="n">05</span>
           <div class="section-label">SECTION 05 · GOALS</div>
           <h2>What does <em>success</em> look like?</h2>
-          <p>Not vague things. Real outcomes. "We want to feel premium" is fine — but "we want to close our Series A with this deck" is better.</p>
+          <p>Not vague things. Real outcomes. "We want to feel premium" is fine, but "we want to close our Series A with this deck" is better.</p>
 
           {/* Was required. Sections 01–04 are all we actually need to
               open a conversation; forcing two long-form essays before
@@ -384,7 +384,7 @@ const startFaqs = [
           <span class="n">09</span>
           <div class="section-label">SECTION 09 · DESIGN</div>
           <h2><em>Taste</em> calibration</h2>
-          <p>Four sliders. We calibrate from there. No "wrong" answer — we've done everything from monastic to feral.</p>
+          <p>Four sliders. We calibrate from there. No "wrong" answer. We've done everything from monastic to feral.</p>
 
           <div class="field">
             <div class="tone-slider">
@@ -425,7 +425,7 @@ const startFaqs = [
             <div class="file-drop">
               <input type="file" id="attachments" name="attachments" multiple
                      accept=".pdf,.key,.pptx,.png,.jpg,.jpeg,.gif,.svg,.fig,.sketch,.zip,.doc,.docx" />
-              <div class="drop-hint">Drop files — <em>pitch decks, brand guides, references</em></div>
+              <div class="drop-hint">Drop files: <em>pitch decks, brand guides, references</em></div>
               <div class="drop-sub">pdf · key · pptx · fig · zip · png · jpg · and friends</div>
             </div>
             <div class="file-list" id="file-list"></div>
@@ -456,7 +456,7 @@ const startFaqs = [
           </div>
 
           <div class="consent">
-            <h4>Hilarious and rare emails — in?</h4>
+            <h4>Hilarious and rare emails: in?</h4>
             <p>We're told they're funny. They're never frequent. You can unsubscribe with a single click, and the unsubscribe email is also funny. We may send a confirmation email to your address.</p>
             <div class="choice-grid">
               <label class="choice"><input type="radio" name="mailing_list" value="yes" />For sure I do</label>

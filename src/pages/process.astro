@@ -63,7 +63,7 @@ const steps = [
     key: 'KONTACT',
     glyph: 'K',
     title: 'You reach out',
-    body: 'Fill out the intake, book a Calendly slot, or send a one-line email. Tell us what you need, what you\'re vibing with, what\'s keeping you up at night. Don\'t worry about having all the answers — that\'s what we\'re here for.',
+    body: 'Fill out the intake, book a Calendly slot, or send a one-line email. Tell us what you need, what you\'re vibing with, what\'s keeping you up at night. Don\'t worry about having all the answers. That\'s what we\'re here for.',
     pay: null
   },
   {
@@ -79,7 +79,7 @@ const steps = [
     key: 'KOLLECT',
     glyph: 'L',
     title: 'We gather the raw material',
-    body: 'You fill out a creative brief — we make it painless. We geek out over mood boards, references, competitors you love, competitors you hate. Anything scribbled on a napkin counts.',
+    body: 'You fill out a creative brief. We make it painless. We geek out over mood boards, references, competitors you love, competitors you hate. Anything scribbled on a napkin counts.',
     pay: null
   },
   {
@@ -87,7 +87,7 @@ const steps = [
     key: 'KONCEPTz',
     glyph: 'C',
     title: 'Three directions, not one',
-    body: 'We sketch three distinct concepts instead of one "safe" option. You see where we\'re headed. This is the "oh damn, they actually get it" moment — or the "let\'s pivot" moment. Both are fine. Iteration is part of the deal.',
+    body: 'We sketch three distinct concepts instead of one "safe" option. You see where we\'re headed. This is the "oh damn, they actually get it" moment, or the "let\'s pivot" moment. Both are fine. Iteration is part of the deal.',
     pay: null
   },
   {
@@ -95,7 +95,7 @@ const steps = [
     key: 'KONVERGE',
     glyph: 'X',
     title: 'Agreement + kickoff',
-    body: 'Love the direction? We sign a simple, human-readable agreement. You send 40% to kick things off. Then we\'re off to the races — structured rounds, clear feedback loops, no "can we try one more thing?" spirals.',
+    body: 'Love the direction? We sign a simple, human-readable agreement. You send 40% to kick things off. Then we\'re off to the races: structured rounds, clear feedback loops, no "can we try one more thing?" spirals.',
     pay: { label: 'KICKOFF', amount: '40%' }
   },
   {
@@ -103,7 +103,7 @@ const steps = [
     key: 'KR8TE',
     glyph: '8',
     title: 'We build the thing',
-    body: 'Brand system, full website, motion reel, AI marketing engine — whatever it is, we ship ready-to-use craft, not a handoff PDF that needs three more vendors. You\'re part of the process without living in revision hell.',
+    body: 'Brand system, full website, motion reel, AI marketing engine, whatever it is, we ship ready-to-use craft, not a handoff PDF that needs three more vendors. You\'re part of the process without living in revision hell.',
     pay: null
   },
   {
@@ -111,7 +111,7 @@ const steps = [
     key: 'KONNECT',
     glyph: 'N',
     title: 'Draft delivery + plug-in',
-    body: 'We deliver the near-final product, walk it through with you, plug it into your stack — Shopify, Webflow, Astro, custom. You send another 40%. We make final tweaks based on real feedback, not committee notes.',
+    body: 'We deliver the near-final product, walk it through with you, plug it into your stack (Shopify, Webflow, Astro, custom). You send another 40%. We make final tweaks based on real feedback, not committee notes.',
     pay: { label: 'DRAFT DELIVERY', amount: '40%' }
   },
   {
@@ -119,7 +119,7 @@ const steps = [
     key: 'KLOSING',
     glyph: 'Ø',
     title: 'We land clean',
-    body: 'Final delivery: high-res files, source files, style guide, training. You own everything — we don\'t hold clients hostage to their own brand. You send the final 20%. We crack a beer (or kombucha — no judgment).',
+    body: 'Final delivery: high-res files, source files, style guide, training. You own everything. We don\'t hold clients hostage to their own brand. You send the final 20%. We crack a beer (or kombucha, no judgment).',
     pay: { label: 'FINAL', amount: '20%' }
   },
   {
@@ -127,17 +127,17 @@ const steps = [
     key: 'KARE',
     glyph: '❤︎',
     title: 'Touch-ups + love',
-    body: 'Something feels off after you\'ve lived with it for a week? Need a few small tweaks? We got you. Up to two minor revisions are part of the deal — we\'d rather you love it than tolerate it. Relationships and kr8tivity are sacred.',
+    body: 'Something feels off after you\'ve lived with it for a week? Need a few small tweaks? We got you. Up to two minor revisions are part of the deal. We\'d rather you love it than tolerate it. Relationships and kr8tivity are sacred.',
     pay: null
   }
 ];
 // -------- Schema: HowTo + FAQ for SEO / AI citations --------
 const processHowTo = {
   name: 'The KR8TIV creative process',
-  description: 'Nine-step boutique process for brand, web, motion, video, and AI projects — from first contact to long-term care.',
+  description: 'Nine-step boutique process for brand, web, motion, video, and AI projects, from first contact to long-term care.',
   totalTime: 'PT4W',
   steps: steps.map((s) => ({
-    name: `${s.n} · ${s.key} — ${s.title}`,
+    name: `${s.n} · ${s.key}: ${s.title}`,
     text: s.body
   }))
 };
@@ -145,7 +145,7 @@ const processHowTo = {
 const processFaqs = [
   {
     q: 'What is the KR8TIV process?',
-    a: 'Nine boutique steps: (1) KONTACT — you reach out; (2) KONVERSE — a 30-minute no-pitch call; (3) KOLLECT — we gather references and requirements; (4) KONCEPTz — three directions, not one; (5) KONVERGE — one direction, deeply explored; (6) KR8TE — we build the deliverable; (7) KONNECT — we plug it into your stack; (8) KLOSING — final handoff with all source files; (9) KARE — ongoing support. Payment split is 40% kickoff, 40% draft, 20% final.'
+    a: 'Nine boutique steps: (1) KONTACT: you reach out; (2) KONVERSE: a 30-minute no-pitch call; (3) KOLLECT: we gather references and requirements; (4) KONCEPTz: three directions, not one; (5) KONVERGE: one direction, deeply explored; (6) KR8TE: we build the deliverable; (7) KONNECT: we plug it into your stack; (8) KLOSING: final handoff with all source files; (9) KARE: ongoing support. Payment split is 40% kickoff, 40% draft, 20% final.'
   },
   {
     q: 'Is the first call really free with no obligation?',
@@ -157,7 +157,7 @@ const processFaqs = [
   },
   {
     q: 'Does KR8TIV work with small or first-time clients?',
-    a: 'Yes — small jobs welcome. We do $10–$500 microjobs, and we work with first-time founders. The quality bar is the same regardless of budget: if we take the project, we take it seriously.'
+    a: 'Yes. Small jobs welcome. We do $10–$500 microjobs, and we work with first-time founders. The quality bar is the same regardless of budget: if we take the project, we take it seriously.'
   },
   {
     q: 'Does KR8TIV build AI systems for businesses beyond marketing?',
@@ -169,7 +169,7 @@ const processFaqs = [
   },
   {
     q: 'Who will I work with at KR8TIV?',
-    a: 'Matt Haynes, the founder and creative director, is on every project. There are no account managers, no layers of intermediaries, no "creative directors" who never touch the work. You talk to the person making the thing — every time, every round.'
+    a: 'Matt Haynes, the founder and creative director, is on every project. There are no account managers, no layers of intermediaries, no "creative directors" who never touch the work. You talk to the person making the thing, every time, every round.'
   }
 ];
 ---
@@ -268,7 +268,7 @@ const processFaqs = [
     </h2>
     <aside class="tag">
       Memorable beats generic. Every single time.<br /><br />
-      We're a tiny studio with oversized taste — and a policy of only taking on projects where the answer to "can we make this <em>insanely good</em>?" is yes.
+      We're a tiny studio with oversized taste, and a policy of only taking on projects where the answer to "can we make this <em>insanely good</em>?" is yes.
     </aside>
   </section>
 
@@ -301,7 +301,7 @@ const processFaqs = [
         We nerd out on tools and actually enjoy the craft, but we also laugh a lot and hate nonsense. We'll wire up modern stacks, run analytics, build production files, and still pick up the phone when the moment matters.
       </p>
       <p>
-        We work with ten clients a year. Not fifty. Not a hundred. Every project gets the founder in the room, every draft gets hand-tuned, every micro-interaction gets argued about. We take on small, delightful jobs — yes, $10–$500 microjobs — weird experimental briefs, and clean corporate work that needs to look like it cost way more than it did.
+        We work with ten clients a year. Not fifty. Not a hundred. Every project gets the founder in the room, every draft gets hand-tuned, every micro-interaction gets argued about. We take on small, delightful jobs (yes, $10–$500 microjobs), weird experimental briefs, and clean corporate work that needs to look like it cost way more than it did.
       </p>
       <p>
         Business AI systems, company brains, and product apps are built with the sister lab, <a href="https://kr8tiv.ai/">KR8TIV AI</a>. Same founder. Different offer. The studio stays on the brand, the website, the signs, and the marketing.
@@ -363,7 +363,7 @@ const processFaqs = [
       Sometimes they leave me unsupervised on the internet, and this is what happens.
       <br /><br />
       No account managers. No "creative directors" three layers removed from the work.
-      You talk to the person making the thing — every time, every round, every hour.
+      You talk to the person making the thing, every time, every round, every hour.
     </div>
   </section>
 
@@ -382,7 +382,7 @@ const processFaqs = [
         If you've scrolled this far, we're already 80% aligned. <em>You value craft.</em> You're tired of templates. You've probably hired an agency once and wondered why nothing shipped.
       </p>
       <p>
-        I love building ideas. I've raised millions. I've built businesses. I'll continue to. <em>This is my personal marketing arm — it can be yours too.</em>
+        I love building ideas. I've raised millions. I've built businesses. I'll continue to. <em>This is my personal marketing arm. It can be yours too.</em>
       </p>
       <p>
         We started KR8TIV because design got <em>boring</em>. Every startup site started looking like every other startup site. Every brand deck promised "disruption" and delivered a Helvetica wordmark with a gradient on it.
@@ -394,7 +394,7 @@ const processFaqs = [
         So we built the opposite: <em>small, senior, and honest.</em> You get the founder. You get the work. You get the truth about what's worth building and what isn't.
       </p>
       <p>
-        We care. We really love what we do, and we care. From corporate clean to abstract — we've done it all.
+        We care. We really love what we do, and we care. From corporate clean to abstract, we've done it all.
       </p>
       <p>
         <em>The tech evolves. The craft doesn't.</em> We use the latest tools for maximum effect at a rate that democratizes the latest advantages of artificial intelligence.
@@ -409,7 +409,7 @@ const processFaqs = [
         Whether you need a brand, a website, a film, or a product refresh, we would love to talk. <em>Even if we aren't the right fit,</em> we'll tell you straight and point you somewhere good.
       </p>
       <p style="margin-top:48px;">Book a call. Let's just talk.</p>
-      <div class="sig">— Matt</div>
+      <div class="sig">Matt</div>
     </div>
   </section>
 
