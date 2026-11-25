@@ -14,6 +14,7 @@ import BigCTA from '@components/BigCTA.astro';
 import FloatingCTA from '@components/FloatingCTA.astro';
 import HomeFaq from '@components/HomeFaq.astro';
 import InterludeMark from '@components/InterludeMark.astro';
+import ScopeEstimator from '@components/ScopeEstimator.astro';
 
 // Homepage FAQ — eligible for FAQ rich results + cited heavily by AI
 // search engines (ChatGPT / Perplexity / Claude / Gemini).
@@ -146,15 +147,8 @@ const homepageFaqs = [
 
   <Work />
 
-  {/* ── Post-work whisper CTA ── */}
-  <InlineCTA
-    variant="whisper"
-    eyebrow="SEEN ENOUGH?"
-    headline="Your project could be the next one in this grid."
-    primaryLabel="Book a call ↳"
-  />
-
   <Reel />
+  <ScopeEstimator />
   <Contact />
 
   <HomeFaq faqs={homepageFaqs} />

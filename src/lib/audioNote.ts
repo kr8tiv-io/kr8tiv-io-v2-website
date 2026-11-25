@@ -7,12 +7,48 @@
  * smoothed so it reads as a breath, not a jitter.
  */
 interface KR8Audio {
-  ac: AudioContext;
+  ac: AudioContext | null;
   analyser: AnalyserNode | null;
   getLevel: () => number;
+  isPlaying: () => boolean;
 }
 
 let audio: KR8Audio | null = null;
+
+/**
+ * Synthesizes a subtle, zero-byte crystal harmonic tick ONLY when the
+ * visitor has explicitly turned studio audio ON. Zero network cost and
+ * respects prefers-reduced-motion + html.motion-off.
+ */
+export function playGlassTick(freq = 1046.5): void {
+  if (!audio || !audio.isPlaying() || !audio.ac) return;
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  if (document.documentElement.classList.contains('motion-off')) return;
+  try {
+    const ctx = audio.ac;
+    if (ctx.state !== 'running') return;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const overtone = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+    overtone.type = 'triangle';
+    overtone.frequency.setValueAtTime(freq * 1.5, now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.024, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+    osc.connect(gain);
+    overtone.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    overtone.start(now);
+    osc.stop(now + 0.15);
+    overtone.stop(now + 0.15);
+  } catch {
+    /* audio foley is strictly progressive enhancement */
+  }
+}
 
 export function initMusic(): KR8Audio | null {
   const btn = document.getElementById('music-btn');
@@ -51,6 +87,10 @@ export function initMusic(): KR8Audio | null {
     src.connect(analyser);
     analyser.connect(master);
     master.connect(ac.destination);
+    if (audio) {
+      audio.ac = ac;
+      audio.analyser = analyser;
+    }
   };
 
   btn.addEventListener('click', () => {
@@ -84,7 +124,7 @@ export function initMusic(): KR8Audio | null {
     return sum / (lowEnd * 255);
   };
 
-  audio = { ac: ac as unknown as AudioContext, analyser, getLevel };
+  audio = { ac, analyser, getLevel, isPlaying: () => on };
   (window as unknown as { KR8AUDIO: KR8Audio }).KR8AUDIO = audio;
   return audio;
 }

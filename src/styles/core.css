@@ -273,99 +273,53 @@ nav .toggle.on .dot { opacity: 1; box-shadow: 0 0 8px var(--accent); }
 .nav-oracle, .nav-shatter { background: transparent; }
 
 /* === Grain + noise overlays ===
-   .grain carries the Design-49.gif film-grain overlay (defined in
-   prism.css with the original kr8tiv.io opacity + tile size). The
-   prior `display: none !important` lockout was reverted per the user
-   request to bring the branded watermark back — its tile is large
-   enough at 236px that the KR8TIV mark reads as ambient texture, not
-   repeating logos. */
-.grain, .noise {
+   Upgraded from 412 KB of decoded animated GIFs (Design-49.gif + noise.gif,
+   which caused repeating K-watermark artifacts and main-thread GIF decode)
+   to a 6.7 KB seamless 35mm film-grain WebP tile stepped on the GPU
+   compositor via translate3d. Zero main-thread decode, zero repeating
+   letterform artifacts, and ~405 KB lighter on every page load. */
+.grain {
   position: fixed; inset: 0; pointer-events: none;
   z-index: 2; mix-blend-mode: overlay;
-}
-/* Grain — Design-49.gif film texture. Dropped from 7% → 4% opacity
-   after iPhone capture (Telegram preview + frame-by-frame video) showed
-   the tiled K-letterforms reading as a repeating pattern over prism
-   sections rather than ambient grain — user feedback: "the kr8tiv logo
-   popping in on certain areas as a pattern". 4% keeps the living gif
-   motion + paper texture while pushing the K mark below pattern-recog
-   threshold against the chromatic prism + dark surfaces. */
-.grain {
   background-image:
-    radial-gradient(circle at 18% 22%, rgba(255,255,255,.16) 0 .55px, transparent .75px),
-    radial-gradient(circle at 72% 66%, rgba(255,255,255,.10) 0 .45px, transparent .7px),
-    linear-gradient(115deg, rgba(255,255,255,.035), transparent 42%, rgba(255,255,255,.025));
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.14) 0 .55px, transparent .75px),
+    radial-gradient(circle at 72% 66%, rgba(255,255,255,.09) 0 .45px, transparent .7px),
+    linear-gradient(115deg, rgba(255,255,255,.03), transparent 42%, rgba(255,255,255,.02));
   background-size: 37px 41px, 61px 53px, 100% 100%;
   background-repeat: repeat;
   opacity: .035;
-  /* Smooth fade in/out so when we swap visibility on the splash via
-     class toggles or scroll, the watermark transitions cleanly
-     instead of popping. */
   transition: opacity .4s var(--ease);
 }
-/* Sitewide film-grain overlay using the live kr8tiv.io noise.gif
-   asset (320×240 animated grain). Was an inline SVG fractalNoise
-   pattern previously — visually different (static, harder edges).
-   Swapped per the user's "noise.gif overlay on the whole site"
-   directive. Tiled at native resolution so the grain particles stay
-   crisp and the gif's 30fps animation plays back without scaling
-   artefacts. opacity .14 is the sweet spot for a film-texture wash
-   that registers on every section without dominating any of them.
-   `mix-blend-mode: overlay` (inherited from the .grain/.noise
-   shared declaration above) makes the bright grain pixels lift the
-   underlying surface and dark pixels recess it — natural film
-   grain behaviour. */
 .noise {
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(255,255,255,.18) 0 .45px, transparent .75px),
-    radial-gradient(circle at 78% 38%, rgba(0,0,0,.20) 0 .5px, transparent .8px),
-    radial-gradient(circle at 42% 84%, rgba(255,255,255,.10) 0 .4px, transparent .7px);
-  background-size: 19px 23px, 31px 29px, 47px 53px;
+  position: fixed; inset: -128px; pointer-events: none;
+  z-index: 2; mix-blend-mode: overlay;
+  background-image: url('/kr8tiv-assets/film-grain.webp');
+  background-size: 128px 128px;
   background-repeat: repeat;
-  opacity: .11;
+  opacity: .12;
 }
-
-/* Fine-pointer desktops get the original animated GIF texture. Touch
-   devices keep the CSS texture above, which avoids ~400KB of GIF
-   download/decode and another animated layer on iPhone/iPad Safari. */
-@media (pointer: fine) {
-  .grain {
-    background-image: url('/kr8tiv-assets/Design-49.gif');
-    background-size: 236px auto;
-    opacity: .04;
-  }
+@keyframes kr8-film-grain {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  20%      { transform: translate3d(-36px, 24px, 0); }
+  40%      { transform: translate3d(42px, -32px, 0); }
+  60%      { transform: translate3d(-24px, -44px, 0); }
+  80%      { transform: translate3d(30px, 38px, 0); }
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .noise {
-    background-image: url('/kr8tiv-assets/noise.gif');
-    background-size: 320px 240px;
     opacity: .14;
+    will-change: transform;
+    animation: kr8-film-grain .55s steps(2, end) infinite;
   }
 }
-
-/* Suppress the Design-49.gif K-watermark while the user is at the
-   splash hero. The prism is the focal element on first paint and tiled
-   K-letterforms compete with the chromatic bars. multiStateNav.ts
-   drives `nav[data-nav-state]` to "hero" / "body" / "final" as the
-   user scrolls — :has() lets us bind grain visibility to that same
-   state. Once the user scrolls past the splash, nav-state flips to
-   "body" and the K-watermark fades back in across the rest of the
-   page. The :has() selector is supported in all evergreen browsers;
-   older browsers gracefully see the watermark always (pre-fix
-   default). */
+@media (prefers-reduced-motion: reduce) {
+  .noise { animation: none !important; transform: none !important; }
+}
+html.motion-off .noise { animation: none !important; transform: none !important; }
 body:has(nav[data-nav-state='hero']) .grain { opacity: 0; }
-/* Also suppress on the kintsugi overlay (the magnetic-particle menu)
-   so the field reads cleanly without K tiling on top of it. */
 html.kintsugi-open .grain { opacity: 0; }
-/* Light-mode prism sections are the worst offender for the K-pattern
-   readout because the prism's bright bars + cream paper give the gif's
-   bright grain pixels something to lift, making the K letterforms
-   visible. Suppress entirely on these prism-pinned sections so the
-   prism stays clean. The :has() hooks the surrounding body — fixed-
-   position .grain covers the whole viewport, so suppression has to
-   be triggered by what's currently being rendered. We rely on
-   nav[data-nav-state='hero'] for the splash; for the body sections
-   we use the section pins as proxies (Services / Why / Reel / process
-   hero on /process/ + /terms/). */
-html[data-theme='light'] .grain { opacity: .025; }
+html[data-theme='light'] .grain { opacity: .022; }
+html[data-theme='light'] .noise { opacity: .09; mix-blend-mode: multiply; }
 
 /* Legacy empty canvas left over from an earlier rev — always hidden. */
 #trail-canvas { display: none !important; }
@@ -503,25 +457,48 @@ pre.astro-code .line {
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
 @media (max-width: 720px) { .wrap { padding: 0 24px; } }
 
-/* Citeable studio sentence. Sits in normal flow under the hero so
-   crawlers and readers both see it. The hero overlay starts at
-   opacity 0, so this line does not live inside .hero-ui. */
+/* Citeable studio sentence framed as an architectural studio colophon
+   between the Hero splash and Marquee so crawlers and human buyers both
+   encounter an intentional editorial ledger rather than unanchored prose. */
 .entity-line {
-  max-width: 46rem;
-  margin: 28px auto 8px;
-  padding: 0 28px;
+  position: relative;
+  z-index: 3;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 36px 28px 34px;
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: clamp(18px, 2.1vw, 26px);
-  line-height: 1.35;
+  font-size: clamp(19px, 2.1vw, 27px);
+  line-height: 1.38;
   letter-spacing: -0.01em;
   color: var(--ink, #f2f1ec);
   text-align: center;
+  text-wrap: balance;
+  background-image: linear-gradient(90deg, transparent 0%, var(--edge) 22%, var(--edge) 78%, transparent 100%);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+.entity-line::before {
+  content: 'STUDIO LEDGER · EDMONTON, AB · FOUNDED 2023';
+  display: block;
+  margin-bottom: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--accent-4);
 }
 .entity-line a {
   color: var(--accent-1, #ff6ad5);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
+  transition: color .3s var(--ease);
+}
+.entity-line a:hover {
+  color: var(--accent-4);
 }
 
 /* === Marquee ===
@@ -912,6 +889,7 @@ html.motion-off .marquee-inner span:hover { transform: none; }
 .why-bg video {
   width: 100%; height: 100%; object-fit: cover; opacity: .37;
   filter: contrast(1.04) saturate(1.08) brightness(1.08);
+  transform: scale(1.06); transform-origin: 50% 68%;
 }
 .why-inner { position: relative; z-index: 2; height: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: center; max-width: 1440px; margin: 0 auto; padding: 0 64px; gap: 80px; }
 .why-left .kanji { font-family: 'JetBrains Mono', monospace; font-size: 120px; color: var(--accent); line-height: 1; margin-bottom: 32px; filter: drop-shadow(0 0 40px rgba(255, 45, 74, .4)); }
@@ -1014,7 +992,7 @@ html.motion-off .process-step::before { animation: none; background-position: 20
 .reel { position: relative; height: 135vh; isolation: isolate; }
 .reel-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 .reel-bg { position: absolute; inset: 0; z-index: 0; }
-.reel-bg video { width: 100%; height: 100%; object-fit: cover; opacity: .6; }
+.reel-bg video { width: 100%; height: 100%; object-fit: cover; opacity: .6; transform: scale(1.08); transform-origin: 50% 32%; }
 .reel-inner { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 32px; }
 .reel-inner h2 { font-family: 'Instrument Serif', serif; font-size: clamp(72px, 12vw, 220px); line-height: .9; margin: 0; font-weight: 400; letter-spacing: -.035em; max-width: 20ch; }
 .reel-inner h2 em { font-style: italic; color: var(--accent); }
@@ -1644,8 +1622,30 @@ html[data-theme="light"] .kintsugi-overlay .kin-label-html:focus-visible {
 }
 
 @media (max-width: 720px) {
-  .kintsugi-overlay .kin-label-html { font-size: 22px; gap: 14px; padding: 8px 10px; }
+  .kintsugi-overlay .kin-label-html {
+    top: var(--mly, var(--ly, 50%));
+    min-height: 44px;
+    font-size: clamp(20px, 5.4vw, 25px);
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  .kintsugi-overlay .kin-label-html[data-anchor="left"] {
+    left: 20px;
+    right: auto;
+    transform: translateY(-50%);
+  }
+  .kintsugi-overlay .kin-label-html[data-anchor="right"] {
+    right: 20px;
+    left: auto;
+    transform: translateY(-50%);
+  }
+  .kintsugi-overlay .kin-label-html[data-anchor="center"] {
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
   .kintsugi-overlay .kin-label-html .kin-label-dot { width: 7px; height: 7px; }
+  .kintsugi-overlay .kin-center-glyph { font-size: clamp(68px, 18vw, 96px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .kintsugi-overlay .kin-label-html { transition-duration: 0s; }
@@ -1857,5 +1857,127 @@ html.motion-off .kintsugi-overlay[data-open="true"] svg.kin-cracks .kin-debris {
   display: none;
 }
 
-.svc-more { display: inline-block; margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--edge); padding-bottom: 4px; }
-.svc-more:hover { border-color: currentColor; }
+.svc-more {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 22px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 241, 236, .16);
+  background: rgba(242, 241, 236, .04);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color .35s var(--ease), background .35s var(--ease), color .35s var(--ease), letter-spacing .35s var(--ease);
+}
+.svc-more:hover {
+  border-color: var(--accent-1);
+  background: rgba(255, 106, 213, .12);
+  color: var(--ink);
+  letter-spacing: .26em;
+}
+html[data-theme="light"] .svc-more {
+  border-color: rgba(26, 24, 32, .2);
+  background: rgba(255, 255, 255, .55);
+}
+html[data-theme="light"] .svc-more:hover {
+  border-color: var(--accent-1);
+  background: rgba(194, 43, 130, .1);
+}
+
+/* Services quick-jump scrubber + list escape hatch */
+.svc-rail {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: 80px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+}
+.svc-rail-ticks {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(8, 8, 12, .68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--edge);
+  pointer-events: auto;
+}
+.svc-tick {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  transition: color .3s var(--ease), background .3s var(--ease);
+}
+.svc-tick-name {
+  display: none;
+}
+.svc-tick.active {
+  color: var(--ink);
+  background: rgba(255, 106, 213, .18);
+}
+.svc-tick.active .svc-tick-name {
+  display: inline;
+  color: var(--accent-4);
+}
+.svc-tick:hover {
+  color: var(--ink);
+}
+.svc-rail-all {
+  pointer-events: auto;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(8, 8, 12, .68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--edge);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent-4);
+  transition: border-color .35s var(--ease), color .35s var(--ease), background .35s var(--ease);
+}
+.svc-rail-all:hover {
+  border-color: var(--accent-1);
+  color: var(--ink);
+  background: rgba(255, 106, 213, .14);
+}
+html[data-theme="light"] .svc-rail-ticks,
+html[data-theme="light"] .svc-rail-all {
+  background: rgba(255, 255, 255, .78);
+  border-color: var(--edge);
+}
+html[data-theme="light"] .svc-tick.active {
+  background: rgba(194, 43, 130, .12);
+}
+html[data-theme="light"] .svc-tick.active .svc-tick-name {
+  color: var(--accent-1);
+}

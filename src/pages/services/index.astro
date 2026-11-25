@@ -9,6 +9,7 @@
  * being reworked on its own branch).
  */
 import FormLayout from '@layouts/FormLayout.astro';
+import ScopeEstimator from '@components/ScopeEstimator.astro';
 import '@styles/services.css';
 
 const disciplines = [
@@ -51,6 +52,7 @@ const faqs = [
   title="Design, Web & Video Services in Edmonton | KR8TIV"
   description="Eleven disciplines from one founder-led Edmonton studio: websites, branding, video, ecommerce, signage, packaging, ads, apps, motion and 3D. Prices in CAD."
   canonical="/services/"
+  currentNav="services"
   pageType="CollectionPage"
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Services', url: '/services/' }]}
   faqs={faqs}
@@ -77,6 +79,8 @@ const faqs = [
         ))}
       </div>
     </section>
+
+    <ScopeEstimator compact />
 
     <section class="svp-sec" aria-labelledby="floors">
       <h2 id="floors">Floors, <em>not a menu</em>.</h2>

@@ -49,12 +49,12 @@ for q in home_faq['mainEntity']:
     assert norm(q['acceptedAnswer']['text']) in home_visible, q['name']
 print('PASS homepage FAQ schema matches visible answers')
 
-work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==14
+work=BeautifulSoup((dist/'work/index.html').read_text(),'html.parser');assert len(work.select('.portfolio-card'))==15
 for img in work.select('.portfolio-image img'):assert (dist/img['src'].lstrip('/')).is_file()
 walkthroughs=work.select('[data-gallery-video]');assert len(walkthroughs)==4
 for v in walkthroughs:assert not v.has_attr('src') and not v.has_attr('autoplay') and v.has_attr('muted') and v.has_attr('hidden') and v['preload']=='none'
-assert len([p for p in work.select('.portfolio-type') if 'OWN COMPANY / WEBSITE' in p.text])==4
-print('PASS 14 distinct gallery displays, 4 deferred real walkthroughs, own-company labels')
+assert len([p for p in work.select('.portfolio-type') if 'OWN COMPANY / WEBSITE' in p.text])==5
+print('PASS 15 distinct gallery displays, 4 deferred real walkthroughs, own-company labels')
 
 home=BeautifulSoup((dist/'index.html').read_text(),'html.parser');mark=home.select_one('.interlude-frame');poster=mark.find('img');video=mark.find('video')
 assert poster and poster['loading']=='eager' and 'Design-29-2-1.webp' in poster['src'] and (dist/poster['src'].lstrip('/')).is_file()

@@ -457,15 +457,15 @@ html[data-theme="light"] .reel-bg video {
 html[data-theme="light"] .reel-inner h2 { color: var(--ink); }
 html[data-theme="light"] .reel-inner h2 em { color: var(--accent-1); }
 
-/* Reel noise overlay in light mode — flip blend to multiply + drop
-   opacity so the dark grain particles add a subtle texture to the
-   cream paper without becoming a heavy wash. screen blend (which we
-   use in dark mode) would render the bright noise pixels as full
-   white on cream, way too aggressive. multiply darkens the cream
-   slightly where the noise is bright, reads as a film-grain wash. */
-html[data-theme="light"] .reel-noise {
-  mix-blend-mode: multiply;
-  opacity: .22;
+html[data-theme="light"] .entity-line::before {
+  color: var(--accent-1);
+}
+html[data-theme="light"] .home-faq details:hover,
+html[data-theme="light"] .home-faq details[open] {
+  border-bottom-color: rgba(194, 43, 130, .35);
+}
+html[data-theme="light"] .home-faq details[open] summary::after {
+  background: rgba(194, 43, 130, .09);
 }
 
 /* =====================================================================

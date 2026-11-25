@@ -264,10 +264,11 @@
         trigger: '.why', start: 'top top', end: 'bottom bottom',
         pin: '.why-pin', pinSpacing: false
       });
-      gsap.to('.why-bg video', {
-        scale: 1.15, ease: 'none',
-        scrollTrigger: { trigger: '.why', start: 'top top', end: 'bottom top', scrub: true }
-      });
+      gsap.fromTo('.why-bg video',
+        { scale: 1.06 },
+        { scale: 1.16, ease: 'none',
+          scrollTrigger: { trigger: '.why', start: 'top top', end: 'bottom top', scrub: true }
+        });
       gsap.utils.toArray('.why-right .q').forEach((q: unknown, i: number) => {
         gsap.fromTo(q as Element,
           { opacity: 0, x: 40 },

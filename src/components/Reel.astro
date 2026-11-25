@@ -10,22 +10,23 @@
       <span class="reel-fade-bot"   aria-hidden="true"></span>
     </div>
     <div class="reel-inner">
-      {/* Was a section-local noise overlay — now redundant. The
-          sitewide .noise div in BaseLayout/FormLayout/CaseStudyLayout
-          carries the same noise.gif tile across every page, so the
-          Reel section already gets the film-grain wash without an
-          extra section-scoped layer. Inner left empty for now;
-          chromatic peaks + forest video render unobstructed under
-          the global noise overlay. */}
+      <div class="reel-stage">
+        <div class="reel-eye mono"><span class="b"></span>VI / ATMOSPHERE · REFRACTIVE FIELD</div>
+        <h2 class="serif reel-katana-title" id="reel-katana-title">
+          <span class="rk-wrap" id="rk-wrap">
+            <span class="rk-sr">Death to <em>generic.</em></span>
+          </span>
+        </h2>
+        <p class="reel-sub reel-sub-fine mono" aria-hidden="true">SWEEP CURSOR TO SLASH THE PRISM</p>
+        <p class="reel-sub reel-sub-coarse mono">CRAFTED IN EDMONTON · BUILT TO OUTLAST TRENDS</p>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Forest video bleeds into the sections above (Work / whisper CTA)
-     and below (Contact) instead of butting up as a hard rectangle.
-     Two fixed-position gradients matching the section's #000 backdrop
-     ride above the video at the top and bottom edges. */
+  /* Forest video bleeds into surrounding chapters via blend.css masks;
+     video is pre-scaled 1.08 in core.css to keep corner artifacts out. */
   .reel { background: #000; }
   .reel-bg { isolation: isolate; }
   .reel-fade-top,
@@ -49,30 +50,105 @@
       rgba(0,0,0,.18) 86%, transparent 100%);
   }
 
-  /* === Animated noise.gif overlay — replaces the headline ===
-     Tiled film-grain texture covering the reel box. screen-blend so
-     dark pixels of the gif dissolve and only the brighter sparkle
-     pixels add a shimmering noise wash to the chromatic peaks. The
-     gif itself is 320x240 → background-size keeps the original
-     pixel scale (no upscaling artefacts) and `repeat` tiles it
-     across the full box. */
-  .reel-noise {
-    position: absolute;
-    inset: 0;
+  .reel-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
     pointer-events: none;
-    background-image: url('/kr8tiv-assets/noise.gif');
-    background-repeat: repeat;
-    background-size: 320px 240px;
-    mix-blend-mode: screen;
-    /* Slight cap on intensity — the raw gif read as too aggressive at
-       100% opacity over the chromatic peaks. */
-    opacity: .55;
-    z-index: 3;
+    user-select: none;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .reel-noise { opacity: .25; }
+  .reel-eye {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 10px;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+    color: rgba(242, 241, 236, .78);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .65);
   }
-  html.motion-off .reel-noise { opacity: .25; }
+  .reel-eye .b {
+    width: 40px;
+    height: 1px;
+    background: var(--accent-1);
+  }
+  .reel-katana-title {
+    --slash-x: 0px;
+    --seam-op: 0;
+    position: relative;
+    text-shadow: 0 8px 40px rgba(0, 0, 0, .55);
+  }
+  .rk-wrap {
+    position: relative;
+    display: inline-block;
+    padding: .06em .12em;
+  }
+  .rk-sr {
+    display: inline-block;
+  }
+  :global(.rk-wrap.is-split) .rk-sr {
+    opacity: 0;
+  }
+  :global(.rk-slice) {
+    position: absolute;
+    inset: .06em .12em;
+    white-space: nowrap;
+    will-change: transform;
+    transition: transform .18s cubic-bezier(.16, 1, .3, 1);
+    pointer-events: none;
+  }
+  :global(.rk-top) {
+    clip-path: inset(-12% -10% 49% -10%);
+    transform: translate3d(var(--slash-x), 0, 0);
+  }
+  :global(.rk-bot) {
+    clip-path: inset(50% -10% -18% -10%);
+    transform: translate3d(calc(var(--slash-x) * -1), 0, 0);
+  }
+  :global(.rk-seam) {
+    position: absolute;
+    left: -6%;
+    right: -6%;
+    top: 50.5%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, .95) 35%, var(--accent-1) 50%, rgba(255, 209, 102, .9) 65%, transparent 100%);
+    box-shadow: 0 0 18px rgba(255, 106, 213, .85), 0 0 36px rgba(255, 45, 74, .5);
+    opacity: var(--seam-op);
+    transform: rotate(-1.4deg);
+    transition: opacity .28s ease-out;
+    pointer-events: none;
+  }
+  :global(html.motion-off .rk-wrap.is-split) .rk-sr {
+    opacity: 1;
+  }
+  :global(html.motion-off .rk-slice),
+  :global(html.motion-off .rk-seam) {
+    display: none;
+  }
+
+  .reel-sub {
+    margin: 4px 0 0;
+    font-size: 10px;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+    color: rgba(242, 241, 236, .72);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .7);
+  }
+  .reel-sub-coarse { display: none; }
+  @media (pointer: coarse) {
+    .reel-sub-fine { display: none; }
+    .reel-sub-coarse { display: block; }
+  }
+
+  :global(html[data-theme="light"]) .reel-eye,
+  :global(html[data-theme="light"]) .reel-sub {
+    color: rgba(26, 24, 32, .74);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .65);
+  }
+  :global(html[data-theme="light"]) .reel-katana-title {
+    text-shadow: 0 4px 24px rgba(245, 242, 234, .7);
+  }
 </style>
 
 <script>
@@ -92,10 +168,11 @@
           trigger: '.reel', start: 'top top', end: 'bottom bottom',
           pin: '.reel-pin', pinSpacing: false
         });
-        gsap.to('.reel-bg video', {
-          scale: 1.12, ease: 'none',
-          scrollTrigger: { trigger: '.reel', start: 'top top', end: 'bottom top', scrub: true }
-        });
+        gsap.fromTo('.reel-bg video',
+          { scale: 1.08 },
+          { scale: 1.18, ease: 'none',
+            scrollTrigger: { trigger: '.reel', start: 'top top', end: 'bottom top', scrub: true }
+          });
       }).catch((err) => console.error('[KR8·reel] GSAP import failed:', err));
     }
   }
@@ -104,6 +181,48 @@
   // this section approaches the viewport. This keeps heavy GL setup out
   // of the initial home-page boot path.
   const reelPin = document.querySelector<HTMLElement>('.reel-pin');
+  const katanaTitle = document.getElementById('reel-katana-title');
+  const rkWrap = document.getElementById('rk-wrap');
+  if (
+    reelPin &&
+    katanaTitle &&
+    rkWrap &&
+    !reelMobile &&
+    window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches
+  ) {
+    const srcHtml = rkWrap.querySelector('.rk-sr')?.innerHTML ?? '';
+    if (srcHtml) {
+      const top = document.createElement('span');
+      top.className = 'rk-slice rk-top';
+      top.setAttribute('aria-hidden', 'true');
+      top.innerHTML = srcHtml;
+      const seam = document.createElement('span');
+      seam.className = 'rk-seam';
+      seam.setAttribute('aria-hidden', 'true');
+      const bot = document.createElement('span');
+      bot.className = 'rk-slice rk-bot';
+      bot.setAttribute('aria-hidden', 'true');
+      bot.innerHTML = srcHtml;
+      rkWrap.append(top, seam, bot);
+      rkWrap.classList.add('is-split');
+    }
+    let lastX = 0;
+    let settleTimer = 0;
+    reelPin.addEventListener('pointermove', (e: PointerEvent) => {
+      if (document.documentElement.classList.contains('motion-off')) return;
+      const dx = lastX ? e.clientX - lastX : 0;
+      lastX = e.clientX;
+      const shear = Math.max(-14, Math.min(14, dx * 0.42));
+      const energy = Math.min(1, Math.abs(dx) / 26);
+      katanaTitle.style.setProperty('--slash-x', `${shear.toFixed(1)}px`);
+      katanaTitle.style.setProperty('--seam-op', energy > 0.14 ? energy.toFixed(2) : '0');
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => {
+        katanaTitle.style.setProperty('--slash-x', '0px');
+        katanaTitle.style.setProperty('--seam-op', '0');
+      }, 140);
+    }, { passive: true });
+  }
   if (reelPin && !reelMobile) {
     let fxBooted = false;
     const bootReelFx = (): void => {

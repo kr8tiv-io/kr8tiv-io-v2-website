@@ -56,25 +56,28 @@
    position). Without JS the card falls back to the original scale
    hover, so nothing depends on the script existing.
    ============================================================ */
-.work-card {
+.work-card,
+.portfolio-card {
   --rx: 0deg;
   --ry: 0deg;
   --mx: 50%;
   --my: 50%;
   --sheen: 0;
-  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1), border-color .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s cubic-bezier(.22, 1, .36, 1);
   will-change: transform;
 }
 
 /* Hairline gradient frame that ignites on hover — conic spectrum
    echoing the prism, masked to a 1px border so it reads as a lit
    edge, not a sticker. */
-.work-card::after {
+.work-card::after,
+.portfolio-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
+  border-radius: inherit;
   pointer-events: none;
   padding: 1px;
   background: conic-gradient(from 210deg at 50% 50%,
@@ -86,18 +89,22 @@
   transition: opacity .55s cubic-bezier(.22, 1, .36, 1);
 }
 .work-card:hover::after,
-.work-card:focus-within::after { opacity: .75; }
+.work-card:focus-within::after,
+.portfolio-card:hover::after,
+.portfolio-card:focus-within::after { opacity: .78; }
 
 /* Specular highlight that follows the cursor — a soft light source
    gliding across the poster/video surface. */
-.work-card::before {
+.work-card::before,
+.portfolio-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
+  border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(420px circle at var(--mx) var(--my),
-    rgba(255, 255, 255, .14), transparent 60%);
+  background: radial-gradient(460px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, .11), transparent 62%);
   mix-blend-mode: screen;
   opacity: calc(var(--sheen) * 1);
   transition: opacity .45s cubic-bezier(.22, 1, .36, 1);
@@ -204,10 +211,12 @@
    site's own motion toggle. Cards stay interactive, just still.
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .work-card { transform: none !important; }
-  .work-card::before { display: none; }
+  .work-card, .portfolio-card { transform: none !important; }
+  .work-card::before, .portfolio-card::before { display: none; }
   .contact-cta a::before { transition: none; }
   .stmt::before { transition: none; }
 }
-html.motion-off .work-card { transform: none !important; }
-html.motion-off .work-card::before { display: none; }
+html.motion-off .work-card,
+html.motion-off .portfolio-card { transform: none !important; }
+html.motion-off .work-card::before,
+html.motion-off .portfolio-card::before { display: none; }

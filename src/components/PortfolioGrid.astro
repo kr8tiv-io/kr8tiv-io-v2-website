@@ -1,28 +1,413 @@
 ---
 import cards from '../data/gallery.json';
 interface Props { teaser?: boolean }
-const {teaser=false}=Astro.props;
-const items=teaser?cards.slice(0,4):cards;
+const { teaser = false } = Astro.props;
+const items = teaser ? cards.slice(0, 4) : cards;
 const hrefFor = (p: { name: string; url: string }) => {
   if (!teaser) return p.url;
   if (p.name === 'PrimeTime Contractors business card') return '/work/primetime-contractors-card/';
   if (p.name === 'Evolve Eco Blasting') return '/blog/evolve-eco-blasting-case-study/';
   return '/work/';
 };
+const proofFor: Record<string, string> = {
+  'PrimeTime Contractors business card': 'PRINT STUDY · SILVER FOIL INSET',
+  '2240 Speed Shop': 'AUTOMOTIVE · CUSTOM RESTORATION WEB',
+  'Evolve Eco Blasting': 'CASE STUDY · CAD $1.4M ENQUIRIES (4 MOS)',
+  'EVOLVE Apparel': 'APPAREL + CANADIAN FIELD JOURNAL',
+  'Final Finish Epoxy': 'SURFACE SHOWCASE · ALBERTA',
+  'Shane Dooley Roofing Guru': 'FULL REBRAND + WALKTHROUGH',
+  'Aurora Ventures': 'VENTURE ARCHITECTURE',
+  'KR8TIV AI': 'SISTER LAB · KR8TIV.AI'
+};
+const specFor: Record<string, string> = {
+  'PrimeTime Contractors business card': 'SPEC · WRAPPED SCAFFOLD FRONT · SILVER FOIL ON BLACK',
+  '2240 Speed Shop': 'SPEC · CUSTOM AUTOMOTIVE ART DIRECTION · WEB',
+  'Evolve Eco Blasting': 'KR8TIV FIGURES · CAD $1.4M ENQUIRIES · $450K SALES (4 MOS)',
+  'EVOLVE Apparel': 'SPEC · ECOMMERCE + EDITORIAL TRIP GUIDES',
+  'Final Finish Epoxy': 'SPEC · MATERIAL DETAIL + SERVICE ARCHITECTURE',
+  'AntiHero': 'SPEC · HIGH-CONTRAST COMMUNITY IDENTITY + WEB',
+  'PrimeTime Contractors': 'SPEC · INDUSTRIAL CONTRACTOR POSITIONING · ALBERTA',
+  'Shane Dooley Roofing Guru': 'SPEC · FULL REBRAND + WALKTHROUGH + PRINT SUITE',
+  'Aurora Ventures': 'SPEC · VENTURE ARCHITECTURE + MOTION WALKTHROUGH',
+  'Meet Your KIN': 'SPEC · PRODUCT POSITIONING + CONCIERGE ONBOARDING',
+  'KR8TIV AI': 'SPEC · SISTER LAB · AGENTS + COMPANY BRAINS',
+  'KR8TIV': 'SPEC · ASTRO 5 · GLSL PRISM · KINTSUGI + ORACLE',
+  'KR8TIV business cards': 'SPEC · BRUSHED METAL FRONT · ILLUSTRATED REVERSE',
+  'Evolve Eco Blasting business cards': 'SPEC · INDUSTRIAL FRONT · MOUNTAIN REVERSE',
+  'Shane Dooley business cards': 'SPEC · PAIRED FRONT + REVERSE IDENTITY SYSTEM'
+};
+const isFullBleed = (p: { name: string; category: string }) =>
+  p.category.includes('BUSINESS CARDS') || p.name === 'EVOLVE Apparel';
 ---
 <div class="portfolio-grid">
-{items.map(p=>(
-<article class="portfolio-card" id={`sel-${p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`}>
-<a class="portfolio-image" href={hrefFor(p)} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined} aria-label={`${p.name}. ${p.category.includes('BUSINESS')?'view artwork':'visit website'}`}>
-<img src={p.poster} alt={p.alt} width="1600" height="1000" loading={p.category.includes('BUSINESS CARDS') ? 'eager' : 'lazy'} decoding="async" />
-{p.video&&<video muted loop playsinline preload="none" poster={p.poster} data-gallery-video data-src={p.video} aria-hidden="true" hidden></video>}
-</a>
-<div class="portfolio-copy"><p class="portfolio-type">{p.category}</p><h3>{p.name}</h3><p>{p.description}</p><a class="portfolio-link" href={hrefFor(p)} target={!teaser&&p.url.startsWith('http')?'_blank':undefined} rel={!teaser&&p.url.startsWith('http')?'noopener noreferrer':undefined}>{p.category.includes('BUSINESS')?'View design':'View project'} ↗</a></div>
+{items.map((p, idx) => (
+<article
+  class="portfolio-card"
+  data-bleed={isFullBleed(p) ? 'full' : 'framed'}
+  id={`sel-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+>
+  <a
+    class="portfolio-image"
+    data-cursor="media"
+    href={hrefFor(p)}
+    target={!teaser && p.url.startsWith('http') ? '_blank' : undefined}
+    rel={!teaser && p.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+    aria-label={`${p.name}. ${p.category.includes('BUSINESS') ? 'view artwork' : 'visit website'}`}
+  >
+    <span class="portfolio-idx" aria-hidden="true">{String(idx + 1).padStart(2, '0')}</span>
+    {p.video && <span class="portfolio-motion-pill" aria-hidden="true"><span class="dot"></span>MOTION</span>}
+    <span class="portfolio-xray" aria-hidden="true"></span>
+    {specFor[p.name] && <span class="portfolio-loupe-bar" aria-hidden="true">{specFor[p.name]}</span>}
+    <img
+      src={p.poster}
+      alt={p.alt}
+      width="1600"
+      height="1000"
+      loading={p.category.includes('BUSINESS CARDS') ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+    {p.video && (
+      <video
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster={p.poster}
+        data-gallery-video
+        data-src={p.video}
+        aria-hidden="true"
+        hidden
+      ></video>
+    )}
+  </a>
+  <div class="portfolio-copy">
+    <div class="portfolio-meta-row">
+      <p class="portfolio-type">{p.category}</p>
+      {proofFor[p.name] && <span class="portfolio-proof">{proofFor[p.name]}</span>}
+    </div>
+    <h3>{p.name}</h3>
+    <p>{p.description}</p>
+    <a
+      class="portfolio-link"
+      href={hrefFor(p)}
+      target={!teaser && p.url.startsWith('http') ? '_blank' : undefined}
+      rel={!teaser && p.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+    >
+      <span>{p.category.includes('BUSINESS') ? 'Examine print study' : (teaser && p.name === 'Evolve Eco Blasting' ? 'Read published case study' : 'Explore project')}</span>
+      <span class="portfolio-arrow" aria-hidden="true">↗</span>
+    </a>
+  </div>
 </article>
 ))}
 </div>
 <style>
-.portfolio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.portfolio-card{min-width:0;overflow:hidden;background:#17171b!important;border:1px solid #59555e;border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,.22);mask-image:none!important;-webkit-mask-image:none!important;isolation:isolate}.portfolio-image{position:relative;display:block;aspect-ratio:16/10;background:#111113;overflow:hidden;mask-image:none!important;-webkit-mask-image:none!important}.portfolio-image img{width:100%;height:100%;display:block;object-fit:contain;filter:none!important;opacity:1!important;mix-blend-mode:normal!important;mask-image:none!important;-webkit-mask-image:none!important}.portfolio-copy{padding:26px;background:#17171b;color:#f2f1ec}.portfolio-type{font:10px/1.5 'JetBrains Mono',monospace;letter-spacing:.16em;color:#ffcd85;margin:0 0 14px}.portfolio-copy h3{font:38px/1.1 'Instrument Serif',serif;margin:0 0 16px;color:#f2f1ec}.portfolio-copy>p:not(.portfolio-type){font:15px/1.65 'Inter Tight',sans-serif;color:#cfcbd0;margin:0 0 22px}.portfolio-link{font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.1em;color:#ffcd85;text-decoration:underline;text-underline-offset:5px}.portfolio-image video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;filter:none;mix-blend-mode:normal;mask-image:none;background:#111113}.portfolio-image video[hidden]{display:none}.portfolio-image:focus-visible,.portfolio-link:focus-visible{outline:3px solid #ffcd85;outline-offset:3px}@media(max-width:720px){.portfolio-grid{grid-template-columns:minmax(0,1fr);gap:24px}.portfolio-copy{padding:22px}.portfolio-copy h3{font-size:34px}}
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 3vw, 44px);
+  }
+  .portfolio-card {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(165deg, rgba(16, 15, 22, .82) 0%, rgba(7, 7, 11, .94) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(242, 241, 236, .09);
+    border-radius: 4px;
+    box-shadow: 0 24px 64px -24px rgba(0, 0, 0, .65);
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    isolation: isolate;
+  }
+  .portfolio-image {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    background: #08080c;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(242, 241, 236, .07);
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+  .portfolio-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(5, 5, 7, .14) 0%, transparent 26%, transparent 74%, rgba(5, 5, 7, .38) 100%);
+    z-index: 2;
+    transition: opacity .5s var(--ease);
+  }
+  .portfolio-card:hover .portfolio-image::after {
+    opacity: .55;
+  }
+  .portfolio-idx {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    z-index: 3;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: rgba(5, 5, 8, .66);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(242, 241, 236, .12);
+    font: 500 10px/1 'JetBrains Mono', monospace;
+    letter-spacing: .22em;
+    color: rgba(242, 241, 236, .78);
+    pointer-events: none;
+  }
+  .portfolio-motion-pill {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(5, 5, 8, .72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 106, 213, .38);
+    font: 500 9.5px/1 'JetBrains Mono', monospace;
+    letter-spacing: .2em;
+    color: var(--ink);
+    pointer-events: none;
+  }
+  .portfolio-motion-pill .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-1);
+    box-shadow: 0 0 8px var(--accent-1);
+  }
+  /* Cursor-tracked X-Ray architectural grid lens + bottom telemetry bar */
+  .portfolio-xray {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(255, 106, 213, .22) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 209, 102, .18) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mix-blend-mode: screen;
+    opacity: 0;
+    -webkit-mask-image: radial-gradient(150px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0, 0, 0, .45) 55%, transparent 100%);
+            mask-image: radial-gradient(150px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0, 0, 0, .45) 55%, transparent 100%);
+    transition: opacity .4s var(--ease);
+  }
+  .portfolio-loupe-bar {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 12px;
+    z-index: 3;
+    padding: 6px 10px;
+    border-radius: 3px;
+    background: rgba(5, 5, 8, .78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 209, 102, .24);
+    font: 500 9px/1.3 'JetBrains Mono', monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(242, 241, 236, .9);
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity .35s var(--ease), transform .4s cubic-bezier(.22, 1, .36, 1);
+  }
+  @media (pointer: fine) {
+    .portfolio-card:hover .portfolio-xray {
+      opacity: .85;
+    }
+    .portfolio-card:hover .portfolio-loupe-bar,
+    .portfolio-card:focus-within .portfolio-loupe-bar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .portfolio-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: none !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    transition: transform .85s cubic-bezier(.22, 1, .36, 1);
+  }
+  /* Website captures carry a baked-in ~3% #111113 capture matte + 1px grey
+     border; scaling 1.074 crops the frame cleanly so art bleeds edge-to-edge. */
+  .portfolio-card[data-bleed="framed"] .portfolio-image img {
+    transform: scale(1.074);
+  }
+  .portfolio-card[data-bleed="framed"]:hover .portfolio-image img {
+    transform: scale(1.108);
+  }
+  .portfolio-card[data-bleed="full"] .portfolio-image img {
+    transform: scale(1.005);
+  }
+  .portfolio-card[data-bleed="full"]:hover .portfolio-image img {
+    transform: scale(1.042);
+  }
+  .portfolio-image video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    filter: none;
+    mix-blend-mode: normal;
+    mask-image: none;
+    background: #08080c;
+  }
+  .portfolio-image video[hidden] {
+    display: none;
+  }
+  .portfolio-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 2.4vw, 34px);
+    background: transparent;
+    color: var(--ink);
+  }
+  .portfolio-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 0 0 14px;
+  }
+  .portfolio-type {
+    font: 500 10px/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent-4);
+    margin: 0;
+  }
+  .portfolio-proof {
+    font: 500 9.5px/1.3 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: rgba(255, 106, 213, .08);
+    border: 1px solid rgba(255, 106, 213, .22);
+  }
+  .portfolio-copy h3 {
+    font: 400 clamp(30px, 2.8vw, 40px)/1.06 'Instrument Serif', serif;
+    letter-spacing: -.02em;
+    margin: 0 0 14px;
+    color: var(--ink);
+    transition: color .4s var(--ease), transform .45s cubic-bezier(.22, 1, .36, 1);
+  }
+  .portfolio-card:hover .portfolio-copy h3 {
+    transform: translateX(2px);
+  }
+  .portfolio-copy > p:not(.portfolio-type) {
+    font: 400 15px/1.68 'Inter Tight', sans-serif;
+    color: var(--ink-muted);
+    margin: 0 0 22px;
+    max-width: 56ch;
+  }
+  .portfolio-link {
+    margin-top: auto;
+    align-self: flex-start;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 500 11px/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(242, 241, 236, .22);
+    padding: 8px 0 6px;
+    transition: color .35s var(--ease), border-color .35s var(--ease), letter-spacing .4s var(--ease);
+  }
+  .portfolio-arrow {
+    display: inline-block;
+    color: var(--accent-1);
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+  }
+  .portfolio-card:hover .portfolio-link,
+  .portfolio-link:hover {
+    color: var(--accent-4);
+    border-bottom-color: var(--accent-4);
+    letter-spacing: .25em;
+  }
+  .portfolio-card:hover .portfolio-arrow,
+  .portfolio-link:hover .portfolio-arrow {
+    transform: translate(3px, -3px);
+  }
+  .portfolio-image:focus-visible,
+  .portfolio-link:focus-visible {
+    outline: 2px solid var(--accent-1);
+    outline-offset: 3px;
+  }
+
+  /* Light-theme atelier paper plinth */
+  :global(html[data-theme="light"]) .portfolio-card {
+    background: linear-gradient(165deg, rgba(255, 255, 255, .94) 0%, rgba(240, 236, 226, .9) 100%);
+    border-color: rgba(26, 24, 32, .12);
+    box-shadow: 0 22px 54px -26px rgba(26, 24, 32, .18);
+  }
+  :global(html[data-theme="light"]) .portfolio-image {
+    background: #141318;
+    border-bottom-color: rgba(26, 24, 32, .1);
+  }
+  :global(html[data-theme="light"]) .portfolio-proof {
+    background: rgba(194, 43, 130, .07);
+    border-color: rgba(194, 43, 130, .24);
+  }
+  :global(html[data-theme="light"]) .portfolio-link {
+    border-bottom-color: rgba(26, 24, 32, .24);
+  }
+  :global(html[data-theme="light"]) .portfolio-card:hover .portfolio-link {
+    color: var(--accent-1);
+    border-bottom-color: var(--accent-1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-image img,
+    .portfolio-copy h3,
+    .portfolio-arrow {
+      transition: none;
+    }
+  }
+  :global(html.motion-off) .portfolio-image img,
+  :global(html.motion-off) .portfolio-copy h3,
+  :global(html.motion-off) .portfolio-arrow {
+    transition: none;
+  }
+
+  @media (max-width: 820px) {
+    .portfolio-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+    .portfolio-copy {
+      padding: 22px;
+    }
+    .portfolio-copy h3 {
+      font-size: 32px;
+    }
+  }
 </style>
 
 <script>

@@ -72,6 +72,23 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
     </div>
     <div class="svc-rec">REC</div>
     <div class="svc-counter"><span class="n" id="svc-cnt">01</span>OF 011</div>
+    <div class="svc-rail" aria-label="Discipline navigation">
+      <div class="svc-rail-ticks" id="svc-rail-ticks">
+        {SERVICES.map((s, idx) => (
+          <button
+            type="button"
+            class:list={['svc-tick', { active: idx === 0 }]}
+            data-svc-idx={idx}
+            title={`${String(idx + 1).padStart(2, '0')} · ${s.t}`}
+            aria-label={`Jump to ${s.t}`}
+          >
+            <span class="svc-tick-num">{String(idx + 1).padStart(2, '0')}</span>
+            <span class="svc-tick-name">{s.em}</span>
+          </button>
+        ))}
+      </div>
+      <a class="svc-rail-all" href="/services/">All 11 as list ↗</a>
+    </div>
   </div>
 </section>
 
@@ -123,7 +140,8 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
         }
         return Math.max(0, track.scrollWidth - window.innerWidth);
       };
-      ScrollTrigger.create({
+      const ticks = Array.from(pin.querySelectorAll<HTMLButtonElement>('.svc-tick'));
+      const st = ScrollTrigger.create({
         trigger: pin,
         start: 'top top',
         end: () => '+=' + getSlideDistance(),
@@ -145,17 +163,28 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
         onUpdate: (self) => {
           const slide = getSlideDistance();
           track.style.transform = `translateX(${-self.progress * slide}px)`;
+          const p = Math.max(0, Math.min(1, self.progress));
+          const idx = Math.min(panels.length - 1, Math.round(p * (panels.length - 1)));
           if (cnt) {
-            // Round (not floor) so the counter flips when a panel crosses
-            // the viewport center — not when it starts leaving the edge.
-            // Previously "02" was displayed while "003 Video Editing"
-            // copy was already center-stage.
-            const p = Math.max(0, Math.min(1, self.progress));
-            const idx = Math.min(panels.length - 1, Math.round(p * (panels.length - 1)));
             cnt.textContent = String(idx + 1).padStart(2, '0');
           }
+          ticks.forEach((btn, bIdx) => btn.classList.toggle('active', bIdx === idx));
         },
         invalidateOnRefresh: true
+      });
+
+      ticks.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.svcIdx ?? '0');
+          const ratio = panels.length > 1 ? idx / (panels.length - 1) : 0;
+          const targetY = st.start + ratio * Math.max(0, st.end - st.start);
+          const lenis = (window as unknown as { __KR8?: { lenis?: { scrollTo: (t: number, o?: unknown) => void } } }).__KR8?.lenis;
+          if (lenis && typeof lenis.scrollTo === 'function') {
+            lenis.scrollTo(targetY, { duration: 0.85 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        });
       });
       // The pin adds a spacer that pushes every later trigger down;
       // re-measure so sections below start at the right scroll offset.

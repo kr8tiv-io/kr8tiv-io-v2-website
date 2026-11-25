@@ -9,10 +9,10 @@
 }
 
 #trail-canvas { display: none !important; }
-/* .grain rule lives in core.css now (Design-49.gif at 7% opacity).
-   Kept .noise's prism-variant tweak below — slight bump from core's
-   18% baseline since the prism aesthetic loves a noisier base layer. */
-.noise { opacity: .22 !important; mix-blend-mode: overlay; }
+/* Film-grain WebP stepped on GPU in core.css; prism variant keeps a
+   slightly warmer grain presence on dark, toned down on cream paper. */
+.noise { opacity: .16 !important; mix-blend-mode: overlay; }
+html[data-theme='light'] .noise { opacity: .09 !important; mix-blend-mode: multiply; }
 
 /* The split-text / line reveal fallback — see comment in src/lib/reveal.ts.
    core.css declares `.line > span { display:block; transform:translateY(110%) }`
@@ -352,11 +352,22 @@ html.motion-off .reveal-music-hint { animation: none; opacity: .8; }
   margin-top: auto;
 }
 .hero.hero-reveal .hero-title .line { overflow: visible; padding-bottom: .06em; }
-.hero.hero-reveal .hero-title .line.eyebrow { margin-bottom: .08em; }
+.hero.hero-reveal .hero-title .line.eyebrow { margin-bottom: .34em; animation: none !important; }
 .hero.hero-reveal .hero-title .line.eyebrow > span {
-  display: inline-block; font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: 1em; font-weight: 400; line-height: 1; letter-spacing: .01em;
-  color: rgba(242, 241, 236, .88); text-transform: lowercase;
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: clamp(10.5px, 1vw, 13px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .28em;
+  color: var(--accent-4);
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .72), 0 0 14px rgba(0, 0, 0, .45);
+}
+html[data-theme="light"] .hero.hero-reveal .hero-title .line.eyebrow > span {
+  color: var(--accent-1);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .65);
 }
 .hero.hero-reveal .hero-title .line:nth-child(1) { animation: hero-dance 7.6s cubic-bezier(.42,.1,.48,.92) infinite; animation-delay: 0s; will-change: transform; }
 .hero.hero-reveal .hero-title .line:nth-child(2) { animation: hero-dance 7.6s cubic-bezier(.42,.1,.48,.92) infinite; animation-delay: 1.4s; will-change: transform; }

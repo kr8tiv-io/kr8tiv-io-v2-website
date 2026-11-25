@@ -51,31 +51,28 @@ export function initReveal(): void {
   gsap.set(cover, { attr: { 'fill-opacity': 1 }, opacity: 1 });
   gsap.set('.samurai-mark', { opacity: 1, scale: 1, y: 0 });
   gsap.set('.reveal-hint', { opacity: 1, y: 0 });
-  gsap.set('.hero-reveal .hero-ui', { opacity: 0, pointerEvents: 'none' });
+  gsap.set('.hero-reveal .hero-ui', { opacity: 0, y: 18, pointerEvents: 'none' });
 
   const tl = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: '.hero-reveal',
-      // Extended from +=1500 to +=2600 — the splash reveal is the
-      // highest-craft moment on the page; letting it hang ~75% longer
-      // gives first-time visitors time to register the logo shatter,
-      // the obelisk scene behind it, and the hero-ui fade-in instead
-      // of blowing past in a single wheel flick. Scrub stays at 0.7
-      // so backward scroll plays the whole sequence in reverse.
+      // Balanced pin distance: crisp enough to clear in ~1.4 wheel/swipe
+      // gestures instead of feeling trapped for 2.6 viewports, while still
+      // giving the true-vector KR8TIV shatter room to breathe.
       start: 'top top',
-      end: '+=2600',
+      end: () => (window.innerWidth <= 720 ? '+=960' : '+=1480'),
       pin: true,
       pinSpacing: true,
-      scrub: 0.7,
+      scrub: 0.65,
       anticipatePin: 1,
       invalidateOnRefresh: true
     }
   });
 
-  tl.to(group, { scale: 22, svgOrigin: '0 0', transformOrigin: '50% 50%', ease: 'power2.in' }, 0);
-  tl.to('.reveal-cue', { opacity: 0, y: 24 }, 0);
-  tl.to('.samurai-mark', { opacity: 0, scale: 0.92, y: -30 }, 0.2);
-  tl.to(cover, { attr: { 'fill-opacity': 0 }, ease: 'power1.inOut' }, 0.68);
-  tl.to('.hero-reveal .hero-ui', { opacity: 1, pointerEvents: 'auto' }, 0.8);
+  tl.to(group, { scale: 22, svgOrigin: '0 0', transformOrigin: '50% 50%', ease: 'power2.in', duration: 0.9 }, 0);
+  tl.to('.reveal-cue', { opacity: 0, y: 24, duration: 0.28 }, 0);
+  tl.to('.samurai-mark', { opacity: 0, scale: 0.92, y: -30, duration: 0.36 }, 0.14);
+  tl.to(cover, { attr: { 'fill-opacity': 0 }, ease: 'power1.inOut', duration: 0.38 }, 0.54);
+  tl.to('.hero-reveal .hero-ui', { opacity: 1, y: 0, pointerEvents: 'auto', ease: 'power2.out', duration: 0.42 }, 0.56);
 }

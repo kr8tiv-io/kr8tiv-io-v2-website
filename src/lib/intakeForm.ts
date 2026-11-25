@@ -45,6 +45,21 @@ export function initIntake(): void {
 
   const state = loadState();
 
+  // Pre-populate disciplines and budget tier when arriving from the
+  // ScopeEstimator (/start/?scope=web,brand&tier=2k_10k).
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const scopeParam = params.get('scope');
+    const tierParam = params.get('tier');
+    if (scopeParam) {
+      const scopes = scopeParam.split(',').map((s) => s.trim()).filter(Boolean);
+      if (scopes.length) state.fields['project_type'] = scopes;
+    }
+    if (tierParam) {
+      state.fields['budget_tier'] = tierParam.trim();
+    }
+  } catch {}
+
   // ============ Choice / tier buttons ============
   // Each `.choice` has a hidden <input>. Clicking toggles checked state and
   // updates the underlying input.value so form.serialize picks it up.

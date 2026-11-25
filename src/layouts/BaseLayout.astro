@@ -38,7 +38,7 @@ export interface Props {
   faqs?: FaqItem[];
   howTo?: { name: string; description: string; totalTime?: string; steps: HowToStep[] };
   keywords?: string[];
-  currentNav?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'other';
+  currentNav?: 'home' | 'process' | 'start' | 'work' | 'terms' | 'services' | 'other';
   /** Above-the-fold image to preload for LCP (e.g. a hero poster). */
   lcpImage?: string;
 }
@@ -92,10 +92,14 @@ const {
   <link rel="apple-touch-icon" href="/kr8tiv-assets/cropped-Design-24-32x32.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <!-- Speculation Rules: prerender neighboring variant pages so the
-       variant-bar feels instant on Chrome/Edge. -->
+  <!-- Speculation Rules: prerender high-intent buyer routes on hover/moderate
+       intent so /work/, /services/, /process/, and /start/ open instantly. -->
   <script type="speculationrules" is:inline set:html={JSON.stringify({
-    prerender: [{ source: 'document', where: { href_matches: '/kr8tiv-v*' }, eagerness: 'moderate' }]
+    prerender: [{
+      source: 'list',
+      urls: ['/work/', '/services/', '/process/', '/start/', '/about/'],
+      eagerness: 'moderate'
+    }]
   })}></script>
 
   <!-- Fonts — self-hosted woff2 (see src/styles/fonts.css). Variable
@@ -118,6 +122,8 @@ const {
   <link rel="preload" as="font" type="font/woff2" crossorigin
         href="/fonts/instrument-serif-normal-400-latin.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/instrument-serif-italic-400-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
         href="/fonts/jetbrains-mono-normal-100800-latin.woff2" />
   <link rel="dns-prefetch" href="https://calendly.com" />
 
@@ -130,7 +136,7 @@ const {
 
   <!-- Google Analytics 4 (gtag.js) — property G-MC0STCCGFY, account
        KR8TiV Design Agency. async means the script never blocks paint. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}

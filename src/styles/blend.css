@@ -164,6 +164,8 @@ main { position: relative; z-index: 1; }
 .work,
 .reel,
 .contact,
+.home-faq,
+.scope-estimator,
 .interlude,
 html[data-theme="light"] .doctrine,
 html[data-theme="light"] .services,
@@ -172,6 +174,8 @@ html[data-theme="light"] .process,
 html[data-theme="light"] .work,
 html[data-theme="light"] .reel,
 html[data-theme="light"] .contact,
+html[data-theme="light"] .home-faq,
+html[data-theme="light"] .scope-estimator,
 html[data-theme="light"] .interlude {
   background: transparent !important;
 }
@@ -187,12 +191,12 @@ html[data-theme="light"] .interlude {
    chapters meet, both are already at zero and the eye sees only the
    shared ground. No line, no edge, no box.
    --------------------------------------------------------------------- */
-.doctrine, .services, .why, .interlude, .process, .work, .reel, .contact {
+.doctrine, .services, .why, .interlude, .process, .work, .reel, .contact, .home-faq, .scope-estimator {
   position: relative;
   isolation: isolate;
 }
 .doctrine::before, .services::before, .why::before, .interlude::before,
-.process::before, .work::before, .reel::before, .contact::before {
+.process::before, .work::before, .reel::before, .contact::before, .home-faq::before, .scope-estimator::before {
   content: '';
   position: absolute;
   /* Bleed past the section's own bounds so the dissolve starts before
@@ -219,14 +223,16 @@ html[data-theme="light"] .interlude {
 /* Chapter hues, in scroll order. Alternating the bloom's shoulder
    (left / right) keeps a long page from feeling like a repeating
    pattern — the light appears to travel down the page. */
-.doctrine   { --tint: var(--flow-cyan);    --tint-x: 22%; }
-.services   { --tint: var(--flow-magenta); --tint-x: 78%; }
-.why        { --tint: var(--flow-purple);  --tint-x: 30%; }
-.interlude  { --tint: var(--flow-magenta); --tint-x: 50%; --tint-y: 40%; }
-.process    { --tint: var(--flow-gold);    --tint-x: 74%; }
-.work       { --tint: var(--flow-cyan);    --tint-x: 26%; }
-.reel       { --tint: var(--flow-magenta); --tint-x: 70%; }
-.contact    { --tint: var(--flow-purple);  --tint-x: 34%; }
+.doctrine        { --tint: var(--flow-cyan);    --tint-x: 22%; }
+.services        { --tint: var(--flow-magenta); --tint-x: 78%; }
+.why             { --tint: var(--flow-purple);  --tint-x: 30%; }
+.interlude       { --tint: var(--flow-magenta); --tint-x: 50%; --tint-y: 40%; }
+.process         { --tint: var(--flow-gold);    --tint-x: 74%; }
+.work            { --tint: var(--flow-cyan);    --tint-x: 26%; }
+.reel            { --tint: var(--flow-magenta); --tint-x: 70%; }
+.scope-estimator { --tint: var(--flow-gold);    --tint-x: 28%; }
+.contact         { --tint: var(--flow-purple);  --tint-x: 34%; }
+.home-faq        { --tint: var(--flow-cyan);    --tint-x: 72%; }
 
 /* The services pin is a viewport-height element inside a tall spacer;
    a wash bled across the pin would slide relative to the page while

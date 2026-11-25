@@ -1,0 +1,602 @@
+---
+/**
+ * ScopeEstimator.astro: 3-click interactive CAD scope and milestone calculator.
+ *
+ * Anchors every figure to KR8TIV's published engagement floors in CAD
+ * ($850 landing page, $1,950 full website, $500 branding, $2,450 full rebrand,
+ * $500 signage concept, $800 packaging, $1,500 ecommerce, $400 video, $750
+ * motion + 3D, $900 ads + acquisition, $3,500 app product design), computes
+ * the 40% / 40% / 20% milestone split + typical sprint window in real time,
+ * and passes selected disciplines straight into /start/?scope=...&tier=...
+ */
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+
+const ITEMS = [
+  { id: 'landing', label: 'Landing page',        floor: 850,  wMin: 1, wMax: 2, intake: 'web',    excl: 'web' },
+  { id: 'web',     label: 'Full website',        floor: 1950, wMin: 3, wMax: 5, intake: 'web',    excl: 'landing', defaultOn: true },
+  { id: 'brand',   label: 'Branding + identity', floor: 500,  wMin: 1, wMax: 2, intake: 'brand',  excl: 'rebrand' },
+  { id: 'rebrand', label: 'Full rebrand',        floor: 2450, wMin: 3, wMax: 5, intake: 'brand',  excl: 'brand' },
+  { id: 'sign',    label: 'Signage concept',     floor: 500,  wMin: 1, wMax: 2, intake: 'print',  excl: '' },
+  { id: 'pack',    label: 'Packaging + mockups', floor: 800,  wMin: 2, wMax: 3, intake: 'pack',   excl: '' },
+  { id: 'ecom',    label: 'Ecommerce setup',     floor: 1500, wMin: 3, wMax: 5, intake: 'ecom',   excl: '' },
+  { id: 'video',   label: 'Promo video',         floor: 400,  wMin: 1, wMax: 2, intake: 'video',  excl: '' },
+  { id: 'motion',  label: 'Motion + 3D',         floor: 750,  wMin: 1, wMax: 3, intake: 'motion', excl: '' },
+  { id: 'ads',     label: 'Ads + acquisition',   floor: 900,  wMin: 1, wMax: 2, intake: 'ads',    excl: '' },
+  { id: 'app',     label: 'App product design',  floor: 3500, wMin: 4, wMax: 8, intake: 'app',    excl: '' }
+];
+---
+<section class:list={['scope-estimator', { 'is-compact': compact }]} id="estimator" aria-labelledby="estimator-title">
+  <div class="wrap">
+    <div class="est-head">
+      <div>
+        <div class="chapter-label mono"><span class="b"></span>INVESTMENT LEDGER · CAD FLOORS</div>
+        <h2 id="estimator-title" class="chapter-title serif">
+          Price the <em>room</em><br />before you walk in.
+        </h2>
+      </div>
+      <p class="est-lede">
+        Toggle what you are building to see the published starting floor in Canadian dollars, the 40 / 40 / 20 milestone split, and a realistic sprint window. No GST charged.
+      </p>
+    </div>
+
+    <div class="est-grid" data-scope-estimator>
+      <div class="est-chips" role="group" aria-label="Select project disciplines">
+        {ITEMS.map((item) => (
+          <button
+            type="button"
+            class:list={['est-chip', { active: Boolean(item.defaultOn) }]}
+            aria-pressed={item.defaultOn ? 'true' : 'false'}
+            data-est-id={item.id}
+            data-est-floor={item.floor}
+            data-est-wmin={item.wMin}
+            data-est-wmax={item.wMax}
+            data-est-intake={item.intake}
+            data-est-excl={item.excl}
+          >
+            <span class="est-chip-check" aria-hidden="true"></span>
+            <span class="est-chip-name">{item.label}</span>
+            <span class="est-chip-price">${item.floor.toLocaleString('en-CA')}+</span>
+          </button>
+        ))}
+      </div>
+
+      <aside class="est-plinth" aria-live="polite">
+        <div class="est-plinth-top">
+          <span class="est-tag mono">ESTIMATED ENGAGEMENT FLOOR</span>
+          <div class="est-total serif">
+            <span class="est-from">from</span>
+            <span class="est-num" data-est-total>$1,950</span>
+            <span class="est-cad">CAD</span>
+          </div>
+          <div class="est-sprint mono" data-est-window>TYPICAL SPRINT · 3 TO 5 WEEKS · DIRECT WITH MATT</div>
+        </div>
+
+        <dl class="est-milestones">
+          <div>
+            <dt class="mono">40% KICKOFF</dt>
+            <dd data-est-m1>$780 CAD</dd>
+          </div>
+          <div>
+            <dt class="mono">40% DRAFT</dt>
+            <dd data-est-m2>$780 CAD</dd>
+          </div>
+          <div>
+            <dt class="mono">20% FINAL</dt>
+            <dd data-est-m3>$390 CAD</dd>
+          </div>
+        </dl>
+
+        <div class="est-actions">
+          <a class="est-btn-primary mono" data-est-brief href="/start/?scope=web&tier=500_2k">
+            Carry scope into brief <span aria-hidden="true">→</span>
+          </a>
+          <a class="est-btn-ghost mono" href="https://calendly.com/kr8tiv" target="_blank" rel="noopener noreferrer">
+            Book 30-min call ↳
+          </a>
+        </div>
+
+        <p class="est-note">
+          Starting floors, not menu prices. Scope is agreed in writing before work begins. Print, fabrication, and ad spend are quoted separately.
+        </p>
+      </aside>
+    </div>
+
+    {!compact && (
+      <div class="est-compare-wrap">
+        <table class="est-compare">
+          <caption class="mono">HOW THE STUDIO MODEL COMPARES</caption>
+          <thead>
+            <tr>
+              <th scope="col">Dimension</th>
+              <th scope="col" class="is-kr8">KR8TIV (Edmonton studio)</th>
+              <th scope="col">Traditional agency</th>
+              <th scope="col">Solo freelancer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Who does the work</th>
+              <td class="is-kr8">Matt Haynes in every room, ~10 clients a year</td>
+              <td>Senior pitch team, junior delivery handoff</td>
+              <td>One specialist, often juggling volume</td>
+            </tr>
+            <tr>
+              <th scope="row">Pricing clarity</th>
+              <td class="is-kr8">Published CAD floors ($850 to $3,500+), no GST</td>
+              <td>Opaque discovery retainers and hourly creep</td>
+              <td>Varies widely by availability</td>
+            </tr>
+            <tr>
+              <th scope="row">Payment structure</th>
+              <td class="is-kr8">40% kickoff, 40% draft, 20% final (fiat or crypto)</td>
+              <td>50% upfront plus monthly retainer lock-in</td>
+              <td>Ad-hoc milestones</td>
+            </tr>
+            <tr>
+              <th scope="row">Breadth under one roof</th>
+              <td class="is-kr8">Brand, web, signage, packaging, 3D, video, and ads</td>
+              <td>Siloed departments and slow handoffs</td>
+              <td>Usually a single discipline</td>
+            </tr>
+            <tr>
+              <th scope="row">Ownership at handoff</th>
+              <td class="is-kr8">100% client-owned code, source files, and accounts</td>
+              <td>Proprietary CMS or agency-held accounts</td>
+              <td>Depends on contractor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .scope-estimator {
+    padding: 140px 0 80px;
+    isolation: isolate;
+  }
+  .scope-estimator.is-compact {
+    padding: 72px 0 48px;
+  }
+  .est-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 64px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+  .est-head h2 em {
+    font-style: italic;
+    color: var(--accent-4);
+  }
+  .est-lede {
+    max-width: 40ch;
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.72;
+    color: var(--ink-muted);
+  }
+  .est-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(28px, 3.5vw, 56px);
+    align-items: start;
+  }
+  .est-chips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .est-chip {
+    min-height: 54px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 4px;
+    border: 1px solid var(--edge);
+    background: rgba(14, 13, 20, .62);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .3s var(--ease), background .3s var(--ease), transform .25s var(--ease);
+  }
+  .est-chip:hover {
+    border-color: rgba(255, 106, 213, .42);
+    transform: translateY(-1px);
+  }
+  .est-chip.active {
+    border-color: var(--accent-1);
+    background: linear-gradient(135deg, rgba(255, 106, 213, .16), rgba(142, 0, 255, .08));
+    box-shadow: 0 0 28px -10px rgba(255, 106, 213, .45);
+  }
+  .est-chip-check {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(242, 241, 236, .35);
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color .25s var(--ease), background .25s var(--ease);
+  }
+  .est-chip.active .est-chip-check {
+    border-color: var(--accent-1);
+    background: var(--accent-1);
+    box-shadow: 0 0 10px var(--accent-1);
+  }
+  .est-chip-name {
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.25;
+    flex: 1;
+  }
+  .est-chip-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--accent-4);
+    white-space: nowrap;
+  }
+
+  .est-plinth {
+    position: relative;
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: 4px;
+    background: linear-gradient(165deg, rgba(18, 16, 26, .88) 0%, rgba(8, 8, 12, .95) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 209, 102, .22);
+    box-shadow: 0 28px 70px -28px rgba(0, 0, 0, .75);
+  }
+  .est-tag {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .3em;
+    color: var(--accent-4);
+    margin-bottom: 10px;
+  }
+  .est-total {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .est-from {
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink-muted);
+  }
+  .est-num {
+    font-size: clamp(54px, 5.4vw, 80px);
+    line-height: .95;
+    letter-spacing: -.03em;
+    color: var(--ink);
+  }
+  .est-cad {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .24em;
+    color: var(--accent-1);
+  }
+  .est-sprint {
+    font-size: 10px;
+    letter-spacing: .22em;
+    color: var(--ink-muted);
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .est-milestones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 22px 0 28px;
+    padding: 0;
+  }
+  .est-milestones > div {
+    padding: 12px;
+    border-radius: 3px;
+    background: rgba(242, 241, 236, .03);
+    border: 1px solid var(--edge);
+  }
+  .est-milestones dt {
+    font-size: 9px;
+    letter-spacing: .2em;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .est-milestones dd {
+    margin: 0;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .est-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .est-btn-primary,
+  .est-btn-ghost {
+    min-height: 48px;
+    padding: 14px 20px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .est-btn-primary {
+    flex: 1 1 210px;
+    background: var(--accent-1);
+    color: #050507;
+    border: 1px solid var(--accent-1);
+    font-weight: 600;
+  }
+  .est-btn-primary:hover {
+    box-shadow: 0 0 36px rgba(255, 106, 213, .48);
+  }
+  .est-btn-ghost {
+    flex: 1 1 170px;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--edge);
+  }
+  .est-btn-ghost:hover {
+    border-color: var(--accent-4);
+    color: var(--accent-4);
+  }
+  .est-note {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  .est-compare-wrap {
+    margin-top: 64px;
+    overflow-x: auto;
+    border-radius: 4px;
+    border: 1px solid var(--edge);
+    background: rgba(12, 11, 18, .55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .est-compare {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .est-compare caption {
+    text-align: left;
+    padding: 18px 22px 14px;
+    font-size: 10px;
+    letter-spacing: .28em;
+    color: var(--accent-4);
+    border-bottom: 1px solid var(--edge);
+  }
+  .est-compare th,
+  .est-compare td {
+    padding: 14px 22px;
+    text-align: left;
+    border-bottom: 1px solid var(--edge);
+    color: var(--ink-muted);
+    vertical-align: top;
+  }
+  .est-compare thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .est-compare tbody th {
+    font-weight: 500;
+    color: var(--ink);
+    width: 21%;
+  }
+  .est-compare .is-kr8 {
+    color: var(--ink);
+    background: rgba(255, 106, 213, .06);
+  }
+  .est-compare thead .is-kr8 {
+    color: var(--accent-1);
+  }
+  .est-compare tbody tr:last-child th,
+  .est-compare tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  :global(html[data-theme="light"]) .est-compare-wrap {
+    background: rgba(255, 255, 255, .82);
+  }
+  :global(html[data-theme="light"]) .est-compare .is-kr8 {
+    background: rgba(194, 43, 130, .06);
+  }
+
+  /* Light theme */
+  :global(html[data-theme="light"]) .est-chip {
+    background: rgba(255, 255, 255, .82);
+    border-color: rgba(26, 24, 32, .12);
+  }
+  :global(html[data-theme="light"]) .est-chip-check {
+    border-color: rgba(26, 24, 32, .3);
+  }
+  :global(html[data-theme="light"]) .est-chip.active {
+    background: rgba(194, 43, 130, .09);
+    border-color: var(--accent-1);
+    box-shadow: none;
+  }
+  :global(html[data-theme="light"]) .est-plinth {
+    background: linear-gradient(165deg, rgba(255, 255, 255, .96) 0%, rgba(240, 236, 225, .92) 100%);
+    border-color: rgba(176, 128, 22, .28);
+    box-shadow: 0 24px 56px -28px rgba(26, 24, 32, .18);
+  }
+  :global(html[data-theme="light"]) .est-milestones > div {
+    background: rgba(26, 24, 32, .03);
+  }
+  :global(html[data-theme="light"]) .est-btn-primary {
+    background: #c22b82;
+    border-color: #c22b82;
+    color: #fff;
+  }
+
+  @media (max-width: 960px) {
+    .est-grid {
+      grid-template-columns: 1fr;
+    }
+    .est-head {
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+  }
+  @media (max-width: 640px) {
+    .scope-estimator {
+      padding: 84px 0 48px;
+    }
+    .est-chips {
+      grid-template-columns: 1fr;
+    }
+    .est-milestones {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .est-milestones > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .est-milestones dt {
+      margin: 0;
+    }
+  }
+</style>
+
+<script>
+  import { playGlassTick } from '@lib/audioNote';
+
+  document.querySelectorAll<HTMLElement>('[data-scope-estimator]').forEach((root) => {
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('.est-chip'));
+    const totalEl = root.querySelector<HTMLElement>('[data-est-total]');
+    const windowEl = root.querySelector<HTMLElement>('[data-est-window]');
+    const m1El = root.querySelector<HTMLElement>('[data-est-m1]');
+    const m2El = root.querySelector<HTMLElement>('[data-est-m2]');
+    const m3El = root.querySelector<HTMLElement>('[data-est-m3]');
+    const briefEl = root.querySelector<HTMLAnchorElement>('[data-est-brief]');
+
+    const fmt = (n: number) => '$' + Math.round(n).toLocaleString('en-CA');
+    let shownSum = 1950;
+    let tweenRaf = 0;
+    const animateNumbers = (targetSum: number): void => {
+      window.cancelAnimationFrame(tweenRaf);
+      const reduce =
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ||
+        document.documentElement.classList.contains('motion-off');
+      if (reduce) {
+        shownSum = targetSum;
+        paintSum(targetSum);
+        return;
+      }
+      const startSum = shownSum;
+      const t0 = performance.now();
+      const dur = 340;
+      const step = (now: number) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const cur = startSum + (targetSum - startSum) * eased;
+        shownSum = cur;
+        paintSum(cur);
+        if (p < 1) tweenRaf = window.requestAnimationFrame(step);
+      };
+      tweenRaf = window.requestAnimationFrame(step);
+    };
+    const paintSum = (val: number): void => {
+      const rounded = Math.round(val);
+      if (totalEl) totalEl.textContent = fmt(rounded);
+      const m1 = Math.round(rounded * 0.4);
+      const m2 = Math.round(rounded * 0.4);
+      const m3 = rounded - m1 - m2;
+      if (m1El) m1El.textContent = `${fmt(m1)} CAD`;
+      if (m2El) m2El.textContent = `${fmt(m2)} CAD`;
+      if (m3El) m3El.textContent = `${fmt(m3)} CAD`;
+    };
+    const tierFor = (sum: number): string => {
+      if (sum <= 500) return 'under_500';
+      if (sum <= 2000) return '500_2k';
+      if (sum <= 10000) return '2k_10k';
+      if (sum <= 25000) return '10k_25k';
+      return '25k_50k';
+    };
+
+    const render = (initial = false) => {
+      const active = chips.filter((c) => c.classList.contains('active'));
+      if (active.length === 0) {
+        if (initial) { shownSum = 500; paintSum(500); } else { animateNumbers(500); }
+        if (windowEl) windowEl.textContent = 'SELECT ONE OR MORE DISCIPLINES TO ESTIMATE';
+        if (briefEl) briefEl.href = '/start/';
+        return;
+      }
+      let sum = 0;
+      let maxWMin = 0;
+      let sumWMax = 0;
+      const intakes = new Set<string>();
+      active.forEach((c) => {
+        sum += Number(c.dataset.estFloor ?? '0');
+        const wMin = Number(c.dataset.estWmin ?? '1');
+        const wMax = Number(c.dataset.estWmax ?? '2');
+        if (wMin > maxWMin) maxWMin = wMin;
+        sumWMax += wMax;
+        if (c.dataset.estIntake) intakes.add(c.dataset.estIntake);
+      });
+      // Parallel studio sprints overlap after the primary track.
+      const estMin = maxWMin + Math.floor((active.length - 1) * 0.75);
+      const estMax = Math.min(12, Math.max(estMin + 1, Math.ceil(sumWMax * 0.72)));
+
+      if (initial) { shownSum = sum; paintSum(sum); } else { animateNumbers(sum); }
+      if (windowEl) {
+        windowEl.textContent = `TYPICAL SPRINT · ${estMin} TO ${estMax} WEEKS · DIRECT WITH MATT`;
+      }
+      if (briefEl) {
+        const params = new URLSearchParams();
+        params.set('scope', Array.from(intakes).join(','));
+        params.set('tier', tierFor(sum));
+        briefEl.href = `/start/?${params.toString()}#s02`;
+      }
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const willActivate = !chip.classList.contains('active');
+        if (willActivate && chip.dataset.estExcl) {
+          const excl = root.querySelector<HTMLButtonElement>(`.est-chip[data-est-id="${chip.dataset.estExcl}"]`);
+          if (excl) {
+            excl.classList.remove('active');
+            excl.setAttribute('aria-pressed', 'false');
+          }
+        }
+        chip.classList.toggle('active', willActivate);
+        chip.setAttribute('aria-pressed', willActivate ? 'true' : 'false');
+        playGlassTick(willActivate ? 1046.5 : 783.99);
+        render(false);
+      });
+    });
+
+    render(true);
+  });
+</script>

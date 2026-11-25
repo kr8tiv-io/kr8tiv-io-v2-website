@@ -24,42 +24,89 @@ const { faqs } = Astro.props;
 
 <style>
   .home-faq {
-    padding: 160px 0;
-    background: #000;
+    padding: 140px 0;
+    background: transparent;
     isolation: isolate;
   }
   .home-faq .chapter-title {
-    margin: 0 0 56px;
+    margin: 0 0 48px;
+  }
+  .home-faq-list {
+    max-width: 980px;
   }
   .home-faq details {
     border-bottom: 1px solid var(--edge);
-    padding: 22px 0;
+    padding: 6px 0;
+    transition: border-color .35s var(--ease);
+  }
+  .home-faq details:first-child {
+    border-top: 1px solid var(--edge);
+  }
+  .home-faq details:hover,
+  .home-faq details[open] {
+    border-bottom-color: rgba(255, 106, 213, .32);
   }
   .home-faq summary {
     cursor: pointer;
+    min-height: 56px;
+    padding: 18px 0;
     font-family: 'Instrument Serif', serif;
-    font-size: clamp(21px, 1.8vw, 28px);
+    font-size: clamp(22px, 2vw, 31px);
+    line-height: 1.2;
     list-style: none;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 24px;
     color: var(--ink);
+    transition: color .35s var(--ease), padding-left .4s cubic-bezier(.22, 1, .36, 1);
+  }
+  .home-faq summary:hover {
+    color: var(--accent-1);
+    padding-left: 8px;
   }
   .home-faq summary::-webkit-details-marker {
     display: none;
   }
   .home-faq summary::after {
     content: '+';
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--edge);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    line-height: 1;
     color: var(--accent-1, #ff6ad5);
     flex: none;
+    transition: transform .4s cubic-bezier(.22, 1, .36, 1), border-color .35s var(--ease), background .35s var(--ease);
   }
   .home-faq details[open] summary::after {
-    content: '-';
+    transform: rotate(45deg);
+    border-color: var(--accent-1);
+    background: rgba(255, 106, 213, .1);
   }
   .home-faq p {
-    margin: 14px 0 0;
-    max-width: 70ch;
+    margin: 0 0 22px;
+    max-width: 68ch;
+    font-size: 16px;
+    line-height: 1.72;
     color: var(--ink);
+    opacity: .86;
+  }
+  @media (max-width: 720px) {
+    .home-faq {
+      padding: 84px 0;
+    }
+    .home-faq .chapter-title {
+      margin-bottom: 32px;
+    }
+    .home-faq summary {
+      font-size: clamp(21px, 5.4vw, 26px);
+      padding: 14px 0;
+    }
   }
 </style>

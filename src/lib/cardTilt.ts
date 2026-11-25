@@ -18,10 +18,11 @@ export function initCardTilt(): void {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (document.documentElement.classList.contains('motion-off')) return;
 
-  const cards = document.querySelectorAll<HTMLElement>('.work-card');
+  const cards = document.querySelectorAll<HTMLElement>('.work-card, .portfolio-card');
   if (!cards.length) return;
 
   cards.forEach((card) => {
+    const maxTilt = card.classList.contains('portfolio-card') ? 2.2 : MAX_TILT;
     let raf = 0;
     let px = 0.5;
     let py = 0.5;
@@ -29,8 +30,8 @@ export function initCardTilt(): void {
 
     const paint = (): void => {
       raf = 0;
-      const rx = ((py - 0.5) * -2 * MAX_TILT).toFixed(2);
-      const ry = ((px - 0.5) * 2 * MAX_TILT).toFixed(2);
+      const rx = ((py - 0.5) * -2 * maxTilt).toFixed(2);
+      const ry = ((px - 0.5) * 2 * maxTilt).toFixed(2);
       card.style.setProperty('--rx', inside ? `${rx}deg` : '0deg');
       card.style.setProperty('--ry', inside ? `${ry}deg` : '0deg');
       card.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);

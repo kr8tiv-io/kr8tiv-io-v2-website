@@ -25,6 +25,17 @@ export function initObelisk(): void {
     // Prime the decoder so the first scrub isn't cold.
     v.play().then(() => { v.pause(); try { v.currentTime = 0; } catch {} }).catch(() => {});
 
+    // Coalesce seeks behind v.seeking so fast scroll-wheel reversals never
+    // cancel in-flight hardware decodes or stutter backward.
+    let pendingTime: number | null = null;
+    const flushSeek = (): void => {
+      if (pendingTime === null || v.seeking) return;
+      const next = pendingTime;
+      pendingTime = null;
+      try { v.currentTime = next; } catch {}
+    };
+    v.addEventListener('seeked', flushSeek);
+
     ScrollTrigger.create({
       trigger: '.doctrine',
       start: 'top 90%',
@@ -35,7 +46,8 @@ export function initObelisk(): void {
         if (v.readyState >= 1 && !isNaN(d)) {
           const t = Math.min(d * self.progress, d - 0.01);
           if (Math.abs(t - v.currentTime) > 0.02) {
-            try { v.currentTime = t; } catch {}
+            pendingTime = t;
+            flushSeek();
           }
         }
       }

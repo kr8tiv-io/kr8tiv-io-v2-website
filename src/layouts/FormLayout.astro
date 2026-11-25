@@ -28,7 +28,7 @@ export interface Props {
   canonical?: string;
   ogImage?: string;
   ogImageAlt?: string;
-  article?: {publishedTime?: string; modifiedTime?: string; author?: string; section?: string; tags?: string[]};
+  article?: { publishedTime?: string; modifiedTime?: string; author?: string; section?: string; tags?: string[]; wordCount?: number; images?: string[] };
   pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'Article' | 'CaseStudy';
   breadcrumbs?: Crumb[];
   faqs?: FaqItem[];
@@ -91,10 +91,12 @@ const navCurrent = currentNav === 'other' && canonical?.startsWith('/services') 
   <link rel="preload" as="font" type="font/woff2" crossorigin
         href="/fonts/instrument-serif-normal-400-latin.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="/fonts/instrument-serif-italic-400-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin
         href="/fonts/jetbrains-mono-normal-100800-latin.woff2" />
 
   <!-- Google Analytics 4 (gtag.js) — same property as BaseLayout. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MC0STCCGFY"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -190,12 +192,14 @@ const navCurrent = currentNav === 'other' && canonical?.startsWith('/services') 
         import('@lib/cursorTrail'),
         import('@lib/whiteLight'),
         import('@lib/asciiDither'),
-        import('@lib/seatCounter')
-      ]).then(([trail, white, ascii, seats]) => {
+        import('@lib/seatCounter'),
+        import('@lib/cardTilt')
+      ]).then(([trail, white, ascii, seats, tilt]) => {
         safe('cursorTrail', () => trail.initCursorTrail());
         safe('whiteLight',  () => white.initWhiteLight());
         safe('asciiDither', () => ascii.initAsciiDither());
         safe('seatCounter', () => seats.initSeatCounter());
+        safe('cardTilt',    () => tilt.initCardTilt());
       }).catch((err) => {
         console.error('[KR8] deferred visual inits failed:', err);
       });

@@ -14,9 +14,9 @@
     "evergreen    : the honest, undateable fallback line"
   ],
   "slots": 1,
-  "quarter": "Q3 2026",
-  "nextQuarter": "Q4 2026",
-  "updated": "2026-08-04",
-  "staleAfterDays": 45,
-  "evergreen": "Booking selectively · 2–3 engagements at a time"
+  "quarter": "Q1 2027",
+  "nextQuarter": "Q2 2027",
+  "updated": "2026-11-25",
+  "staleAfterDays": 60,
+  "evergreen": "Booking selectively · 2 to 3 engagements at a time"
 }

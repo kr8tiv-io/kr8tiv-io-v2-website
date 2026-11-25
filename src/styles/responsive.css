@@ -349,15 +349,53 @@
   .big-cta-sub { font-size: 17px; }
   .big-cta-sub.soft { font-size: 13.5px; }
 
-  /* === VariantBar (section indicator) === */
+  /* === VariantBar (section indicator) ===
+     Compact dot-and-active-pill progression on phones, anchored bottom-left
+     so it never crowds FloatingCTA on the bottom-right or forces 22px fat-finger taps. */
   .variant-bar {
-    bottom: 16px;
-    gap: 4px;
-    padding: 8px 12px;
-    font-size: 9px;
-    letter-spacing: .08em;
+    left: 16px;
+    right: auto;
+    transform: none;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+    padding: 7px 11px;
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    align-items: center;
   }
-  .variant-bar a { padding: 3px 6px; min-width: 22px; text-align: center; }
+  .variant-bar a {
+    width: 6px;
+    height: 6px;
+    min-width: 0;
+    padding: 0;
+    font-size: 0;
+    border-radius: 50%;
+    background: rgba(242, 241, 236, .24);
+  }
+  html[data-theme="light"] .variant-bar a {
+    background: rgba(26, 24, 32, .22);
+  }
+  .variant-bar a.active {
+    width: auto;
+    height: auto;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    background: rgba(255, 106, 213, .16);
+    color: var(--ink);
+  }
+  html[data-theme="light"] .variant-bar a.active {
+    background: rgba(194, 43, 130, .12);
+    color: var(--accent-1);
+  }
+  .variant-bar a.active::after {
+    content: ' · ' attr(data-section-name);
+    text-transform: uppercase;
+    color: var(--accent-4);
+  }
+  html[data-theme="light"] .variant-bar a.active::after {
+    color: var(--ink);
+  }
 
   /* === FOOTER (home) ===
      Bump the contrast on phones — at desktop the .7 opacity on links
@@ -594,7 +632,32 @@
   .svc-copy p { font-size: clamp(13px, min(3.75vw, 2.05svh), 15px); line-height: 1.45; margin-bottom: clamp(8px, 1.4svh, 14px); }
   .svc-copy .price { font-size: clamp(9.5px, 2.65vw, 10.5px); letter-spacing: .2em; }
   .svc-copy .price .p { font-size: clamp(22px, min(7vw, 3.4svh), 28px); margin-top: 2px; }
-  .svc-more { margin-top: clamp(8px, 1.6svh, 18px); font-size: 10px; }
+  .svc-more {
+    min-height: 38px;
+    margin-top: clamp(8px, 1.4svh, 14px);
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+  .svc-more::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+  }
+  .svc-rail {
+    left: 16px;
+    right: auto;
+    top: auto;
+    bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+  .svc-rail-ticks {
+    display: none;
+  }
+  .svc-rail-all {
+    min-height: 34px;
+    padding: 6px 11px;
+    font-size: 9px;
+    letter-spacing: .16em;
+  }
   .svc-frame {
     width: min(72vw, 34svh);
     max-width: none;
