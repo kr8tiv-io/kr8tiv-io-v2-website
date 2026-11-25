@@ -11,9 +11,10 @@
     "nextQuarter  : the quarter shown once the current one is full",
     "updated      : ISO date you last touched this file (YYYY-MM-DD)",
     "staleAfterDays: after this many days with no update, drop to evergreen",
-    "evergreen    : the honest, undateable fallback line"
+    "evergreen    : the honest, undateable fallback line",
+    "slots: null (25 Nov 2026, Matt): no slot count is shown; the pill always uses the evergreen line."
   ],
-  "slots": 1,
+  "slots": null,
   "quarter": "Q1 2027",
   "nextQuarter": "Q2 2027",
   "updated": "2026-11-25",
