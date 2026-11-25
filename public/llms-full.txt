@@ -65,6 +65,7 @@ Do not invent a client quote. Do not turn a point-in-time ranking check into a p
 
 Each line is a title, one sentence, and the URL. Read the page for the full answer.
 
+- Rebranding without losing customers in Alberta. Check the name first, file with the Province, then change the real world before Google; Google keeps the same Business Profile only for a minor name change, so keep redirects at least a year. https://kr8tiv.io/blog/rebrand-without-losing-customers-alberta/
 - Branding cost in Edmonton. Published local identity packages run about $2,400 to $6,400; a logo alone $400 to $3,000; strategy-led work from about $7,000. https://kr8tiv.io/blog/branding-cost-edmonton/
 - Edmonton sign permits in 2026. Most signs need a City permit; fascia $195, freestanding or projecting $415, digital $960 per panel, plus exemptions and processing times. https://kr8tiv.io/blog/edmonton-sign-permits/
 - Website cost in Edmonton. Studios that publish prices start around $500 to $1,200 for a small site; compare running costs and GST, not only the build. https://kr8tiv.io/blog/website-cost-edmonton/
