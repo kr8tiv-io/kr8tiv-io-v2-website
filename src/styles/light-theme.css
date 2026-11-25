@@ -1025,6 +1025,7 @@ html[data-theme="light"] .svc-frame--obj video.svc-obj { background: transparent
     text-shadow: 0 0 10px rgba(245, 242, 234, .9);
   }
   html[data-theme="light"] .svc-more { background: rgba(245, 242, 234, .8); }
+  html[data-theme="light"] .svc-desc-toggle { background: rgba(245, 242, 234, .8); color: var(--ink); }
   html[data-theme="light"] .svc-frame--obj { background: transparent; box-shadow: none; }
   html[data-theme="light"] .svc-frame--obj .svc-poster { background: transparent; }
 }

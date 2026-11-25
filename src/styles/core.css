@@ -900,6 +900,8 @@ html.motion-off .marquee-inner span:hover { transform: none; }
 .svc-copy p { font-size: 18px; line-height: 1.6; color: var(--ink); max-width: none; margin-bottom: 36px; }
 .svc-copy .price { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .3em; color: var(--ink-muted); text-transform: uppercase; }
 .svc-copy .price .p { display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(32px, 3vw, 52px); color: var(--accent); letter-spacing: -.02em; margin-top: 8px; }
+/* Short-phone description toggle (Services.astro); only shown by responsive.css. */
+.svc-desc-toggle { display: none; }
 .svc-rec { position: absolute; top: 110px; left: 60px; z-index: 3; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .3em; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
 .svc-rec::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); animation: pulse 2s infinite var(--ease); }
 .svc-counter { position: absolute; top: 110px; right: 60px; z-index: 3; font-family: 'JetBrains Mono', monospace; color: var(--ink-muted); font-size: 11px; letter-spacing: .28em; text-align: right; text-transform: uppercase; }

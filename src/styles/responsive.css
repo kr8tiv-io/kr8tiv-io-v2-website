@@ -699,6 +699,36 @@
   @media (max-height: 600px) {
     .svc-frame { --svc-obj: min(112vw, 56vh); --svc-obj: min(112vw, 56svh); }
   }
+  /* Short phones (iPhone 6 / 7 / 8 / SE, 667px tall or less): fold the
+     description behind a "Read the details" toggle so title, price and
+     the object get the room. Text stays in the DOM (Services.astro). */
+  .svc-desc-toggle { display: none; }
+  @media (max-height: 700px) {
+    .svc-desc-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      margin: 2px 0 0;
+      padding: 6px 12px;
+      border: 1px solid var(--edge, rgba(255, 255, 255, .18));
+      border-radius: 999px;
+      background: rgba(8, 6, 12, .66);
+      color: var(--ink, #f2f1ec);
+      font: 500 10px/1 'JetBrains Mono', monospace;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .svc-desc-toggle:focus-visible { outline: 2px solid var(--accent-1, #ff6ad5); outline-offset: 3px; }
+    .svc-desc-toggle-icon { font-size: 14px; transition: transform .3s ease; }
+    .svc-desc-toggle[aria-expanded="true"] .svc-desc-toggle-icon { transform: rotate(45deg); }
+    .svc-desc-toggle-less { display: none; }
+    .svc-desc-toggle[aria-expanded="true"] .svc-desc-toggle-more { display: none; }
+    .svc-desc-toggle[aria-expanded="true"] .svc-desc-toggle-less { display: inline; }
+    .svc-copy.is-folded .svc-desc { display: none; }
+    .svc-copy .svc-desc { margin-top: 2px; }
+  }
   .svc-rec { display: none; }
   /* Counter stays pinned while the copy slides under it, so on phones it
      gets a smaller footprint, a soft dark halo for legibility mid-slide,

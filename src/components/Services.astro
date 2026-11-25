@@ -44,8 +44,18 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
               <h3>{s.t.split(' ').map((word, i, arr) => (
                 i === arr.length - 1 ? <span class="ac">{word}</span> : <span>{word} </span>
               ))}</h3>
-              <p>{s.desc}</p>
+              <p class="svc-desc" id={`svc-desc-${idx + 1}`}>{s.desc}</p>
               <div class="price">ENGAGEMENTS FROM<span class="p">{s.price}</span></div>
+              {/* Short phones only (CSS): the description folds away behind
+                  this toggle so the object has room. The text always stays
+                  in the DOM for search and screen readers; JS only flips a
+                  class, so without JS it simply stays open. */}
+              <button type="button" class="svc-desc-toggle" aria-expanded="false"
+                aria-controls={`svc-desc-${idx + 1}`}>
+                <span class="svc-desc-toggle-more">Read the details</span>
+                <span class="svc-desc-toggle-less">Show less</span>
+                <span class="svc-desc-toggle-icon" aria-hidden="true">+</span>
+              </button>
               {s.href && <a class="svc-more" href={s.href}>Explore {s.t.toLowerCase()} <span aria-hidden="true">→</span></a>}
             </div>
             <a class={s.obj ? "svc-frame svc-frame--obj" : "svc-frame"} data-cursor="media" href={s.href} tabindex="-1" aria-hidden="true">
@@ -202,6 +212,21 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
       ScrollTrigger.refresh();
     }).catch((err) => console.error('[KR8·services] GSAP import failed:', err));
   }
+
+  // === Short-phone description toggle ===
+  // CSS hides `.svc-desc` only when its copy block carries `.is-folded`
+  // AND the viewport is a short phone, so this script is the only thing
+  // that can fold it and a JS failure leaves every description visible.
+  document.querySelectorAll<HTMLElement>('.svc-copy').forEach((copy) => {
+    const btn = copy.querySelector<HTMLButtonElement>('.svc-desc-toggle');
+    if (!btn) return;
+    copy.classList.add('is-folded');
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      copy.classList.toggle('is-folded', !open);
+    });
+  });
 
   // === Cursor-reactive prism on each service frame ===
   // Mirrors the hero's WebGL prism: every frame reads the pointer's
