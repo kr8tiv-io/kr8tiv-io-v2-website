@@ -36,7 +36,7 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
   </div>
   <div class="services-pin" id="svc-pin">
     <div class="services-track" id="svc-track">
-      {SERVICES.map((s) => (
+      {SERVICES.map((s, idx) => (
         <div class="svc-panel">
           <div class="svc-inner">
             <div class="svc-copy">
@@ -52,14 +52,25 @@ import { SERVICES, vv, videoPoster, disciplineLoop } from '@lib/content';
               <span class="svc-frame-bloom" aria-hidden="true"></span>
               {s.obj ? (
                 /* 3D object loop: lazy-autoplays in view (lazyVideo.ts),
-                   parks on its poster for prefers-reduced-motion. */
-                <video class="svc-obj" muted loop playsinline preload="none" data-rm-poster
-                  width="640" height="640" poster={disciplineLoop(s.obj).poster} aria-hidden="true">
-                  <source media="(max-width: 720px)" src={disciplineLoop(s.obj).webmM} type="video/webm" />
-                  <source media="(max-width: 720px)" src={disciplineLoop(s.obj).mp4M} type="video/mp4" />
-                  <source src={disciplineLoop(s.obj).webm} type="video/webm" />
-                  <source src={disciplineLoop(s.obj).mp4} type="video/mp4" />
-                </video>
+                   parks on its first frame for prefers-reduced-motion.
+                   The <picture> underneath is the poster: a right-sized
+                   AVIF / WebP still that paints immediately (first panel
+                   eager, the rest lazy) and stays visible until the video
+                   has frames, so the circle is never blank or black. */
+                <>
+                  <picture class="svc-poster">
+                    <source type="image/avif" srcset={disciplineLoop(s.obj).avifSet} sizes="(max-width: 720px) 128vw, 34vw" />
+                    <source type="image/webp" srcset={disciplineLoop(s.obj).webpSet} sizes="(max-width: 720px) 128vw, 34vw" />
+                    <img src={disciplineLoop(s.obj).poster} width="640" height="640" alt=""
+                      loading={idx === 0 ? 'eager' : 'lazy'} decoding="async" />
+                  </picture>
+                  <video class="svc-obj" muted loop playsinline preload="none" data-rm-poster
+                    width="640" height="640" aria-hidden="true">
+                    <source media="(max-width: 720px)" src={disciplineLoop(s.obj).mp4M640} type="video/mp4" />
+                    <source src={disciplineLoop(s.obj).webm} type="video/webm" />
+                    <source src={disciplineLoop(s.obj).mp4} type="video/mp4" />
+                  </video>
+                </>
               ) : (
                 <video muted loop playsinline preload="none" poster={videoPoster(s.v)}>
                   <source src={`/${vv(s.v)}`} type="video/mp4" />
