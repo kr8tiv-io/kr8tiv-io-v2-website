@@ -90,7 +90,11 @@ export function initLazyVideos(): void {
   // (previously: sat blank) for seconds. 900px starts the fetch
   // roughly a full viewport-and-a-half early, so by the time the
   // section scrolls in, the (now much smaller) file is usually ready.
-  const margin = saveData ? '0px' : '900px 0px 900px 0px';
+  // The services scroller moves its panels sideways, so a vertical-only
+  // margin meant each object loop only began downloading once its panel
+  // was already on screen. 100% sideways lookahead starts the next
+  // panel's file one swipe early (Nov 25).
+  const margin = saveData ? '0px' : '900px 100% 900px 100%';
   // Remember what's on screen so a motion re-enable can restart exactly
   // the videos the user is currently looking at — not all twenty.
   const onScreen = new Set<HTMLVideoElement>();

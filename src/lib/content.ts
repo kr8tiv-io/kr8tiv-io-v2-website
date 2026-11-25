@@ -37,7 +37,13 @@ export const disciplineLoop = (slug: string) => ({
   mp4M: `/kr8tiv-assets/disciplines/v2/${slug}-m.mp4?v=2`,
   webm: `/kr8tiv-assets/disciplines/v2/${slug}.webm?v=2`,
   mp4: `/kr8tiv-assets/disciplines/v2/${slug}.mp4?v=2`,
-  poster: `/kr8tiv-assets/disciplines/v2/${slug}.jpg?v=2`
+  poster: `/kr8tiv-assets/disciplines/v2/${slug}.jpg?v=2`,
+  /* Nov 25: phones get a 640px H.264 encode (sharper at the larger
+     mobile size, about the same bytes as the old 400px pair) and a
+     responsive AVIF / WebP still that paints before the video loads. */
+  mp4M640: `/kr8tiv-assets/disciplines/v2/${slug}-m640.mp4`,
+  avifSet: `/kr8tiv-assets/disciplines/v2/posters/${slug}-400.avif 400w, /kr8tiv-assets/disciplines/v2/posters/${slug}-640.avif 640w`,
+  webpSet: `/kr8tiv-assets/disciplines/v2/posters/${slug}-400.webp 400w, /kr8tiv-assets/disciplines/v2/posters/${slug}-640.webp 640w`
 });
 
 /* ============================================================

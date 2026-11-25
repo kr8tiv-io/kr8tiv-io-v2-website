@@ -1001,3 +1001,30 @@ html[data-theme="light"] .svc-frame--obj:hover video {
   filter: none;
   background: #000;
 }
+/* The poster still sits under the video; keep the video see-through
+   until it has frames (the frame itself is already black). */
+html[data-theme="light"] .svc-frame--obj video.svc-obj { background: transparent; }
+
+/* Phones, light theme (Nov 25): the services object is now a large
+   backdrop under the copy (responsive.css). Swap the dark scrim and
+   shadows for paper ones, and drop the hard black disc so the object's
+   feathered edge melts into the page instead of sitting behind text. */
+@media (max-width: 720px), (pointer: coarse) and (max-width: 900px) {
+  html[data-theme="light"] .svc-copy::before {
+    bottom: -88px;
+    background: linear-gradient(180deg,
+      rgba(245, 242, 234, 0) 0%,
+      rgba(245, 242, 234, .7) 18%,
+      rgba(245, 242, 234, .82) 52%,
+      rgba(245, 242, 234, .4) 78%,
+      rgba(245, 242, 234, 0) 100%);
+  }
+  html[data-theme="light"] .svc-copy p,
+  html[data-theme="light"] .svc-copy .price,
+  html[data-theme="light"] .svc-copy .meta {
+    text-shadow: 0 0 10px rgba(245, 242, 234, .9);
+  }
+  html[data-theme="light"] .svc-more { background: rgba(245, 242, 234, .8); }
+  html[data-theme="light"] .svc-frame--obj { background: transparent; box-shadow: none; }
+  html[data-theme="light"] .svc-frame--obj .svc-poster { background: transparent; }
+}
