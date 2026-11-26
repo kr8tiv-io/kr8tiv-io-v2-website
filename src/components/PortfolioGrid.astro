@@ -9,10 +9,18 @@ const hrefFor = (p: { name: string; url: string }) => {
   if (p.name === 'Evolve Eco Blasting') return '/blog/evolve-eco-blasting-case-study/';
   return '/work/';
 };
+const ariaLabelFor = (p: { name: string; url: string; category: string }) => {
+  const href = hrefFor(p);
+  if (href.includes('evolve-eco-blasting-case-study')) return `${p.name}. Read the case study`;
+  if (p.category.includes('BUSINESS')) return `${p.name}. View the print study`;
+  if (teaser && href === '/work/') return `${p.name}. See this project in Our Work`;
+  if (teaser && href.startsWith('/work/')) return `${p.name}. View the project`;
+  return `${p.name}. Visit website`;
+};
 const proofFor: Record<string, string> = {
   'PrimeTime Contractors business card': 'PRINT STUDY · SILVER FOIL INSET',
   '2240 Speed Shop': 'AUTOMOTIVE · CUSTOM RESTORATION WEB',
-  'Evolve Eco Blasting': 'CASE STUDY · CAD $1.4M ENQUIRIES (4 MOS)',
+  'Evolve Eco Blasting': 'CASE STUDY · CAD $1.4M ENQUIRIES PER KR8TIV (4 MOS)',
   'EVOLVE Apparel': 'APPAREL + CANADIAN FIELD JOURNAL',
   'Final Finish Epoxy': 'SURFACE SHOWCASE · ALBERTA',
   'Shane Dooley Roofing Guru': 'FULL REBRAND + WALKTHROUGH',
@@ -52,7 +60,7 @@ const isFullBleed = (p: { name: string; category: string }) =>
     href={hrefFor(p)}
     target={!teaser && p.url.startsWith('http') ? '_blank' : undefined}
     rel={!teaser && p.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-    aria-label={`${p.name}. ${p.category.includes('BUSINESS') ? 'view artwork' : 'visit website'}`}
+    aria-label={ariaLabelFor(p)}
   >
     <span class="portfolio-idx" aria-hidden="true">{String(idx + 1).padStart(2, '0')}</span>
     {p.video && <span class="portfolio-motion-pill" aria-hidden="true"><span class="dot"></span>MOTION</span>}
