@@ -71,7 +71,7 @@ button { font-family: inherit; color: inherit; }
 nav {
   position: fixed; top: 0; left: 0; right: 0; height: 84px; z-index: 50;
   padding: 0 32px;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  display: grid; grid-template-columns: auto 1fr auto; column-gap: 24px; align-items: center;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
   mix-blend-mode: normal;
@@ -84,7 +84,17 @@ nav {
     height .5s cubic-bezier(.22, 1, .36, 1);
   border-bottom: 1px solid transparent;
 }
-nav .brand { justify-self: start; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+nav .brand {
+  justify-self: start;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  min-width: max-content;
+}
 nav .brand em { color: var(--accent); font-style: normal; margin-right: 6px; }
 /* The 1800×600 wordmark SVG collapsed into "KrllV" at 47×16px because
    the R/8/T/I strokes subpixel-aliased into identical thin bars.
@@ -97,10 +107,18 @@ nav .brand-mark {
   height: 2em;
   width: 6em;
   margin: 0 .22em;
+  flex-shrink: 0;
+  max-width: none; /* global svg { max-width: 100% } would shrink the lockup */
   shape-rendering: geometricPrecision;
 }
 nav .nav-mid {
-  justify-self: center; display: flex; gap: 28px;
+  justify-self: stretch;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  min-width: 0;
   opacity: 0; transform: translateY(-4px);
   pointer-events: none;
   transition: opacity .5s cubic-bezier(.22, 1, .36, 1), transform .5s cubic-bezier(.22, 1, .36, 1);
@@ -165,17 +183,21 @@ nav .nav-progress {
 }
 @media (max-width: 880px) { nav .nav-progress { display: none; } }
 
-/* The nav grid is `1fr auto 1fr`; the link row sits in the middle
-   `auto` column and lays out at a fixed ~583px regardless of viewport.
-   The right-hand cluster now includes the call pill and a reserved
-   progress slot (~494px together with the toggles). brand + links +
-   that cluster overflow below 1280px and would push the shatter/menu
-   button off the right edge (the same class of bug that first set
-   this collapse at 880px, before the pill and in-flow readout).
-   Mid links therefore cede at 1200px so 1024 and 1280 keep every
-   control on screen. Progress still drops out at 880px; ⌘K already
-   does too. The Kintsugi shatter menu carries navigation below this
-   size. */
+/* The nav grid is `auto 1fr auto` with a 24px column-gap so the brand
+   lockup and the control row size to their content and never collide
+   with the mid links. The lockup is nowrap and may not shrink (the
+   wordmark was being crushed by the global svg max-width rule).
+   Brand (~220px) + mid (~583px at 28px gaps) + controls (~478px,
+   including the reserved progress slot) + padding and gaps need
+   about 1440px. Between 1201px and 1439px the mid-link gap and
+   letter-spacing tighten just enough for 1280 and 1366 to keep the
+   links, the original lockup, and a gap before the 100% divider.
+   Below 1200px the mid links cede; the shatter menu carries nav.
+   Progress still drops out at 880px; ⌘K already does too. */
+@media (max-width: 1439px) {
+  nav .nav-mid { gap: 16px; }
+  nav .nav-mid a { letter-spacing: .1em; }
+}
 @media (max-width: 1200px) {
   nav { grid-template-columns: 1fr auto; }   /* brand · controls */
   nav .nav-mid { display: none; }
