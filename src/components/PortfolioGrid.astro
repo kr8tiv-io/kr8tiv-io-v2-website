@@ -37,7 +37,7 @@ const specFor: Record<string, string> = {
   'Shane Dooley business cards': 'SPEC · PAIRED FRONT + REVERSE IDENTITY SYSTEM'
 };
 const isFullBleed = (p: { name: string; category: string }) =>
-  p.category.includes('BUSINESS CARDS') || p.name === 'EVOLVE Apparel';
+  p.category.includes('BUSINESS CARDS');
 ---
 <div class="portfolio-grid">
 {items.map((p, idx) => (
