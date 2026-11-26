@@ -2,7 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/print-signage-design/. The HTML page is the source of truth.
 
-Sign concepts from about $500 CAD (design only, not an installed-sign quote). Full project management at variable rates. Fabricators and installers do the physical production and installation; those costs are quoted separately. No GST charged on KR8TIV design fees.
+KR8TIV designs storefronts and signs, then project-manages fabrication: sourcing fabricators, coordinating specs, and staying on the job through install. Partner fabricators do the building. Storefront and signage design starts at about $500 CAD (design only, not an installed-sign quote). Project management is at variable rates. Fabrication and installation costs are quoted separately. No GST charged on KR8TIV design fees.
 
 ## Contact
 

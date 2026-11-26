@@ -2,9 +2,7 @@
 
 This is a plain-text version of https://kr8tiv.io/services/branding/. The HTML page is the source of truth.
 
-Logo and identity from $500 CAD. Scope agreed before work starts. No GST charged.
-
-A Brand Kit is $1,050 CAD and a Full Rebrand starts from $2,450 CAD, as published in https://kr8tiv.io/blog/logo-vs-brand-small-business/. Those two package prices are not yet repeated on the branding service HTML page.
+Logo and identity from $500 CAD. Brand Kit $1,050 CAD. Full Rebrand from $2,450 CAD. Scope agreed before work starts. No GST charged.
 
 Sign concepts start from about $500 CAD. At variable rates KR8TIV can also source suppliers and manage manufacturing coordination, handoff and installation liaison. Fabricators and builders do the physical work.
 
@@ -23,4 +21,3 @@ Sign concepts start from about $500 CAD. At variable rates KR8TIV can also sourc
 ## Service area
 
 Based in Edmonton, Alberta, Canada. Serves Edmonton, Sherwood Park, St. Albert and Spruce Grove, with clients across Alberta and Canada and remote projects further afield. Meetings are by call or by appointment. No public street address and no walk-in studio.
-

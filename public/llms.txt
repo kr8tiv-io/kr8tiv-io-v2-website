@@ -2,7 +2,7 @@
 
 > KR8TIV (shown on Google as "Kr8tiv") is a founder-led creative studio in Edmonton, Alberta, Canada. We design websites, landing pages, brand identities, storefront signs, packaging, motion and video, and run search, social and local marketing for businesses across Edmonton, Alberta and Canada, with remote work worldwide. Founded in Edmonton in 2023. Founder and creative director: Matt Haynes ([about Matt](https://kr8tiv.io/about/)).
 
-Last updated: 25 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
+Last updated: 26 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
 
 This file is a plain-language guide for AI assistants and search tools. It is not a ranking control. The linked pages are the source of truth. The longer map is https://kr8tiv.io/llms-full.txt.
 
@@ -45,7 +45,7 @@ Branding and print
 
 Storefronts, signage and packaging
 - [Storefront, sign and print design](https://kr8tiv.io/services/print-signage-design/)
-- Sign concept (design only): from about $500. Packaging and mockups: from $800
+- Storefront and signage design starts at about $500 (design only; partner fabricators build). Packaging and mockups: from $800
 - [Packaging design](https://kr8tiv.io/services/packaging-design-edmonton/)
 - [Studio, A/V and print production](https://kr8tiv.io/services/studio-av-production-edmonton/): from $1,500
 - Signage project management (fabricator sourcing, manufacturing coordination, installation liaison): variable rates. Fabricators and installers do the physical production and installation; those costs are quoted separately.
