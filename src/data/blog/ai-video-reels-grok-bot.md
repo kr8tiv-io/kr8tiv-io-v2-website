@@ -1,7 +1,7 @@
 ---
 slug: ai-video-reels-grok-bot
 title: How we make AI video reels with Grok Bot, step by step
-seo_title: "AI video reels with Grok Bot, step by step | KR8TIV"
+seo_title: "AI video reels in Edmonton, step by step | KR8TIV"
 meta_description: "AI video in Edmonton, step by step: how KR8TIV makes short reels with Grok Bot and Grok Imagine, from the hook and the rejects until the owner says yes."
 excerpt: The step by step method for a short AI reel. Grok Bot runs the pipeline, Grok Imagine makes the pictures, and a person still approves the joke, the take and the post.
 publish_date: '2026-11-27'
@@ -75,7 +75,7 @@ KR8TIV posts on Facebook and LinkedIn. A client cut often has to survive Instagr
 
 ## What is Grok Bot doing on the reel?
 
-Grok Bot is the worker on the pipeline. xAI's guide, checked 27 November 2026, calls it an AI teammate with a computer. It works in connected apps and on a cloud computer, so the job continues after the laptop is shut. It can use plugins and other connected tools, and it can hand the coding to a Cursor cloud agent.
+Grok Bot is the worker on the pipeline. xAI's guide, checked 27 November 2026, calls it an AI teammate with a computer. It works in connected apps and on a cloud computer, so the job continues after the laptop is shut. It can use plugins and other connected tools, which is how it reaches the image, video and editing steps below.
 
 On our reels we give it six jobs.
 
@@ -264,7 +264,7 @@ The rows below are the measurements from the files, so a later cut can match the
 
 | Item | What the files show |
 |---|---|
-| Tools on the pipeline | Plugins and custom MCP servers. Coding can go to a Cursor cloud agent. The compositor is Python, with Pillow, numpy and ffmpeg. |
+| Tools on the pipeline | Plugins and custom MCP servers. The compositor is Python, with Pillow, numpy and ffmpeg. |
 | 26 November clip files | 1088 by 1920, 24 frames a second, 145 frames. The master is 1080 by 1920, 24 frames a second, 32.00 seconds. |
 | Tempo, 26 November | "Young Trizzy 02" at 92.285 beats per minute, so a beat is 0.650 seconds. The title is beat zero at 2.58 seconds. |
 | Music start, 26 November | An earlier start at 11.40 seconds into the source sat a quarter beat late. The final start is 11.14 seconds, so the drop kick (source 13.72 seconds) hits the title at 2.58. |
