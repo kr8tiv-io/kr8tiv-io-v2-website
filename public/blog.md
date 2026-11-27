@@ -5,7 +5,7 @@ This is a plain-text version of https://kr8tiv.io/blog/. The HTML page is the so
 - Index: https://kr8tiv.io/blog/
 - RSS: https://kr8tiv.io/rss.xml
 
-The Field Notes include practical guides on websites, storefront signs, campaigns, AI marketing tools, blogging and local advertising for Alberta businesses. Full websites from $1,950 CAD and landing pages from $850 CAD are the published website floors when those articles mention KR8TIV prices.
+The Field Notes include practical guides on websites, storefront signs, campaigns, AI marketing tools, short video, blogging and local advertising for Alberta businesses. Full websites from $1,950 CAD and landing pages from $850 CAD are the published website floors when those articles mention KR8TIV prices.
 
 Some articles use worked examples with assumed media spend or a client's own job costs. Those figures are not KR8TIV service prices. Published KR8TIV floors are listed on https://kr8tiv.io/services/.
 

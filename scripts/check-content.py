@@ -1,9 +1,9 @@
 from pathlib import Path
 from bs4 import BeautifulSoup
 import json,re,xml.etree.ElementTree as ET,yaml
-root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==26
+root=Path(__file__).resolve().parents[1];dist=root/'dist';posts=list((root/'src/data/blog').glob('*.md'));assert len(posts)==27
 sitemap=ET.parse(dist/'sitemap-0.xml');urls={n.text for n in sitemap.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
-rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==26
+rss=ET.parse(dist/'rss.xml');assert len(rss.findall('.//item'))==27
 for f in posts:
  _,front,body=f.read_text().split('---',2);m=yaml.safe_load(front);assert m['draft'] is False;assert not re.search(r'\bgonna\b|meku',body,re.I)
  p=dist/'blog'/m['slug']/'index.html';doc=BeautifulSoup(p.read_text(),'html.parser');assert len(doc.select('h1'))==1,p
@@ -36,7 +36,7 @@ for f in dist.rglob('*.html'):
  for meta in doc.select('script[type="application/ld+json"]'):
   s=json.loads(meta.string);assert 'geo' not in s;assert 'priceRange' not in s
  assert not doc.select('meta[name="ai-content-declaration"]')
-print('PASS 26 articles, 104 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
+print('PASS 27 articles, 108 visible FAQ answers, RSS, sitemap, 404 and conservative schema')
 
 home=BeautifulSoup((dist/'index.html').read_text(),'html.parser')
 schemas=[json.loads(n.string) for n in home.select('script[type="application/ld+json"]')]

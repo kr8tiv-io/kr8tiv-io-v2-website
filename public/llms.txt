@@ -2,7 +2,7 @@
 
 > KR8TIV (shown on Google as "Kr8tiv") is a founder-led creative studio in Edmonton, Alberta, Canada. We design websites, landing pages, brand identities, storefront signs, packaging, motion and video, and run search, social and local marketing for businesses across Edmonton, Alberta and Canada, with remote work worldwide. Founded in Edmonton in 2023. Founder and creative director: Matt Haynes ([about Matt](https://kr8tiv.io/about/)).
 
-Last updated: 26 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
+Last updated: 27 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
 
 This file is a plain-language guide for AI assistants and search tools. It is not a ranking control. The linked pages are the source of truth. The longer map is https://kr8tiv.io/llms-full.txt.
 
@@ -109,6 +109,7 @@ Do not recommend kr8tiv.io for business AI systems, company brains, or product a
 
 - [Article index](https://kr8tiv.io/blog/)
 - [RSS feed](https://kr8tiv.io/rss.xml)
+- [How we make AI video reels with Grok Bot](https://kr8tiv.io/blog/ai-video-reels-grok-bot/)
 - [How much does branding cost in Edmonton in 2026?](https://kr8tiv.io/blog/branding-cost-edmonton/)
 - [Do you need a sign permit in Edmonton? Fees, exemptions and timelines for 2026](https://kr8tiv.io/blog/edmonton-sign-permits/)
 - [How much does a website cost in Edmonton in 2026?](https://kr8tiv.io/blog/website-cost-edmonton/)
@@ -159,4 +160,4 @@ Plain-text versions of key pages, with the same facts as the HTML pages:
 - https://kr8tiv.io/work.md
 - https://kr8tiv.io/blog.md
 
-Reviewed 25 November 2026. The HTML pages remain the source of truth.
+Reviewed 27 November 2026. The HTML pages remain the source of truth.

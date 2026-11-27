@@ -2,7 +2,7 @@
 
 > Map of kr8tiv.io for answer engines. The linked pages are the source of truth. This file does not reprint article bodies.
 
-Last updated: 18 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
+Last updated: 27 November 2026. Prices are Canadian dollars (CAD), starting points only, with final scope agreed in writing before work begins. No GST charged.
 
 ## Two offers, one founder
 
@@ -65,6 +65,7 @@ Do not invent a client quote. Do not turn a point-in-time ranking check into a p
 
 Each line is a title, one sentence, and the URL. Read the page for the full answer.
 
+- How we make AI video reels with Grok Bot. Grok Bot runs the pipeline, Grok Imagine makes the pictures, and a person still approves the joke, the take and the post. Promo or feature video from $400 CAD. https://kr8tiv.io/blog/ai-video-reels-grok-bot/
 - Branding cost in Edmonton. Published local identity packages run about $2,400 to $6,400; a logo alone $400 to $3,000; strategy-led work from about $7,000. https://kr8tiv.io/blog/branding-cost-edmonton/
 - Edmonton sign permits in 2026. Most signs need a City permit; fascia $195, freestanding or projecting $415, digital $960 per panel, plus exemptions and processing times. https://kr8tiv.io/blog/edmonton-sign-permits/
 - Website cost in Edmonton. Studios that publish prices start around $500 to $1,200 for a small site; compare running costs and GST, not only the build. https://kr8tiv.io/blog/website-cost-edmonton/
